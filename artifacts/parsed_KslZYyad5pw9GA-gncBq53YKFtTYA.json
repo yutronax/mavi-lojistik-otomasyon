@@ -1,0 +1,26 @@
+{
+  "message_id": "KslZYyad5pw9GA-gncBq53YKFtTYA",
+  "original": "YARIN YÜKLEME \n\nKONYA-SÜLEYMANİYE \n\n0-25 TON \nYÜKLEMEM VAR \n1 TENTE ARAÇ LAZIM\n\nNOT: fahslıdır\n\n☎️ 05421492505\n      Mehmet.",
+  "parsed_shipments": [
+    {
+      "nereden_il": "ANKARA",
+      "nereye_il": "İSTANBUL",
+      "message_id": "KslZYyad5pw9GA-gncBq53YKFtTYA",
+      "nereden_ilce": "MERKEZ",
+      "nereye_ilce": "MERKEZ",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "",
+      "aciklama": "Simulated",
+      "isim": ""
+    }
+  ]
+}

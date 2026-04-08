@@ -1,0 +1,9 @@
+{
+  "queue_before": 22,
+  "duration_sec": 0.01,
+  "parsed_len": 2,
+  "success_count": 2,
+  "failure_count": 0,
+  "total_shipments": 2,
+  "recent_log_issues_count": 20
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "isim": "",
+    "nereden_il": "İSTANBUL",
+    "nereden_ilce": "PENDİK",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "YENİMAHALLE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05325551234",
+    "aciklama": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON"
+  },
+  {
+    "isim": "",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "TİRE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05325551234",
+    "aciklama": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON"
+  },
+  {
+    "isim": "",
+    "nereden_il": "GAZİANTEP",
+    "nereden_ilce": "ŞEHİTKAMİL",
+    "nereye_il": "DİYARBAKIR",
+    "nereye_ilce": "SUR",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05325551234",
+    "aciklama": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA YENİMAHALLE TIR BRANDALI 26 TON 0532 555 12 34\nMERSİN AKDENİZ - İZMİR TIRE AÇIK 15 TON PALET\nGAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON"
+  }
+]

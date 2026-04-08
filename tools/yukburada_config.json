@@ -1,0 +1,28 @@
+{
+  "api_base_url": "https://yukburadabackend.onrender.com",
+  "api_key": "",
+  "owner_user_id": "6afe32e7-3501-4cb6-8d4f-844ad0508063",
+  "phone_number": "05318407744",
+  "batch_size": 5,
+  "use_batch_submission": true,
+  "approved_records_file": "onaylanan_kayitlar.json",
+  "log_file": "yukburada_submission.log",
+  "timeout_seconds": 30,
+  "headers": {
+    "Content-Type": "application/json",
+    "User-Agent": "MaviLojistik/1.0"
+  },
+  "registration_info": {
+    "fullName": "yusuf çinar",
+    "email": "kuyusuzyusuf123@gmail.com",
+    "address": "İstanbul",
+    "role": 0
+  },
+  "database_api": {
+    "base_url": "https://yukburadabackend.onrender.com",
+    "approved_records_endpoint": "/api/Loads",
+    "api_key": "",
+    "timeout_seconds": 30,
+    "use_api": true
+  }
+}

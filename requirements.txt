@@ -1,0 +1,8 @@
+requests
+python-dotenv
+pyinstaller
+pydantic
+google-genai
+google-generativeai
+pymongo
+watchdog

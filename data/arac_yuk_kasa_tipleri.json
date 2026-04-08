@@ -1,0 +1,29 @@
+{
+  "arac_tipleri": [
+    "10 TEKER",
+    "1360",
+    "4 TEKER",
+    "40 AYAK",
+    "6 TEKER",
+    "8 TEKER",
+    "860",
+    "KAMYONET",
+    "KIRKAYAK",
+    "PIKUP"
+  ],
+  "kasa_tipleri": [
+    "AÇIK",
+    "DAMPERLİ",
+    "FRİGO",
+    "KAPALI",
+    "LOWBED",
+    "MEGA"
+  ],
+  "yuk_tipleri": [
+    "DÖKME",
+    "KOMPLE",
+    "PALETLİ",
+    "PARÇA",
+    "YÜKÜSTÜ"
+  ]
+}

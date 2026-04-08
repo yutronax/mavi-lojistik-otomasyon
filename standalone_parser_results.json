@@ -1,0 +1,65 @@
+[
+  {
+    "isim": "",
+    "nereden_il": "İSTANBUL",
+    "nereden_ilce": "PENDİK",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "AKYURT",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "",
+    "aciklama": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE"
+  },
+  {
+    "isim": "",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "TİRE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "",
+    "aciklama": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE"
+  },
+  {
+    "isim": "",
+    "nereden_il": "GAZİANTEP",
+    "nereden_ilce": "ARABAN",
+    "nereye_il": "DİYARBAKIR",
+    "nereye_ilce": "BAĞLAR",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "",
+    "aciklama": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE",
+    "orijinal_mesaj": "İSTANBUL PENDİK - ANKARA MERKEZ TIR BRANDALI 26 TON\nMERSİN - İZMİR TIRE AÇIK 15 TON\nGAZİANTEP - DİYARBAKIR KOMPLE"
+  }
+]

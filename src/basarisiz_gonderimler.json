@@ -1,0 +1,486 @@
+[
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "KONYA",
+      "nereden_ilce": "MERKEZ",
+      "nereye_il": "ANKARA",
+      "nereye_ilce": "MERKEZ",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "0 507 5451849",
+      "aciklama": "Konyadan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+      "orijinal_mesaj": "Konya'dan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+      "original_message": "Konyadan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+      "message_id": "rOuQJHF5eUygxLRdxzNsqg-gqoBq520sJwc2g",
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-KAPALI"
+      ],
+      "message_info": {
+        "message_id": "rOuQJHF5eUygxLRdxzNsqg-gqoBq520sJwc2g",
+        "message_timestamp": 1768586058,
+        "message_date": "2026-01-16T20:54:18",
+        "message_info": {
+          "body": "Konyadan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+          "sender": "Erdogan",
+          "timestamp": 1768586058,
+          "chat_name": ""
+        },
+        "parse_timestamp": "2026-01-16T22:14:37.609069",
+        "total_shipments": 1,
+        "shipments": [
+          {
+            "isim": "",
+            "nereden_il": "KONYA",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "ANKARA",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0 507 5451849",
+            "aciklama": "Konyadan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+            "orijinal_mesaj": "Konya'dan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+            "original_message": "Konyadan yükleme Ankara açık kapalı uzun tır. 0 507 5451849",
+            "message_id": "rOuQJHF5eUygxLRdxzNsqg-gqoBq520sJwc2g"
+          }
+        ],
+        "id": "rOuQJHF5eUygxLRdxzNsqg-gqoBq520sJwc2g"
+      },
+      "onay_tarihi": "2026-01-16 23:37:46"
+    },
+    "error": "404 Client Error: Not Found for url: https://api.yukburada.com/api/Loads/batch",
+    "timestamp": "2026-01-16 23:37:50"
+  },
+  {
+    "record": {
+      "isim": "MOCK FIRMA",
+      "nereden_il": "İSTANBUL",
+      "nereden_ilce": "TUZLA",
+      "nereye_il": "ANKARA",
+      "nereye_ilce": "MERKEZ",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "TIR"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "15000 TL",
+      "telefon": "05555555555",
+      "aciklama": "Test amaçlı eklenmiş mock veridir.",
+      "orijinal_mesaj": "Istanbul Tuzla - Ankara Merkez Komple Tir",
+      "original_message": "Istanbul Tuzla - Ankara Merkez Komple Tir",
+      "message_id": "mock_test_1768606875",
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-TIR"
+      ],
+      "message_info": {
+        "message_id": "mock_test_1768606875",
+        "message_timestamp": 1768606875,
+        "message_date": "2026-01-17T02:41:15",
+        "message_info": {
+          "body": "TEST MESAJI: ISTANBUL - ANKARA KOMPLE TIR",
+          "sender": "MOCK SENDER",
+          "timestamp": 1768606875,
+          "chat_name": ""
+        },
+        "parse_timestamp": "2026-01-17T02:41:15",
+        "total_shipments": 1,
+        "shipments": [
+          {
+            "isim": "MOCK FIRMA",
+            "nereden_il": "İSTANBUL",
+            "nereden_ilce": "TUZLA",
+            "nereye_il": "ANKARA",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "TIR"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "15000 TL",
+            "telefon": "05555555555",
+            "aciklama": "Test amaçlı eklenmiş mock veridir.",
+            "orijinal_mesaj": "Istanbul Tuzla - Ankara Merkez Komple Tir",
+            "original_message": "Istanbul Tuzla - Ankara Merkez Komple Tir",
+            "message_id": "mock_test_1768606875"
+          }
+        ],
+        "id": "mock_test_1768606875"
+      },
+      "onay_tarihi": "2026-01-17 02:41:28"
+    },
+    "error": "404 Client Error: Not Found for url: https://api.yukburada.com/api/Loads/batch",
+    "timestamp": "2026-01-17 02:41:36"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "KAYSERİ",
+      "nereden_ilce": "MERKEZ",
+      "nereye_il": "MARDİN",
+      "nereye_ilce": "NUSAYBİN",
+      "arac_tipi": [
+        "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "PARÇA"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "0543 486 2468",
+      "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+      "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+      "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+      "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg",
+      "arac_kasa_kombinasyon_listesi": [
+        "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET-AÇIK",
+        "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET-KAPALI"
+      ],
+      "message_info": {
+        "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg",
+        "message_timestamp": 1768644761,
+        "message_date": "2026-01-17T13:12:41",
+        "message_info": {
+          "body": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+          "sender": "Burhan Nakliyat",
+          "timestamp": 1768644761,
+          "chat_id": "120363195636662026@g.us",
+          "chat_name": "YUKBURADA 2"
+        },
+        "parse_timestamp": "2026-01-17T14:18:49.799075",
+        "total_shipments": 4,
+        "shipments": [
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "DÜZCE",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET"
+            ],
+            "kasa_tipi": [
+              "AÇIK",
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "PARÇA"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          },
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "BALIKESİR",
+            "nereye_ilce": "EDREMİT",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          },
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "NİZİP",
+            "nereye_il": "ERZURUM",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          },
+          {
+            "isim": "",
+            "nereden_il": "KAYSERİ",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "MARDİN",
+            "nereye_ilce": "NUSAYBİN",
+            "arac_tipi": [
+              "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET"
+            ],
+            "kasa_tipi": [
+              "AÇIK",
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "PARÇA"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          }
+        ],
+        "id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+      },
+      "onay_tarihi": "2026-01-17 14:22:16"
+    },
+    "error": "404 Client Error: Not Found for url: https://api.yukburada.com/api/Loads/batch",
+    "timestamp": "2026-01-17 14:22:18"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "GAZİANTEP",
+      "nereden_ilce": "NİZİP",
+      "nereye_il": "ERZURUM",
+      "nereye_ilce": "MERKEZ",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "0543 486 2468",
+      "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+      "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+      "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+      "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg",
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-KAPALI"
+      ],
+      "message_info": {
+        "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg",
+        "message_timestamp": 1768644761,
+        "message_date": "2026-01-17T13:12:41",
+        "message_info": {
+          "body": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+          "sender": "Burhan Nakliyat",
+          "timestamp": 1768644761,
+          "chat_id": "120363195636662026@g.us",
+          "chat_name": "YUKBURADA 2"
+        },
+        "parse_timestamp": "2026-01-17T14:18:49.799075",
+        "total_shipments": 4,
+        "shipments": [
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "DÜZCE",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360 + 860 + 40 AYAK + 10 TEKER + ISUZU + PIKUP + KAMYONET"
+            ],
+            "kasa_tipi": [
+              "AÇIK",
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "PARÇA"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          },
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "BALIKESİR",
+            "nereye_ilce": "EDREMİT",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          },
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "NİZİP",
+            "nereye_il": "ERZURUM",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "0543 486 2468",
+            "aciklama": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "orijinal_mesaj": "Gaziantep Merkez - Düzce Merkez PARÇA HAFİF YARIM MT\n\nGaziantep Merkez - Balıkesir Edremit HAFİF KAPALI TIR\n\nGaziantep Nizip - Erzurum Merkez HAFİF KAPALI TIR\n\nKayseri Merkez - Mardin Nusaybin PARÇA HAFİF 3 MT YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT\n0543 486 2468",
+            "original_message": "ANTEP >>DÜZCE PARÇA HAFİF YARIM MT \n\nANTEP >>BALIKESİR EDEEMİT HAFİF KAPALI TIR\n\nNİZİP >>ERZURUM HAFİF KAPALI TIR\n\nKAYSERİ >>NUSAYBİN PARÇA HAFİF 3 MT  YER TUTAR YÜK ÜSTÜDE OLUR\n\nBURHAN NAKLİYAT \n0543 486 2468",
+            "message_id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+          }
+        ],
+        "id": "rGnFdDlGuNiCKzFHd0C94g-gnUBq52wT_Q_Cg"
+      },
+      "onay_tarihi": "2026-01-17 17:37:27"
+    },
+    "error": "400 Client Error: Bad Request for url: https://yukburadabackend.onrender.com/api/Loads/batch",
+    "timestamp": "2026-01-17 17:37:29"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "GAZİANTEP",
+      "nereden_ilce": "MERKEZ",
+      "nereye_il": "VAN",
+      "nereye_ilce": "MERKEZ",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05161625126",
+      "aciklama": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+      "orijinal_mesaj": "*Gaziantep Merkez➡️Samsun Merkez TIR*\n\n*Gaziantep Merkez➡️Van Merkez TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+      "original_message": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+      "message_id": "pRC1oTgX2yHMH6i84MdCpA-gtgBq520sJwc2g",
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "message_info": {
+        "message_id": "pRC1oTgX2yHMH6i84MdCpA-gtgBq520sJwc2g",
+        "message_timestamp": 1768646427,
+        "message_date": "2026-01-17T13:40:27",
+        "message_info": {
+          "body": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+          "sender": "uçan",
+          "timestamp": 1768646427,
+          "chat_id": "120363214438145242@g.us",
+          "chat_name": "ELAZIĞ MAVİ LOJİSTİK 2"
+        },
+        "parse_timestamp": "2026-01-17T14:18:53.539885",
+        "total_shipments": 2,
+        "shipments": [
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "SAMSUN",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "AÇIK",
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "05161625126",
+            "aciklama": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "orijinal_mesaj": "*Gaziantep Merkez➡️Samsun Merkez TIR*\n\n*Gaziantep Merkez➡️Van Merkez TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "original_message": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "message_id": "pRC1oTgX2yHMH6i84MdCpA-gtgBq520sJwc2g"
+          },
+          {
+            "isim": "",
+            "nereden_il": "GAZİANTEP",
+            "nereden_ilce": "MERKEZ",
+            "nereye_il": "VAN",
+            "nereye_ilce": "MERKEZ",
+            "arac_tipi": [
+              "1360"
+            ],
+            "kasa_tipi": [
+              "AÇIK",
+              "KAPALI"
+            ],
+            "yuk_tipi": [
+              "KOMPLE"
+            ],
+            "fiyat": "SORUNUZ",
+            "telefon": "05161625126",
+            "aciklama": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "orijinal_mesaj": "*Gaziantep Merkez➡️Samsun Merkez TIR*\n\n*Gaziantep Merkez➡️Van Merkez TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "original_message": "*GAZİANTEP➡️SAMSUN TIR*\n\n*GAZİANTEP➡️VAN TIR*\n\n*KAPALI-TENTEN-FRİGO OLUR*\n\n*ÖDEMELER PEŞİNDİR*\n☎️05161625126\n☎️05362051655",
+            "message_id": "pRC1oTgX2yHMH6i84MdCpA-gtgBq520sJwc2g"
+          }
+        ],
+        "id": "pRC1oTgX2yHMH6i84MdCpA-gtgBq520sJwc2g"
+      },
+      "onay_tarihi": "2026-01-17 20:06:50"
+    },
+    "error": "Authentication failed for ",
+    "timestamp": "2026-01-17 20:09:21"
+  }
+]

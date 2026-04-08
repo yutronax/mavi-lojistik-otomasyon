@@ -1,0 +1,99 @@
+﻿{
+  "priority_stats": {
+    "2000": 12,
+    "1000": 2213,
+    "1500": 1,
+    "150": 1,
+    "100": 1,
+    "500": 6,
+    "300": 2,
+    "250": 1,
+    "200": 3,
+    "1100": 4,
+    "120": 1,
+    "950": 1,
+    "800": 7,
+    "700": 4,
+    "1050": 1,
+    "1200": 4,
+    "900": 2,
+    "650": 7,
+    "850": 2,
+    "600": 53,
+    "550": 4
+  },
+  "canonical_labels": {
+    "ARAÃ T¦P¦": [
+      "10 TEKER",
+      "1360",
+      "4 TEKER",
+      "40 AYAK",
+      "6 TEKER",
+      "8 TEKER",
+      "860",
+      "KAMYONET",
+      "KIRKAYAK",
+      "PIKUP"
+    ],
+    "KASA T¦P¦": [
+      "ACIK",
+      "AÃIK",
+      "AÃIK + KAPALI",
+      "DAMPERL¦",
+      "FR¦GO",
+      "KAPALI",
+      "LOWBED"
+    ],
+    "Y▄K▄N T¦P¦": [
+      "DÍKME",
+      "KOMPLE",
+      "PARÃA",
+      "Y▄K▄ST▄"
+    ]
+  },
+  "dangerous": [
+    {
+      "pattern": "TIR",
+      "priority": 1000
+    },
+    {
+      "pattern": "860",
+      "priority": 700
+    },
+    {
+      "pattern": "PALET",
+      "priority": 1000
+    },
+    {
+      "pattern": "DÍKME",
+      "priority": 1000
+    },
+    {
+      "pattern": "FR¦GO",
+      "priority": 1000
+    },
+    {
+      "pattern": "DAMPERL¦",
+      "priority": 1000
+    },
+    {
+      "pattern": "KAMYON",
+      "priority": 1000
+    },
+    {
+      "pattern": "KAMYONET",
+      "priority": 700
+    },
+    {
+      "pattern": "KIRKAYAK",
+      "priority": 1000
+    },
+    {
+      "pattern": "40 AYAK",
+      "priority": 1000
+    }
+  ],
+  "total_rules": 2325,
+  "inconsistency_count": 0,
+  "inconsistencies_sample": []
+}

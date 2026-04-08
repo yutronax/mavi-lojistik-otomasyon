@@ -1,0 +1,125 @@
+{
+  "custom_locations": [
+    {
+      "yer_adi": "Erciyes Kayak Merkezi",
+      "il": "KAYSERİ",
+      "ilce": "Kocasinan",
+      "aciklama": "Erciyes Dağı kayak merkezi bölgesi",
+      "ekleyen": "kullanici",
+      "tarih": "2026-01-31 18:04:19"
+    },
+    {
+      "yer_adi": "Hadimkoy",
+      "il": "STANBUL",
+      "ilce": "Arnavutkoy",
+      "aciklama": "Kullanici talebi uzerine eklendi",
+      "ekleyen": "kullanici",
+      "tarih": "2026-02-05 17:14:09"
+    },
+    {
+      "yer_adi": "Hadikoy",
+      "il": "ISTANBUL",
+      "ilce": "Arnavutkoy",
+      "aciklama": "Kullanici talebi uzerine eklendi",
+      "ekleyen": "kullanici",
+      "tarih": "2026-02-05 17:14:16"
+    },
+    {
+      "yer_adi": "kazan",
+      "il": "ANKARA",
+      "ilce": "Kahramankazan",
+      "aciklama": "Ana Veriden",
+      "ekleyen": "kullanici",
+      "tarih": "2026-02-06 03:23:14"
+    },
+    {
+      "yer_adi": "MERKEZ",
+      "il": "İSTANBUL",
+      "ilce": "Maltepe",
+      "aciklama": "Ana Veriden",
+      "ekleyen": "kullanici",
+      "tarih": "2026-02-08 13:52:15"
+    },
+    {
+      "yer_adi": "NARLI",
+      "il": "KAHRAMANMARAŞ",
+      "ilce": "Pazarcık",
+      "aciklama": "Yönetim Merkezi",
+      "ekleyen": "kullanici",
+      "tarih": "2026-04-03 19:06:23"
+    }
+  ],
+  "mahalle_eslesmeleri": {
+    "KAYSERİ": {
+      "Kocasinan": [
+        "Erciyes",
+        "Sümer",
+        "Gevher Nesibe",
+        "Yıldızevler",
+        "Köşk"
+      ],
+      "Melikgazi": [
+        "Kılıçarslan",
+        "Mimarsinan",
+        "Cumhuriyet",
+        "Alpaslan"
+      ],
+      "Talas": [
+        "Harman",
+        "Mimar Sinan",
+        "Bahçelievler"
+      ]
+    },
+    "İSTANBUL": {
+      "Kadıköy": [
+        "Moda",
+        "Fenerbahçe",
+        "Göztepe",
+        "Acıbadem",
+        "Kozyatağı",
+        "Bostancı",
+        "Suadiye"
+      ],
+      "Şişli": [
+        "Mecidiyeköy",
+        "Osmanbey",
+        "Nişantaşı",
+        "Bomonti",
+        "Gayrettepe"
+      ],
+      "Beşiktaş": [
+        "Ortaköy",
+        "Bebek",
+        "Etiler",
+        "Levent"
+      ]
+    },
+    "ANKARA": {
+      "Çankaya": [
+        "Kızılay",
+        "Bahçelievler",
+        "Çayyolu",
+        "Ümitköy",
+        "Dikmen"
+      ],
+      "Yenimahalle": [
+        "Batıkent",
+        "Demetevler",
+        "Eryaman"
+      ]
+    },
+    "İZMİR": {
+      "Konak": [
+        "Alsancak",
+        "Basmane",
+        "Göztepe"
+      ],
+      "Karşıyaka": [
+        "Bostanlı",
+        "Mavişehir",
+        "Çiğli"
+      ]
+    }
+  },
+  "_aciklama": "Bu dosya kullanıcıların tanıdık yer eklemesi ve mahalle eşleştirmeleri için kullanılır"
+}
