@@ -1,8 +1,8 @@
 {
   "api_base_url": "https://yukburadabackend.onrender.com",
   "api_key": "",
-  "owner_user_id": "6afe32e7-3501-4cb6-8d4f-844ad0508063",
-  "phone_number": "05318407744",
+  "owner_user_id": "",
+  "phone_number": "",
   "batch_size": 5,
   "use_batch_submission": true,
   "approved_records_file": "onaylanan_kayitlar.json",

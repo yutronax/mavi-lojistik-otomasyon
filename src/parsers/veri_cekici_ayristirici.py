@@ -50,7 +50,8 @@ from src.utils.config import (
     FETCH_HOURS_BACK, 
     WHATSAPP_POLL_INTERVAL, 
     BATCH_SLEEP_TIME, 
-    LOOP_WAIT_TIME
+    LOOP_WAIT_TIME,
+    AUTO_SUBMIT
 )
 
 
@@ -77,6 +78,13 @@ try:
     WHAPI_AVAILABLE = True
 except ImportError:
     WHAPI_AVAILABLE = False
+
+# YukBurada Submitter Entegrasyonu
+try:
+    from tools.submit_approved_loads import YukBuradaSubmitter
+    SUBMITTER_AVAILABLE = True
+except ImportError:
+    SUBMITTER_AVAILABLE = False
 
 # Logging Yapılandırması
 LOG_FILE = os.path.join(PROJECT_ROOT, 'tools', 'orchestrator.log')
@@ -142,6 +150,21 @@ class OrchestratorSDK:
         self.location_validator = LocationValidator()
         logger.info(f"🚀 Orchestrator başlatıldı - Production Parser AKTIF")
         logger.info(f"📊 {len(self.api_keys)} API anahtarı yüklendi")
+        
+        # AUTO-SUBMIT Initialization
+        self.auto_submit_active = AUTO_SUBMIT
+        self.submitter = None
+        if self.auto_submit_active:
+            if SUBMITTER_AVAILABLE:
+                try:
+                    self.submitter = YukBuradaSubmitter()
+                    logger.info("🤖 OTOMATİK ONAY AKTİF: YukBurada Submitter hazır.")
+                except Exception as e:
+                    logger.error(f"YukBurada Submitter başlatılamadı: {e}")
+                    self.auto_submit_active = False
+            else:
+                logger.warning("⚠️ AUTO_SUBMIT aktif ancak 'tools/submit_approved_loads.py' bulunamadı.")
+                self.auto_submit_active = False
 
         # REFACTORED: Persistent ThreadPool for continuous processing
         self.max_parallel_workers = MAX_WORKERS_DEFAULT
@@ -778,8 +801,29 @@ class OrchestratorSDK:
                     success = self.data_service.save_unprocessed_messages(save_payload, merge=True)
                     if success:
                         logger.info(f"{len(save_payload)} yeni geçerli sonuç yerel veri servisine aktarıldı.")
-                    else:
-                        logger.error("❌ Veri servisine kayıt BAŞARISIZ!")
+                        
+                        # --- AUTO SUBMIT LOGIC ---
+                        if self.auto_submit_active and self.submitter:
+                            triggered_count = 0
+                            for m_id, entry in save_payload.items():
+                                # Sadece hata içermeyen ve lokasyonu geçerli olan yeni ilanları gönder
+                                if 'error' not in entry and entry.get('status') != 'duplicate' and not entry.get('invalid_location'):
+                                    shipments = entry.get('shipments', [])
+                                    if shipments:
+                                        logger.info(f"📤 [OTO-ONAY] {m_id} için {len(shipments)} ilan gönderiliyor...")
+                                        for shipment in shipments:
+                                            try:
+                                                payload = self.submitter.transform_record_to_payload(shipment)
+                                                submit_res = self.submitter.submit_single_load(payload)
+                                                if submit_res and submit_res.get('success'):
+                                                    triggered_count += 1
+                                                    # Başarılı gönderilenleri ayrıca approved listesine ekle
+                                                    self.data_service.save_approved_records([shipment])
+                                            except Exception as se:
+                                                logger.error(f"Oto-gönderim hatası ({m_id}): {se}")
+                            
+                            if triggered_count > 0:
+                                logger.info(f"🎯 [OTO-ONAY] Toplam {triggered_count} ilan başarıyla sisteme yüklendi.")
                 else:
                     logger.debug("Kaydedilecek geçerli/yeni ilan bulunamadı.")
                 
@@ -897,9 +941,9 @@ class OrchestratorSDK:
                     logger.info(f"⏳ Paket bitti. {sleep_time:.1f}sn insani bekleme veriliyor...")
                     time.sleep(sleep_time)
                 
-                # 3. Tüm gruplar bittiğinde ana mola (Kullanıcı İsteği: 5 dk)
-                # Webhook bağlantısı olsa bile, periyodik tarama 5 dakikada bir çalışacak.
-                wait_time = 300 
+                # 3. Tüm gruplar bittiğinde ana mola (Konfigürasyondan okunur)
+                # Webhook bağlantısı olsa bile, periyodik tarama WHATSAPP_POLL_INTERVAL kadar bekler.
+                wait_time = WHATSAPP_POLL_INTERVAL
                 logger.info(f"\n✅ Periyodik tarama tamamlandı. {wait_time} saniye sonra tekrar başlayacak...")
                 time.sleep(wait_time)
                 

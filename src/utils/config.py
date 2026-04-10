@@ -43,7 +43,7 @@ DUPLICATE_CHECK_HOURS = float(os.getenv('DUPLICATE_CHECK_HOURS', '12.0'))
 # --- DÖNGÜ VE BEKLEME SÜRELERİ (SANİYE CİNSİNDEN) ---
 
 # WhatsApp API kontrol periyodu (Saniye) - fetch_all_messages sıklığı
-WHATSAPP_POLL_INTERVAL = int(os.getenv('WHATSAPP_POLL_INTERVAL', '300'))
+WHATSAPP_POLL_INTERVAL = int(os.getenv('WHATSAPP_POLL_INTERVAL', '60'))
 
 # Paketler (Batch) arası bekleme süresi (Saniye)
 BATCH_SLEEP_TIME = float(os.getenv('BATCH_SLEEP_TIME', '15.0'))

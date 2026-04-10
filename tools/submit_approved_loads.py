@@ -17,7 +17,7 @@ class YukBuradaSubmitter:
         self.setup_logging()
 
         self.api_base_url = self.config.get('api_base_url', 'https://yukburadabackend.onrender.com')
-        self.master_phone = self.config.get('phone_number', '05318407744')
+        self.master_phone = self.config.get('phone_number', '')  # No hardcoded default
         self.api_key = self.config.get('api_key') or os.getenv('YUKBURADA_API_KEY')
         self.session = requests.Session()
 
@@ -226,15 +226,14 @@ class YukBuradaSubmitter:
         url = f"{self.api_base_url}/api/Loads"
         
         try:
-            # Use ensure_auth_for_phone for the master account to guarantee the correct token
-            token, _ = self.ensure_auth_for_phone(self.master_phone)
-            if token:
-                self.session.headers.update({'Authorization': f'Bearer {token}'})
-            else:
-                self.logger.error("Auth failed for fetch_live_loads (master account)")
-                return []
-
-            response = self.session.get(url, timeout=30)
+            # Fetch with dynamic headers to avoid permanent session update
+            headers = {}
+            if self.master_phone:
+                token, _ = self.ensure_auth_for_phone(self.master_phone)
+                if token:
+                    headers['Authorization'] = f'Bearer {token}'
+            
+            response = self.session.get(url, headers=headers, timeout=30)
             if response.status_code != 200:
                 self.logger.error(f"Live loads error: {response.status_code} - {response.text}")
             response.raise_for_status()
@@ -617,15 +616,30 @@ class YukBuradaSubmitter:
         except Exception as e:
             self.logger.warning(f"Cleanup warning (non-critical): {e}")
 
-    def submit_single_load(self, payload):
-        """Submit a single load to the API using batch endpoint"""
+    def submit_single_load(self, payload, token=None):
+        """Submit a single load to the API"""
         url = f"{self.api_base_url}/api/Loads"
         
-        # Payload is already flat from transform_record_to_payload
-        final_payload = payload
+        # Otomatik token ve owner tespiti
+        phone = payload.pop('_phone', None)
+        if not token and phone:
+            user_info = self.get_or_create_user_with_merge(phone)
+            if user_info:
+                token = user_info.get('access_token')
+                payload['ownerUserId'] = user_info.get('user_id')
+                self.logger.info(f"Auto-detected token for {phone}")
 
+        if not payload.get('ownerUserId') and not token:
+             self.logger.error("No ownerUserId or token available for submission. Skipping.")
+             return {"success": False, "error": "No owner detected"}
+
+        # Dinamik token ayarı
+        headers = {}
+        if token:
+            headers['Authorization'] = f'Bearer {token}'
+        
         try:
-            response = self.session.post(url, json=final_payload, timeout=30)
+            response = self.session.post(url, json=payload, headers=headers, timeout=30)
             if response.status_code not in [200, 201]:
                 self.logger.error(f"Submission error: {response.status_code} - {response.text}")
             response.raise_for_status()
@@ -977,12 +991,18 @@ class YukBuradaSubmitter:
         except Exception as e:
             self.logger.warning(f"Failed to mark as submitted: {e}")
 
-    def submit_batch_loads(self, payloads):
+    def submit_batch_loads(self, payloads, token=None):
         """Submit multiple loads in batch"""
         url = f"{self.api_base_url}/api/Loads/batch"
 
+        # Dinamik token ayarı
+        headers = {}
+        if token:
+            headers['Authorization'] = f'Bearer {token}'
+            self.logger.info(f"Using provided token for batch submission")
+
         try:
-            response = self.session.post(url, json=payloads, timeout=60)
+            response = self.session.post(url, json=payloads, headers=headers, timeout=60)
             response.raise_for_status()
 
             self.logger.info(f"Successfully submitted batch of {len(payloads)} loads")
@@ -1021,20 +1041,31 @@ class YukBuradaSubmitter:
         results = []
 
         if use_batch:
-            # Group by owner to submit separate batches
-            owner_batches = {} # {owner_id: [payloads]}
+            # Group by owner AND token to submit separate batches
+            # structure: {owner_id: {"token": token, "payloads": []}}
+            owner_groups = {} 
             
             session_fps = set()
             for record in records_to_send:
                 payload = self.transform_record_to_payload(record)
                 phone = payload.pop('_phone', None)
                 
-                # Smart lookup for phone
-                owner_id = self.config.get("owner_user_id", "")
+                # NORMAL GÖNDERİM KURALLARI:
+                # 1. Mesajdaki numara (phone), 2. Gönderen numara
+                # Fallback to master (config) is REMOVED as per user request.
+                
+                owner_id = None
+                token = None
+                
                 if phone:
                     user_info = self.get_or_create_user_with_merge(phone)
                     if user_info:
                         owner_id = user_info.get('user_id')
+                        token = user_info.get('access_token')
+                
+                if not owner_id:
+                    self.logger.warning(f"⚠️ İlan sahibi tespit edilemedi, atlanıyor: {payload.get('pickupCity')} -> {payload.get('deliveryCity')}")
+                    continue
                 
                 payload['ownerUserId'] = owner_id
                 
@@ -1043,19 +1074,21 @@ class YukBuradaSubmitter:
                     self.logger.info(f"🚫 [MÜKERRER ENGEL] İlan YükBurada'da zaten var veya bu batch'te gönderildi: {payload.get('pickupCity')} -> {payload.get('deliveryCity')}")
                     continue
 
-                if owner_id not in owner_batches:
-                    owner_batches[owner_id] = []
-                owner_batches[owner_id].append(payload)
+                if owner_id not in owner_groups:
+                    owner_groups[owner_id] = {"token": token, "payloads": []}
+                owner_groups[owner_id]["payloads"].append(payload)
                 
-                # Bu batch için işaretle (submit_batch_loads başarılı varsayımıyla veya gönderilmeden önce engellemek için)
+                # Bu batch için işaretle
                 session_fps.add(self._get_load_fingerprint(payload))
 
             # Submit batches
-            for owner_id, payloads in owner_batches.items():
+            for owner_id, group in owner_groups.items():
+                payloads = group["payloads"]
+                token = group["token"]
                 # Split large batches by batch_size
                 for i in range(0, len(payloads), batch_size):
                     chunk = payloads[i:i + batch_size]
-                    result = self.submit_batch_loads(chunk)
+                    result = self.submit_batch_loads(chunk, token=token)
                     results.append(result)
         else:
             # Process individually
@@ -1064,11 +1097,18 @@ class YukBuradaSubmitter:
                 payload = self.transform_record_to_payload(record)
                 phone = payload.pop('_phone', None)
                 
-                owner_id = self.config.get("owner_user_id", "")
+                owner_id = None
+                token = None
+                
                 if phone:
                     user_info = self.get_or_create_user_with_merge(phone)
                     if user_info:
                         owner_id = user_info.get('user_id')
+                        token = user_info.get('access_token')
+                
+                if not owner_id:
+                    self.logger.warning(f"⚠️ İlan sahibi tespit edilemedi, atlanıyor: {payload.get('pickupCity')} -> {payload.get('deliveryCity')}")
+                    continue
                 
                 payload['ownerUserId'] = owner_id
 
@@ -1077,7 +1117,7 @@ class YukBuradaSubmitter:
                     self.logger.info(f"🚫 [MÜKERRER ENGEL] İlan YükBurada'da zaten var veya az önce gönderildi: {payload.get('pickupCity')} -> {payload.get('deliveryCity')}")
                     continue
 
-                result = self.submit_single_load(payload)
+                result = self.submit_single_load(payload, token=token)
                 results.append(result)
                 
                 if result.get("success"):

@@ -6,3 +6,4 @@ google-genai
 google-generativeai
 pymongo
 watchdog
+numpy
