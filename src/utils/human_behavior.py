@@ -165,7 +165,7 @@ class HumanBehaviorModel:
         else:
             self.delay_multiplier = 1.0
             
-        print(f"🛡️ HumanBehavior: Risk skoruna göre ({risk_score}) davranış ayarlandı. Çarpan: {self.delay_multiplier}x")
+        print(f"[SHIELD] HumanBehavior: Risk skoruna göre ({risk_score}) davranış ayarlandı. Çarpan: {self.delay_multiplier}x")
 
     # Timing
     def get_compute_delay(self) -> float:

@@ -32,65 +32,72 @@ def main(page: ft.Page):
     )
 
     async def change_page(page_name):
-        print(f"DEBUG: Sayfa degistiliyor -> {page_name}")
-        main_content.content = ft.ProgressRing()
-        page.update()
-        
-        if page_name == "Operasyon":
-            main_content.content = await op_center.get_view()
-        elif page_name == "Yönetim":
-            main_content.content = await mgmt_center.get_view()
-        elif page_name == "Sunucu":
-            main_content.content = await srv_control.get_view()
-        elif page_name == "Loglar":
-            main_content.content = await log_page.get_view()
-        elif page_name == "Ayarlar":
-            main_content.content = ft.Column([
-                ft.Row([
-                    ft.Icon(ft.Icons.SETTINGS_SUGGEST_ROUNDED, color=AppColors.PRIMARY, size=28),
-                    ft.Text("Sistem Ayarları", size=24, weight="bold", color=AppColors.TEXT),
-                ]),
-                ft.Divider(color="white10", height=20),
-                ft.Container(
-                    content=ft.Column([
-                        ft.Text("API & Servis Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
-                        ft.Text("WhatsApp ve Veritabanı bağlantı ayarlarını buradan yönetebilirsiniz.", size=12, color=AppColors.TEXT_MUTED),
-                        ft.Divider(color="white10"),
-                        
-                        ft.TextField(
-                            label="WhatsApp API Token (Whapi.cloud)", 
-                            password=True, 
-                            can_reveal_password=True,
-                            border_color="white24",
-                            focused_border_color=AppColors.PRIMARY
-                        ),
-                        ft.TextField(
-                            label="Veritabanı Saklama Yolu", 
-                            value="data/storage/",
-                            border_color="white24",
-                            focused_border_color=AppColors.PRIMARY
-                        ),
-                        
-                        ft.Row([
-                            ft.Button(
-                                content="AYARLARI KAYDET", 
-                                icon=ft.Icons.SAVE,
-                                bgcolor=AppColors.PRIMARY, 
-                                color="white",
-                                width=200,
-                                height=45
+        try:
+            print(f"DEBUG: Sayfa degistiliyor -> {page_name}")
+            main_content.content = ft.ProgressRing(color=AppColors.PRIMARY)
+            page.update()
+            
+            if page_name == "Operasyon":
+                main_content.content = await op_center.get_view()
+            elif page_name == "Yönetim":
+                main_content.content = await mgmt_center.get_view()
+            elif page_name == "Sunucu":
+                main_content.content = await srv_control.get_view()
+            elif page_name == "Loglar":
+                main_content.content = await log_page.get_view()
+            elif page_name == "Ayarlar":
+                main_content.content = ft.Column([
+                    ft.Row([
+                        ft.Icon(ft.Icons.SETTINGS_SUGGEST_ROUNDED, color=AppColors.PRIMARY, size=28),
+                        ft.Text("Sistem Ayarları", size=24, weight="bold", color=AppColors.TEXT),
+                    ]),
+                    ft.Divider(color="white10", height=20),
+                    ft.Container(
+                        content=ft.Column([
+                            ft.Text("API & Servis Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
+                            ft.Text("WhatsApp ve Veritabanı bağlantı ayarlarını buradan yönetebilirsiniz.", size=12, color=AppColors.TEXT_MUTED),
+                            ft.Divider(color="white10"),
+                            
+                            ft.TextField(
+                                label="WhatsApp API Token (Whapi.cloud)", 
+                                password=True, 
+                                can_reveal_password=True,
+                                border_color="white24",
+                                focused_border_color=AppColors.PRIMARY
                             ),
-                            ft.TextButton("Varsayılana Dön", icon=ft.Icons.RESTORE_ROUNDED)
-                        ], spacing=10)
-                    ], spacing=15),
-                    padding=30,
-                    bgcolor=AppColors.SURFACE,
-                    border_radius=15,
-                    shadow=[AppStyles.CARD_SHADOW]
-                )
-            ], expand=True, spacing=10)
-        
-        page.update()
+                            ft.TextField(
+                                label="Veritabanı Saklama Yolu", 
+                                value="data/storage/",
+                                border_color="white24",
+                                focused_border_color=AppColors.PRIMARY
+                            ),
+                            
+                            ft.Row([
+                                ft.Button(
+                                    content="AYARLARI KAYDET", 
+                                    icon=ft.Icons.SAVE,
+                                    bgcolor=AppColors.PRIMARY, 
+                                    color="white",
+                                    width=200,
+                                    height=45
+                                ),
+                                ft.TextButton("Varsayılana Dön", icon=ft.Icons.RESTORE_ROUNDED)
+                            ], spacing=10)
+                        ], spacing=15),
+                        padding=30,
+                        bgcolor=AppColors.SURFACE,
+                        border_radius=15,
+                        shadow=[AppStyles.CARD_SHADOW]
+                    )
+                ], expand=True, spacing=10)
+            
+            page.update()
+        except Exception as ex:
+            print(f"ERROR: change_page hatasi: {ex}")
+            page.snack_bar = ft.SnackBar(ft.Text(f"Sayfa yüklenirken hata oluştu: {ex}"), bgcolor=AppColors.DANGER)
+            page.snack_bar.open = True
+            page.update()
+
 
     # --- SIDEBAR (Premium Navigation) ---
     def create_nav_item(text, icon, page_name):

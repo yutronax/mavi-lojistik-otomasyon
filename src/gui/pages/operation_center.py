@@ -69,19 +69,13 @@ class OperationCenterPage:
             shadow=[AppStyles.CARD_SHADOW]
         )
 
-        # --- ORTA PANEL: Sevkiyat Listesi ---
-        self.table = ft.DataTable(
-            columns=[
-                ft.DataColumn(ft.Text("Nereden")),
-                ft.DataColumn(ft.Text("Nereye")),
-                ft.DataColumn(ft.Text("Araç/Yük")),
-                ft.DataColumn(ft.Text("Fiyat")),
-                ft.DataColumn(ft.Text("İşlem")),
-            ],
-            rows=[],
+        # --- ORTA PANEL: Sevkiyat Listesi (Yeni ListView Yapısı) ---
+        self.shipments_list = ft.ListView(
             expand=True,
-            column_spacing=10,
+            spacing=10,
+            padding=10,
         )
+
         self.center_pane = ft.Container(
             content=ft.Column([
                 ft.Row([
@@ -100,9 +94,8 @@ class OperationCenterPage:
                 ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                 ft.Divider(color="white10"),
                 ft.Container(
-                    content=ft.Column([self.table], scroll=ft.ScrollMode.ALWAYS),
+                    content=self.shipments_list,
                     expand=True,
-                    padding=ft.Padding.only(top=10)
                 )
             ]),
             expand=True,
@@ -207,35 +200,64 @@ class OperationCenterPage:
             if self.sorted_message_ids and self.current_msg_index >= len(self.sorted_message_ids):
                 self.current_msg_index = 0
                 
-            new_rows = []
+            new_controls = []
             pending_count = 0
+            
+            # Performans için sadece en güncel 100 mesajı göster
+            limit = 100
+            displayed_count = 0
             
             for mid in self.sorted_message_ids:
                 msg = self.messages_cache[mid]
                 shipments = msg.get('shipments', [])
                 pending_count += len(shipments)
                 
-                for idx, s in enumerate(shipments):
-                    new_rows.append(
-                        ft.DataRow(
-                        cells=[
-                            ft.DataCell(ft.Text(s.get('nerden_il', ''), weight="bold", color=AppColors.TEXT)),
-                            ft.DataCell(ft.Text(s.get('nereye_il', ''), weight="bold", color=AppColors.TEXT)),
-                            ft.DataCell(ft.Text(f"{s.get('arac_tipi', [''])[0]} / {s.get('yuk_tipi', [''])[0]}", size=12, color=AppColors.TEXT_MUTED)),
-                            ft.DataCell(ft.Text(s.get('fiyat', ''), color=AppColors.ACCENT, weight="bold")),
-                            ft.DataCell(
+                if displayed_count < limit:
+                    for idx, s in enumerate(shipments):
+                        if displayed_count >= limit: break
+                        
+                        # Her sevkiyat için hafif bir kart (row container) oluştur
+                        row_item = ft.Container(
+                            content=ft.Row([
+                                ft.Column([
+                                    ft.Text(f"{s.get('nerden_il', '')} → {s.get('nereye_il', '')}", weight="bold", size=14),
+                                    ft.Text(f"{s.get('arac_tipi', [''])[0]} / {s.get('yuk_tipi', [''])[0]}", size=11, color=AppColors.TEXT_MUTED),
+                                ], expand=True, spacing=2),
+                                ft.Text(s.get('fiyat', ''), color=AppColors.ACCENT, weight="bold", size=13),
+                                ft.VerticalDivider(width=1, color="white10"),
                                 ft.Row([
-                                    ft.IconButton(icon=ft.Icons.CHECK, icon_color=AppColors.SUCCESS, on_click=lambda _, mid=mid, idx=idx: asyncio.create_task(self.confirm_shipment(mid, idx))),
-                                    ft.IconButton(icon=ft.Icons.EDIT, icon_color=AppColors.WARNING, on_click=lambda _, mid=mid, idx=idx: self.open_edit_dialog(mid, idx)),
-                                    ft.IconButton(icon=ft.Icons.DELETE_OUTLINE, icon_color=AppColors.DANGER, on_click=lambda _, mid=mid, idx=idx: asyncio.create_task(self.delete_shipment(mid, idx))),
+                                    ft.IconButton(
+                                        icon=ft.Icons.CHECK_CIRCLE_OUTLINE, 
+                                        icon_color=AppColors.SUCCESS, 
+                                        icon_size=20,
+                                        on_click=lambda _, mid=mid, idx=idx: asyncio.create_task(self.confirm_shipment(mid, idx)),
+                                        tooltip="Onayla"
+                                    ),
+                                    ft.IconButton(
+                                        icon=ft.Icons.EDIT_NOTE_ROUNDED, 
+                                        icon_color=AppColors.WARNING, 
+                                        icon_size=20,
+                                        on_click=lambda _, mid=mid, idx=idx: self.open_edit_dialog(mid, idx),
+                                        tooltip="Düzenle"
+                                    ),
+                                    ft.IconButton(
+                                        icon=ft.Icons.DELETE_SWEEP_OUTLINED, 
+                                        icon_color=AppColors.DANGER, 
+                                        icon_size=20,
+                                        on_click=lambda _, mid=mid, idx=idx: asyncio.create_task(self.delete_shipment(mid, idx)),
+                                        tooltip="Sil"
+                                    ),
                                 ], spacing=0)
-                            ),
-                        ],
-                            on_select_change=lambda e, m_id=mid: self.select_message_by_id(m_id)
+                            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                            padding=ft.Padding.symmetric(horizontal=15, vertical=10),
+                            bgcolor=ft.Colors.with_opacity(0.05, "white"),
+                            border_radius=10,
+                            on_click=lambda _, m_id=mid: self.select_message_by_id(m_id),
                         )
-                    )
+                        new_controls.append(row_item)
+                        displayed_count += 1
             
-            self.table.rows = new_rows
+            self.shipments_list.controls = new_controls
             self.msg_count_text.value = str(len(self.messages_cache))
             self.pending_count_text.value = str(pending_count)
             self._update_nav_text()

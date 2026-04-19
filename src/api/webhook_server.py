@@ -74,7 +74,7 @@ def run_server(port=8080, use_ngrok=None):
     # 0. Cleanup orphaned processes on target port
     try:
         import subprocess
-        logger.info(f"🧹 Port {port} üzerindeki olası zombi süreçler temizleniyor...")
+        logger.info(f"[CLEAN] Port {port} üzerindeki olası zombi süreçler temizleniyor...")
         if sys.platform == 'win32':
              # Windows specific port cleanup
              cmd = f"FOR /F \"tokens=5\" %a IN ('netstat -aon ^| find \":{port}\" ^| find \"LISTENING\"') DO taskkill /F /PID %a"
@@ -102,7 +102,7 @@ def run_server(port=8080, use_ngrok=None):
             
             for region in regions:
                 try:
-                    logger.info(f"📡 Ngrok tüneli başlatılıyor (Bölge: {region})...")
+                    logger.info(f"[POLL] Ngrok tüneli başlatılıyor (Bölge: {region})...")
                     ngrok_config = conf.PyngrokConfig(
                         monitor_thread=True,
                         region=region
@@ -118,11 +118,11 @@ def run_server(port=8080, use_ngrok=None):
                     except: pass
                     
                     public_url = ngrok.connect(port, pyngrok_config=ngrok_config).public_url
-                    logger.info(f"🌐 Ngrok Tüneli Aktif ({region}): {public_url}")
+                    logger.info(f"[OK] Ngrok Tüneli Aktif ({region}): {public_url}")
                     success = True
                     break
                 except Exception as e:
-                    logger.warning(f"⚠️ Ngrok {region} bölgesinde başarısız oldu: {e}")
+                    logger.warning(f"[FAIL] Ngrok {region} bölgesinde başarısız oldu: {e}")
                     if "verify certificate" not in str(e).lower():
                         # If it's not a cert error, maybe don't loop all regions
                         pass
@@ -132,14 +132,14 @@ def run_server(port=8080, use_ngrok=None):
             
             # 2. Register Webhook with Whapi automatically
             if setup_webhook(public_url):
-                logger.info("🎯 Whapi Tetikleyici (Webhook) OTOMATİK ADRESLENDİ!")
+                logger.info("[OK] Whapi Tetikleyici (Webhook) OTOMATİK ADRESLENDİ!")
             else:
-                logger.warning("⚠️ Whapi Webhook ayarlanamadı.")
+                logger.warning("[FAIL] Whapi Webhook ayarlanamadı.")
 
         except ImportError:
-            logger.warning("⚠️ pyngrok yüklü değil, tünel başlatılamadı.")
+            logger.warning("[FAIL] pyngrok yüklü değil, tünel başlatılamadı.")
         except Exception as e:
-            logger.error(f"❌ Ngrok hatası: {e}")
+            logger.error(f"[ERROR] Ngrok hatası: {e}")
             logger.error("💡 ÇÖZÜM ÖNERİLERİ:")
             logger.error("1. Antivirüs veya Güvenlik Duvarınızı (Firewall) geçici olarak kapatıp tekrar deneyin.")
             logger.error("2. Eğer VPN kullanıyorsanız kapatın.")
@@ -149,7 +149,7 @@ def run_server(port=8080, use_ngrok=None):
     # 4. Start Orchestrator Periodic Loop (5-min scan) in its own thread
     global _loop_thread
     if not _loop_thread or not _loop_thread.is_alive():
-        logger.info("🧵 Orchestrator periyodik tarama döngüsü başlatılıyor (5 dk)...")
+        logger.info("[POLL] Orchestrator periyodik tarama döngüsü başlatılıyor (5 dk)...")
         # Ensure keep_only_today is True by default for performance
         _loop_thread = threading.Thread(target=orchestrator.run_loop, daemon=True)
         _loop_thread.start()
@@ -158,7 +158,7 @@ def run_server(port=8080, use_ngrok=None):
     # Kullanıcının belirttiği özel IP: 10.114.0.2
     server_address = ('10.114.0.2', port)
     _server_instance = HTTPServer(server_address, WhapiWebhookHandler)
-    logger.info(f"🚀 Webhook Sunucusu {server_address[0]}:{port} adresinde dinliyor...")
+    logger.info(f"[START] Webhook Sunucusu {server_address[0]}:{port} adresinde dinliyor...")
     
     try:
         _server_instance.serve_forever()

@@ -87,13 +87,13 @@ def check_health() -> Dict:
             # Status: 'connected', 'auth_required', 'disconnected', 'blocked'
             status = data.get('status', 'unknown')
             status_text = status.get('text', 'unknown') if isinstance(status, dict) else str(status)
-            logger.info(f"❤️ Whapi Sağlık Durumu: {status_text.upper()}")
+            logger.info(f"[HEALTH] Whapi Sağlık Durumu: {status_text.upper()}")
             return data
         else:
-            logger.error(f"❌ Sağlık kontrolü başarısız: {response.status_code}")
+            logger.error(f"[ERROR] Sağlık kontrolü başarısız: {response.status_code}")
             return {'status': 'error', 'error': response.text}
     except Exception as e:
-        logger.error(f"❌ Sağlık kontrolü hatası: {e}")
+        logger.error(f"[ERROR] Sağlık kontrolü hatası: {e}")
         return {'status': 'error', 'error': str(e)}
 
 def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
@@ -110,7 +110,7 @@ def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
     limit = 50  # Limit 100'den 50'ye çekildi (Daha kararlı)
     offset = 0
     
-    logger.info(f"🌐 Grup çekimi başladı (Base URL: {base_url}, Limit: {limit})")
+    logger.info(f"[GROUPS] Grup çekimi başladı (Base URL: {base_url}, Limit: {limit})")
     
     while True:
         success = False
@@ -124,11 +124,11 @@ def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
                     groups = data.get('groups', [])
                     
                     if not groups:
-                        logger.info(f"ℹ️ Ofset {offset}: Başka grup kalmadı.")
+                        logger.info(f"[INFO] Ofset {offset}: Başka grup kalmadı.")
                         return all_groups
                         
                     all_groups.extend(groups)
-                    logger.info(f"📥 {len(groups)} grup çekildi (Toplam: {len(all_groups)})")
+                    logger.info(f"[IN] {len(groups)} grup çekildi (Toplam: {len(all_groups)})")
                     
                     if len(groups) < limit:
                         return all_groups
@@ -140,7 +140,7 @@ def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
                     
                 elif response.status_code == 429:
                     wait = (attempt + 1) * 5
-                    logger.warning(f"⏳ Rate limit (429). {wait} saniye bekleniyor...")
+                    logger.warning(f"[WAIT] Rate limit (429). {wait} saniye bekleniyor...")
                     time.sleep(wait)
                 elif response.status_code == 404:
                     logger.error("❌ KRİTİK HATA: Kanal bulunamadı (404)! Token geçersiz veya kanal silinmiş.")
@@ -148,7 +148,7 @@ def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
                     return [] # 404 durumunda denemeye gerek yok
                 elif 500 <= response.status_code <= 599:
                     wait = (attempt + 1) * 3
-                    logger.warning(f"⚠️ Sunucu Hatası ({response.status_code}). Deneme {attempt+1}/{retries}. {wait} sn bekleniyor...")
+                    logger.warning(f"[WAIT] Sunucu Hatası ({response.status_code}). Deneme {attempt+1}/{retries}. {wait} sn bekleniyor...")
                     time.sleep(wait)
                 else:
                     logger.error(f"❌ API Hatası: {response.status_code} - {response.text}")
@@ -160,7 +160,7 @@ def fetch_groups(max_count: int = 200, retries: int = 3) -> List[Dict]:
                 time.sleep(wait)
         
         if not success:
-            logger.error(f"🛑 Ofset {offset} için maksimum deneme sayısına ulaşıldı. Mevcut listeyle devam ediliyor.")
+            logger.error(f"[STOP] Ofset {offset} için maksimum deneme sayısına ulaşıldı. Mevcut listeyle devam ediliyor.")
             break
             
     return all_groups
@@ -202,14 +202,14 @@ def fetch_messages_from_group(group_id: str, count: int = 100, retries: int = 3,
             if response.status_code == 200:
                 data = response.json()
                 messages = data.get('messages', [])
-                logger.info(f"✅ API Response (200): {len(messages)} messages fetched from {group_id}")
+                logger.info(f"[OK] API Response (200): {len(messages)} messages fetched from {group_id}")
                 return messages
             elif response.status_code == 404:
                 logger.error(f"❌ Kanal bulunamadı (404): {group_id}. Token veya kanal geçersiz.")
                 return []
             elif response.status_code == 429:
                 wait_time = (attempt + 1) * 2
-                logger.warning(f"⏳ API Rate Limit (429) for {group_id}. Waiting {wait_time}s...")
+                logger.warning(f"[WAIT] API Rate Limit (429) for {group_id}. Waiting {wait_time}s...")
                 time.sleep(wait_time)
             else:
                 logger.error(f"❌ API Error ({response.status_code}) for {group_id}: {response.text}")
@@ -301,7 +301,7 @@ def save_messages(data: Dict):
     try:
         with open(MESSAGE_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        logger.info(f"💾 Mesajlar dosyaya kaydedildi: {MESSAGE_FILE} (Toplam: {len(data.get('messages', []))})")
+        logger.info(f"[SAVE] Mesajlar dosyaya kaydedildi: {MESSAGE_FILE} (Toplam: {len(data.get('messages', []))})")
     except Exception as e:
         logger.error(f"❌ Mesaj kaydetme hatası: {e}")
 

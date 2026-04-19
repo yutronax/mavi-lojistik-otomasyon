@@ -18,7 +18,7 @@ from src.storage.consumer_node import start_consumer_loop
 def run_bidirectional_sync():
     """Starts both the watcher (uploader) and the consumer (downloader) simultaneously."""
     print("====================================")
-    print("🌍 MAVI LOJISTIK CLOUD SYNC ENGINE 🌍")
+    print("[CLOUD] MAVI LOJISTIK CLOUD SYNC ENGINE")
     print("====================================")
     print("Starting Peer-to-Peer file synchronization via MongoDB...")
     
@@ -34,7 +34,7 @@ def run_bidirectional_sync():
     try:
         start_consumer_loop()
     except KeyboardInterrupt:
-        print("\n🛑 Cloud Sync Engine terminating gracefully.")
+        print("\n[STOP] Cloud Sync Engine terminating gracefully.")
         sys.exit(0)
 
 if __name__ == "__main__":

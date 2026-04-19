@@ -141,10 +141,10 @@ class YukBuradaSubmitter:
             records = data.get('items', data.get('records', data))
 
             if isinstance(records, list):
-                self.logger.info(f"Fetched {len(records)} approved records from API")
+                self.logger.info(f"[API] Fetched {len(records)} approved records from API")
                 return records
             else:
-                self.logger.error("API response does not contain a records/items array")
+                self.logger.error("[API] API response does not contain a records/items array")
                 return []
 
         except requests.exceptions.RequestException as e:
@@ -196,8 +196,7 @@ class YukBuradaSubmitter:
         # 2. If Login fails with 404, try Register (Strict Check)
         if login_res.get('status') == 404:
             # Check if we knew this user
-            if clean_phone in self.known_users:
-                self.logger.warning(f"⚠️ User {clean_phone} known locall as {self.known_users[clean_phone]} but 404 on API. Re-registering...")
+            self.logger.warning(f"[!] User {clean_phone} known locally as {self.known_users[clean_phone]} but 404 on API. Re-registering...")
                 
             self.logger.info(f"User not found (404) for {clean_phone}, attempting registration...")
             reg_res = self.register_phone_number(clean_phone, full_name=full_name, email=email)
@@ -475,7 +474,7 @@ class YukBuradaSubmitter:
 
     def periodic_remote_cleanup(self):
         """YükBurada üzerindeki mükerrer ilanlarımızı tarar ve temizler (10 dk'da bir)."""
-        self.logger.info("🧹 Periyodik YükBurada mükerrer temizliği başlatılıyor...")
+        self.logger.info("[CLEAN] Periyodik YükBurada mükerrer temizliği başlatılıyor...")
         
         # 1. Tüm canlı ilanları çek
         live_loads = self.fetch_live_loads()
@@ -533,12 +532,12 @@ class YukBuradaSubmitter:
                 resp = self.session.delete(url, timeout=20)
                 if resp.ok:
                     deleted_count += 1
-                    self.logger.info(f"🗑️ Mükerrer ilan silindi: {load_id}")
+                    self.logger.info(f"[DELETE] Mükerrer ilan silindi: {load_id}")
             except Exception as e:
                 self.logger.error(f"İlan {load_id} silinemedi: {e}")
 
         if deleted_count > 0:
-            self.logger.info(f"✨ Toplam {deleted_count} mükerrer ilan temizlendi.")
+            self.logger.info(f"[OK] Toplam {deleted_count} mükerrer ilan temizlendi.")
         else:
             self.logger.info("Mükerrer ilan bulunamadı.")
             

@@ -153,7 +153,7 @@ def log_data_operation(logger, operation, entity_type, entity_id=None, success=T
         success: Whether operation succeeded
         error: Optional error message
     """
-    status = "✅ SUCCESS" if success else "❌ FAILED"
+    status = "[OK] SUCCESS" if success else "[FAIL] FAILED"
     msg = f"DATA {operation.upper()}: {entity_type}"
     
     if entity_id:
@@ -207,4 +207,4 @@ if __name__ == '__main__':
     log_data_operation(logger, "save", "TestEntity", "test-123", success=True)
     log_data_operation(logger, "load", "TestEntity", error="File not found", success=False)
     
-    print("\n✅ Logging test complete. Check logs/ directory.")
+    print("\n[OK] Logging test complete. Check logs/ directory.")

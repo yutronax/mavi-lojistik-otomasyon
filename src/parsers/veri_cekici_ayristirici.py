@@ -215,7 +215,7 @@ class OrchestratorSDK:
     def _task_wrapper(self, msg, api_key):
         """Worker task wrapper to handle results and queue management."""
         msg_id = msg.get('id')
-        logger.info(f"[JOB] [İŞLEM BAŞLIYOR] ID: {msg_id}")
+        logger.info(f"[JOB] [ISTEM BASLIYOR] ID: {msg_id}")
         try:
             result = self.process_message_task((msg, api_key))
             if result:
@@ -256,7 +256,7 @@ class OrchestratorSDK:
                     
                     # Eğer risk yüksekse kullanıcıyı uyar
                     if self.risk_score <= 2 and self.reporter:
-                        risk_msg = "⚠️ *WHATSAPP BAN RİSKİ UYARISI*\n"
+                        risk_msg = "[ALERT] *WHATSAPP BAN RİSKİ UYARISI* [ALERT]\n"
                         risk_msg += f"*Durum:* {'DİKKAT (2)' if self.risk_score == 2 else 'TEHLİKE (1)'}\n"
                         risk_msg += "Sistem otomatik olarak koruma moduna (yavaşlatılmış işlem) geçmiştir."
                         self.reporter.send_whatsapp_message(risk_msg)
@@ -349,7 +349,7 @@ class OrchestratorSDK:
         for cid in list(target_chat_ids):
             last_time = self.last_webhook_fetch.get(cid, 0)
             if now - last_time < 30:
-                logger.debug(f"⏭️ Webhook: {cid} iYin cooldown aktif (Atland).")
+                logger.debug(f"[SKIP] Webhook: {cid} iYin cooldown aktif (Atland).")
                 target_chat_ids.remove(cid)
             else:
                 self.last_webhook_fetch[cid] = now
@@ -429,20 +429,20 @@ class OrchestratorSDK:
             
             # A. Temel ve ID Kontrolü (Kalıcı ve Hafıza Kontrolü)
             if not mid or not body or self.data_service.is_id_handled(mid):
-                if not mid: logger.debug("⏭️ Mesaj ID yok (Atlandı)")
-                elif not body: logger.debug(f"⏭️ Mesaj içeriği boş (Atlandı): {mid}")
+                if not mid: logger.debug("[SKIP] Mesaj ID yok (Atlandı)")
+                elif not body: logger.debug(f"[SKIP] Mesaj içeriği boş (Atlandı): {mid}")
                 continue
             
             # B. Benzerlik (Body Duplicate) Kontrolü
             if self.data_service.is_body_known(body):
-                logger.info(f"⏭️ Mesaj kopyası/zaten işlenmiş (Atlandı): {mid}")
+                logger.info(f"[SKIP] Mesaj kopyası/zaten işlenmiş (Atlandı): {mid}")
                 self.data_service.mark_id_handled(mid) # Kalıcı olarak işaretle
                 continue
             
             sender_raw = msg.get('from', '')
             if sender_raw:
                 if is_phone_in_list(sender_raw, blacklist):
-                    logger.info(f"🚫 Orchestrator Blacklist: skipping message {mid} from {sender_raw}")
+                    logger.info(f"[BLOCK] Orchestrator Blacklist: skipping message {mid} from {sender_raw}")
                     self.data_service.mark_id_handled(mid) # Kalıcı mark
                     continue
             
@@ -494,7 +494,7 @@ class OrchestratorSDK:
                 
                 live_data = live_data[:50] # Son 50 mesajı tut
                 persistence_manager.queue_write(LIVE_LOG_FILE, live_data) # Non-blocking background save
-                logger.info(f"📝 Canlı log dosyasına {len(new_logs)} mesaj eklendi.")
+                logger.info(f"[CLEAN] Canlı log dosyasına {len(new_logs)} mesaj eklendi.")
             except Exception as e:
                 logger.error(f"Toplu canlı log yazma hatası: {e}")
 
@@ -519,7 +519,7 @@ class OrchestratorSDK:
                 self.add_to_processing_queue([msg])
             
             # Yeni mesajları çek
-            logger.info("♻️ Yeni mesajlar kontrol ediliyor...")
+            logger.info("[POLL] Yeni mesajlar kontrol ediliyor...")
             count = fetch_all_messages(
                 hours_back=FETCH_HOURS_BACK, 
                 only_saved_groups=True, 
@@ -529,9 +529,9 @@ class OrchestratorSDK:
             )
             
             if count > 0:
-                logger.info(f"✨ {count} yeni mesaj bulundu ve işleniyor.")
+                logger.info(f"[OK] {count} yeni mesaj bulundu ve işleniyor.")
             else:
-                logger.info("💤 Yeni mesaj yok. Beklemede...")
+                logger.info("[SLEEP] Yeni mesaj yok. Beklemede...")
             
             # NOT: Streaming zaten kuyruğa attığı için get_unprocessed_messages 
             # sadece garanti olsun diye sonda bir kez çağrılabilir veya kaldırılabilir.
@@ -618,7 +618,7 @@ class OrchestratorSDK:
                 if sender_raw:
                     blacklist = self.data_service.load_blacklist()
                     if is_phone_in_list(sender_raw, blacklist):
-                        logger.info(f"🚫 Kara listedeki numaradan gelen mesaj atlandı: {sender_raw}")
+                        logger.info(f"[BLOCK] Kara listedeki numaradan gelen mesaj atlandı: {sender_raw}")
                         continue
                 
                 # Yurt dışı kontrolü artık burada (ham mesaj üzerinden) yapılmıyor.
@@ -649,7 +649,7 @@ class OrchestratorSDK:
         """
         msg, api_key = args
         msg_id = msg.get('id')
-        logger.info(f"⚙️ İşlem BAŞLADI: {msg_id} (Gönderen: {msg.get('sender_name')})")
+        logger.info(f"[JOB] Islem BASLADI: {msg_id} (Gönderen: {msg.get('sender_name')})")
         try:
             # OPTIMIZATION: Use shared parser to avoid reloading JSON files
             parser = self.base_parser
@@ -682,11 +682,11 @@ class OrchestratorSDK:
                 nereye_ilce = str(shipment.get('nereye_ilce', '')).strip()
 
                 if not (nereden_il or nereden_ilce):
-                    logger.info(f"🗑️ Shipment removed: Missing 'nereden' (Origin). ID: {msg_id}")
+                    logger.info(f"[FILTER] Shipment removed: Missing 'nereden' (Origin). ID: {msg_id}")
                     continue
                 
                 if not (nereye_il or nereye_ilce):
-                    logger.info(f"🗑️ Shipment removed: Missing 'nereye' (Destination). ID: {msg_id}")
+                    logger.info(f"[CLEAN] Shipment removed: Missing 'nereye' (Destination). ID: {msg_id}")
                     continue
 
                 # C. FILTER: Location Validation (Turkey Check)
@@ -694,7 +694,7 @@ class OrchestratorSDK:
                            self.location_validator.is_valid_city(nereye_il)
                 
                 if not is_valid:
-                    logger.info(f"🌍 Location Flagged: International or Unknown detected. ID: {msg_id} ({nereden_il} -> {nereye_il})")
+                    logger.info(f"[MAP] Location Flagged: International or Unknown detected. ID: {msg_id} ({nereden_il} -> {nereye_il})")
                     shipment['invalid_location'] = True
                     has_invalid_location = True # Flag entire message
                 else:
@@ -703,10 +703,10 @@ class OrchestratorSDK:
                 valid_shipments.append(shipment)
 
             if not valid_shipments:
-                logger.info(f"⚠️ No valid shipments left after filtering: {msg_id}")
+                logger.info(f"[WARN] No valid shipments left after filtering: {msg_id}")
                 return {'status': 'error', 'msg_id': msg_id, 'error': 'All shipments filtered (International or Empty)', 'original_msg': msg}
 
-            logger.info(f"✅ İşlem BİTTİ: {msg_id} -> {len(valid_shipments)} geçerli ilan")
+            logger.info(f"[OK] Islem BITTI: {msg_id} -> {len(valid_shipments)} geçerli ilan")
             return {
                 'status': 'success',
                 'msg_id': msg_id,
@@ -758,14 +758,14 @@ class OrchestratorSDK:
                             if not self.data_service.is_shipment_duplicate(s):
                                 unique_shipments.append(s)
                             else:
-                                logger.info(f"🚫 Mükerrer ilan atlandı (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
+                                logger.info(f"[SKIP] Mükerrer ilan atlandı (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
                                 # AGGRESSIVE: Remove existing copies too
                                 removed_count = self.data_service.remove_shipment_duplicates(s)
                                 if removed_count > 0:
-                                    logger.info(f"🗑️ Aggressive: {removed_count} adet eski kopya silindi.")
+                                    logger.info(f"[CLEAN] Aggressive: {removed_count} adet eski kopya silindi.")
                         
                         if not unique_shipments:
-                            logger.info(f"⏹️ Mesaj içindeki tüm ilanlar mükerrer, mesaj yine de 'işlendi' işaretleniyor: {res['msg_id']}")
+                            logger.info(f"[SKIP] Mesaj içindeki tüm ilanlar mükerrer, mesaj yine de 'islenmis' işaretleniyor: {res['msg_id']}")
                             # Mark as processed with empty shipments to stop re-processing loop
                             entry = {
                                 'message_id': res['msg_id'],
@@ -912,7 +912,7 @@ class OrchestratorSDK:
                         pass
                 
                 if len(filtered) < len(unprocessed):
-                    logger.info(f"📅 GÜN FİLTRESİ: {len(unprocessed)} mesajdan {len(filtered)} tanesi bugüne ait.")
+                    logger.info(f"[DATE] GÜN FİLTRESİ: {len(unprocessed)} mesajdan {len(filtered)} tanesi bugüne ait.")
                     unprocessed = filtered
 
             if unprocessed:
@@ -950,9 +950,9 @@ class OrchestratorSDK:
                     status = status_data.get('text', 'unknown').lower() if isinstance(status_data, dict) else str(status_data).lower()
                     
                     if status not in ['connected', 'active', 'auth']:
-                        logger.warning(f"⚠️ Whapi bağlantısı sağlıksız ({status}). 15 sn sonra tekrar denenecek...")
+                        logger.warning(f"[WARN] Whapi bağlantısı sağlıksız ({status}). 15 sn sonra tekrar denenecek...")
                         if status in ['disconnected', 'auth_required', 'blocked']:
-                            logger.error(f"🛑 KRİTİK DURUM: {status}. 1 dk bekleniyor...")
+                            logger.error(f"[ERROR] KRİTİK DURUM: {status}. 1 dk bekleniyor...")
                             time.sleep(60)
                         else:
                             time.sleep(15)
@@ -961,11 +961,11 @@ class OrchestratorSDK:
                 # 1. Kayıtlı grupları yükle
                 chat_ids = list(get_saved_chat_ids())
                 if not chat_ids:
-                    logger.warning("⚠️ Kayıtlı grup bulunamadı! 1 dk bekleniyor...")
+                    logger.warning("[WARN] Kayıtlı grup bulunamadı! 1 dk bekleniyor...")
                     time.sleep(60)
                     continue
                 
-                logger.info(f"📋 Toplam {len(chat_ids)} grup üzerinden işlem başlatılıyor.")
+                logger.info(f"[LIST] Toplam {len(chat_ids)} grup üzerinden işlem başlatılıyor.")
                 
                 # 2. Grupları 20'li paketlere böl
                 batch_size = 20
@@ -973,7 +973,7 @@ class OrchestratorSDK:
                 
                 for i, batch_ids in enumerate(batches):
                     batch_start = time.time()
-                    logger.info(f"\n📦 [PAKET {i+1}/{len(batches)}] {len(batch_ids)} grup taranıyor...")
+                    logger.info(f"\n[BATCH] [PAKET {i+1}/{len(batches)}] {len(batch_ids)} grup taranıyor...")
                     
                     # HUMAN-LIKE DELAY: Random delay before starting batch
                     time.sleep(random.uniform(2.0, 5.0))
@@ -999,7 +999,7 @@ class OrchestratorSDK:
             except Exception as e:
                 logger.error(f"Döngü hatası: {e}")
                 try:
-                    self.reporter.add_error(f"⚠️ *Orkestratör Döngü Hatası*\n\nDetay: {str(e)}", level="WARNING")
+                    self.reporter.add_error(f"[WARN] *Orkestratör Döngü Hatası*\n\nDetay: {str(e)}", level="WARNING")
                 except: pass
                 time.sleep(30) # Hata durumunda kısa bekleme
 

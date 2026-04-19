@@ -40,7 +40,7 @@ class Reporter:
     def add_error(self, error_msg, is_critical=False):
         """Hata kaydet ve eğer kritikse anında bildir"""
         timestamp = datetime.now().strftime("%H:%M:%S")
-        formatted_error = f"[{timestamp}] {'🛑 KRİTİK: ' if is_critical else '⚠️ '} {error_msg}"
+        formatted_error = f"[{timestamp}] {'[CRITICAL]: ' if is_critical else '[WARN] '} {error_msg}"
         self.stats["errors"].append(formatted_error)
         
         if is_critical:
@@ -93,11 +93,11 @@ class Reporter:
     def send_critical_alert(self, error_msg):
         """Kritik hata anlık bildirimi"""
         alert_text = (
-            "🚨 *KRİTİK SİSTEM HATASI* 🚨\n"
-            "━━━━━━━━━━━━━━━━━━━━\n"
-            f"📅 *Tarih:* {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
-            f"❌ *HATA:* {error_msg}\n\n"
-            "⚠️ Lütfen sunucuyu kontrol edin!"
+            "[ALERT] *KRİTİK SİSTEM HATASI* [ALERT]\n"
+            "--------------------\n"
+            f"[DATE] *Tarih:* {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+            f"[FAIL] *HATA:* {error_msg}\n\n"
+            "[WARN] Lütfen sunucuyu kontrol edin!"
         )
         return self.send_whatsapp_message(alert_text)
 
@@ -111,28 +111,28 @@ class Reporter:
         if self.stats["errors"]:
             # Son 10 hatayı al
             recent_errors = self.stats["errors"][-10:]
-            error_section = "🛑 *HATALAR (Öncelikli)*\n" + "\n".join(recent_errors) + "\n\n"
+            error_section = "[ERROR] *HATALAR (Öncelikli)*\n" + "\n".join(recent_errors) + "\n\n"
         else:
-            error_section = "✅ *Son 3 saatte kritik hata oluşmadı.*\n\n"
+            error_section = "[OK] *Son 3 saatte kritik hata oluşmadı.*\n\n"
 
         summary_text = (
-            "📊 *3 SAATLİK SİSTEM ÖZETİ* 📉\n"
-            "━━━━━━━━━━━━━━━━━━━━\n"
-            f"🕒 *Dönem:* {self.stats['start_time'].strftime('%H:%M')} - {now.strftime('%H:%M')}\n"
-            f"⏱️ *Süre:* {int(duration.total_seconds() / 60)} dakika\n"
-            "━━━━━━━━━━━━━━━━━━━━\n\n"
+            "[SUMMARY] *3 SAATLİK SİSTEM ÖZETİ* [SUMMARY]\n"
+            "--------------------\n"
+            f"[TIME] *Dönem:* {self.stats['start_time'].strftime('%H:%M')} - {now.strftime('%H:%M')}\n"
+            f"[STATS] *Süre:* {int(duration.total_seconds() / 60)} dakika\n"
+            "--------------------\n\n"
             f"{error_section}"
-            "📈 *İSTATİSTİKLER:*\n"
-            f"📥 Toplam Çekilen: *{self.stats['messages_fetched']}*\n"
+            "[STATS] *İSTATİSTİKLER:*\n"
+            f"[IN] Toplam Çekilen: *{self.stats['messages_fetched']}*\n"
             f"🧠 Başarıyla Ayrıştırılan: *{self.stats['parsed_successfully']}*\n"
-            f"🚀 Otomatik Onay/Gönderim: *{self.stats['auto_approved']}*\n"
+            f"[AUTO] Otomatik Onay/Gönderim: *{self.stats['auto_approved']}*\n"
         )
         
         # Risk Bilgisi Ekle (Opsiyonel)
         if hasattr(self, 'current_risk'):
-            risk_labels = {3: "✅ İYİ", 2: "⚠️ DİKKAT", 1: "🛑 TEHLİKE"}
+            risk_labels = {3: "[OK] İYİ", 2: "[WARN] DİKKAT", 1: "[ERR] TEHLİKE"}
             label = risk_labels.get(self.current_risk, "Bilinmiyor")
-            summary_text += f"🛡️ *WhatsApp Sağlığı:* {label}\n"
+            summary_text += f"[HEALTH] *WhatsApp Sağlığı:* {label}\n"
 
         summary_text += "\n🤖 _Mavi Lojistik Otonom Sunucu_"
         

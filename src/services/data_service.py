@@ -157,12 +157,12 @@ class DataService:
                 
                 if sender_num:
                     if is_phone_in_list(sender_num, blacklist):
-                        logger.info(f"🚫 Blacklist Filter: Skipping message {message_id} from {sender_num}")
+                        logger.info(f"[BLOCK] Blacklist Filter: Skipping message {message_id} from {sender_num}")
                         continue
 
                 # --- INTERNATIONAL/INVALID LOCATION FILTER ---
                 if item.get('invalid_location'):
-                    logger.info(f"🌍 Foreign Location Filter: Skipping message {message_id}")
+                    logger.info(f"[MAP] Foreign Location Filter: Skipping message {message_id}")
                     continue
 
                 # Extract timestamp for retention check
@@ -321,7 +321,7 @@ class DataService:
                     kept_data.append(item)
             
             if purged_count > 0:
-                logger.info(f"✨ Purging {purged_count} old messages (Policy: {'Today Only' if keep_only_today else '24h'}).")
+                logger.info(f"[OK] Purging {purged_count} old messages (Policy: {'Today Only' if keep_only_today else '24h'}).")
                 persistence_manager.queue_write(self.onaylanmamis_file, kept_data)
             return purged_count
             
@@ -476,7 +476,7 @@ class DataService:
         # File patterns that typically represent log files in this project
         patterns = ['*.log', '*.log.*', 'build_log*.txt', '*_submission.log', 'orchestrator.log']
         
-        logger.info(f"🧹 Starting log purge (Target: older than {hours_back}h)...")
+        logger.info(f"[CLEAN] Starting log purge (Target: older than {hours_back}h)...")
         
         for directory in log_dirs:
             if not os.path.exists(directory):
@@ -503,7 +503,7 @@ class DataService:
                         errors.append(f"{os.path.basename(fpath)}: {str(e)}")
         
         if deleted_files > 0:
-            logger.info(f"✨ Log cleanup completed: {deleted_files} files removed, "
+            logger.info(f"[OK] Log cleanup completed: {deleted_files} files removed, "
                         f"{freed_bytes / 1024:.1f} KB freed.")
         else:
             logger.debug("No old logs found to purge.")
@@ -1308,7 +1308,7 @@ class DataService:
             
             if removed_total > 0:
                 persistence_manager.queue_write(self.onaylanmamis_file, new_data)
-                logger.info(f"🗑️ Aggressive Duplicate Check: Removed {removed_total} existing copies from storage.")
+                logger.info(f"[CLEAN] Aggressive Duplicate Check: Removed {removed_total} existing copies from storage.")
             
             return removed_total
         except Exception as e:

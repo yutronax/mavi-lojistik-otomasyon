@@ -139,16 +139,16 @@ class ManagementCenterPage:
         # TabBar (Üst navigasyon) - Modern Stil
         self.tab_bar = ft.TabBar(
             tabs=[
-            ft.Tab(text="Yük Tanımlama", icon=ft.Icons.INVENTORY_2_ROUNDED),
-                ft.Tab(text="Mahalle Yönetimi", icon=ft.Icons.LOCATION_ON_ROUNDED),
-                ft.Tab(text="Grup Ayarları", icon=ft.Icons.GROUPS_ROUNDED),
-                ft.Tab(text="Kara Liste", icon=ft.Icons.BLOCK_ROUNDED),
+                ft.Tab(label="Yük Tanımlama", icon=ft.Icons.INVENTORY_2_ROUNDED),
+                ft.Tab(label="Mahalle Yönetimi", icon=ft.Icons.LOCATION_ON_ROUNDED),
+                ft.Tab(label="Grup Ayarları", icon=ft.Icons.GROUPS_ROUNDED),
+                ft.Tab(label="Kara Liste", icon=ft.Icons.BLOCK_ROUNDED),
             ],
             indicator_color=AppColors.PRIMARY,
             label_color=AppColors.PRIMARY,
             unselected_label_color=AppColors.TEXT_MUTED,
-            indicator_padding=5,
         )
+
         
         # TabBarView (İçerik alanı)
         self.tab_view = ft.TabBarView(
@@ -162,13 +162,10 @@ class ManagementCenterPage:
         )
 
         # Tabs ana taşıyıcı
-        tabs_container = ft.Tabs(
-            content=ft.Column([
+        tabs_container = ft.Column([
                 ft.Container(self.tab_bar, bgcolor=AppColors.SURFACE, padding=ft.Padding.symmetric(vertical=0, horizontal=10)),
                 ft.Container(self.tab_view, expand=True, padding=10)
-            ], expand=True),
-            length=4
-        )
+            ], expand=True)
 
         content = ft.Column(
             [

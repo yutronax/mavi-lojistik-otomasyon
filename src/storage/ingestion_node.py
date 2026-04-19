@@ -133,7 +133,7 @@ class RawDataHandler(FileSystemEventHandler):
 
 def start_ingestion_node():
     print("[START] Starting MongoDB Ingestion Node...")
-    print(f"📁 Watching directory: {DATA_DIR}")
+    print(f"[DIR] Watching directory: {DATA_DIR}")
     print(f"[NET] MongoDB URI: {MONGODB_URI}")
     
     event_handler = RawDataHandler()

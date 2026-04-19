@@ -162,7 +162,7 @@ class LojistikYonetimGUI:
         self.arac_yuk_kasa_tipleri_data = self.data_service.load_arac_kasa_tipleri()
 
         self.management_center_window = None
-        self.root.title("🚚 LOJİSTİK YÖNETİM SİSTEMİ")
+        self.root.title("[Mavi Lojistik] LOJİSTİK YÖNETİM SİSTEMİ")
         # Ana pencere tam ekran olmayacak; sadece maksimum pencere (taskbar görünür)
         try:
             self.root.state('zoomed')
@@ -281,7 +281,7 @@ class LojistikYonetimGUI:
         try:
             purged_count = self.data_service.purge_old_messages(keep_only_today=True)
             if purged_count > 0:
-                self.logger.info(f"🧹 Başlangıç temizliği: {purged_count} eski mesaj silindi.")
+                self.logger.info(f"[CLEAN] Başlangıç temizliği: {purged_count} eski mesaj silindi.")
         except Exception as e:
             self.logger.error(f"Başlangıç temizliği sırasında hata: {e}")
 
@@ -313,7 +313,7 @@ class LojistikYonetimGUI:
         self.load_messages_from_file()
         
         # DEBUG: Log message counts
-        self.logger.info(f"🔍 DEBUG: After load_messages_from_file:")
+        self.logger.info(f"[DEBUG] After load_messages_from_file:")
         self.logger.info(f"  - all_messages_original: {len(self.all_messages_original)}")
         self.logger.info(f"  - all_messages: {len(self.all_messages)}")
         
@@ -321,15 +321,15 @@ class LojistikYonetimGUI:
         self.filter_messages_by_time()
         
         # DEBUG: Log after filter
-        self.logger.info(f"🔍 DEBUG: After filter_messages_by_time:")
+        self.logger.info(f"[DEBUG] After filter_messages_by_time:")
         self.logger.info(f"  - all_messages: {len(self.all_messages)}")
         self.logger.info(f"  - Counter label exists: {hasattr(self, 'message_counter_label')}")
         
         if self.all_messages:
-            self.logger.info(f"🔍 DEBUG: Loading message at index 0")
+            self.logger.info(f"[DEBUG] Loading message at index 0")
             self.load_message_at_index(0)
         else:
-            self.logger.warning("⚠️ DEBUG: No messages to display!")
+            self.logger.warning("[WARN] DEBUG: No messages to display!")
             self.status_label.config(text="İşlenecek mesaj yok")
             try:
                 self.message_counter_label.config(text="0/0")
@@ -371,9 +371,9 @@ class LojistikYonetimGUI:
             try:
                 # Perform local refresh in background
                 self.refresh_messages(silent=True, from_thread=True, override_minutes=minutes, override_msg_id=current_msg_id)
-                self.logger.debug("✅ Periodic local refresh completed.")
+                self.logger.debug("[OK] Periodic local refresh completed.")
             except Exception as e:
-                self.logger.error(f"❌ Periodic refresh thread error: {e}")
+                self.logger.error(f"[FAIL] Periodic refresh thread error: {e}")
             finally:
                 self._sync_in_progress = False
                 # Schedule next refresh (15 seconds for more responsive UI)
@@ -1177,7 +1177,7 @@ class LojistikYonetimGUI:
         
         self.update_shipment_list()
         self.save_unprocessed_data() # Dosyaya da yaz
-        self.status_label.config(text="✅ Kayıt güncellendi.")
+        self.status_label.config(text="[OK] Kayıt güncellendi.")
         self.close_side_panel()
 
     def swap_locations(self, nereden_il_combo, nereden_ilce_combo, nereye_il_combo, nereye_ilce_combo):
@@ -1404,13 +1404,13 @@ class LojistikYonetimGUI:
 
         self.update_shipment_list()
         self.save_unprocessed_data()
-        self.status_label.config(text=f"✅ {updated_count} kayıt güncellendi.")
+        self.status_label.config(text=f"[OK] {updated_count} kayıt güncellendi.")
         self.close_side_panel()
 
     # --- ONAYLANANLAR PENCERESİ (Entegre & Revize) ---
 
     def show_approved_records(self):
-        panel = self.open_side_panel("📋 ONAYLANAN KAYITLAR", width=600)
+        panel = self.open_side_panel("[LIST] ONAYLANAN KAYITLAR", width=600)
 
         # Veri Yükle - Veritabanı API'sinden çek
         records = []
@@ -1468,7 +1468,7 @@ class LojistikYonetimGUI:
         detail_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
         detail_frame.pack_propagate(False)
         
-        tk.Label(detail_frame, text="🔍 SEÇİLİ KAYIT DETAYLARI", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg']).pack(anchor='w', pady=(5,0))
+        tk.Label(detail_frame, text="[INFO] SEÇİLİ KAYIT DETAYLARI", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg']).pack(anchor='w', pady=(5,0))
         
         detail_text = scrolledtext.ScrolledText(detail_frame, height=8, font=('Segoe UI', 9), state='disabled')
         detail_text.pack(fill=tk.BOTH, expand=True, pady=5)
@@ -1532,7 +1532,7 @@ class LojistikYonetimGUI:
 
     def show_parsed_records(self):
         """Ayrıştırılmış tüm mesajları göster"""
-        panel = self.open_side_panel("📊 AYRIŞTIRMA SONUÇLARI", width=700)
+        panel = self.open_side_panel("[STATS] AYRIŞTIRMA SONUÇLARI", width=700)
         
         # Veri yükle
         parsed_data = []
@@ -1565,7 +1565,7 @@ class LojistikYonetimGUI:
         search_frame = tk.Frame(panel, bg=self.COLORS['panel_bg'])
         search_frame.pack(fill=tk.X, padx=10, pady=5)
         
-        tk.Label(search_frame, text="🔍 Ara:", bg=self.COLORS['panel_bg'], font=('Segoe UI', 9)).pack(side=tk.LEFT, padx=(0,5))
+        tk.Label(search_frame, text="[SEARCH] Ara:", bg=self.COLORS['panel_bg'], font=('Segoe UI', 9)).pack(side=tk.LEFT, padx=(0,5))
         search_var = tk.StringVar()
         search_entry = tk.Entry(search_frame, textvariable=search_var, font=('Segoe UI', 9))
         search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
@@ -1602,7 +1602,7 @@ class LojistikYonetimGUI:
         detail_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
         detail_frame.pack_propagate(False)
         
-        tk.Label(detail_frame, text="🔍 MESAJ DETAYLARI", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg']).pack(anchor='w', pady=(5,0))
+        tk.Label(detail_frame, text="[DETAILS] MESAJ DETAYLARI", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg']).pack(anchor='w', pady=(5,0))
         
         detail_text = scrolledtext.ScrolledText(detail_frame, height=12, font=('Consolas', 9), state='disabled', wrap=tk.WORD)
         detail_text.pack(fill=tk.BOTH, expand=True, pady=5)
@@ -1625,11 +1625,11 @@ class LojistikYonetimGUI:
                 
                 # Durum kontrolü
                 if msg.get('processing_status') == 'failed':
-                    durum = '❌'
+                    durum = '[FAIL]'
                 elif shipments:
-                    durum = '✅'
+                    durum = '[OK]'
                 else:
-                    durum = '⚠️'
+                    durum = '[WARN]'
                 
                 # İlk sevkiyatın bilgileri
                 if shipments:
@@ -1685,7 +1685,7 @@ class LojistikYonetimGUI:
             text += f"{'='*60}\n\n"
             
             # Orijinal mesaj
-            text += f"📄 ORJİNAL MESAJ:\n"
+            text += f"[MSG] ORJİNAL MESAJ:\n"
             text += f"{'-'*60}\n"
             # Add sender info for verification
             sender_num = msg_info.get('sender_number') or msg_info.get('from', '')
@@ -3801,16 +3801,16 @@ class LojistikYonetimGUI:
                 # Beklenmedik şekilde kapandı
                 self.veri_cekici_running = False
                 self.root.after(0, lambda: self.veri_cekici_button.config(
-                    text="▶️ VERİ ÇEKİCİ\nBAŞLAT", 
+                    text="[START] VERİ ÇEKİCİ\nBAŞLAT", 
                     bg='#10b981', 
                     activebackground='#059669'
                 ))
                 self.root.after(0, lambda: self.veri_cekici_status_label.config(
-                    text="🔴 Beklenmedik şekilde durdu", 
+                    text="[STOP] Beklenmedik şekilde durdu", 
                     fg='#ef4444'
                 ))
                 self.root.after(0, lambda: self.status_label.config(
-                    text="⚠️ Veri çekici beklenmedik şekilde durdu"
+                    text="[WARN] Veri çekici beklenmedik şekilde durdu"
                 ))
         except:
             pass
@@ -3941,7 +3941,7 @@ class LojistikYonetimGUI:
             return
 
         self.live_loads_window = tk.Toplevel(self.root)
-        self.live_loads_window.title("📡 YAYINDA OLAN YÜKLER - YÜKBURADA")
+        self.live_loads_window.title("[LIVE] YAYINDA OLAN YÜKLER - YÜKBURADA")
         self.live_loads_window.geometry("1100x700")
         self.live_loads_window.configure(bg=self.COLORS['background'])
         
@@ -3950,14 +3950,14 @@ class LojistikYonetimGUI:
         header.pack(fill=tk.X)
         header.pack_propagate(False)
         
-        tk.Label(header, text="📡 YAYINDA OLAN YÜKLER", font=('Segoe UI', 14, 'bold'), bg=self.COLORS['accent'], fg='white').pack(side=tk.LEFT, padx=20, pady=15)
+        tk.Label(header, text="[LIVE] YAYINDA OLAN YÜKLER", font=('Segoe UI', 14, 'bold'), bg=self.COLORS['accent'], fg='white').pack(side=tk.LEFT, padx=20, pady=15)
         
         # Toolbar
         toolbar = tk.Frame(self.live_loads_window, bg=self.COLORS['surface_alt'], height=50)
         toolbar.pack(fill=tk.X)
         toolbar.pack_propagate(False)
         
-        self.live_refresh_btn = tk.Button(toolbar, text="🔄 YENİLE", bg=self.COLORS['success'], fg='white', font=('Segoe UI Semibold', 9), relief='flat', padx=15, command=self.refresh_live_loads)
+        self.live_refresh_btn = tk.Button(toolbar, text="[REFRESH] YENİLE", bg=self.COLORS['success'], fg='white', font=('Segoe UI Semibold', 9), relief='flat', padx=15, command=self.refresh_live_loads)
         self.live_refresh_btn.pack(side=tk.LEFT, padx=10, pady=10)
         
         self.live_status_label = tk.Label(toolbar, text="Veriler güncelleniyor...", bg=self.COLORS['surface_alt'], fg=self.COLORS['text'], font=('Segoe UI', 9))
@@ -4004,7 +4004,7 @@ class LojistikYonetimGUI:
         header.pack(fill=tk.X)
         header.pack_propagate(False)
         
-        tk.Label(header, text="🔴 CANLI İZLE (Son 50 Dakika)", font=('Segoe UI Semibold', 9, 'bold'), bg=self.COLORS['accent'], fg='white').pack(side=tk.LEFT, padx=12, pady=5)
+        tk.Label(header, text="[LIVE] CANLI İZLE (Son 50 Dakika)", font=('Segoe UI Semibold', 9, 'bold'), bg=self.COLORS['accent'], fg='white').pack(side=tk.LEFT, padx=12, pady=5)
         
         content = tk.Frame(self.bottom_pane, bg=self.COLORS['surface'])
         content.pack(fill=tk.BOTH, expand=True)
@@ -4094,7 +4094,7 @@ class LojistikYonetimGUI:
         # UI updates must happen in the main thread
         try:
             self.live_refresh_btn.config(state='disabled')
-            self.live_status_label.config(text="📡 Yükler çekiliyor...")
+            self.live_status_label.config(text="[FETCH] Yükler çekiliyor...")
         except: pass
 
         def worker():
@@ -4165,7 +4165,7 @@ class LojistikYonetimGUI:
                             self.live_tree.insert('', tk.END, values=(row_id, nereden, nereye, arac, kasa, yuk, firma, tarih))
                         
                         self.live_refresh_btn.config(state='normal')
-                        self.live_status_label.config(text=f"✅ {len(records)} yük bulundu")
+                        self.live_status_label.config(text=f"[OK] {len(records)} yük bulundu")
                     except Exception as ui_err:
                         self.logger.error(f"UI update error in live loads: {ui_err}")
                         self.live_status_label.config(text="❌ Arayüz hatası")

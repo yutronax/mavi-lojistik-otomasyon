@@ -50,11 +50,11 @@ GAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON"""
     
     results = parser.parse_message(test1)
     
-    print(f"\n✓ Parsed {len(results)} routes\n")
+    print(f"\n[OK] Parsed {len(results)} routes\n")
     
     for i, r in enumerate(results, 1):
         print(f"[Route {i}]")
-        print(f"  {r['nereden_il']}/{r['nereden_ilce']} → {r['nereye_il']}/{r['nereye_ilce']}")
+        print(f"  {r['nereden_il']}/{r['nereden_ilce']} -> {r['nereye_il']}/{r['nereye_ilce']}")
         print(f"  Kasa: {', '.join(r['kasa_tipi'])}")
         if r.get('telefon'):
             print(f"  Tel: {r['telefon']}")
@@ -71,17 +71,17 @@ GAZİANTEP ŞEHİTKAMİL - DİYARBAKIR SUR KOMPLE 20 TON"""
         for r in results
     )
     
-    print(f"{'✅' if mersin_found else '❌'} MERSİN as origin")
-    print(f"{'✅' if gazi_found else '❌'} GAZİANTEP as origin")
-    print(f"{'✅' if tire_correct else '❌'} TIRE in İZMİR")
-    print(f"{'✅' if len(results) == 3 else '❌'} 3 routes (got {len(results)})")
+    print(f"{'[OK]' if mersin_found else '[FAIL]'} MERSİN as origin")
+    print(f"{'[OK]' if gazi_found else '[FAIL]'} GAZİANTEP as origin")
+    print(f"{'[OK]' if tire_correct else '[FAIL]'} TIRE in İZMİR")
+    print(f"{'[OK]' if len(results) == 3 else '[FAIL]'} 3 routes (got {len(results)})")
     
     if all([mersin_found, gazi_found, tire_correct, len(results) == 3]):
-        print("\n🎉 PRODUCTION READY!")
+        print("\n[SUCCESS] PRODUCTION READY!")
     
     # Save
     import json
     with open('production_parser_test.json', 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     
-    print(f"📄 Results saved: production_parser_test.json")
+    print(f"[FILE] Results saved: production_parser_test.json")

@@ -3,7 +3,8 @@ import flet as ft
 import asyncio
 import datetime
 from src.gui.styles import AppColors, AppStyles
-from src.utils.server_manager import ServerManager
+from src.utils.server_manager_async import AsyncServerManager
+
 
 class ServerControlPage:
     """
@@ -15,7 +16,8 @@ class ServerControlPage:
     """
     def __init__(self, page: ft.Page):
         self.page = page
-        self.manager = ServerManager()
+        self.manager = AsyncServerManager()
+
         
         # UI Components
         self.status_chip = ft.Chip(
@@ -45,12 +47,17 @@ class ServerControlPage:
             expand=True,
             height=300
         )
+        
+        # Performance/Safe Threading
+        self.status_update_active = False
+
 
     async def _update_status(self):
         while True:
             try:
-                stats = self.manager.get_status_summary()
+                stats = await self.manager.get_status_summary()
                 status = stats.get("status", "offline")
+
                 
                 # Update Status Chip
                 if status == "online":
@@ -81,9 +88,10 @@ class ServerControlPage:
     async def _refresh_logs(self, e=None):
         self.log_display.value = "Yükleniyor..."
         self.page.update()
-        logs = self.manager.get_logs(lines=50)
+        logs = await self.manager.get_logs(lines=50)
         self.log_display.value = logs
         self.page.update()
+
 
     async def _run_command(self, cmd_type):
         self.page.snack_bar = ft.SnackBar(ft.Text("Komut gönderildi..."), bgcolor=AppColors.PRIMARY)
@@ -92,13 +100,14 @@ class ServerControlPage:
         
         success, output = (False, "Unknown")
         if cmd_type == "restart":
-            success, output = self.manager.restart()
+            success, output = await self.manager.restart()
         elif cmd_type == "stop":
-            success, output = self.manager.stop()
+            success, output = await self.manager.stop()
         elif cmd_type == "start":
-            success, output = self.manager.start()
+            success, output = await self.manager.start()
         elif cmd_type == "pull":
-            success, output = self.manager.git_pull()
+            success, output = await self.manager.git_pull()
+
             
         self.page.snack_bar = ft.SnackBar(
             ft.Text("Başarılı" if success else f"Hata: {output}"),
@@ -201,8 +210,11 @@ class ServerControlPage:
             
         ], expand=True, spacing=15, scroll=ft.ScrollMode.ADAPTIVE)
 
-        # Background update task
-        asyncio.create_task(self._update_status())
-        asyncio.create_task(self._refresh_logs())
+        # Background update task - Only starts once
+        if not self.status_update_active:
+            self.status_update_active = True
+            asyncio.create_task(self._update_status())
+            asyncio.create_task(self._refresh_logs())
+
         
         return content

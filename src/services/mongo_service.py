@@ -127,12 +127,12 @@ class MongoDataService:
                 if sender_num:
                     from src.utils.phone_utils import is_phone_in_list
                     if is_phone_in_list(sender_num, blacklist):
-                        logger.info(f"🚫 MongoDB Blacklist Filter: Skipping message {mid} from {sender_num}")
+                        logger.info(f"[BLOCK] MongoDB Blacklist Filter: Skipping message {mid} from {sender_num}")
                         continue
 
                 # --- INTERNATIONAL/INVALID LOCATION FILTER ---
                 if doc.get('invalid_location'):
-                    logger.info(f"🌍 MongoDB Foreign Location Filter: Skipping message {mid}")
+                    logger.info(f"[MAP] MongoDB Foreign Location Filter: Skipping message {mid}")
                     continue
 
                 # Remove MongoDB _id for GUI compatibility
