@@ -109,13 +109,14 @@ class SettingsPage:
                         
                         ft.Divider(height=40, color="transparent"),
                         
-                        ft.ElevatedButton(
-                            "AYARLARI KAYDET",
-                            icon=ft.Icon(icon="save"),
+                        ft.Button(
+                            content="AYARLARI KAYDET",
+                            icon=ft.Icons.SAVE,
                             bgcolor=AppColors.PRIMARY,
                             color="white",
                             on_click=lambda e: asyncio.create_task(self.save_settings(e)),
                             height=50,
+                            width=float("inf")
                         ),
                     ], scroll=ft.ScrollMode.ADAPTIVE),
                     padding=20,

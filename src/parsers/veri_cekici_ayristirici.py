@@ -74,7 +74,7 @@ from src.utils.reporter import Reporter
 
 # Whapi Fetcher (Opsiyonel)
 try:
-    from src.fetchers.whapi_fetcher import fetch_all_messages, sync_to_queue, check_health
+    from src.fetchers.whapi_fetcher import fetch_all_messages, sync_to_queue, check_health, get_channel_risk, calculate_channel_risk
     WHAPI_AVAILABLE = True
 except ImportError:
     WHAPI_AVAILABLE = False
@@ -148,8 +148,8 @@ class OrchestratorSDK:
         # SADECE Production Parser (Text Generation with Per-Route Type Matching)
         self.base_parser = ProductionParser()
         self.location_validator = LocationValidator()
-        logger.info(f"🚀 Orchestrator başlatıldı - Production Parser AKTIF")
-        logger.info(f"📊 {len(self.api_keys)} API anahtarı yüklendi")
+        logger.info(f"[START] Orchestrator başlatıldı - Production Parser AKTIF")
+        logger.info(f"[STATS] {len(self.api_keys)} API anahtarı yüklendi")
         
         # AUTO-SUBMIT Initialization
         self.auto_submit_active = AUTO_SUBMIT
@@ -158,12 +158,12 @@ class OrchestratorSDK:
             if SUBMITTER_AVAILABLE:
                 try:
                     self.submitter = YukBuradaSubmitter()
-                    logger.info("🤖 OTOMATİK ONAY AKTİF: YukBurada Submitter hazır.")
+                    logger.info("[BOT] OTOMATİK ONAY AKTİF: YukBurada Submitter hazır.")
                 except Exception as e:
                     logger.error(f"YukBurada Submitter başlatılamadı: {e}")
                     self.auto_submit_active = False
             else:
-                logger.warning("⚠️ AUTO_SUBMIT aktif ancak 'tools/submit_approved_loads.py' bulunamadı.")
+                logger.warning("[!] AUTO_SUBMIT aktif ancak 'tools/submit_approved_loads.py' bulunamadı.")
                 self.auto_submit_active = False
 
         # REFACTORED: Persistent ThreadPool for continuous processing
@@ -177,6 +177,12 @@ class OrchestratorSDK:
         self.last_cleanup_time = 0 # Track storage cleanup
         self.last_yukburada_cleanup = 0 # Track YükBurada deduplication cleanup
         self.last_webhook_fetch = {} # Track last fetch time per chat_id to debounce
+        
+        # Risk Meter Tracking
+        self.risk_score = 3 # Default: Good
+        self.last_risk_check = 0
+        self.risk_data = {}
+        
         self._start_background_worker()
 
     def _start_background_worker(self):
@@ -185,11 +191,11 @@ class OrchestratorSDK:
             return
         self.worker_thread = threading.Thread(target=self._background_worker_loop, daemon=True)
         self.worker_thread.start()
-        logger.info("🧵 Arka plan ayrıştırma worker'ı başlatıldı.")
+        logger.info("[WORKER] Arka plan ayrıştırma worker'ı başlatıldı.")
 
     def _background_worker_loop(self):
         """Kuyruktaki mesajları ana döngüden bağımsız olarak sürekli işler."""
-        logger.info(f"⚙️ Worker döngüsü aktif (Max Workers: {self.max_parallel_workers}). Kuyruk izleniyor...")
+        logger.info(f"[CPU] Worker döngüsü aktif (Max Workers: {self.max_parallel_workers}). Kuyruk izleniyor...")
         
         while not self.stop_event.is_set():
             try:
@@ -209,18 +215,54 @@ class OrchestratorSDK:
     def _task_wrapper(self, msg, api_key):
         """Worker task wrapper to handle results and queue management."""
         msg_id = msg.get('id')
-        logger.info(f"🚀 [İŞLEM BAŞLIYOR] ID: {msg_id}")
+        logger.info(f"[JOB] [İŞLEM BAŞLIYOR] ID: {msg_id}")
         try:
             result = self.process_message_task((msg, api_key))
             if result:
                 self.save_results([result])
-                logger.info(f"✅ [İŞLEM TAMAMLANDI] ID: {msg_id}")
+                logger.info(f"[OK] [İŞLEM TAMAMLANDI] ID: {msg_id}")
         except Exception as e:
-            logger.error(f"❌ [TASK HATASI] ({msg_id}): {e}")
+            logger.error(f"[ERR] [TASK HATASI] ({msg_id}): {e}")
         finally:
             if msg_id in self.active_ids:
                 self.active_ids.remove(msg_id)
             self.processing_queue.task_done()
+
+    def check_blocking_risk(self, force=False):
+        """
+        Whapi Risk Ölçer'i kontrol eder. Günde bir kez çalışır.
+        """
+        now = time.time()
+        # 24 saatte bir veya zorunluysa kontrol et
+        if force or (now - self.last_risk_check > 86400):
+            logger.info("[SEC] WhatsApp ban riski kontrol ediliyor...")
+            try:
+                # Önce mevcut durumu al
+                risk_info = get_channel_risk()
+                
+                # Eğer bugün hiç güncellenmemişse hesaplattır
+                if not risk_info or force:
+                    risk_info = calculate_channel_risk()
+                
+                if risk_info:
+                    self.risk_data = risk_info
+                    self.risk_score = risk_info.get('riskFactor', 3)
+                    self.last_risk_check = now
+                    logger.info(f"[SEC] Güvenlik Ölçer: Skor={self.risk_score} (3:İyi, 2:Dikkat, 1:Tehlike)")
+                    
+                    # Reporter'ı güncelle
+                    if self.reporter:
+                        self.reporter.current_risk = self.risk_score
+                    
+                    # Eğer risk yüksekse kullanıcıyı uyar
+                    if self.risk_score <= 2 and self.reporter:
+                        risk_msg = "⚠️ *WHATSAPP BAN RİSKİ UYARISI*\n"
+                        risk_msg += f"*Durum:* {'DİKKAT (2)' if self.risk_score == 2 else 'TEHLİKE (1)'}\n"
+                        risk_msg += "Sistem otomatik olarak koruma moduna (yavaşlatılmış işlem) geçmiştir."
+                        self.reporter.send_whatsapp_message(risk_msg)
+                
+            except Exception as e:
+                logger.error(f"Risk kontrol hatası: {e}")
 
     def check_periodic_cleanup(self):
         """Her 1 saatte bir gereksiz dosyaları ve logları temizler (User Request)."""
@@ -228,7 +270,7 @@ class OrchestratorSDK:
         now = time.time()
         # 1 saat = 3600 saniye
         if now - self.last_cleanup_time > 3600:
-            logger.info("🧹 Periyodik depolama ve log temizliği başlatılıyor...")
+            logger.info("[CLEAN] Periyodik depolama ve log temizliği başlatılıyor...")
             try:
                 self.data_service.cleanup_storage()
                 self.data_service.purge_old_logs(hours_back=1.0)
@@ -238,7 +280,7 @@ class OrchestratorSDK:
 
         # --- YÜKBURADA MÜKERRER TEMİZLİĞİ (10 DK'DA BİR) ---
         if now - self.last_yukburada_cleanup > 600:
-            logger.info("🧹 Periyodik YükBurada mükerrer temizliği kontrol ediliyor...")
+            logger.info("[CLEAN] Periyodik YükBurada mükerrer temizliği kontrol ediliyor...")
             try:
                 from tools.submit_approved_loads import YukBuradaSubmitter
                 submitter = YukBuradaSubmitter()
@@ -284,7 +326,7 @@ class OrchestratorSDK:
         if not messages:
             return
 
-        logger.info(f"⚡ Webhook Tetikleyici: {len(messages)} yeni olay alındı.")
+        logger.info(f"[FLASH] Webhook Tetikleyici: {len(messages)} yeni olay alındı.")
         
         # Hedef group ID'lerini topla
         target_chat_ids = set()
@@ -315,7 +357,7 @@ class OrchestratorSDK:
         if not target_chat_ids:
             return
 
-        logger.info(f"🎯 Webhook: Hedef gruplardan {list(target_chat_ids)} son mesajlar çekiliyor (TimeBuffer: 5m)...")
+        logger.info(f"[TARGET] Webhook: Hedef gruplardan {list(target_chat_ids)} son mesajlar çekiliyor (TimeBuffer: 5m)...")
         
         try:
             from src.fetchers.whapi_fetcher import fetch_all_messages
@@ -336,7 +378,7 @@ class OrchestratorSDK:
                 poll_params={'time_from': time_from} # Whapi için zaman filtresi
             )
         except Exception as e:
-            logger.error(f"❌ Webhook odaklı fetch_all_messages hatası: {e}")
+            logger.error(f"[ERR] Webhook odaklı fetch_all_messages hatası: {e}")
 
     def add_to_processing_queue(self, messages: List[Dict]):
         """
@@ -457,7 +499,7 @@ class OrchestratorSDK:
                 logger.error(f"Toplu canlı log yazma hatası: {e}")
 
         if added_count > 0:
-            logger.info(f"📥 {added_count} yeni mesaj ayrıştırma kuyruğuna eklendi.")
+            logger.info(f"[IN] {added_count} yeni mesaj ayrıştırma kuyruğuna eklendi.")
 
     def fetch_new_messages(self):
         """WhatsApp'tan tüm grupların yeni mesajlarını çeker."""
@@ -465,6 +507,9 @@ class OrchestratorSDK:
 
     def fetch_new_messages_batch(self, target_group_ids: List[str] = None):
         """WhatsApp'tan belirli bir grup paketinin mesajlarını çeker ve anında kuyruğa iletir."""
+        # Periyodik risk kontrolü
+        self.check_blocking_risk()
+
         if not WHAPI_AVAILABLE:
             return 0
         
@@ -479,7 +524,8 @@ class OrchestratorSDK:
                 hours_back=FETCH_HOURS_BACK, 
                 only_saved_groups=True, 
                 target_group_ids=target_group_ids,
-                on_message_received=stream_callback
+                on_message_received=stream_callback,
+                risk_score=self.risk_score
             )
             
             if count > 0:
@@ -810,7 +856,7 @@ class OrchestratorSDK:
                                 if 'error' not in entry and entry.get('status') != 'duplicate' and not entry.get('invalid_location'):
                                     shipments = entry.get('shipments', [])
                                     if shipments:
-                                        logger.info(f"📤 [OTO-ONAY] {m_id} için {len(shipments)} ilan gönderiliyor...")
+                                        logger.info(f"[OUT] [OTO-ONAY] {m_id} için {len(shipments)} ilan gönderiliyor...")
                                         for shipment in shipments:
                                             try:
                                                 payload = self.submitter.transform_record_to_payload(shipment)
@@ -823,7 +869,7 @@ class OrchestratorSDK:
                                                 logger.error(f"Oto-gönderim hatası ({m_id}): {se}")
                             
                             if triggered_count > 0:
-                                logger.info(f"🎯 [OTO-ONAY] Toplam {triggered_count} ilan başarıyla sisteme yüklendi.")
+                                logger.info(f"[DONE] [OTO-ONAY] Toplam {triggered_count} ilan başarıyla sisteme yüklendi.")
                 else:
                     logger.debug("Kaydedilecek geçerli/yeni ilan bulunamadı.")
                 
@@ -838,7 +884,7 @@ class OrchestratorSDK:
     def run_once(self, keep_only_today: bool = True):
         """Tek seferlik işleme - GUI entegrasyonu için."""
         self.check_periodic_cleanup()
-        logger.info("🔄 Orchestrator run_once başlatıldı")
+        logger.info("[SYNC] Orchestrator run_once başlatıldı")
         try:
             # OPTIMIZATION: Don't fetch from API again! The GUI loop already did it.
             # Just pick up what was recently written to the files.
@@ -871,18 +917,18 @@ class OrchestratorSDK:
 
             if unprocessed:
                 count = len(unprocessed)
-                logger.info(f"⏳ {count} işlenmemiş mesaj kuyruğa alınıyor...")
+                logger.info(f"[WAIT] {count} işlenmemiş mesaj kuyruğa alınıyor...")
                 self.add_to_processing_queue(unprocessed)
                 
                 # Wait for the queue to drain (Synchronous mode for run_once)
                 # This ensures results are written to disk before we return.
-                logger.info("⏳ Kuyruğun tamamlanması bekleniyor...")
+                logger.info("[WAIT] Kuyruğun tamamlanması bekleniyor...")
                 self.processing_queue.join()
-                logger.info("✅ Tüm mesajlar işlendi.")
+                logger.info("[OK] Tüm mesajlar işlendi.")
             else:
-                logger.info("ℹ️ İşlenecek yeni mesaj bulunamadı.")
+                logger.info("[INFO] İşlenecek yeni mesaj bulunamadı.")
             
-            logger.info("✅ run_once tamamlandı.")
+            logger.info("[OK] run_once tamamlandı.")
         except Exception as e:
             logger.error(f"run_once hatası: {e}")
 
@@ -890,7 +936,7 @@ class OrchestratorSDK:
         """Ana sonsuz döngü - BATCH + PARALEL MOD."""
         from src.fetchers.whapi_fetcher import get_saved_chat_ids
         
-        logger.info(f"🚀 BATCH Orkestratör Başlatıldı")
+        logger.info(f"[START] BATCH Orkestratör Başlatıldı")
         
         while not self.stop_event.is_set():
             try:
@@ -944,7 +990,7 @@ class OrchestratorSDK:
                 # 3. Tüm gruplar bittiğinde ana mola (Konfigürasyondan okunur)
                 # Webhook bağlantısı olsa bile, periyodik tarama WHATSAPP_POLL_INTERVAL kadar bekler.
                 wait_time = WHATSAPP_POLL_INTERVAL
-                logger.info(f"\n✅ Periyodik tarama tamamlandı. {wait_time} saniye sonra tekrar başlayacak...")
+                logger.info(f"\n[OK] Periyodik tarama tamamlandı. {wait_time} saniye sonra tekrar başlayacak...")
                 time.sleep(wait_time)
                 
             except KeyboardInterrupt:

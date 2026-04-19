@@ -4,12 +4,11 @@
     "nereden_il": "İSTANBUL",
     "nereden_ilce": "PENDİK",
     "nereye_il": "ANKARA",
-    "nereye_ilce": "AKYURT",
+    "nereye_ilce": "YENİMAHALLE",
     "arac_tipi": [
       "1360"
     ],
     "kasa_tipi": [
-      "AÇIK",
       "KAPALI"
     ],
     "yuk_tipi": [
@@ -30,8 +29,7 @@
       "1360"
     ],
     "kasa_tipi": [
-      "AÇIK",
-      "KAPALI"
+      "AÇIK"
     ],
     "yuk_tipi": [
       "KOMPLE"
@@ -44,9 +42,9 @@
   {
     "isim": "",
     "nereden_il": "GAZİANTEP",
-    "nereden_ilce": "ARABAN",
+    "nereden_ilce": "ŞEHİTKAMİL",
     "nereye_il": "DİYARBAKIR",
-    "nereye_ilce": "BAĞLAR",
+    "nereye_ilce": "SUR",
     "arac_tipi": [
       "1360"
     ],

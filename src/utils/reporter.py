@@ -81,13 +81,13 @@ class Reporter:
         try:
             response = requests.post(url, json=payload, headers=headers, timeout=20)
             if response.status_code in [200, 201]:
-                logger.info(f"✅ WhatsApp bildirimi gönderildi: {clean_phone}")
+                logger.info(f"[OK] WhatsApp bildirimi gönderildi: {clean_phone}")
                 return True
             else:
-                logger.error(f"❌ WhatsApp gönderim hatası ({response.status_code}): {response.text}")
+                logger.error(f"[ERR] WhatsApp gönderim hatası ({response.status_code}): {response.text}")
                 return False
         except Exception as e:
-            logger.error(f"❌ WhatsApp bildirim hatası: {e}")
+            logger.error(f"[ERR] WhatsApp bildirim hatası: {e}")
             return False
 
     def send_critical_alert(self, error_msg):
@@ -125,9 +125,16 @@ class Reporter:
             "📈 *İSTATİSTİKLER:*\n"
             f"📥 Toplam Çekilen: *{self.stats['messages_fetched']}*\n"
             f"🧠 Başarıyla Ayrıştırılan: *{self.stats['parsed_successfully']}*\n"
-            f"🚀 Otomatik Onay/Gönderim: *{self.stats['auto_approved']}*\n\n"
-            "🤖 _Mavi Lojistik Otonom Sunucu_"
+            f"🚀 Otomatik Onay/Gönderim: *{self.stats['auto_approved']}*\n"
         )
+        
+        # Risk Bilgisi Ekle (Opsiyonel)
+        if hasattr(self, 'current_risk'):
+            risk_labels = {3: "✅ İYİ", 2: "⚠️ DİKKAT", 1: "🛑 TEHLİKE"}
+            label = risk_labels.get(self.current_risk, "Bilinmiyor")
+            summary_text += f"🛡️ *WhatsApp Sağlığı:* {label}\n"
+
+        summary_text += "\n🤖 _Mavi Lojistik Otonom Sunucu_"
         
         success = self.send_whatsapp_message(summary_text)
         if success:

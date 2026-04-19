@@ -23,7 +23,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from src.utils.config import FETCH_HOURS_BACK, WHATSAPP_TOKEN
+from src.utils.config import FETCH_HOURS_BACK, WHATSAPP_TOKEN, WHAPI_TOOLS_URL
 WHAPI_TOKEN = WHATSAPP_TOKEN
 logger = logging.getLogger(__name__)
 
@@ -327,7 +327,8 @@ def fetch_all_messages(
     orchestrator=None,
     status_callback = None,
     on_message_received = None,
-    poll_params: dict = None
+    poll_params: dict = None,
+    risk_score: int = 3
 ) -> int:
     """
     Tüm gruplardan mesajları çek ve kaydet
@@ -434,9 +435,11 @@ def fetch_all_messages(
     else:
         groups_to_fetch = all_groups
         
-    # --- Human Behavior Integration ---
+    # İnsanı davranış modelini hazırla
     from src.utils.human_behavior import HumanBehaviorModel
     behavior_model = HumanBehaviorModel()
+    if risk_score:
+        behavior_model.adjust_behavior_by_risk(risk_score)
     
     # 33% chance to open an unsaved group (Skip if this is a priority webhook/target fetch)
     if not target_group_ids and behavior_model.should_open_non_target_chat():
@@ -797,6 +800,50 @@ def setup_webhook(web_url: str) -> bool:
     except Exception as e:
         logger.error(f"❌ Webhook ayar hatası: {e}")
         return False
+
+def get_channel_risk() -> Dict:
+    """
+    Whapi Safety Meter (Risk of Blocking) verilerini çeker.
+    GET https://tools.whapi.cloud/services/riskOfBlocking
+    """
+    url = WHAPI_TOOLS_URL
+    # Önemli: get_headers() içindeki 'Host' gate.whapi.cloud'a sabitli olabilir. 
+    # Tools API farklı bir domain olduğu için header'ları temizliyoruz.
+    headers = {'Authorization': f'Bearer {WHAPI_TOKEN}', 'accept': 'application/json'}
+    try:
+        response = requests.get(url, headers=headers, timeout=30)
+        if response.status_code == 200:
+            data = response.json()
+            logger.info(f"📊 WhatsApp Risk Skoru: {data.get('riskFactor', 'Unknown')}")
+            return data
+        elif response.status_code in [404, 500]:
+            # GET çalışmazsa POST dene (Calculation)
+            return calculate_channel_risk()
+        else:
+            logger.error(f"❌ Risk verisi çekilemedi ({response.status_code}): {response.text}")
+            return {}
+    except Exception as e:
+        logger.error(f"❌ Risk API hatası: {e}")
+        return {}
+
+def calculate_channel_risk() -> Dict:
+    """
+    Whapi Safety Meter (Risk of Blocking) verilerini yeniden hesaplar.
+    """
+    url = WHAPI_TOOLS_URL
+    headers = {'Authorization': f'Bearer {WHAPI_TOKEN}', 'accept': 'application/json'}
+    try:
+        response = requests.post(url, headers=headers, timeout=45)
+        if response.status_code in [200, 201]:
+            data = response.json()
+            logger.info(f"🔄 Risk Metrikleri Güncellendi: {data.get('riskFactor', 'Unknown')}")
+            return data
+        else:
+            logger.error(f"❌ Risk hesaplaması başarısız ({response.status_code}): {response.text}")
+            return {}
+    except Exception as e:
+        logger.error(f"❌ Risk hesaplama hatası: {e}")
+        return {}
 
 def main():
     """Ana fonksiyon - test için"""

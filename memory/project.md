@@ -30,10 +30,14 @@ l tabanlı regex.
 - `data/`: Konum ve yük tanımlama verileri (JSON).
 - `memory/`: Proje hafızası ve loglar.
 
-## Kritik Dosyalar
-- `src/gui/flet_app.py`: Ana giriş noktası ve Sidebar yönetimi.
-- `src/services/persistence_manager.py`: Tüm dosya I/O işlemlerini arka planda kuyruğa alan, kilitlenme önleyici servis.
-- `src/services/data_service.py`: Merkezi veri katmanı (PersistenceManager entegrasyonlu).
-- `src/parsers/veri_cekici_ayristirici.py`: Ana orkestrasyon ve ayrıştırma motoru.
-- `text_gen_parser.py`: Gemini tabanlı gelişmiş ayrıştırma mantığı (konteks tabanlı).
-- `vps_main.py`: Headless (ekransız) modda 24/7 otonom çalışma motoru.
+## Hafıza Kuralları ve Protokolü
+
+Bu proje, aşağıdaki merkezi protokole tam bağlılıkla (Strict Compliance) yönetilmektedir:
+
+> [!IMPORTANT]
+> **Küresel Protokol:** [GLOBAL_MEMORY_PROTOCOL_v1.md](file:///C:/Users/YUSUF%20%C3%87%C4%B0NAR/.gemini/antigravity/GLOBAL_MEMORY_PROTOCOL_v1.md)
+
+### Yerel Uygulama Detayları:
+1.  **İzolasyon:** Hafıza verisi sadece bu dizindeki `memory/` klasöründe saklanır.
+2.  **Şema:** [schema.json](file:///c:/Users/YUSUF%20%C3%87%C4%B0NAR/OneDrive/Belgeler/Masa%C3%BCst%C3%BC/projelerim/maviLojistik/memory/schema.json) (v1.1) tüm kayıtlarda zorunludur.
+3.  **Audit:** `task_history.md` dosyası her `DONE` görevinde küresel hash kuralına göre güncellenir.

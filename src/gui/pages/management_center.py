@@ -164,7 +164,7 @@ class ManagementCenterPage:
         # Tabs ana taşıyıcı
         tabs_container = ft.Tabs(
             content=ft.Column([
-                ft.Container(self.tab_bar, bgcolor=AppColors.SURFACE, padding=ft.padding.symmetric(0, 10)),
+                ft.Container(self.tab_bar, bgcolor=AppColors.SURFACE, padding=ft.Padding.symmetric(vertical=0, horizontal=10)),
                 ft.Container(self.tab_view, expand=True, padding=10)
             ], expand=True),
             length=4
@@ -199,7 +199,7 @@ class ManagementCenterPage:
             # Sol taraf: Liste
             ft.Container(
                 content=ft.Column([
-                    ft.Container(self.search_entry, padding=ft.padding.only(bottom=10)),
+                    ft.Container(self.search_entry, padding=ft.Padding.only(bottom=10)),
                     ft.Container(self.yuk_list_view, expand=True, bgcolor=AppColors.BG_DEEP, border_radius=12)
                 ]),
                 expand=2,
@@ -221,8 +221,8 @@ class ManagementCenterPage:
                     self.yuk_type_dropdown,
                     self.arac_type_dropdown,
                     self.kasa_type_dropdown,
-                    ft.ElevatedButton(
-                        "TANIMI KAYDET", 
+                    ft.Button(
+                        content="TANIMI KAYDET", 
                         icon=ft.Icons.SAVE,
                         bgcolor=AppColors.SUCCESS,
                         color="white", 
@@ -392,8 +392,8 @@ class ManagementCenterPage:
                         on_click=lambda _: asyncio.create_task(self._add_group())
                     )
                 ], spacing=10),
-                ft.ElevatedButton(
-                    "WhatsApp'tan Grupları Çek", 
+                ft.Button(
+                    content="WhatsApp'tan Grupları Çek", 
                     icon=ft.Icons.SYNC,
                     bgcolor=AppColors.PRIMARY,
                     color="white",

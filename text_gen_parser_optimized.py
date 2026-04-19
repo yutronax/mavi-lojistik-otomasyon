@@ -26,7 +26,7 @@ sys.path.insert(0, os.getcwd())
 from dotenv import load_dotenv
 load_dotenv()
 
-import google.generativeai as genai
+from google import genai
 
 # Import validators
 from src.utils.vehicle_type_matcher import VehicleTypeMatcher
@@ -37,7 +37,7 @@ class TextGenParser:
     
     def __init__(self, api_key=None):
         self.api_key = api_key or os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
-        genai.configure(api_key=self.api_key, transport='rest')
+        self.client = genai.Client(api_key=self.api_key)
         
         # Initialize validators
         self.vehicle_matcher = VehicleTypeMatcher()
@@ -247,10 +247,10 @@ Return ONLY valid JSON (NO markdown, NO explanation). Ensure strict JSON format 
         for model_name in models_to_try:
             for attempt in range(3):
                 try:
-                    model = genai.GenerativeModel(model_name=model_name)
-                    response = model.generate_content(
-                        prompt,
-                        generation_config={"temperature": 0.0}
+                    response = self.client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config={"temperature": 0.0}
                     )
                     
                     # Clean and parse
@@ -446,8 +446,6 @@ Return ONLY valid JSON (NO markdown, NO explanation). Ensure strict JSON format 
         for model_name in models_to_try:
             for attempt in range(2): # Fewer retries for neighborhood
                 try:
-                    model = genai.GenerativeModel(model_name=model_name)
-                    
                     prompt = f"""Target: Find the official TURKISH CITY and DISTRICT for the place name "{term}".
         Context City: "{context_city}" (VERY IMPORTANT).
         
@@ -461,10 +459,11 @@ Return ONLY valid JSON (NO markdown, NO explanation). Ensure strict JSON format 
         7. Example: "Konyaaltı" (Context: Ankara) -> ANTALYA / KONYAALTI (Valid city switch because Konyaaltı is unique to Antalya)
         
         Answer:"""
-                    
-                    response = model.generate_content(
-                        prompt,
-                        generation_config={"temperature": 0.0, "max_output_tokens": 20}
+        
+                    response = self.client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config={"temperature": 0.0, "max_tokens": 20}
                     )
                     
                     text = response.text.strip().upper()

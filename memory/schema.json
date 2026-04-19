@@ -1,0 +1,25 @@
+{
+  "version": "1.1",
+  "project_slug": "mavi-lojistik",
+  "definitions": {
+    "task_state": ["PENDING", "IN_PROGRESS", "BLOCKED", "DONE", "FAILED"],
+    "history_schema": {
+      "id": "hash_16_chars",
+      "state": "enum:task_state",
+      "action": "string",
+      "result": "technical_outcome",
+      "why_code": "UPPER_CASE_CODE",
+      "why_detail": "human_readable_explanation",
+      "how_code": "UPPER_CASE_CODE",
+      "how_detail": "technical_path_detail",
+      "artifacts": ["list"],
+      "status": "success|fail"
+    }
+  },
+  "rules": {
+    "id_generation": "sha256(project_slug + action + primary_artifact + target_state)[:16]",
+    "serialization": "Canonical (Sorted Keys, Compact, UTF-8)",
+    "trigger": "DONE|FAILED",
+    "global_memory": "DISABLED"
+  }
+}

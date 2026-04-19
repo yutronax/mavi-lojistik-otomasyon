@@ -39,14 +39,14 @@ if not os.path.exists(DATA_DIR):
 def delete_file_delayed(file_path: str):
     """Delay deletion: random(600s – 1800s)"""
     delay = random.randint(600, 1800)
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] 🗑️ Scheduling deletion of {os.path.basename(file_path)} in {delay} seconds.")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] [CLEAN] Scheduling deletion of {os.path.basename(file_path)} in {delay} seconds.")
     time.sleep(delay)
     try:
         if os.path.exists(file_path):
             os.remove(file_path)
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] 🗑️ Deleted {os.path.basename(file_path)} after {delay}s delay.")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] [CLEAN] Deleted {os.path.basename(file_path)} after {delay}s delay.")
     except Exception as e:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] ❌ Failed to delete {os.path.basename(file_path)}: {e}")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [ERR] Failed to delete {os.path.basename(file_path)}: {e}")
 
 def process_file(file_path: str):
     """
@@ -67,7 +67,7 @@ def process_file(file_path: str):
     
     # Wait random(2s - 9s) before ingestion
     delay = random.uniform(2.0, 9.0)
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] ⏳ Detected {file_name}. Waiting {delay:.1f}s before ingestion...")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] [WAIT] Detected {file_name}. Waiting {delay:.1f}s before ingestion...")
     time.sleep(delay)
     
     # Ensure file still exists after wait
@@ -88,7 +88,7 @@ def process_file(file_path: str):
         
         # If hash already exists: skip ingestion
         if collection.find_one({"checksum_hash": checksum_hash}):
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] ⏭️ Skipping {file_name} - Hash already exists.")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] [SKIP] Skipping {file_name} - Hash already exists.")
             # Still schedule for delayed deletion if we don't want to keep local shares
             threading.Thread(target=delete_file_delayed, args=(file_path,), daemon=True).start()
             return
@@ -110,15 +110,15 @@ def process_file(file_path: str):
         }
         
         collection.insert_one(doc)
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] ✅ Ingested {file_name} ({file_size} bytes).")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [OK] Ingested {file_name} ({file_size} bytes).")
         
         # Post-ingestion: schedule delayed local deletion
         threading.Thread(target=delete_file_delayed, args=(file_path,), daemon=True).start()
         
     except pymongo.errors.DuplicateKeyError:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] ⏭️ Skipping {file_name} - Hash collided during insert.")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [SKIP] Skipping {file_name} - Hash collided during insert.")
     except Exception as e:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] ❌ Error processing {file_name}: {e}")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [ERR] Error processing {file_name}: {e}")
 
 
 class RawDataHandler(FileSystemEventHandler):
@@ -132,9 +132,9 @@ class RawDataHandler(FileSystemEventHandler):
 
 
 def start_ingestion_node():
-    print("🚀 Starting MongoDB Ingestion Node...")
+    print("[START] Starting MongoDB Ingestion Node...")
     print(f"📁 Watching directory: {DATA_DIR}")
-    print(f"🔌 MongoDB URI: {MONGODB_URI}")
+    print(f"[NET] MongoDB URI: {MONGODB_URI}")
     
     event_handler = RawDataHandler()
     observer = Observer()
@@ -146,7 +146,7 @@ def start_ingestion_node():
             time.sleep(1)
     except KeyboardInterrupt:
         observer.stop()
-        print("\n🛑 Shutting down ingestion node.")
+        print("\n[STOP] Shutting down ingestion node.")
     
     observer.join()
 

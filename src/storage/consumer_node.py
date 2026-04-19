@@ -33,7 +33,7 @@ def get_last_read_time() -> datetime:
                 ts = float(f.read().strip())
                 return datetime.fromtimestamp(ts, tz=timezone.utc)
     except Exception as e:
-        print(f"⚠️ Error reading tracker file: {e}")
+        print(f"[!] Error reading tracker file: {e}")
         
     return datetime.fromtimestamp(0, tz=timezone.utc)
 
@@ -43,7 +43,7 @@ def set_last_read_time(dt: datetime):
         with open(TRACKER_FILE, "w") as f:
             f.write(str(dt.timestamp()))
     except Exception as e:
-        print(f"❌ Error writing tracker file: {e}")
+        print(f"[ERR] Error writing tracker file: {e}")
 
 class RawDataConsumer:
     """
@@ -89,9 +89,9 @@ class RawDataConsumer:
                     try:
                         with open(local_path, "wb") as f:
                             f.write(raw_blob)
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 📥 Synced from Cloud: {file_name}")
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] [IN] Synced from Cloud: {file_name}")
                     except Exception as e:
-                        print(f"❌ Failed to write {file_name} locally: {e}")
+                        print(f"[ERR] Failed to write {file_name} locally: {e}")
                 
             # Track the latest time seen
             if ingested_at > latest_time:
@@ -103,11 +103,11 @@ class RawDataConsumer:
         if fetched_count > 0:
             set_last_read_time(latest_time)
             self.last_read = latest_time
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] ✅ Caught up to cloud state ({latest_time})")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] [OK] Caught up to cloud state ({latest_time})")
 
 def start_consumer_loop():
-    print("🚀 Starting MongoDB Cloud Sync Consumer...")
-    print(f"📁 Target directory: {os.path.join(ROOT_DIR, 'data')}")
+    print("[START] Starting MongoDB Cloud Sync Consumer...")
+    print(f"[DIR] Target directory: {os.path.join(ROOT_DIR, 'data')}")
     
     consumer = RawDataConsumer()
     import time
@@ -117,7 +117,7 @@ def start_consumer_loop():
             consumer.process_new_blobs()
             time.sleep(3) # Poll every 3 seconds for near-real-time sync
     except KeyboardInterrupt:
-        print("\n🛑 Shutting down consumer node.")
+        print("\n[STOP] Shutting down consumer node.")
 
 if __name__ == "__main__":
     start_consumer_loop()

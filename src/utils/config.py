@@ -28,6 +28,7 @@ WHATSAPP_TOKEN = os.getenv('WHATSAPP_TOKEN') or os.getenv('WHAPI_TOKEN')
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
 REPORT_PHONE = os.getenv('WHATSAPP_REPORTER_NUMBER') or os.getenv('REPORT_PHONE', '5318407744') # Varsayılan rapor numarası
 WHATSAPP_API_BASE_URL = "https://gate.whapi.cloud"
+WHAPI_TOOLS_URL = "https://tools.whapi.cloud/services/riskOfBlocking"
 AUTO_SUBMIT = os.getenv('AUTO_SUBMIT', 'true').lower() == 'true'
 
 # --- ZAMAN FİLTRELERİ (SAAT CİNSİNDEN) ---

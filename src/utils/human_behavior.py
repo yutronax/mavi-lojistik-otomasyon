@@ -16,6 +16,10 @@ class HumanBehaviorModel:
         # Anti-pattern tracking for polling
         self.last_window_size = None
         self.last_count = None
+        
+        # Risk-based adaptive behavior
+        self.risk_factor = 3 # Default: Good (3: Good, 2: Needs Attention, 1: Use Caution)
+        self.delay_multiplier = 1.0
 
     def get_next_interval(self) -> float:
         """
@@ -144,6 +148,25 @@ class HumanBehaviorModel:
         """25% probability: skip consecutive sender blocks"""
         return random.random() < 0.25
 
+    def adjust_behavior_by_risk(self, risk_score: int):
+        """
+        Adjusts the behavior entropy based on Whapi Risk Factor.
+        3: Good -> Normal behavior (1.0x delay)
+        2: Needs Attention -> Careful (1.3x delay, 15% more skip chance)
+        1: Use Caution -> Super Careful (1.8x delay, 30% more skip chance)
+        """
+        self.risk_score = risk_score
+        if risk_score == 3:
+            self.delay_multiplier = 1.0
+        elif risk_score == 2:
+            self.delay_multiplier = 1.3
+        elif risk_score == 1:
+            self.delay_multiplier = 1.8
+        else:
+            self.delay_multiplier = 1.0
+            
+        print(f"🛡️ HumanBehavior: Risk skoruna göre ({risk_score}) davranış ayarlandı. Çarpan: {self.delay_multiplier}x")
+
     # Timing
     def get_compute_delay(self) -> float:
         """Add compute delay: 400-2200 ms (gamma jittered)"""
@@ -239,8 +262,9 @@ class HumanBehaviorModel:
         return params
 
     def get_processing_delay(self) -> float:
-        """Add processing delay per message: random(400ms – 2200ms)"""
-        return random.uniform(0.400, 2.200)
+        """Add processing delay per message: random(400ms – 2200ms) Adjusted by Risk"""
+        base_delay = random.uniform(0.400, 2.200)
+        return base_delay * self.delay_multiplier
 
     def get_session_start_delay(self) -> float:
         """Do not poll immediately after session start: 3 - 15s delay"""

@@ -11,6 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from src.gui.styles import AppColors, AppStyles, apply_app_theme
 from src.gui.pages.operation_center import OperationCenterPage
 from src.gui.pages.management_center import ManagementCenterPage
+from src.gui.pages.server_control import ServerControlPage
 from src.gui.components.log_viewer import LogPage
 
 def main(page: ft.Page):
@@ -21,6 +22,7 @@ def main(page: ft.Page):
     # Sayfa nesnelerini hazirla
     op_center = OperationCenterPage(page)
     mgmt_center = ManagementCenterPage(page)
+    srv_control = ServerControlPage(page)
     log_page = LogPage(page)
 
     # Ana içerik alanı
@@ -38,6 +40,8 @@ def main(page: ft.Page):
             main_content.content = await op_center.get_view()
         elif page_name == "Yönetim":
             main_content.content = await mgmt_center.get_view()
+        elif page_name == "Sunucu":
+            main_content.content = await srv_control.get_view()
         elif page_name == "Loglar":
             main_content.content = await log_page.get_view()
         elif page_name == "Ayarlar":
@@ -68,8 +72,8 @@ def main(page: ft.Page):
                         ),
                         
                         ft.Row([
-                            ft.ElevatedButton(
-                                "AYARLARI KAYDET", 
+                            ft.Button(
+                                content="AYARLARI KAYDET", 
                                 icon=ft.Icons.SAVE,
                                 bgcolor=AppColors.PRIMARY, 
                                 color="white",
@@ -95,7 +99,7 @@ def main(page: ft.Page):
                 ft.Icon(icon, size=20, color=AppColors.TEXT_MUTED),
                 ft.Text(text, size=14, weight="w500", color=AppColors.TEXT_MUTED),
             ], spacing=12),
-            padding=ft.padding.symmetric(15, 20),
+            padding=ft.Padding.symmetric(vertical=15, horizontal=20),
             border_radius=10,
             on_click=lambda _: asyncio.create_task(change_page(page_name)),
             on_hover=lambda e: self_hover(e),
@@ -114,10 +118,11 @@ def main(page: ft.Page):
                     ft.Icon(ft.Icons.LOCAL_SHIPPING, color=AppColors.PRIMARY, size=30),
                     ft.Text("MAVİ LOJİSTİK", size=18, weight="bold", color="white"),
                 ], alignment=ft.MainAxisAlignment.CENTER),
-                padding=ft.padding.only(top=20, bottom=40)
+                padding=ft.Padding.only(top=20, bottom=40)
             ),
             create_nav_item("Operasyon Merkezi", ft.Icons.DASHBOARD_ROUNDED, "Operasyon"),
             create_nav_item("Yönetim Paneli", ft.Icons.ADMIN_PANEL_SETTINGS_ROUNDED, "Yönetim"),
+            create_nav_item("Sunucu Kontrolü", ft.Icons.DNS_OUTLINED, "Sunucu"),
             create_nav_item("Sistem Logları", ft.Icons.TERMINAL_ROUNDED, "Loglar"),
             create_nav_item("Ayarlar", ft.Icons.SETTINGS_ROUNDED, "Ayarlar"),
             
@@ -125,7 +130,7 @@ def main(page: ft.Page):
             
             ft.Container(
                 content=ft.Text("v2.1.0 Premium", size=10, color=AppColors.TEXT_MUTED),
-                padding=ft.padding.only(left=20, bottom=20)
+                padding=ft.Padding.only(left=20, bottom=20)
             )
         ], spacing=5),
         width=250,
@@ -142,9 +147,9 @@ def main(page: ft.Page):
                 ft.CircleAvatar(content=ft.Text("Y"), bgcolor=AppColors.PRIMARY, radius=15),
             ], spacing=10)
         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-        padding=ft.padding.symmetric(10, 20),
+        padding=ft.Padding.symmetric(vertical=10, horizontal=20),
         bgcolor=AppColors.BG_DEEP,
-        border=ft.border.only(bottom=ft.border.BorderSide(1, "white10"))
+        border=ft.Border(bottom=ft.BorderSide(width=1, color="white10"))
     )
 
     layout = ft.Row(

@@ -54,7 +54,7 @@ class OperationCenterPage:
                     bgcolor=AppColors.BG_DEEP,
                     padding=15,
                     border_radius=12,
-                    border=ft.border.all(1, "white10"),
+                    border=ft.Border.all(width=1, color="white10"),
                     height=450,
                 ),
                 ft.Row([
@@ -102,7 +102,7 @@ class OperationCenterPage:
                 ft.Container(
                     content=ft.Column([self.table], scroll=ft.ScrollMode.ALWAYS),
                     expand=True,
-                    padding=ft.padding.only(top=10)
+                    padding=ft.Padding.only(top=10)
                 )
             ]),
             expand=True,
@@ -134,8 +134,8 @@ class OperationCenterPage:
                     border_radius=8
                 ),
                 ft.Column([
-                    ft.ElevatedButton(
-                        "SERVİSİ BAŞLAT", 
+                    ft.Button(
+                        content="SERVİSİ BAŞLAT", 
                         icon=ft.Icons.PLAY_ARROW,
                         bgcolor=AppColors.SUCCESS,
                         color="white",
@@ -143,8 +143,8 @@ class OperationCenterPage:
                         width=float("inf"),
                         height=45
                     ),
-                    ft.ElevatedButton(
-                        "SERVİSİ DURDUR", 
+                    ft.Button(
+                        content="SERVİSİ DURDUR", 
                         icon=ft.Icons.STOP,
                         bgcolor=AppColors.DANGER,
                         color="white",
@@ -171,9 +171,9 @@ class OperationCenterPage:
                 ], spacing=0)
             ], alignment=ft.MainAxisAlignment.START, spacing=15),
             bgcolor="white10",
-            padding=15,
+            padding=ft.Padding.all(15),
             border_radius=12,
-            border=ft.border.all(1, "white10")
+            border=ft.Border.all(width=1, color="white10")
         )
 
     async def _init_queue_async(self):
@@ -291,7 +291,7 @@ class OperationCenterPage:
             content=ft.Column([nerden, nereye, fiyat], tight=True),
             actions=[
                 ft.TextButton("İptal", on_click=lambda _: setattr(self.page.dialog, 'open', False) or self.page.update()),
-                ft.ElevatedButton("Kaydet", bgcolor=AppColors.SUCCESS, on_click=save_edit)
+                ft.Button(content="Kaydet", bgcolor=AppColors.SUCCESS, color="white", on_click=save_edit)
             ]
         )
         self.page.dialog.open = True

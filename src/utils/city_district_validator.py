@@ -20,8 +20,12 @@ class CityDistrictValidator:
             data_path = os.path.join(base_dir, 'data', 'il_ilçe_mahalle.json')
         
         self.data_path = data_path
+        # Load secondary defaults file if exists in the same directory
+        self.defaults_path = os.path.join(os.path.dirname(data_path), 'il_ilçeler.json')
+        
         self.city_map = {}  # Normalized City -> Set of normalized Districts
         self.district_reverse_map = {} # Normalized District -> List of Cities containing it
+        self.default_districts = {}
         
         self._load_data()
 
@@ -53,9 +57,23 @@ class CityDistrictValidator:
 
     def _load_data(self):
         try:
+            # 1. First load curated defaults from il_ilçeler.json if available
+            if os.path.exists(self.defaults_path):
+                try:
+                    with open(self.defaults_path, 'r', encoding='utf-8') as f:
+                        defaults_list = json.load(f)
+                    for item in defaults_list:
+                        c = self._normalize(item.get('il', ''))
+                        d = self._normalize(item.get('varsayılan_ilçe', ''))
+                        if c and d:
+                            self.default_districts[c] = d
+                    logger.info(f"Loaded {len(self.default_districts)} curated defaults from {self.defaults_path}")
+                except Exception as de:
+                    logger.warning(f"Could not load curated defaults: {de}")
+
+            # 2. Load main hierarchical data
             with open(self.data_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            self.default_districts = {}
             
             for entry in data:
                 city = self._normalize(entry.get('il', ''))
@@ -73,10 +91,16 @@ class CityDistrictValidator:
                 elif 'ilçe' in entry:
                     districts = [self._normalize(d) for d in entry.get('ilçe', [])]
                 
-                # Default district handling (optional in new format)
+                # Default district matching logic
+                # A. Check if specifically defined in this entry (highest priority)
                 default_dist = self._normalize(entry.get('varsayılan_ilçe', ''))
+                
+                # B. Use curated default if not defined in main entry
+                if not default_dist:
+                    default_dist = self.default_districts.get(city)
+                
+                # C. Final fallback heuristic: 'MERKEZ' or first in list
                 if not default_dist and districts:
-                    # Heuristic: if no default, use 'MERKEZ' or first one
                     default_dist = 'MERKEZ' if 'MERKEZ' in districts else districts[0]
                 
                 if city:

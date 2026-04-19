@@ -13,7 +13,7 @@ class LogViewer(ft.Container):
         self.log_content = ft.ListView(
             expand=True,
             spacing=2,
-            padding=10,
+            padding=ft.Padding.all(10),
             auto_scroll=True
         )
         
@@ -21,8 +21,8 @@ class LogViewer(ft.Container):
         self.content = self.log_content
         self.bgcolor = AppColors.BG_DEEP
         self.border_radius = 12
-        self.border = ft.border.all(1, "white10")
-        self.padding = 5
+        self.border = ft.Border.all(width=1, color="white10")
+        self.padding = ft.Padding.all(5)
 
     async def start_watch(self):
         self.is_watching = True
