@@ -38273,5 +38273,1810 @@
         "invalid_location": false
       }
     ]
+  },
+  {
+    "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+    "message_timestamp": 1776608736.0,
+    "createdAt": 1776608736.0,
+    "message_date": "2026-04-19T17:25:36",
+    "invalid_location": false,
+    "message_info": {
+      "body": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+      "sender": ".",
+      "sender_number": "905437327272",
+      "timestamp": 1776608736,
+      "chat_id": "120363214438145242@g.us",
+      "chat_name": "ELAZIĞ MAVİ LOJİSTİK 2"
+    },
+    "parse_timestamp": "2026-04-19T17:37:52.391376",
+    "total_shipments": 18,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "ARNAVUTKÖY",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "KOCAELİ",
+        "nereye_ilce": "DİLOVASI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "BOLU",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "DENİZLİ",
+        "nereye_ilce": "MERKEZEFENDİ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ANKARA",
+        "nereye_ilce": "YENİMAHALLE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "KIRIKKALE",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "HATAY",
+        "nereye_ilce": "SAMANDAĞ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "KAHRAMANMARAŞ",
+        "nereye_ilce": "TÜRKOĞLU",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "KAHRAMANMARAŞ",
+        "nereye_ilce": "DULKADİROĞLU",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "SİVAS",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "SİVAS",
+        "nereye_ilce": "KANGAL",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "SİVAS",
+        "nereye_ilce": "DİVRİĞİ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "SAMSUN",
+        "nereye_ilce": "İLKADIM",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "BAYBURT",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "TRABZON",
+        "nereye_ilce": "ORTAHİSAR",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ŞANLIURFA",
+        "nereye_ilce": "HARRAN",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ŞANLIURFA",
+        "nereye_ilce": "EYYÜBİYE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ELAZIĞ",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "BALIKESİR",
+        "nereye_ilce": "SINDIRGI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05437327272",
+        "aciklama": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "orijinal_mesaj": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "original_message": "20.04.2026 PAZARTESİ GÜNÜ SEVKİYATLARI Araçlar açık veya kapalı 13.60\n05437327272\n\nElazığ dan İstanbul Arnavutköy \nElazığ dan Kocaeli Dilovası 2 araç\nElazığ dan Bolu\nElazığ dan Denizli\nElazığ dan Ankara Yenimahalle \nElazığ dan Kırıkkale\nElazığ dan Hatay Samandağ \nElazığ dan Maraş Türkoğlu\nElazığ dan Maraş Dulkadiroğlu \nElazığ dan Sivas\nElazığ dan Sivas Kangal \nElazığ dan Sivas Divriği\nElazığ dan Samsun İlkadım\nElazığ dan Bayburt\nElazığ dan Trabzon \nElazığ dan Urfa Harran\nElazığ dan Urfa Eyyubi\n\nParça\nElazığ dan Balıkesir Sındırgı Kapalı araç olacak tırda 3.5 m hafif",
+        "message_id": "rFx5h4VZESQ.bbq7OfAorw-ghUBq520sJwc2g",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "KonmlFa8x_pcyA-gssBq53dgZXw0Q",
+    "message_timestamp": 1776609444.0,
+    "createdAt": 1776609444.0,
+    "message_date": "2026-04-19T17:37:24",
+    "invalid_location": false,
+    "message_info": {
+      "body": "YARIN YÜKLER\n📍KAYSERİ➡️TUZLA \n10 TON\n13/60 KAPALI \n☎️İRTİBAT:05373102033",
+      "sender": "Emre EKEN LOJİSTİK",
+      "sender_number": "905373102033",
+      "timestamp": 1776609444,
+      "chat_id": "120363389742870737@g.us",
+      "chat_name": "TÜRKİYE GENELİ YÜK PAYLAŞİMİ"
+    },
+    "parse_timestamp": "2026-04-19T17:38:41.738081",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "TUZLA",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05373102033",
+        "aciklama": "YARIN YÜKLER\n📍KAYSERİ➡️TUZLA \n10 TON\n13/60 KAPALI \n☎️İRTİBAT:05373102033",
+        "orijinal_mesaj": "YARIN YÜKLER\n📍KAYSERİ➡️TUZLA \n10 TON\n13/60 KAPALI \n☎️İRTİBAT:05373102033",
+        "original_message": "YARIN YÜKLER\n📍KAYSERİ➡️TUZLA \n10 TON\n13/60 KAPALI \n☎️İRTİBAT:05373102033",
+        "message_id": "KonmlFa8x_pcyA-gssBq53dgZXw0Q",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "Op81HjGxQI9z0w-gpYBq53lY_iIWg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-19T17:44:52.591045",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776609892.591314
+  },
+  {
+    "message_id": "OrK0feFXWIrouw-gowBq53lY_iIWg",
+    "message_timestamp": 1776609784.0,
+    "createdAt": 1776609784.0,
+    "message_date": "2026-04-19T17:43:04",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Yükleme Yeri : KNAUF Ankara\n\nToplam : 12 palet / 21 ton\n\nTeslimat : İstanbul – Göztepe",
+      "sender": "İlahi Adalet ",
+      "sender_number": "905323355413",
+      "timestamp": 1776609784,
+      "chat_id": "120363423605753946@g.us",
+      "chat_name": "Konya Yük Paylaşımı ( SADECE KONYA )"
+    },
+    "parse_timestamp": "2026-04-19T17:44:54.452657",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "ANKARA",
+        "nereden_ilce": "YENİMAHALLE",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "KADIKÖY",
+        "arac_tipi": [
+          "10 TEKER + 1360 + 860 + KIRKAYAK"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "DAMPERLİ",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05323355413",
+        "aciklama": "Yükleme Yeri : KNAUF Ankara\n\nToplam : 12 palet / 21 ton\n\nTeslimat : İstanbul – Göztepe",
+        "orijinal_mesaj": "Yükleme Yeri : KNAUF Ankara\n\nToplam : 12 palet / 21 ton\n\nTeslimat : İstanbul – Göztepe",
+        "original_message": "Yükleme Yeri : KNAUF Ankara\n\nToplam : 12 palet / 21 ton\n\nTeslimat : İstanbul – Göztepe",
+        "message_id": "OrK0feFXWIrouw-gowBq53lY_iIWg",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "pVYxuLhG.Te3TvkNS4_Z5g-gscBq52ICJPZWQ",
+    "message_timestamp": 1776609433.0,
+    "createdAt": 1776609433.0,
+    "message_date": "2026-04-19T17:37:13",
+    "invalid_location": false,
+    "message_info": {
+      "body": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+      "sender": "Demirtaş nakliyat",
+      "sender_number": "905458600051",
+      "timestamp": 1776609433,
+      "chat_id": "120363022640470361@g.us",
+      "chat_name": "POLATLI NAKLİYECİLER BİRLİĞİ"
+    },
+    "parse_timestamp": "2026-04-19T17:49:56.361571",
+    "total_shipments": 2,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05458600051",
+        "aciklama": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "orijinal_mesaj": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "original_message": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "message_id": "pVYxuLhG.Te3TvkNS4_Z5g-gscBq52ICJPZWQ",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05458600051",
+        "aciklama": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "orijinal_mesaj": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "original_message": "*YARIN SABAH YÜKLEMELİ*\n\n📌 NEVŞEHİR - İST.AVRUPA  TIR 🥔\n📌 NEVŞEHİR - KURTKÖY  TIR 🥔\n\n0545 860 00 51",
+        "message_id": "pVYxuLhG.Te3TvkNS4_Z5g-gscBq52ICJPZWQ",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "OkE1Nh9UGk.Z_g-gjQBq53gHPAA8Q",
+    "message_timestamp": 1776610166.0,
+    "createdAt": 1776610166.0,
+    "message_date": "2026-04-19T17:49:26",
+    "message_info": {
+      "body": "Finike zaho \n1 Frigo araç \nDepo yükleme \nYarın yükler \n0543 855 07 73 \nYük : NAR 🍷",
+      "sender": "~SERHAT LOJİSTİK 🌴",
+      "sender_number": "905438550773",
+      "timestamp": 1776610166,
+      "chat_id": "120363400939176177@g.us",
+      "chat_name": "🌎TÜRKİYE🌎İRAN🌎IRAK🌎NAKLİYAT"
+    },
+    "parse_timestamp": "2026-04-19T17:50:19.043552",
+    "total_shipments": 0,
+    "shipments": [],
+    "status": "duplicate"
+  },
+  {
+    "message_id": "OjFttHvUl6OoHg-gqEBq53bl9WDwg",
+    "message_timestamp": 1776609543.0,
+    "createdAt": 1776609543.0,
+    "message_date": "2026-04-19T17:39:03",
+    "invalid_location": false,
+    "message_info": {
+      "body": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+      "sender": "İsmail Şahin",
+      "sender_number": "905555055781",
+      "timestamp": 1776609543,
+      "chat_id": "120363381526201282@g.us",
+      "chat_name": "TÜRKİYE KISA DORSE DAMPER İŞLERİ"
+    },
+    "parse_timestamp": "2026-04-19T17:53:29.739699",
+    "total_shipments": 3,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "İZMİR",
+        "nereden_ilce": "ALİAĞA",
+        "nereye_il": "KÜTAHYA",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "860"
+        ],
+        "kasa_tipi": [
+          "DAMPERLİ"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05555055781",
+        "aciklama": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "orijinal_mesaj": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "original_message": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "message_id": "OjFttHvUl6OoHg-gqEBq53bl9WDwg",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "KÜTAHYA",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "BURSA",
+        "nereye_ilce": "GEMLİK",
+        "arac_tipi": [
+          "860"
+        ],
+        "kasa_tipi": [
+          "DAMPERLİ"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05555055781",
+        "aciklama": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "orijinal_mesaj": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "original_message": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "message_id": "OjFttHvUl6OoHg-gqEBq53bl9WDwg",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "KÜTAHYA",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "İZMİR",
+        "nereye_ilce": "ALİAĞA",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05555055781",
+        "aciklama": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "orijinal_mesaj": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "original_message": "*✅Aliağa 🔜 Kütahya dökme Petrokok sürekli iş.*\n\n*✅ Kütahya 🔜 Gemlik uzun kısa dorse olur.*\n\n*✅ Kütahya 🔜 Aliağa 13.60 sal dorse*\n \n*05555055781*\n*05422724343*",
+        "message_id": "OjFttHvUl6OoHg-gqEBq53bl9WDwg",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "rAcRbtY6JTe1ks0ZFWp7bw-ggkBq53RI_R9oA",
+    "message_timestamp": 1776610267.0,
+    "createdAt": 1776610267.0,
+    "message_date": "2026-04-19T17:51:07",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+      "sender": "ENGİN KUL",
+      "sender_number": "905337176180",
+      "timestamp": 1776610267,
+      "chat_id": "120363336632401312@g.us",
+      "chat_name": "🚛 🐝ARI NAKLİYAT MANİSA 🐝🚛"
+    },
+    "parse_timestamp": "2026-04-19T17:54:54.538660",
+    "total_shipments": 4,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "ORDU",
+        "nereden_ilce": "ALTINORDU",
+        "nereye_il": "ADANA",
+        "nereye_ilce": "ÇUKUROVA",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "FRİGO",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05337176180",
+        "aciklama": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "orijinal_mesaj": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "original_message": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "message_id": "rAcRbtY6JTe1ks0ZFWp7bw-ggkBq53RI_R9oA",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "ORDU",
+        "nereden_ilce": "ALTINORDU",
+        "nereye_il": "MERSİN",
+        "nereye_ilce": "AKDENİZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "FRİGO",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05337176180",
+        "aciklama": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "orijinal_mesaj": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "original_message": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "message_id": "rAcRbtY6JTe1ks0ZFWp7bw-ggkBq53RI_R9oA",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ADANA",
+        "nereye_ilce": "ÇUKUROVA",
+        "arac_tipi": [
+          "KAMYONET"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05337176180",
+        "aciklama": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "orijinal_mesaj": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "original_message": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "message_id": "rAcRbtY6JTe1ks0ZFWp7bw-ggkBq53RI_R9oA",
+        "invalid_location": false
+      },
+      {
+        "isim": "",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "AKSARAY",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "KAMYONET"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05337176180",
+        "aciklama": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "orijinal_mesaj": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "original_message": "Ordu  yükler\nAdana +mersin termokın tr\nNevşehir +Aksaray  firigo kamyon  tr olur 05337176180",
+        "message_id": "rAcRbtY6JTe1ks0ZFWp7bw-ggkBq53RI_R9oA",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "pb.XhVdQvadZDp9D1YMwQw-gqEBq53jrgAecA",
+    "message_timestamp": 1776610492.0,
+    "createdAt": 1776610492.0,
+    "message_date": "2026-04-19T17:54:52",
+    "invalid_location": true,
+    "message_info": {
+      "body": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+      "sender": "Emir Frigo Lojistik Beşir",
+      "sender_number": "905431347743",
+      "timestamp": 1776610492,
+      "chat_id": "120363416257830512@g.us",
+      "chat_name": "MEKAN  LOJİSTİK ULUSLARARASI NAKLİYE 🇹🇷🇦🇿🇬🇪🇰🇿🇹🇲🇺🇿🇷🇴🇧🇬"
+    },
+    "parse_timestamp": "2026-04-19T17:56:56.398473",
+    "total_shipments": 2,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "YOZGAT",
+        "nereden_ilce": "YERKÖY",
+        "nereye_il": "MOSKOVA",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05431347743",
+        "aciklama": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "orijinal_mesaj": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "original_message": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "message_id": "pb.XhVdQvadZDp9D1YMwQw-gqEBq53jrgAecA",
+        "invalid_location": true
+      },
+      {
+        "isim": "",
+        "nereden_il": "YOZGAT",
+        "nereden_ilce": "YERKÖY",
+        "nereye_il": "YAROSLAVL",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05431347743",
+        "aciklama": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "orijinal_mesaj": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "original_message": "*YÜKLEMELER DEVAM EDİYOR*\n\n*RUSYA MOSKOVA YÜKLEME ERENKÖY BOŞALTMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*RUSYA YAROSLAVL YÜKLEME ERENKÖY BOŞLATMA FRİGO TENTE FARK ETMEZ TIR LAZIM*\n\n*ARACI OLANLAR ÖZELDEN İRTİBATA GEÇEBİLİR*\n\n05431347743 \ninfo@emirfrigo.com.tr",
+        "message_id": "pb.XhVdQvadZDp9D1YMwQw-gqEBq53jrgAecA",
+        "invalid_location": true
+      }
+    ]
+  },
+  {
+    "message_id": "PrBMlmH4P.o1RFc-ghkBq53jrgAecA",
+    "message_timestamp": 1776607808.0,
+    "createdAt": 1776607808.0,
+    "message_date": "2026-04-19T17:10:08",
+    "invalid_location": false,
+    "message_info": {
+      "body": "*ARAZTRANSPORT MMC*\n🇦🇿*Ələt liman - İskenderun liman*🇹🇷\n23 ton / 4 tent\nYük- gübrə\nQiymət - 1100 usd (nağd)\n📞+905323326604",
+      "sender": "Arpacayli",
+      "sender_number": "994506161212",
+      "timestamp": 1776607808,
+      "chat_id": "120363416257830512@g.us",
+      "chat_name": "MEKAN  LOJİSTİK ULUSLARARASI NAKLİYE 🇹🇷🇦🇿🇬🇪🇰🇿🇹🇲🇺🇿🇷🇴🇧🇬"
+    },
+    "parse_timestamp": "2026-04-19T17:56:57.085098",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "ADANA",
+        "nereden_ilce": "KARATAŞ",
+        "nereye_il": "HATAY",
+        "nereye_ilce": "İSKENDERUN",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "1100 usd",
+        "telefon": "05323326604",
+        "aciklama": "*ARAZTRANSPORT MMC*\n🇦🇿*Ələt liman - İskenderun liman*🇹🇷\n23 ton / 4 tent\nYük- gübrə\nQiymət - 1100 usd (nağd)\n📞+905323326604",
+        "orijinal_mesaj": "*ARAZTRANSPORT MMC*\n🇦🇿*Ələt liman - İskenderun liman*🇹🇷\n23 ton / 4 tent\nYük- gübrə\nQiymət - 1100 usd (nağd)\n📞+905323326604",
+        "original_message": "*ARAZTRANSPORT MMC*\n🇦🇿*Ələt liman - İskenderun liman*🇹🇷\n23 ton / 4 tent\nYük- gübrə\nQiymət - 1100 usd (nağd)\n📞+905323326604",
+        "message_id": "PrBMlmH4P.o1RFc-ghkBq53jrgAecA",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "peiJt4re5pzgGH9sYlM6Ew-grABq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:21:54.543116",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694914.543144
+  },
+  {
+    "message_id": "pcZHHkl2VQeBTS66e5npZQ-ggsBq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:21:54.703832",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694914.703857
+  },
+  {
+    "message_id": "pb4Y34Y7NSlnvkpP7yOhAA-gmsBq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:21:55.755686",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694915.755719
+  },
+  {
+    "message_id": "PrCC3Atkf_jJjmk-wo0Bq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:21:58.848644",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694918.848666
+  },
+  {
+    "message_id": "O_1N8oZoECzI_A-gq4Bq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:01.359345",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694921.359365
+  },
+  {
+    "message_id": "Ou6w4DPN4oBxNw-gj8Bq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:02.402123",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694922.402142
+  },
+  {
+    "message_id": "pWYQxQv1T4r.5VLL4CiQ0Q-gsIBq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:04.549254",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694924.54927
+  },
+  {
+    "message_id": "rPqAENfjU6WY8eUVAIvdIg-ghcBq53jrgAecA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:09.666489",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694929.66651
+  },
+  {
+    "message_id": "PrA4fji5fdRz5Ec-wg8Bq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:21.846048",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694941.846062
+  },
+  {
+    "message_id": "paev8ijBUErZ3RkEAdBciw-gmUBq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:24.173781",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694944.173794
+  },
+  {
+    "message_id": "PrB4IR76w6updnc-wnYBq53TdzViFQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:26.417404",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694946.417425
+  },
+  {
+    "message_id": "PrACPMc2Sw.ruO0-gsQBq53TdzViFQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:27.407304",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694947.407355
+  },
+  {
+    "message_id": "PrDNGFlLj5VNRFI-gh4Bq53TdzViFQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:30.149225",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694950.14924
+  },
+  {
+    "message_id": "PrAAGj6tlSzEwm8-gvUBq53TdzViFQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:22:32.097523",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776694952.097553
+  },
+  {
+    "message_id": "pVwFzqRWNFC9mpbe4utwIw-gj0Bq53bl9WDwg",
+    "message_timestamp": 1776693315.0,
+    "createdAt": 1776693315.0,
+    "message_date": "2026-04-20T16:55:15",
+    "invalid_location": false,
+    "message_info": {
+      "body": "*ÇİNE DÖKME MADEN YÜKLER*\n\n*BÖZHÜYÜK BOŞALTIR*\n\n*3 KISA DORSE*\n\n*750+ KDV*\n\n*0541 536 75 73*",
+      "sender": "Altundaş Nakliyat İş Takip Ve Muhasebe",
+      "sender_number": "905467182193",
+      "timestamp": 1776693315,
+      "chat_id": "120363381526201282@g.us",
+      "chat_name": "TÜRKİYE KISA DORSE DAMPER İŞLERİ"
+    },
+    "parse_timestamp": "2026-04-20T17:23:33.284606",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "AYDIN",
+        "nereden_ilce": "ÇİNE",
+        "nereye_il": "BİLECİK",
+        "nereye_ilce": "BOZÜYÜK",
+        "arac_tipi": [
+          "860"
+        ],
+        "kasa_tipi": [
+          "DAMPERLİ"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "750+ KDV",
+        "telefon": "05415367573",
+        "aciklama": "*ÇİNE DÖKME MADEN YÜKLER*\n\n*BÖZHÜYÜK BOŞALTIR*\n\n*3 KISA DORSE*\n\n*750+ KDV*\n\n*0541 536 75 73*",
+        "orijinal_mesaj": "*ÇİNE DÖKME MADEN YÜKLER*\n\n*BÖZHÜYÜK BOŞALTIR*\n\n*3 KISA DORSE*\n\n*750+ KDV*\n\n*0541 536 75 73*",
+        "original_message": "*ÇİNE DÖKME MADEN YÜKLER*\n\n*BÖZHÜYÜK BOŞALTIR*\n\n*3 KISA DORSE*\n\n*750+ KDV*\n\n*0541 536 75 73*",
+        "message_id": "pVwFzqRWNFC9mpbe4utwIw-gj0Bq53bl9WDwg",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "Ounmgdi4OvZjfw-gkcBq53bl9WDwg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:23:46.303561",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695026.303575
+  },
+  {
+    "message_id": "rHVzpiO.AxBJqhKcsh2B.w-ghkBq53bl9WDwg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:23:46.691523",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695026.691537
+  },
+  {
+    "message_id": "rAr3TXTaxZ3evyz4ckaKlw-goYBq53bl9WDwg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:23:48.455463",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695028.455483
+  },
+  {
+    "message_id": "PrCSveBIpfSFQ2Q-wp0Bq53gLteKEA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:09.106980",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695049.106994
+  },
+  {
+    "message_id": "PrDTB7Y3FQm0YyE-gn4Bq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:09.610402",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695049.610424
+  },
+  {
+    "message_id": "rJIft5GIWuD2PHKOY2eV.g-groBq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:10.627366",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695050.627384
+  },
+  {
+    "message_id": "PrDMrTN7iWax4no-gm8Bq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:12.160529",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695052.160542
+  },
+  {
+    "message_id": "PrC82hE7Y3hBJqE-gqkBq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:14.596061",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695054.59608
+  },
+  {
+    "message_id": "OkW8cJ373jhpPw-gpIBq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:16.814589",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695056.814605
+  },
+  {
+    "message_id": "rPOUPN0R7EPalR9UCLAeBA-gv0Bq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:17.926144",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695057.926166
+  },
+  {
+    "message_id": "Ojl3bUdUBy4qeQ-gokBq53hV6bBVw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:24.097338",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695064.097355
+  },
+  {
+    "message_id": "PrD6u32tca1AufM-oijSyhulNw-YRQH3Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:24:34.354849",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695074.354864
+  },
+  {
+    "message_id": "PrAWVToTxjkQc4E-gkYBq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:10.130834",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695110.130851
+  },
+  {
+    "message_id": "pWaq1_dXycvCC4oNbVHW1w-guwBq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:12.571163",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695112.571181
+  },
+  {
+    "message_id": "pRydYj2HaTOKovcGh9nbLw-gi4Bq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:14.620468",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695114.620488
+  },
+  {
+    "message_id": "rNcX_WGpxPjBRErMrJYveA-gu4Bq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:16.517618",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695116.517655
+  },
+  {
+    "message_id": "OktR6RGi78lr.g-goYBq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:18.559475",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695118.559488
+  },
+  {
+    "message_id": "PrCfXWZKNhZY0rs-groBq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:19.187391",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695119.187407
+  },
+  {
+    "message_id": "rOoJ8i3IES7Nv0.DDCHVtw-goMBq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:19.728106",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695119.728122
+  },
+  {
+    "message_id": "Ounum4RsFqXhTA-gn4Bq53gHPAA8Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:23.626561",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695123.626599
+  },
+  {
+    "message_id": "rAa9FODHpqopzdY8shYsRA-giUBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:42.311246",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695142.311299
+  },
+  {
+    "message_id": "rBpvvGAPnqGwlEk9FsxwZA-gogBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:42.860110",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695142.860132
+  },
+  {
+    "message_id": "rELxHTUAdbsp9VH8dJ3bWg-gqIBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:45.465579",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695145.465592
+  },
+  {
+    "message_id": "rLXve5JG2eSxpGrutBRDkw-guUBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:47.144628",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695147.144646
+  },
+  {
+    "message_id": "rMniBEPK1i0u3WX9SjSTjg-gkwBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:48.025818",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695148.02584
+  },
+  {
+    "message_id": "rDeBZ0J_9Fz1c0fq3IxIQA-gmoBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:50.388084",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695150.388101
+  },
+  {
+    "message_id": "Oi.DBkIjxJqQuw-gtABq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:51.589393",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695151.589412
+  },
+  {
+    "message_id": "rDuPeMQLThKsd5QI9jtkjg-gtUBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:53.927156",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695153.927184
+  },
+  {
+    "message_id": "PrAduk0_VTy7eF8-guUBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:25:56.443268",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695156.443285
+  },
+  {
+    "message_id": "rPp0zjrkdGeFXsx0qmstVA-gpoBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:01.650711",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695161.650733
+  },
+  {
+    "message_id": "Ol6drH6SpwvRDw-glQBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:01.965594",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695161.965618
+  },
+  {
+    "message_id": "rPPvXKEZldsvqETntvyhUA-gpsBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:02.545830",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695162.545846
+  },
+  {
+    "message_id": "rLdM2hgNwQRDcbklxoAXgw-grwBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:06.001867",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695166.001883
+  },
+  {
+    "message_id": "PrDuGQfijSvE6g0-gjoBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:12.002432",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695172.002457
+  },
+  {
+    "message_id": "PrBaCi3pYmjKHS8-gmYBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:15.207663",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695175.207679
+  },
+  {
+    "message_id": "rKowvgwCR56Flkg1bz74iw-gt4Bq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:22.224880",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695182.224901
+  },
+  {
+    "message_id": "rP83smxrEPjVTonh5DUDFA-ggUBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:25.345064",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695185.345084
+  },
+  {
+    "message_id": "rHdlStq7O2Hqeqvi.TeygA-gs4Bq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:29.976575",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695189.976592
+  },
+  {
+    "message_id": "OoDe9Qy1ySX40g-gpEBq53RI_R9oA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:26:30.459020",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695190.459052
+  },
+  {
+    "message_id": "KnRnumD1EjWUWQ-goUBq53D.1nBbQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:51.381214",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695331.381232
+  },
+  {
+    "message_id": "PrCqOC.8P7Utr44-grUBq53D.1nBbQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:52.119232",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695332.119251
+  },
+  {
+    "message_id": "OmS2rj37txxrwQ-ghIBq53D.1nBbQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:53.426668",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695333.426687
+  },
+  {
+    "message_id": "PrCay_OGroMBED8-gsUBq53kZhngzg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:55.270813",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695335.270848
+  },
+  {
+    "message_id": "PrDZ8EqT37mwPWs-giEBq53kZhngzg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:57.580605",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695337.580626
+  },
+  {
+    "message_id": "PrDPMiKsGM1whsc-wmwBq53kZhngzg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:28:59.904256",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695339.904279
+  },
+  {
+    "message_id": "rIfAGWq0HhY20f77uIeZiA-glcBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:31:58.379260",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695518.379282
+  },
+  {
+    "message_id": "OkEkEz1aqC96iA-gvoBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:04.154565",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695524.154582
+  },
+  {
+    "message_id": "PrAzCbAtVOlL98c-wgUBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:04.341611",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695524.341626
+  },
+  {
+    "message_id": "rPlc4vASh0yUISH5PDVwyg-gqwBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:05.051394",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695525.051418
+  },
+  {
+    "message_id": "rKX0nGVW2y1cAPP9KNTkNA-guwBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:07.039072",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695527.039086
+  },
+  {
+    "message_id": "rOj6LM.x0soS8NkdRSQS7g-goEBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:07.492314",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695527.492335
+  },
+  {
+    "message_id": "rPcN5ZLMyPcQJSZxLgxJmg-gjwBq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:11.518101",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695531.518126
+  },
+  {
+    "message_id": "PrBqoHOtCoKMqgA-gjABq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:13.682878",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695533.682895
+  },
+  {
+    "message_id": "PrAuqEsMoqKkJGQ-gm0Bq52kFBHF2w",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:16.096515",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695536.096539
+  },
+  {
+    "message_id": "PrCckcag.F0TcaQ-wmcBq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:25.458196",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695545.458214
+  },
+  {
+    "message_id": "PrC_rDRCgFyuY4A-gosBq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:25.651612",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695545.651628
+  },
+  {
+    "message_id": "PrCV18Q72uqkVxA-gm4Bq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:29.340414",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695549.340428
+  },
+  {
+    "message_id": "rNf4_v0NtHN_bB8OxAdC.A-gqQBq53gwhGq8A",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:30.177636",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695550.177669
+  },
+  {
+    "message_id": "pTBF7ruzGvgcMZQTxHQtAA-glMBq53aki3uLw",
+    "message_timestamp": 1776692589.0,
+    "createdAt": 1776692589.0,
+    "message_date": "2026-04-20T16:43:09",
+    "invalid_location": false,
+    "message_info": {
+      "body": "SAPANCA SU YÜKLEME\nNİĞDE BOR BOŞALTMA \n26 BİN NAKİT ÖDEME\nAÇIK KAPALI TIR \n0552 092 88 56",
+      "sender": "Mandeş Nakliyat",
+      "sender_number": "905464642487",
+      "timestamp": 1776692589,
+      "chat_id": "120363377136365103@g.us",
+      "chat_name": "Toslog Grup Lojistik 5"
+    },
+    "parse_timestamp": "2026-04-20T17:32:40.021155",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "SAKARYA",
+        "nereden_ilce": "SAPANCA",
+        "nereye_il": "NİĞDE",
+        "nereye_ilce": "BOR",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05520928856",
+        "aciklama": "SAPANCA SU YÜKLEME\nNİĞDE BOR BOŞALTMA \n26 BİN NAKİT ÖDEME\nAÇIK KAPALI TIR \n0552 092 88 56",
+        "orijinal_mesaj": "SAPANCA SU YÜKLEME\nNİĞDE BOR BOŞALTMA \n26 BİN NAKİT ÖDEME\nAÇIK KAPALI TIR \n0552 092 88 56",
+        "original_message": "SAPANCA SU YÜKLEME\nNİĞDE BOR BOŞALTMA \n26 BİN NAKİT ÖDEME\nAÇIK KAPALI TIR \n0552 092 88 56",
+        "message_id": "pTBF7ruzGvgcMZQTxHQtAA-glMBq53aki3uLw",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "PrDf84R6iLv8Xbg-gm0Bq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:45.243936",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695565.243957
+  },
+  {
+    "message_id": "OhMCvk6Zlf4Y7w-glkBq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:46.644543",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695566.644562
+  },
+  {
+    "message_id": "PrA872j7cmEBbN4-gt4Bq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:48.514645",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695568.514663
+  },
+  {
+    "message_id": "rIj_YGLw1uVAfgdnii2YiA-go0Bq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:50.412273",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695570.412303
+  },
+  {
+    "message_id": "rNKgu35s7YHp0ldtTRvJow-gn8Bq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:52.762250",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695572.762278
+  },
+  {
+    "message_id": "pVAOel8ZeGgpC3qWpfjXIQ-gncBq53aki3uLw",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:32:54.997964",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695574.997979
+  },
+  {
+    "message_id": "PrBL1hTh9rGa8UY-wtIBq53gLteKEA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:18.322361",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695658.322378
+  },
+  {
+    "message_id": "rHd66IaKQ_6xC2Pjbnrjpg-gtIBq53gLteKEA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:19.790491",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695659.790506
+  },
+  {
+    "message_id": "OiveQLodkxaSIg-gtkBq53gLteKEA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:20.693183",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695660.693206
+  },
+  {
+    "message_id": "rL4No3e.gOHWeYdK2PDRjg-gm4Bq53gLteKEA",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:24.200211",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695664.200227
+  },
+  {
+    "message_id": "rNlRZ_ObeqqVh1.JaO1ddw-gh8Bq53gjSJ0eg",
+    "message_timestamp": 1776694191.0,
+    "createdAt": 1776694191.0,
+    "message_date": "2026-04-20T17:09:51",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Yükleme : tuzla \nBoşaltma : fethiye \n\n230*100(1 palet 1 ton) \n\nKapalı araca parça\n\nYağmur nakliyat \n0532 651 95 28",
+      "sender": "Hakan AY",
+      "sender_number": "905326519528",
+      "timestamp": 1776694191,
+      "chat_id": "120363402821530746@g.us",
+      "chat_name": "ŞEHİRLER ARASI PARSİYEL   KOMPLE NAKLİYE GRUBU"
+    },
+    "parse_timestamp": "2026-04-20T17:34:36.554321",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "İSTANBUL",
+        "nereden_ilce": "TUZLA",
+        "nereye_il": "MUĞLA",
+        "nereye_ilce": "FETHİYE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05326519528",
+        "aciklama": "Yükleme : tuzla \nBoşaltma : fethiye \n\n230*100(1 palet 1 ton) \n\nKapalı araca parça\n\nYağmur nakliyat \n0532 651 95 28",
+        "orijinal_mesaj": "Yükleme : tuzla \nBoşaltma : fethiye \n\n230*100(1 palet 1 ton) \n\nKapalı araca parça\n\nYağmur nakliyat \n0532 651 95 28",
+        "original_message": "Yükleme : tuzla \nBoşaltma : fethiye \n\n230*100(1 palet 1 ton) \n\nKapalı araca parça\n\nYağmur nakliyat \n0532 651 95 28",
+        "message_id": "rNlRZ_ObeqqVh1.JaO1ddw-gh8Bq53gjSJ0eg",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "OjaHjqspRUYZPQ-gqsBq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:51.623364",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695691.623379
+  },
+  {
+    "message_id": "rP7SuTzJ_llpIBDtNuiNqg-gq8Bq53gjSJ0eg",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:34:52.697525",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695692.697543
+  },
+  {
+    "message_id": "rMl7iWzGIOR4qw503mDBhw-gm0Bq53hV6bBVw",
+    "message_timestamp": 1776692869.0,
+    "createdAt": 1776692869.0,
+    "message_date": "2026-04-20T16:47:49",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Yarın Çerkezköy yükler Kırklareli'ne 6metre panel açık kapalı farketmez kamyon / kamyonet\n\n\n\nDAYSAL FRİGO LTD ŞTİ\nBeylikdüzü/ İSTANBUL\n\n05322656851 operasyon\n02126240100 \n\nİST.U.NET.TİO.34.1479\nÖdemelerimiz fatura kesim tarihinden itibaren 20 gün sonra Pazartesi günleri.",
+      "sender": "Daysal Frigo",
+      "sender_number": "905322656851",
+      "timestamp": 1776692869,
+      "chat_id": "120363406219198807@g.us",
+      "chat_name": "KARADENİZ SEVKİYAT 3"
+    },
+    "parse_timestamp": "2026-04-20T17:34:54.773338",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "isim": "",
+        "nereden_il": "TEKİRDAĞ",
+        "nereden_ilce": "ÇERKEZKÖY",
+        "nereye_il": "KIRKLARELİ",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "KAMYONET"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05322656851",
+        "aciklama": "Yarın Çerkezköy yükler Kırklareli'ne 6metre panel açık kapalı farketmez kamyon / kamyonet\n\n\n\nDAYSAL FRİGO LTD ŞTİ\nBeylikdüzü/ İSTANBUL\n\n05322656851 operasyon\n02126240100 \n\nİST.U.NET.TİO.34.1479\nÖdemelerimiz fatura kesim tarihinden itibaren 20 gün sonra Pazartesi günleri.",
+        "orijinal_mesaj": "Yarın Çerkezköy yükler Kırklareli'ne 6metre panel açık kapalı farketmez kamyon / kamyonet\n\n\n\nDAYSAL FRİGO LTD ŞTİ\nBeylikdüzü/ İSTANBUL\n\n05322656851 operasyon\n02126240100 \n\nİST.U.NET.TİO.34.1479\nÖdemelerimiz fatura kesim tarihinden itibaren 20 gün sonra Pazartesi günleri.",
+        "original_message": "Yarın Çerkezköy yükler Kırklareli'ne 6metre panel açık kapalı farketmez kamyon / kamyonet\n\n\n\nDAYSAL FRİGO LTD ŞTİ\nBeylikdüzü/ İSTANBUL\n\n05322656851 operasyon\n02126240100 \n\nİST.U.NET.TİO.34.1479\nÖdemelerimiz fatura kesim tarihinden itibaren 20 gün sonra Pazartesi günleri.",
+        "message_id": "rMl7iWzGIOR4qw503mDBhw-gm0Bq53hV6bBVw",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "rPAG1Zg91858E9KYQ.Efhw-ourSyhulNw-YRQH3Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:35:08.628977",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695708.629001
+  },
+  {
+    "message_id": "PrDgLyv_70nHLx0-ovbSyhulNw-YRQH3Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:35:10.174126",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695710.174147
+  },
+  {
+    "message_id": "rAQHNGbM39U7P25WJODOAQ-ohrSyhulNw-YRQH3Q",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-20T17:35:10.706502",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1776695710.706517
   }
 ]

@@ -25,54 +25,98 @@ class LogViewer(ft.Container):
         self.padding = ft.Padding.all(5)
 
     async def start_watch(self):
-        self.is_watching = True
-        last_size = 0
+        # Eğer zaten çalışıyorsa yeni bir tane başlatma
+        if getattr(self, "_active_task", False):
+            return
         
-        # Dosya yoksa oluştur (veya hata verme)
+        self._active_task = True
+        self.is_watching = True
+        
+        # Dosya yoksa oluştur
         if not os.path.exists(self.log_path):
-            os.makedirs(os.path.dirname(self.log_path), exist_ok=True)
-            with open(self.log_path, 'a') as f:
+            try:
+                os.makedirs(os.path.dirname(self.log_path), exist_ok=True)
+                with open(self.log_path, 'a') as f:
+                    pass
+            except:
                 pass
+
+        # ILK YÜKLEME OPTİMİZASYONU
+        try:
+            current_size = os.path.getsize(self.log_path)
+            if current_size > 20480: # 20KB
+                last_size = current_size - 20480
+                first_read = True
+            else:
+                last_size = 0
+                first_read = False
+        except:
+            last_size = 0
+            first_read = False
 
         while self.is_watching:
             try:
+                # Kontrolün sayfada olup olmadığını kontrol et
+                if not self.log_content.page:
+                    await asyncio.sleep(2)
+                    continue
+
+                if not os.path.exists(self.log_path):
+                    await asyncio.sleep(2)
+                    continue
+
                 current_size = os.path.getsize(self.log_path)
-                if current_size < last_size: # Dosya temizlenmiş olabilir
+                
+                if current_size < last_size:
                     self.log_content.controls.clear()
                     last_size = 0
+                    first_read = False
                 
                 if current_size > last_size:
                     with open(self.log_path, 'r', encoding='utf-8', errors='replace') as f:
                         f.seek(last_size)
-                        new_lines = f.readlines()
+                        lines = f.readlines()
                         
-                        for line in new_lines:
-                            color = "white"
-                            if "ERROR" in line or "CRITICAL" in line:
-                                color = AppColors.DANGER
-                            elif "WARNING" in line:
-                                color = AppColors.WARNING
-                            elif "SUCCESS" in line or "✅" in line:
-                                color = AppColors.SUCCESS
-                            elif "INFO" in line:
-                                color = "#64b5f6" # Light blue
-                            
-                            self.log_content.controls.append(
-                                ft.Text(
-                                    line.strip(),
-                                    color=color,
-                                    size=12,
-                                    font_family="Consolas"
+                        if first_read:
+                            lines = lines[1:] if len(lines) > 1 else []
+                            first_read = False
+
+                        if lines:
+                            for line in lines:
+                                line_text = line.strip()
+                                if not line_text: continue
+                                
+                                color = "white"
+                                if "ERROR" in line or "CRITICAL" in line or "[FAIL]" in line:
+                                    color = AppColors.DANGER
+                                elif "WARNING" in line or "[WARN]" in line:
+                                    color = AppColors.WARNING
+                                elif "SUCCESS" in line or "[OK]" in line:
+                                    color = AppColors.SUCCESS
+                                elif "INFO" in line or "[INFO]" in line:
+                                    color = "#64b5f6"
+                                
+                                self.log_content.controls.append(
+                                    ft.Text(line_text, color=color, size=11, font_family="Consolas")
                                 )
-                            )
-                        
-                        last_size = current_size
-                        self.update()
+                            
+                            if len(self.log_content.controls) > 500:
+                                self.log_content.controls = self.log_content.controls[-500:]
+                            
+                            last_size = current_size
+                            
+                            # Sayfaya hala bağlıysa güncelle
+                            if self.log_content.page:
+                                self.log_content.update()
                 
             except Exception as e:
-                print(f"Log watch error: {e}")
+                # Terminal log kirliliğini önlemek için sadece kritik hataları bas
+                if "Control must be added to the page first" not in str(e):
+                    print(f"Log watch error: {e}")
             
-            await asyncio.sleep(2) # 2 saniyede bir kontrol et
+            await asyncio.sleep(2)
+        
+        self._active_task = False
 
     def stop_watch(self):
         self.is_watching = False

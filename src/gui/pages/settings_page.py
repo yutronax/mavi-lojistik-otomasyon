@@ -86,47 +86,64 @@ class SettingsPage:
         self.page.update()
 
     async def get_view(self):
+        # Header (Yönetim Merkezi ile aynı stil)
+        header = ft.Row([
+            ft.Row([
+                ft.Icon(ft.Icons.SETTINGS_SUGGEST_ROUNDED, color=AppColors.PRIMARY, size=18),
+                ft.Text("Sistem Ayarları", size=24, weight="bold", color=AppColors.TEXT),
+            ]),
+            ft.IconButton(
+                icon=ft.Icons.SYNC,
+                icon_color=AppColors.PRIMARY,
+                on_click=lambda _: asyncio.create_task(self.load_settings()),
+                tooltip="Ayarları Yenile"
+            )
+        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
+
+        # Form Kartı
+        form_content = ft.Container(
+            content=ft.Column([
+                ft.Text("API Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
+                ft.Text("Gemini ve Whapi bağlantı bilgileri", size=12, color=AppColors.TEXT_MUTED),
+                ft.Divider(color="white10"),
+                
+                self.gemini_key_field,
+                self.whapi_token_field,
+                self.whapi_url_field,
+                
+                ft.Divider(height=20, color="transparent"),
+                
+                ft.Text("Uygulama Tercihleri", size=18, weight="bold", color=AppColors.TEXT),
+                ft.Divider(color="white10"),
+                self.refresh_interval_field,
+                
+                ft.Divider(height=40, color="transparent"),
+                
+                ft.Button(
+                    content="AYARLARI KAYDET",
+                    icon=ft.Icons.SAVE,
+                    bgcolor=AppColors.PRIMARY,
+                    color="white",
+                    on_click=lambda e: asyncio.create_task(self.save_settings(e)),
+                    height=50,
+                    width=float("inf")
+                ),
+            ], scroll=ft.ScrollMode.ADAPTIVE, spacing=15),
+            padding=30,
+            bgcolor=AppColors.SURFACE,
+            border_radius=15,
+            shadow=[AppStyles.CARD_SHADOW],
+            expand=True
+        )
+
         content = ft.Column(
             [
-                ft.Row([
-                    ft.Text("Ayarlar", style=AppStyles.HEADER_TITLE),
-                    ft.IconButton(icon=ft.Icon(icon="sync"), on_click=lambda _: asyncio.create_task(self.load_settings()))
-                ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                
-                ft.Divider(),
-                
-                ft.Container(
-                    content=ft.Column([
-                        ft.Text("API Yapılandırması", size=18, weight="bold"),
-                        ft.Row([self.gemini_key_field]),
-                        ft.Row([self.whapi_token_field]),
-                        ft.Row([self.whapi_url_field]),
-                        
-                        ft.Divider(height=20, color="transparent"),
-                        
-                        ft.Text("Uygulama Ayarları", size=18, weight="bold"),
-                        ft.Row([self.refresh_interval_field]),
-                        
-                        ft.Divider(height=40, color="transparent"),
-                        
-                        ft.Button(
-                            content="AYARLARI KAYDET",
-                            icon=ft.Icons.SAVE,
-                            bgcolor=AppColors.PRIMARY,
-                            color="white",
-                            on_click=lambda e: asyncio.create_task(self.save_settings(e)),
-                            height=50,
-                            width=float("inf")
-                        ),
-                    ], scroll=ft.ScrollMode.ADAPTIVE),
-                    padding=20,
-                    bgcolor=AppColors.SURFACE,
-                    border_radius=12,
-                    expand=True
-                )
+                header,
+                ft.Divider(color="white10", height=30),
+                form_content
             ],
             expand=True,
-            spacing=20
+            spacing=0
         )
 
         # İlk yükleme
