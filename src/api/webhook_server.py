@@ -155,8 +155,8 @@ def run_server(port=8080, use_ngrok=None):
         _loop_thread.start()
 
     # 5. Start HTTP Server
-    # Kullanıcının belirttiği özel IP: 10.114.0.2
-    server_address = ('10.114.0.2', port)
+    # Sunucu adresi: 0.0.0.0 (Tüm ağ arayüzlerini dinler)
+    server_address = ('0.0.0.0', port)
     _server_instance = HTTPServer(server_address, WhapiWebhookHandler)
     logger.info(f"[START] Webhook Sunucusu {server_address[0]}:{port} adresinde dinliyor...")
     

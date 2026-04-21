@@ -68,3 +68,7 @@ class AsyncDataService:
     async def save_config(self, key, value):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(self.executor, self.ds.save_config, key, value)
+
+    async def load_config(self, key):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(self.executor, self.ds.load_config, key)

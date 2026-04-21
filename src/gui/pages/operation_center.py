@@ -1,11 +1,13 @@
 import flet as ft
 import asyncio
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from src.gui.styles import AppColors, AppStyles
 from src.services.data_service import DataService
 from src.services.data_service_async import AsyncDataService
 from src.services.submission_queue import SubmissionQueue
+from src.utils.phone_utils import normalize_phone
+from src.utils.validators import validate_shipment as _validate_shipment_fields
 
 
 def _safe_list(v):
@@ -40,6 +42,10 @@ class OperationCenterPage:
         self._is_loading = False
         self._init_done = False
         self._base_options = {}  # arac/kasa/yuk tipleri
+        self.il_ilceler_data = []
+        self.approved_records = []
+        self.deleted_history = []
+        self.selected_shipment_indices = set()
 
         # --- Filtre ---
         self.time_filter = ft.Dropdown(
@@ -107,6 +113,13 @@ class OperationCenterPage:
                                 style=_btn_style_primary,
                             ),
                             ft.IconButton(
+                                icon=ft.Icons.DELETE_OUTLINE,
+                                on_click=lambda _: self.delete_current_message(),
+                                icon_size=20,
+                                icon_color=AppColors.DANGER,
+                                tooltip="Mesajı Sil",
+                            ),
+                            ft.IconButton(
                                 icon=ft.Icons.ARROW_FORWARD_IOS,
                                 on_click=lambda _: self.navigate_message(1),
                                 icon_size=20,
@@ -168,11 +181,23 @@ class OperationCenterPage:
                                 [
                                     ft.Icon(ft.Icons.LIST_ALT, color=AppColors.PRIMARY, size=22),
                                     self.center_header_text,
+                                    ft.IconButton(
+                                        icon=ft.Icons.ADD_CIRCLE_OUTLINE,
+                                        icon_color=AppColors.SUCCESS,
+                                        on_click=lambda _: self.add_new_shipment(),
+                                        tooltip="Yeni Sevkiyat Ekle",
+                                        icon_size=20
+                                    ),
                                 ]
                             ),
                             ft.Row(
                                 [
                                     self.time_filter,
+                                    ft.IconButton(
+                                        icon=ft.Icons.FILTER_ALT_OFF,
+                                        on_click=lambda _: self._reset_time_filter(),
+                                        tooltip="Filtreyi Sıfırla",
+                                    ),
                                     ft.IconButton(
                                         icon=ft.Icons.REFRESH,
                                         on_click=lambda _: asyncio.create_task(
@@ -349,6 +374,8 @@ class OperationCenterPage:
             if not self._base_options:
                 try:
                     self._base_options = await self.data_service.load_arac_kasa_tipleri()
+                    self.il_ilceler_data = await self.data_service.load_il_ilceler()
+                    self.approved_records = await self.data_service.load_approved_records()
                 except Exception:
                     pass
 
@@ -414,17 +441,8 @@ class OperationCenterPage:
             is_selected = mid == self.selected_mid
 
             # Zaman
-            ts = msg.get("timestamp") or msg.get("time", "")
-            time_str = ""
-            if ts:
-                try:
-                    if isinstance(ts, (int, float)):
-                        dt = datetime.fromtimestamp(ts)
-                    else:
-                        dt = datetime.strptime(str(ts).replace("T", " ")[:19], "%Y-%m-%d %H:%M:%S")
-                    time_str = dt.strftime("%H:%M")
-                except Exception:
-                    pass
+            dt = self._get_message_datetime(msg)
+            time_str = dt.strftime("%H:%M") if dt else ""
 
             # Mesaj önizlemesi
             body = msg.get("body") or msg.get("text") or msg.get("orjinal_mesaj", "")
@@ -594,8 +612,48 @@ class OperationCenterPage:
             self._safe_update(self.shipments_list)
             return
 
-        new_controls = []
+        # --- Adım 7: Çoklu Seçim & Toplu İşlem Üst Çubuğu ---
+        top_bar = ft.Container(
+            content=ft.Row(
+                [
+                    ft.Checkbox(
+                        label="Tümünü Seç",
+                        value=len(self.selected_shipment_indices) == len(shipments) and len(shipments) > 0,
+                        on_change=lambda e: self.toggle_select_all(e.control.value),
+                        fill_color=AppColors.SUCCESS
+                    ),
+                    ft.Row(
+                        [
+                            ft.ElevatedButton(
+                                "Çoklu Düzenle",
+                                icon=ft.Icons.EDIT_NOTE,
+                                color="white",
+                                bgcolor=AppColors.WARNING,
+                                on_click=lambda _: self.open_bulk_edit_dialog(),
+                                visible=len(self.selected_shipment_indices) > 0
+                            ),
+                            ft.ElevatedButton(
+                                f"Seçilenleri Onayla ({len(self.selected_shipment_indices)})",
+                                icon=ft.Icons.DONE_ALL,
+                                color="white",
+                                bgcolor=AppColors.SUCCESS,
+                                on_click=lambda _: asyncio.create_task(self.confirm_selected_shipments()),
+                                visible=len(self.selected_shipment_indices) > 0
+                            )
+                        ],
+                        spacing=10
+                    )
+                ],
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+            ),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=5),
+            margin=ft.Margin.only(bottom=10)
+        )
+        
+        new_controls = [top_bar]
         for idx, s in enumerate(shipments):
+            # Checkbox state
+            is_checked = idx in self.selected_shipment_indices
             nerden_il = s.get("nerden_il") or s.get("nereden_il", "")
             nerden_ilce = s.get("nerden_ilce") or s.get("nereden_ilce", "")
             nereye_il = s.get("nereye_il", "")
@@ -674,6 +732,11 @@ class OperationCenterPage:
                             [
                                 ft.Row(
                                     [
+                                        ft.Checkbox(
+                                            value=is_checked,
+                                            on_change=lambda e, i=idx: self.toggle_shipment_selection(i, e.control.value),
+                                            fill_color=AppColors.SUCCESS
+                                        ),
                                         ft.Icon(
                                             ft.Icons.ROUTE_ROUNDED,
                                             color=AppColors.ACCENT,
@@ -972,22 +1035,127 @@ class OperationCenterPage:
         self.page.dialog.open = True
         self.page.update()
 
+    def open_bulk_edit_dialog(self):
+        """Seçili sevkiyatların konum ve fiyat gibi ortak değerlerini toplu değiştirir"""
+        if not self.selected_mid or not self.selected_shipment_indices:
+            return
+            
+        msg = self.messages_cache.get(self.selected_mid)
+        if not msg or "shipments" not in msg:
+            return
+
+        nerden_il = ft.TextField(label="Nereden İl", border_radius=10, value="", expand=True)
+        nerden_ilce = ft.TextField(label="Nereden İlçe", border_radius=10, value="", expand=True)
+        nereye_il = ft.TextField(label="Nereye İl", border_radius=10, value="", expand=True)
+        nereye_ilce = ft.TextField(label="Nereye İlçe", border_radius=10, value="", expand=True)
+        fiyat = ft.TextField(label="Toplu Fiyat (ör. 15000)", border_radius=10, value="")
+        aciklama = ft.TextField(label="Toplu Açıklama", border_radius=10, value="")
+
+        async def apply_bulk_edit(e):
+            n_il = nerden_il.value.strip().upper()
+            n_ilce = nerden_ilce.value.strip()
+            ne_il = nereye_il.value.strip().upper()
+            ne_ilce = nereye_ilce.value.strip()
+            f = fiyat.value.strip()
+            a = aciklama.value.strip()
+
+            for idx in self.selected_shipment_indices:
+                try:
+                    shipment = msg["shipments"][idx]
+                except IndexError: 
+                    continue
+                
+                if n_il:
+                    shipment["nereden_il"] = n_il
+                    shipment["nerden_il"]  = n_il
+                if n_ilce:
+                    shipment["nereden_ilce"] = n_ilce
+                    shipment["nerden_ilce"]  = n_ilce
+                if ne_il: shipment["nereye_il"] = ne_il
+                if ne_ilce: shipment["nereye_ilce"] = ne_ilce
+                if f: shipment["fiyat"] = f
+                if a: shipment["aciklama"] = a
+
+            await self.data_service.save_unprocessed_messages({self.selected_mid: msg})
+            self.page.dialog.open = False
+            self._update_shipments_for_message(self.selected_mid)
+            try: self.page.update()
+            except: pass
+
+        self.page.dialog = ft.AlertDialog(
+            title=ft.Row([ft.Icon(ft.Icons.EDIT_NOTE, color=AppColors.WARNING), ft.Text("Çoklu Düzenleme")]),
+            content=ft.Column([
+                ft.Text("Sadece doldurduğunuz alanlar seçili kayıtlara uygulanacaktır.", size=12, color=AppColors.TEXT_MUTED),
+                ft.Row([nerden_il, nerden_ilce]),
+                ft.Row([nereye_il, nereye_ilce]),
+                fiyat,
+                aciklama
+            ], spacing=10, tight=True),
+            actions=[
+                ft.TextButton("İptal", on_click=lambda _: setattr(self.page.dialog, "open", False) or self.page.update()),
+                ft.Button("Tümüne Uygula", icon=ft.Icons.DONE_ALL, bgcolor=AppColors.WARNING, color="white", on_click=apply_bulk_edit)
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+        self.page.dialog.open = True
+        self.page.update()
+
     # ------------------------------------------------------------------
     # Sevkiyat Aksiyonları
     # ------------------------------------------------------------------
-    async def confirm_shipment(self, mid: str, idx: int):
+    async def confirm_shipment(self, mid: str, idx: int, force=False):
         try:
             msg = self.messages_cache.get(mid)
-            if not msg:
+            if not msg or "shipments" not in msg:
+                return
+            if idx >= len(msg["shipments"]):
                 return
             shipment = msg["shipments"][idx]
+
+            if not force:
+                is_valid, error_msg = self.validate_shipment_data(shipment)
+                if not is_valid:
+                    self._show_snackbar(f"Doğrulama Hatası:\n{error_msg}", is_error=True)
+                    return
+                
+                is_dup, info = self.check_duplicate_shipment(shipment)
+                if is_dup:
+                    def _on_dup_yes(e):
+                        self.page.dialog.open = False
+                        self.page.update()
+                        asyncio.create_task(self.confirm_shipment(mid, idx, force=True))
+                        
+                    def _on_dup_no(e):
+                        self.page.dialog.open = False
+                        self.page.update()
+
+                    alert = ft.AlertDialog(
+                        title=ft.Text("Mükerrer Kayıt Uyarısı!"),
+                        content=ft.Text(f"Bu güzergahta benzer bir kayıt var:\nFirma: {info['company']}\nRota: {info['route']}\nTel: {', '.join(info['phone'])}\nYine de onaylamak istiyor musunuz?"),
+                        actions=[
+                            ft.TextButton("İptal", on_click=_on_dup_no),
+                            ft.TextButton("Onayla", on_click=_on_dup_yes, style=ft.ButtonStyle(color=AppColors.DANGER)),
+                        ],
+                    )
+                    self.page.dialog = alert
+                    alert.open = True
+                    self.page.update()
+                    return
+
             shipment["onay_tarihi"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             if self.submission_queue:
                 self.submission_queue.add_task(shipment)
             await self.data_service.save_approved_records([shipment])
+            # Onaylanan listesin de güncel kalmasını sağla
+            self.approved_records.append(shipment)
+            
             del msg["shipments"][idx]
             if not msg["shipments"]:
                 await self.data_service.delete_unprocessed_message(mid)
+            else:
+                # Kalan shipmentları da diske yazmamız lazım
+                await self.data_service.save_unprocessed_messages({mid: msg})
+                
             await self.load_data()
         except Exception as e:
             print(f"confirm_shipment error: {e}")
@@ -995,14 +1163,136 @@ class OperationCenterPage:
     async def delete_shipment(self, mid: str, idx: int):
         try:
             msg = self.messages_cache.get(mid)
-            if not msg:
+            if not msg or "shipments" not in msg:
                 return
+            if idx >= len(msg["shipments"]):
+                return
+                
+            # Geri alma için kaydet
+            deleted = msg["shipments"][idx]
+            self.deleted_history.append({"type": "shipment", "mid": mid, "idx": idx, "data": deleted})
+            
             del msg["shipments"][idx]
             if not msg["shipments"]:
                 await self.data_service.delete_unprocessed_message(mid)
+            else:
+                await self.data_service.save_unprocessed_messages({mid: msg})
+                
             await self.load_data()
+            
+            self._show_snackbar(
+                "Sevkiyat silindi", 
+                action_text="Geri Al", 
+                on_action=lambda e: asyncio.create_task(self.undo_last_deletion())
+            )
         except Exception as e:
             print(f"delete_shipment error: {e}")
+
+    def add_new_shipment(self):
+        """Mevcut mesaja yeni boş bir sevkiyat ekler"""
+        if not self.selected_mid:
+            self._show_snackbar("Önce sol taraftan bir mesaj seçmelisiniz.", is_error=True)
+            return
+            
+        msg = self.messages_cache.get(self.selected_mid)
+        if not msg:
+            return
+            
+        empty_shipment = {
+            "nereden_il": "",
+            "nereden_ilce": "",
+            "nereye_il": "",
+            "nereye_ilce": "",
+            "arac_tipi": "",
+            "kasa_tipi": "",
+            "yuk_tipi": "",
+            "telefon": [],
+            "fiyat": "",
+            "isim": "",
+            "aciklama": "Manuel Eklendi",
+            "is_valid": False,
+            "onay_tarihi": None
+        }
+        
+        if "shipments" not in msg:
+            msg["shipments"] = []
+            
+        msg["shipments"].insert(0, empty_shipment)
+        
+        # Async kaydet ve callback mantığı çalışmadan view yenilemek için safe run:
+        asyncio.create_task(self._safe_add_and_edit_shipment(msg))
+        
+    async def _safe_add_and_edit_shipment(self, msg):
+        await self.data_service.save_unprocessed_messages({self.selected_mid: msg})
+        self._update_shipments_for_message(self.selected_mid)
+        self.open_edit_dialog(self.selected_mid, 0)
+        self.page.update()
+
+    # --- Çoklu Seçim Fonksiyonları ---
+    def toggle_shipment_selection(self, idx: int, value: bool):
+        if value:
+            self.selected_shipment_indices.add(idx)
+        else:
+            self.selected_shipment_indices.discard(idx)
+        self._update_shipments_for_message(self.selected_mid)
+
+    def toggle_select_all(self, value: bool):
+        if not self.selected_mid: return
+        msg = self.messages_cache.get(self.selected_mid)
+        if not msg or "shipments" not in msg: return
+        
+        if value:
+            self.selected_shipment_indices = set(range(len(msg["shipments"])))
+        else:
+            self.selected_shipment_indices.clear()
+        self._update_shipments_for_message(self.selected_mid)
+
+    async def confirm_selected_shipments(self):
+        if not self.selected_mid or not self.selected_shipment_indices:
+            return
+            
+        msg = self.messages_cache.get(self.selected_mid)
+        if not msg or "shipments" not in msg: return
+        
+        selected_indices = sorted(list(self.selected_shipment_indices), reverse=True)
+        confirmed_count = 0
+        error_count = 0
+        
+        for idx in selected_indices:
+            shipment = msg["shipments"][idx]
+            is_valid, _ = self.validate_shipment_data(shipment)
+            if not is_valid:
+                error_count += 1
+                continue
+                
+            is_duplicate = self.check_duplicate_shipment(shipment)
+            if is_duplicate:
+                # Toplu onayda mükerrer çıkanı atla, uyarı yığınını önlemek için (veya sayısına göre uyar)
+                error_count += 1
+                continue
+                
+            shipment["onay_tarihi"] = datetime.now().isoformat()
+            
+            payload = {"message_info": msg, "shipments": [shipment]}
+            ok = await self.data_service.save_approved(payload)
+            if ok:
+                del msg["shipments"][idx]
+                confirmed_count += 1
+            else:
+                error_count += 1
+                
+        if not msg["shipments"]:
+            await self.data_service.delete_unprocessed_message(self.selected_mid)
+        else:
+            await self.data_service.save_unprocessed_messages({self.selected_mid: msg})
+            
+        self.selected_shipment_indices.clear()
+        
+        if confirmed_count > 0:
+            self._show_snackbar(f"{confirmed_count} sevkiyat toplu olarak onaylandı!", is_error=False)
+            asyncio.create_task(self.load_data())
+        if error_count > 0:
+            self._show_snackbar(f"{error_count} sevkiyat bilgi eksikliği/mükerrer olduğu için atlandı.", is_error=True)
 
     # ------------------------------------------------------------------
     # Servis Yönetimi
@@ -1028,6 +1318,217 @@ class OperationCenterPage:
         self.service_process = None
         self.service_status_icon.color = "grey"
         self.service_status_text.value = "Servis Durdu"
+        self.page.update()
+
+    # ------------------------------------------------------------------
+    # Doğrulama ve Yardımcı Metotlar
+    # ------------------------------------------------------------------
+    def delete_current_message(self):
+        """Mevcut mesajı AlertDialog onayı ile siler"""
+        if not self.selected_mid:
+            return
+            
+        def _on_confirm_delete(e):
+            self.page.dialog.open = False
+            self.page.update()
+            asyncio.create_task(self._remove_message_by_id(self.selected_mid))
+            
+        def _on_cancel(e):
+            self.page.dialog.open = False
+            self.page.update()
+
+        alert = ft.AlertDialog(
+            title=ft.Text("Mesajı Sil"),
+            content=ft.Text("Bu mesajı ve içindeki tüm sevkiyatları silmek istediğinize emin misiniz?"),
+            actions=[
+                ft.TextButton("İptal", on_click=_on_cancel),
+                ft.TextButton("Sil", on_click=_on_confirm_delete, style=ft.ButtonStyle(color=AppColors.DANGER)),
+            ],
+        )
+        self.page.dialog = alert
+        alert.open = True
+        self.page.update()
+
+    def quick_delete_message(self, mid):
+        """Onaysız hızlı silme (otomatik akışlar vb. için)"""
+        if mid:
+            asyncio.create_task(self._remove_message_by_id(mid))
+
+    async def _remove_message_by_id(self, mid: str):
+        """Mesajı cache, disk ve UI'dan siler, bir sonraki mesaja geçer"""
+        if mid in self.messages_cache:
+            del self.messages_cache[mid]
+        if mid in self.sorted_message_ids:
+            self.sorted_message_ids.remove(mid)
+            
+        await self.data_service.delete_unprocessed_message(mid)
+        self._show_snackbar("Mesaj silindi")
+        
+        if self.sorted_message_ids:
+            if self.current_msg_index >= len(self.sorted_message_ids):
+                self.current_msg_index = 0
+            # Aynı indeksteki sıradaki öğeye geç (veya ilk elemana)
+            next_mid = self.sorted_message_ids[self.current_msg_index]
+            self._select_message(next_mid)
+        else:
+            self.selected_mid = None
+            self._show_empty_center()
+            self._update_message_display()
+            self._refresh_messages_list()
+        
+        self.msg_count_text.value = str(len(self.messages_cache))
+        self._update_nav_text()
+        self.page.update()
+        
+    async def undo_last_deletion(self):
+        """Son silinen sevkiyatı veya mesajı geri alır"""
+        if not self.deleted_history:
+            self._show_snackbar("Geri alınacak bir işlem yok.", is_error=True)
+            return
+            
+        last_action = self.deleted_history.pop()
+        
+        if last_action["type"] == "shipment":
+            mid = last_action["mid"]
+            data = last_action["data"]
+            
+            # Mesaj hala duruyorsa içine geri koyalım
+            msg = self.messages_cache.get(mid)
+            if msg:
+                # İndeksi korumaya çalış (veya sona ekle)
+                idx = last_action["idx"]
+                if idx <= len(msg["shipments"]):
+                    msg["shipments"].insert(idx, data)
+                else:
+                    msg["shipments"].append(data)
+                
+                await self.data_service.save_unprocessed_messages({mid: msg})
+            else:
+                # Mesaj silinmişse, yeni bir mesaj wrapper'ı ile geri mi getirsek? (Oldukça nadir ihtimal, basit tutalım)
+                self._show_snackbar("Mesaj artık bulunmadığı için geri alınamadı.", is_error=True)
+                return
+                
+        await self.load_data()
+        self._show_snackbar("Silme işlemi geri alındı.")
+        
+    def validate_shipment_data(self, shipment_dict):
+        """Shipment dict validation via validators.py"""
+        valid, error_msgs = _validate_shipment_fields(shipment_dict)
+        if hasattr(self, 'validate_location'):
+            il = shipment_dict.get('nereden_il', '')
+            ilce = shipment_dict.get('nereden_ilce', '')
+            if il and ilce and not self.validate_location(il, ilce):
+                error_msgs.append(f"Geçersiz Nereden İl/İlçe: {il}/{ilce}")
+                valid = False
+            il2 = shipment_dict.get('nereye_il', '')
+            ilce2 = shipment_dict.get('nereye_ilce', '')
+            if il2 and ilce2 and not self.validate_location(il2, ilce2):
+                error_msgs.append(f"Geçersiz Nereye İl/İlçe: {il2}/{ilce2}")
+                valid = False
+        return valid, "\n".join(error_msgs) if error_msgs else ""
+
+    def validate_location(self, il, ilce):
+        if not self.il_ilceler_data:
+            return True 
+        try:
+            target_il = str(il).strip().upper()
+            target_ilce = str(ilce).strip().upper()
+            
+            # Bazı bilinen kısaltmalar
+            if target_ilce == "MERKEZ": return True
+            
+            for province in self.il_ilceler_data:
+                if isinstance(province, dict) and self._normalize_il_name(province.get('il', '')) == self._normalize_il_name(target_il):
+                    ilce_list = [self._normalize_il_name(str(i).strip()) for i in province.get('ilceler', [])]
+                    return self._normalize_il_name(target_ilce) in ilce_list
+            return False
+        except Exception:
+            return False
+
+    def check_duplicate_shipment(self, shipment_dict):
+        try:
+            phone = shipment_dict.get('telefon', [])
+            if isinstance(phone, str):
+                phone = [phone]
+            # Normalizasyon
+            phone = [normalize_phone(p) for p in phone]
+                
+            nereden_il = self._normalize_il_name(str(shipment_dict.get('nereden_il', '')).strip())
+            nereye_il = self._normalize_il_name(str(shipment_dict.get('nereye_il', '')).strip())
+
+            for existing in self.approved_records:
+                existing_phone = existing.get('telefon', [])
+                if isinstance(existing_phone, str):
+                    existing_phone = [existing_phone]
+                existing_phone = [normalize_phone(p) for p in existing_phone]
+                    
+                existing_nereden = self._normalize_il_name(str(existing.get('nereden_il', '')).strip())
+                existing_nereye = self._normalize_il_name(str(existing.get('nereye_il', '')).strip())
+
+                if (phone and existing_phone and set(phone) & set(existing_phone) and 
+                    nereden_il == existing_nereden and nereye_il == existing_nereye):
+                    return True, {
+                        'phone': existing_phone,
+                        'route': f"{existing_nereden} → {existing_nereye}",
+                        'company': existing.get('isim', 'Bilinmeyen')
+                    }
+            return False, None
+        except Exception as e:
+            print(f"DEBUG: Error checking duplicates: {e}")
+            return False, None
+
+    def _normalize_il_name(self, il_name):
+        if not il_name: return ""
+        return str(il_name).upper().replace('İ', 'I').replace('Ş', 'S').replace('Ğ', 'G').replace('Ü', 'U').replace('Ö', 'O').replace('Ç', 'C')
+
+    def _get_message_datetime(self, msg):
+        """Mesajdan datetime çıkarır. 4 farklı format desteği."""
+        ts = msg.get('timestamp') or msg.get('time') or msg.get('createdAt')
+        if not ts and 'message_info' in msg:
+            ts = msg['message_info'].get('timestamp') or msg['message_info'].get('createdAt')
+            
+        if not ts: return None
+        
+        try:
+            if isinstance(ts, (int, float)):
+                return datetime.fromtimestamp(ts)
+            
+            ts_str = str(ts).strip()
+            if 'T' in ts_str:
+                return datetime.fromisoformat(ts_str.replace('Z', '+00:00')).replace(tzinfo=None)
+            if len(ts_str) >= 19 and ts_str[4] == '-':
+                return datetime.strptime(ts_str[:19], "%Y-%m-%d %H:%M:%S")
+            if len(ts_str) >= 19 and ts_str[4] == '.':
+                return datetime.strptime(ts_str[:19], "%Y.%m.%d %H:%M:%S")
+            if len(ts_str) >= 19 and ts_str[2] == '.':
+                return datetime.strptime(ts_str[:19], "%d.%m.%Y %H:%M:%S")
+            return None
+        except Exception:
+            return None
+
+    def _reset_time_filter(self):
+        """Zaman filtresini tümü olarak sıfırlar ve yükler"""
+        self.time_filter.value = "all"
+        self.page.update()
+        asyncio.create_task(self.load_data())
+
+    def _get_ilce_list(self, il_name):
+        if not self.il_ilceler_data or not il_name: return []
+        nil = self._normalize_il_name(il_name)
+        for p in self.il_ilceler_data:
+            if self._normalize_il_name(p.get('il', '')) == nil:
+                return p.get('ilceler', [])
+        return []
+
+    def _show_snackbar(self, msg, is_error=False, action_text=None, on_action=None):
+        sb = ft.SnackBar(ft.Text(msg), bgcolor=AppColors.DANGER if is_error else AppColors.SUCCESS)
+        if action_text and on_action:
+            sb.action = action_text
+            sb.on_action = on_action
+            # Varsayılan action rengini belirginleştirelim
+            sb.action_color = "white"
+        self.page.snack_bar = sb
+        self.page.snack_bar.open = True
         self.page.update()
 
     # ------------------------------------------------------------------

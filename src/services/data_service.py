@@ -105,6 +105,41 @@ class DataService:
         # Disk temizlik servisi artık DataService tarafından değil, orchestrator tarafından yönetiliyor
         # veya manuel olarak cleanup_storage() çağrılarak yapılıyor.
     
+    # ==================== APP CONFIG ====================
+    
+    def save_config(self, key: str, value: Any):
+        """
+        Purpose:      Save a configuration dictionary under a given key
+        Inputs:       key (str) - config section name, value (Any) - config data
+        Outputs:      None
+        Dependencies: file_operations.save_json_safe
+        Usage:        Settings page saves Ollama/Whapi config
+        """
+        config_file = os.path.join(str(self.user_data_dir), 'app_config.json')
+        try:
+            existing = load_json_safe(config_file) or {}
+            existing[key] = value
+            save_json_safe(config_file, existing)
+            logger.info(f"Config saved: {key}")
+        except Exception as e:
+            logger.error(f"Failed to save config '{key}': {e}")
+
+    def load_config(self, key: str) -> Optional[Dict]:
+        """
+        Purpose:      Load a configuration dictionary by key
+        Inputs:       key (str) - config section name
+        Outputs:      dict or None
+        Dependencies: file_operations.load_json_safe
+        Usage:        Settings page loads Ollama/Whapi config
+        """
+        config_file = os.path.join(str(self.user_data_dir), 'app_config.json')
+        try:
+            data = load_json_safe(config_file) or {}
+            return data.get(key)
+        except Exception as e:
+            logger.error(f"Failed to load config '{key}': {e}")
+            return None
+
     # ==================== UNPROCESSED MESSAGES ====================
     
     def load_unprocessed_messages(self, filter_today: bool = True, hours_back: Optional[float] = None) -> Dict[str, Dict]:
@@ -328,6 +363,29 @@ class DataService:
         except Exception as e:
             logger.error(f"Error during purge_old_messages: {e}")
             return 0
+
+    def delete_unprocessed_message(self, message_id: str) -> bool:
+        """Belirtilen ID'deki işlenmemiş mesajı diskten güvenle siler."""
+        try:
+            if not os.path.exists(self.onaylanmamis_file):
+                return False
+                
+            data = load_json_safe(self.onaylanmamis_file, default=[])
+            if not isinstance(data, list):
+                return False
+                
+            original_len = len(data)
+            kept_data = [d for d in data if d.get('message_id') != message_id and d.get('id') != message_id]
+            
+            if len(kept_data) < original_len:
+                persistence_manager.queue_write(self.onaylanmamis_file, kept_data)
+                logger.info(f"Deleted unprocessed message: {message_id}")
+                return True
+                
+            return False
+        except Exception as e:
+            logger.error(f"Error deleting unprocessed message {message_id}: {e}")
+            return False
 
     def append_unprocessed_log(self, entries: List[Dict]) -> bool:
         """

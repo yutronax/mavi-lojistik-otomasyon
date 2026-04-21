@@ -15,16 +15,19 @@ import json
 import re
 from typing import List, Dict, Optional, Tuple
 from pydantic import BaseModel, Field
+import logging
 
-# Gemini client (Gemini-only)
+from src.utils.common import get_root_path
+
+logger = logging.getLogger(__name__)
+
+# Ollama/LLM adapter (OpenAI-compatible client)
 try:
-    from src.utils.gemini_adapter import GeminiClient
-    GEMINI_AVAILABLE = True
+    from openai import OpenAI
     OPENAI_AVAILABLE = True
 except ImportError:
-    GEMINI_AVAILABLE = False
     OPENAI_AVAILABLE = False
-    logger.debug("Gemini client not available")
+    logger.debug("OpenAI SDK not available - Ollama bridge disabled")
 
 # Matcher and helper imports (moved out of gemini_final_batch)
 try:
@@ -44,10 +47,6 @@ except Exception:
     ShipmentList = None
     validate_type_values = None
     load_json_file = None
-
-from src.utils.common import get_root_path
-import logging
-logger = logging.getLogger(__name__)
 
 # ============================================================================
 # OPENAI API ENTEGRASYONU
@@ -367,127 +366,66 @@ def _process_single_chunk(chunk: str, message_id: str, client, location_matcher,
     """
     global_types_section = _extract_global_type_section(chunk)
     
-    prompt = f"""AÃ…Å¸aÃ„Å¸Ã„Â±daki WhatsApp mesajÃ„Â±ndan lojistik sevkiyat bilgilerini ÃƒÂ§Ã„Â±kar.
+    # Güçlendirilmiş Yapılandırılmış İstem (Llama 3.1 Optimizasyonu)
+    prompt = f"""
+Sana verilen lojistik mesajındaki sevkiyat bilgilerini analiz et ve JSON formatında döndür.
 
-MESAJ:
-{chunk}
+### ANALİZ ADIMLARI:
+1. GÜZERGAH TESPİTİ: "→", "=>", "-", "/", "den", "dan", "istikamet", "yönü" gibi ifadeleri bul.
+2. COĞRAFİ DOĞRULAMA: 
+   - İlçe belirtilmişse, o ilçenin BAĞLI OLDUĞU İLİ bul (Örn: Lüleburgaz -> KIRKLARELİ, Gebze -> KOCAELİ, İnegöl -> BURSA).
+   - İl ve İlçe isimlerini mutlaka BÜYÜK HARFLE yaz.
+3. ARAÇ VE KASA TİPİ: Mesajdaki anahtar kelimelerden (13.60, Tır, Onteker, Kamyon, Açık, Tenteli, Frigo vb.) tespiti yap.
+4. ÇOKLU SEVKİYAT: Mesajda birden fazla rota varsa her biri için ayrı JSON objesi oluştur.
 
-GLOBAL TÃ„Â°P Ã„Â°PUÃƒâ€¡LARI (mesajÃ„Â±n baÃ…Å¸Ã„Â±):
-{global_types_section}
-
-KRÃ„Â°TÃ„Â°K KURALLAR:
-1. EMOJÃ„Â° VE Ãƒâ€“ZEL KARAKTERLER: Mesajda Ã¢Ââ€, Ã¢Å¾Â¡, *, vb. gibi emoji ve ÃƒÂ¶zel karakterler olabilir. 
-   BUNLARI TAMAMEN GÃƒâ€“RMEZDEN GEL! Sadece lojistik bilgileri ÃƒÂ§Ã„Â±kar.
-   Ãƒâ€“rnek: "Ã¢Ââ€Ã¢Ââ€*FRÃ„Â°GO | +4 DERECE*Ã¢Ââ€Ã¢Ââ€" Ã¢â€ â€™ sadece "FRÃ„Â°GO" bilgisini al, emojileri yok say.
-
-2. GÃƒÅ“ZERGAH TESPÃ„Â°TÃ„Â°: "Ã¢Å¾Â¡", "Ã¢â€ â€™", "-", "Ã¢â‚¬â€œ" gibi iÃ…Å¸aretler gÃƒÂ¼zergah belirtir.
-   Ãƒâ€“rnek: "LÃƒÂ¼leburgaz Ã¢Å¾Â¡ Silivri" Ã¢â€ â€™ nereden_il: LÃƒÅ“LEBURGAZ, nereye_il: SÃ„Â°LÃ„Â°VRÃ„Â°
-
-3. TELEFON NUMARALARI: TÃƒÂ¼m telefon numaralarÃ„Â±nÃ„Â± topla ve telefon alanÃ„Â±na ekle.
-   Ãƒâ€“rnek: "*0 506 156 32 10*" ve "*0 555 028 32 06*" Ã¢â€ â€™ telefon: "0 506 156 32 10, 0 555 028 32 06"
-
-4. FÃ„Â°RMA/KÃ„Â°Ã…Å¾Ã„Â° ADI: MesajÃ„Â±n sonunda veya baÃ…Å¸Ã„Â±nda firma/kiÃ…Å¸i adÃ„Â± olabilir.
-   Ãƒâ€“rnek: "*FASTLOG LOJÃ„Â°STÃ„Â°K*" Ã¢â€ â€™ isim: "FASTLOG LOJÃ„Â°STÃ„Â°K"
-
-5. ARAÃƒâ€¡/KASA TÃ„Â°PÃ„Â°: "Frigo TÃ„Â±r", "Tenteli", "AÃƒÂ§Ã„Â±k", "KapalÃ„Â±" gibi ifadeleri algÃ„Â±la.
-   Ãƒâ€“rnek: "Frigo TÃ„Â±r" Ã¢â€ â€™ kasa_tipi: ["FRÃ„Â°GO"], arac_tipi: ["1360"]
-
-Ãƒâ€¡Ã„Â±karÃ„Â±lmasÃ„Â± gereken bilgiler:
-- isim: KiÃ…Å¸i veya firma adÃ„Â± (varsa, EMOJÃ„Â° VE Ãƒâ€“ZEL KARAKTERLERÃ„Â° Ãƒâ€¡IKAR)
-- nereden_il: KalkÃ„Â±Ã…Å¸ ili (BÃƒÅ“YÃƒÅ“K HARF, ZORUNLU - AÃ…Å¾AÃ„Å¾IDAKÃ„Â° Ã„Â°LLERDEN BÃ„Â°RÃ„Â° OLMALI)
-- nereden_ilce: KalkÃ„Â±Ã…Å¸ ilÃƒÂ§esi (ZORUNLU - Ã„Â°lin ilÃƒÂ§elerinden biri olmalÃ„Â±, eÃ„Å¸er mesajda yoksa varsayÃ„Â±lan ilÃƒÂ§eyi kullan)
-- nereye_il: VarÃ„Â±Ã…Å¸ ili (BÃƒÅ“YÃƒÅ“K HARF, ZORUNLU - AÃ…Å¾AÃ„Å¾IDAKÃ„Â° Ã„Â°LLERDEN BÃ„Â°RÃ„Â° OLMALI)
-- nereye_ilce: VarÃ„Â±Ã…Å¸ ilÃƒÂ§esi (ZORUNLU - Ã„Â°lin ilÃƒÂ§elerinden biri olmalÃ„Â±, eÃ„Å¸er mesajda yoksa varsayÃ„Â±lan ilÃƒÂ§eyi kullan)
-- arac_tipi: AraÃƒÂ§ tipi (liste olarak, ÃƒÂ¶rn: ["1360"] - varsayÃ„Â±lan: ["1360"])
-- kasa_tipi: Kasa tipi (liste olarak, ÃƒÂ¶rn: ["FRÃ„Â°GO"], ["AÃƒâ€¡IK"], ["KAPALI"] - varsayÃ„Â±lan: ["AÃƒâ€¡IK", "KAPALI"])
-- yuk_tipi: YÃƒÂ¼k tipi (liste olarak, ÃƒÂ¶rn: ["KOMPLE"] - varsayÃ„Â±lan: ["KOMPLE"])
-- fiyat: Fiyat bilgisi (varsayÃ„Â±lan: "SORUNUZ")
-- telefon: Telefon numarasÃ„Â±(larÃ„Â±) - TÃƒÅ“M NUMARALARI TOPLA, virgÃƒÂ¼lle ayÃ„Â±r (varsa)
-- aciklama: Ek aÃƒÂ§Ã„Â±klama (varsa, EMOJÃ„Â°LERÃ„Â° Ãƒâ€¡IKAR)
-
-Ãƒâ€“NEMLÃ„Â° KURALLAR:
-1. nereden_il ve nereye_il KESÃ„Â°NLÃ„Â°KLE aÃ…Å¸aÃ„Å¸Ã„Â±daki geÃƒÂ§erli illerden biri olmalÃ„Â±
-2. nereden_ilce ve nereye_ilce KESÃ„Â°NLÃ„Â°KLE ilin ilÃƒÂ§elerinden biri olmalÃ„Â±
-3. EÃ„Å¸er mesajda sadece ilÃƒÂ§e yazÃ„Â±yorsa (ÃƒÂ¶rn: "Gebze", "Biga"), o ilÃƒÂ§enin baÃ„Å¸lÃ„Â± olduÃ„Å¸u ili de bul ve yaz
-4. Ã„Â°l ve ilÃƒÂ§e alanlarÃ„Â± ASLA null veya boÃ…Å¸ kalmamalÃ„Â±
-5. EÃ„Å¸er mesajda birden fazla gÃƒÂ¼zergah varsa (her satÃ„Â±r veya "Ã¢â€ â€™", "-", "Ã¢Å¾Â¡" ile ayrÃ„Â±lmÃ„Â±Ã…Å¸), HER BÃ„Â°RÃ„Â° Ã„Â°Ãƒâ€¡Ã„Â°N AYRI SEVKIYAT OLUÃ…Å¾TUR
-6. SATIR GEÃ„â€¡Ã„Â°Ã…Å¾LERÃ„Â°: BazÃ„Â± sevkiyatlarda bilgiler (ÃƒÂ¶rn: araÃƒÂ§ tipi, fiyat) bir alt satÃ„Â±ra kaymÃ„Â±Ã…Å¾ olabilir. Alt satÃ„Â±rdaki bilgi bir ÃƒÂ¶nceki gÃƒÂ¼zergahla iliÃ…Å¸kiliyse onu aynÃ„Â± sevkiyata dahil et.
-7. AYIRAÃƒâ€¡LAR: "Damperli/TÃ„Â±r", "TÃ„Â±r-Kamyon" gibi "/" veya "-" ile ayrÃ„Â±lmÃ„Â±Ã…Å¾ tÃƒÂ¼m tipleri algÃ„Â±la ve listeye ekle.
-8. Aciklama ve isim alanlarÃ„Â±na emoji KOYMA, sadece metin yaz
-9. Telefon numaralarÃ„Â±nÃ„Â± topla: TÃƒÂ¼m numaralarÃ„Â± bul ve virgÃƒÂ¼lle ayÃ„Â±rarak telefon alanÃ„Â±na ekle
-
-KRÃ„Â°TÃ„Â°K - SATIR BAZLI TÃ„Â°P TESPÃ„Â°TÃ„Â°:
-1. MESAJIN HER SATIRINI AYRI ANALÃ„Â°Z ET.
-2. SatÃ„Â±rda kasa/araÃƒÂ§/yÃƒÂ¼k tipini belirten kelimeler (AÃƒâ€¡IK, KAPALI, TENTELÃ„Â°, FRÃ„Â°GO, TERMOKÃ„Â°N, SOÃ„Å¾UK, 1360, 860, 40 AYAK, 10 TEKER, vb.) varsa:
-   - O satÃ„Â±r iÃƒÂ§in SADECE bu kelimelerin tanÃ„Â±mladÃ„Â±Ã„Å¸Ã„Â± tipleri kullan.
-   - Global tip ipuÃƒÂ§larÃ„Â±nÃ„Â± bu satÃ„Â±r iÃƒÂ§in kullanma.
-3. SatÃ„Â±rda tip kelimesi YOKSA:
-   - Global tip ipuÃƒÂ§larÃ„Â±nda belirtilen kasa/araÃƒÂ§/yÃƒÂ¼k tiplerini kullan (ÃƒÂ¶rn: "AraÃƒÂ§lar aÃƒÂ§Ã„Â±k veya kapalÃ„Â± 13.60").
-4. SatÃ„Â±rda sadece kasa tipi belirtilmiÃ…Å¸se kasa satÃ„Â±rdan, araÃƒÂ§/yÃƒÂ¼k globalden alÃ„Â±nabilir.
-5. SatÃ„Â±rda sadece araÃƒÂ§ tipi belirtilmiÃ…Å¸se araÃƒÂ§ satÃ„Â±rdan, kasa/yÃƒÂ¼k globalden alÃ„Â±nabilir.
-
-TÃ„Â°P ALGILAMA:
-- KASA: AÃƒâ€¡IK, ACIK, KAPALI, TENTELÃ„Â°, TENTELI, FRÃ„Â°GO, FRIGO, TERMOKÃ„Â°N, TERMOKIN, SOÃ„Å¾UK, SOGUK
-- ARAÃƒâ€¡: 1360, 13.60, 13,60, TIR, TIR, 860, 8.60, 8,60, 40 AYAK, 40AYAK, 10 TEKER, 10TEKER
-- YÃƒÅ“K: KOMPLE, PARÃƒâ€¡A, PARCA, PALETLÃ„Â°, PALETLÃ„Â°
-
-Ãƒâ€“RNEKLER:
-- SatÃ„Â±r: "ElazÃ„Â±Ã„Å¸ dan Mardin Nusaybin KAPALI 13.60" Ã¢â€ â€™ kasa_tipi ["KAPALI"], arac_tipi ["1360"]
-- SatÃ„Â±r: "ElazÃ„Â±Ã„Å¸ dan Ã„Â°zmir Bergama \n DAMPERLÃ„Â° TIR" Ã¢â€ â€™ kasa_tipi ["AÃƒâ€¡IK"], arac_tipi ["1360"] (Damperli TÃ„Â±r alt satÃ„Â±rda olsa bile yakala)
-- SatÃ„Â±r: "Ankara -> Bolu DAMPERLÃ„Â°/TIR" Ã¢â€ â€™ kasa_tipi ["AÃƒâ€¡IK"], arac_tipi ["1360"]
-
-Ãƒâ€“RNEK MESAJ:
-Ã¢Ââ€Ã¢Ââ€*FRÃ„Â°GO | +4 DERECE*Ã¢Ââ€Ã¢Ââ€
-LÃƒÂ¼leburgaz Ã¢Å¾Â¡ Silivri Frigo TÃ„Â±r
-*0 506 156 32 10*
-*0 555 028 32 06*
-*FASTLOG LOJÃ„Â°STÃ„Â°K*
-
-Ãƒâ€¡IKTI:
+### ÇIKTI ŞEMASI (JSON):
 {{
   "shipments": [
     {{
-      "isim": "FASTLOG LOJÃ„Â°STÃ„Â°K",
-      "nereden_il": "KIRKLARELÃ„Â°",
-      "nereden_ilce": "LÃƒÂ¼leburgaz",
-      "nereye_il": "Ã„Â°STANBUL",
-      "nereye_ilce": "Silivri",
-      "arac_tipi": ["1360"],
-      "kasa_tipi": ["FRÃ„Â°GO"],
-      "yuk_tipi": ["KOMPLE"],
-      "fiyat": "SORUNUZ",
-      "telefon": "0 506 156 32 10, 0 555 028 32 06",
-      "aciklama": "",
+      "isim": "Firma veya Kişi Adı (Yoksa 'BİLİNMİYOR')",
+      "nereden_il": "KALKIŞ İLİ (Büyük Harf)",
+      "nereden_ilce": "KALKIŞ İLÇESİ (Büyük Harf)",
+      "nereye_il": "VARIŞ İLİ (Büyük Harf)",
+      "nereye_ilce": "VARIŞ İLÇESİ (Büyük Harf)",
+      "arac_tipi": ["1360", "TIR", "ONTEKER", "KAMYON", "KAMYONET" içinden en uygun olanlar],
+      "kasa_tipi": ["AÇIK", "KAPALI", "TENTELİ", "FRİGO", "TERMOKİN" içinden en uygun olanlar],
+      "yuk_tipi": ["KOMPLE", "PARÇA"],
+      "fiyat": "Fiyat bilgisi veya 'SORUNUZ'",
+      "telefon": "Tüm telefonların listesi (Virgülle ayrılmış)",
+      "aciklama": "Ek bilgiler (Emoji içermez)",
       "message_id": "{message_id}"
     }}
   ]
 }}
 
-GEÃƒâ€¡ERLÃ„Â° Ã„Â°LLER (SADECE BUNLARI KULLAN):
+### GEÇERLİ İLLER (Sadece Bunları Kullan):
 {iller_listesi}
 
-Ãƒâ€¡Ã„Â±ktÃ„Â±yÃ„Â± JSON formatÃ„Â±nda dÃƒÂ¶ndÃƒÂ¼r. EÃ„Å¸er birden fazla sevkiyat varsa, hepsini listele.
-Her sevkiyat iÃƒÂ§in message_id alanÃ„Â±nÃ„Â± "{message_id}" olarak ayarla.
+### İŞLENECEK MESAJ:
+"{chunk}"
 
-SADECE GEÃƒâ€¡ERLÃ„Â° JSON DÃƒâ€“NDÃƒÅ“R, BAÃ…Å¾KA BÃ„Â°R Ã…Å¾EY YAZMA!
-Format: {{"shipments": [{{...}}, {{...}}]}}
+SADECE JSON DÖNDÜR. BAŞKA METİN EKLEME.
 """
     
     try:
+        is_json_supported = model_name.startswith("gpt-4") or "llama" in model_name.lower() or "mixtral" in model_name.lower()
+        
         response = client.chat.completions.create(
             model=model_name,
             messages=[
-                {"role": "system", "content": "Sen bir lojistik sevkiyat bilgisi ÃƒÂ§Ã„Â±karma uzmanÃ„Â±sÃ„Â±n. Mesajlardan sevkiyat bilgilerini JSON formatÃ„Â±nda ÃƒÂ§Ã„Â±karÃ„Â±rsÃ„Â±n."},
+                {"role": "system", "content": "Sen kıdemli bir lojistik veri analistisin. Verilen metindeki sevkiyat rotalarını, araç tiplerini ve iletişim bilgilerini kusursuz bir JSON yapısına dönüştürürsün. Coğrafi doğruluk senin için en yüksek önceliktir. SADECE JSON dökersin."},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.1,
             max_tokens=2048,
-            response_format={"type": "json_object"} if model_name.startswith("gpt-4") else None
+            response_format={"type": "json_object"} if is_json_supported else None
         )
         
         response_text = ""
         if response.choices and len(response.choices) > 0:
             response_text = response.choices[0].message.content.strip()
+        
+        logger.debug(f"[Groq/LLM] Raw Response: {response_text[:200]}...")
         
         if not response_text:
             return []
@@ -526,10 +464,10 @@ Format: {{"shipments": [{{...}}, {{...}}]}}
         error_str = str(e)
         # Quota/Rate limit hatasÃ„Â± kontrolÃƒÂ¼
         if '429' in error_str or 'rate_limit' in error_str.lower() or 'quota' in error_str.lower():
-            logger.debug(f"[Ã¢Å¡ Ã¯Â¸Â] Chunk iÃ…Å¸lenirken rate limit hatasÃ„Â±: {error_str}")
+            logger.debug(f"[Ã¢Å¡ Ã¯Â¸Â ] Chunk iÃ…Å¸lenirken rate limit hatasÃ„Â±: {error_str}")
             # API key rotasyonu iÃƒÂ§in exception'Ã„Â± yukarÃ„Â± fÃ„Â±rlat
             raise Exception(f"RATE_LIMIT_ERROR: {error_str}")
-        logger.error(f"[Ã¢Å¡ Ã¯Â¸Â] Chunk iÃ…Å¸lenirken hata: {e}")
+        logger.error(f"[Ã¢Å¡ Ã¯Â¸Â ] Chunk iÃ…Å¸lenirken hata: {e}")
         return []
 
 
@@ -553,12 +491,19 @@ def extract_shipments_with_openai(message_dict: Dict, model_name: str = "gpt-4o-
         return []
     
     try:
+        from src.utils.common import get_root_path, get_bundled_data_dir
         root_dir = get_root_path()
-        yuk_tipi_file = os.path.join(root_dir, 'yuk_tipi.json')
-        il_ilce_file = os.path.join(root_dir, 'il_ilÃƒÂ§eler.json')
+        data_dir = get_bundled_data_dir()
+        
+        yuk_tipi_file = os.path.join(data_dir, 'yuk_tipi.json')
+        il_ilce_file = os.path.join(data_dir, 'il_ilçeler.json')
         
         yuk_tipi_table = load_json_file(yuk_tipi_file)
         il_ilce_data = load_json_file(il_ilce_file)
+        
+        if not il_ilce_data:
+            logger.error(f"[!] il_ilce_data yüklenemedi! Yol: {il_ilce_file}")
+            il_ilce_data = []
         
         message_body = message_dict.get("body", "")
         message_id = message_dict.get("id", "")
@@ -567,17 +512,28 @@ def extract_shipments_with_openai(message_dict: Dict, model_name: str = "gpt-4o-
             logger.debug(f"[Ã¢Å¡ Ã¯Â¸Â] Mesaj body boÃ…Å¸: {message_id}")
             return []
         
-        # MesajÃ„Â± temizle: BaÃ…Å¸ta ve sonda boÃ…Å¸ satÃ„Â±rlarÃ„Â± kaldÃ„Â±r, ama iÃƒÂ§eriÃ„Å¸i koru
+        # Mesajı temizle
         message_body = message_body.strip()
         
-        # API key'i environment variable'dan al (Gemini-only)
-        api_key = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
+        # Groq API Yapılandırması (Ücretsiz, key rotasyonu ile 120 RPM)
+        from src.utils.api_key_manager import get_default_manager
+        key_mgr = get_default_manager(root_dir)
+        if not key_mgr.get_active_key():
+            key_mgr.load_keys(reason='groq_init')
         
-        if not api_key:
-            logger.debug("[] GEMINI_API_KEY veya GOOGLE_API_KEY bulunamadı. Lütfen GEMINI_API_KEY ayarlayın.")
+        active_key = key_mgr.get_active_key()
+        if not active_key:
+            logger.error("[Groq] API key bulunamadı. GROQ_API_KEYS env değişkenini kontrol edin.")
             return []
         
-        client = OpenAI(api_key=api_key)
+        base_url = os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1")
+        client = OpenAI(base_url=base_url, api_key=active_key, max_retries=0)
+        
+        # Model: Groq üzerinde Llama 3.1 8B
+        if model_name in ["gpt-4o-mini", "gpt-3.5-turbo"]:
+            model_name = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
+        
+        logger.debug(f"[Groq] Key #{key_mgr.get_active_index()+1} ile bağlanılıyor model: {model_name}")
         
         location_matcher = LocationMatcher(il_ilce_data)
         
@@ -592,29 +548,44 @@ def extract_shipments_with_openai(message_dict: Dict, model_name: str = "gpt-4o-
         
         all_shipments = []
         
-        # Her parÃƒÂ§ayÃ„Â± ayrÃ„Â± ayrÃ„Â± iÃ…Å¸le
+        # Her parÃ§ayÄ± ayrÄ± ayrÄ± iÅŸle
         for idx, chunk in enumerate(chunks):
             if len(chunks) > 1:
-                logger.debug(f"[Ã°Å¸â€œÂ¦] ParÃƒÂ§a {idx + 1}/{len(chunks)} iÃ…Å¸leniyor ({len(chunk)} karakter)...")
+                logger.debug(f"[📦] Parça {idx + 1}/{len(chunks)} işleniyor ({len(chunk)} karakter)...")
             
-            try:
-                chunk_shipments = _process_single_chunk(
-                    chunk, message_id, client, location_matcher, valid_iller, iller_listesi, model_name
-                )
-                
-                if chunk_shipments:
-                    all_shipments.extend(chunk_shipments)
-                    if len(chunks) > 1:
-                        logger.debug(f"[Ã¢Å“â€œ] ParÃƒÂ§a {idx + 1}'den {len(chunk_shipments)} sevkiyat bulundu")
-            except Exception as chunk_error:
-                error_str = str(chunk_error)
-                # Rate limit hatasÃ„Â± kontrolÃƒÂ¼
-                if 'RATE_LIMIT_ERROR' in error_str or '429' in error_str or 'rate_limit' in error_str.lower():
-                    logger.debug(f"[Ã¢Å¡ Ã¯Â¸Â] Rate limit hatasÃ„Â± tespit edildi: {error_str}")
-                    logger.debug(f"[Ã¢â€Â¹Ã¯Â¸Â] Rate limit hatasÃ„Â± durumunda API key rotasyonu yapÃ„Â±labilir (config_api_key.py'de OPENAI_API_KEYS listesi)")
-                    # TODO: API key rotasyonu eklenebilir
-                else:
-                    logger.error(f"[Ã¢Å¡ Ã¯Â¸Â] ParÃƒÂ§a {idx + 1} iÃ…Å¸lenirken hata: {chunk_error}")
+            success = False
+            attempts = 0
+            max_attempts = len(key_mgr._keys) or 1
+            
+            while not success and attempts < max_attempts:
+                try:
+                    chunk_shipments = _process_single_chunk(
+                        chunk, message_id, client, location_matcher, valid_iller, iller_listesi, model_name
+                    )
+                    
+                    if chunk_shipments:
+                        all_shipments.extend(chunk_shipments)
+                        if len(chunks) > 1:
+                            logger.debug(f"[✓] Parça {idx + 1}'den {len(chunk_shipments)} sevkiyat bulundu")
+                    success = True
+                except Exception as chunk_error:
+                    attempts += 1
+                    error_str = str(chunk_error)
+                    
+                    # Rate limit hatası -> otomatik key rotasyonu
+                    if "RATE_LIMIT_ERROR" in error_str or "429" in error_str or "rate_limit" in error_str.lower():
+                        logger.warning(f"[Groq] Rate limit hit on Key #{key_mgr.get_active_index()+1}. Switching...")
+                        if key_mgr.switch_to_next(reason="rate_limit_429"):
+                            new_key = key_mgr.get_active_key()
+                            client = OpenAI(base_url=base_url, api_key=new_key, max_retries=0)
+                            logger.info(f"[Groq] Switched to Key #{key_mgr.get_active_index()+1}, retrying chunk {idx+1}...")
+                            continue # Try again with new key
+                        else:
+                            logger.error("[Groq] All API keys exhausted for this chunk!")
+                            break
+                    else:
+                        logger.error(f"[Groq] Parça {idx + 1} işlenirken kritik hata: {chunk_error}")
+                        break # Stop on non-rate-limit errors
         
         shipments_data = all_shipments
         

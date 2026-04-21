@@ -43,9 +43,14 @@ class TextGenParser:
         self.vehicle_matcher = VehicleTypeMatcher()
         self.city_validator = CityDistrictValidator()
         
-        # Models to try in order
+        # Models to try in order (Updated for 2026/SDK compatibility)
         self.primary_model = 'gemini-2.0-flash'
-        self.fallback_models = ['gemini-1.5-flash', 'gemini-1.5-flash-8b']
+        self.fallback_models = [
+            'gemini-2.5-flash', 
+            'gemini-flash-latest', 
+            'gemini-2.0-flash-lite',
+            'gemini-flash-lite-latest'
+        ]
         
         # NEIGHBORHOOD CACHE: To prevent redundant LLM calls for the same place/district
         # Maps "TERM|CONTEXT_CITY" -> (Resolved City, Resolved District)
@@ -265,11 +270,19 @@ Return ONLY valid JSON (NO markdown, NO explanation). Ensure strict JSON format 
                     last_error = e
                     err_str = str(e).lower()
                     
-                    if "429" in err_str or "quota" in err_str:
-                        wait_time = (2 ** attempt) + random.random()
-                        print(f"[RETRY] Model {model_name} rate limited (attempt {attempt+1}/3). Waiting {wait_time:.2f}s...")
+                    if "429" in err_str or "quota" in err_str or "503" in err_str:
+                        wait_time = (3 ** attempt) + random.random() # Increased backoff for 503
+                        print(f"[RETRY] Model {model_name} busy or rate limited ({'503' if '503' in err_str else '429'}). Attempt {attempt+1}/3. Waiting {wait_time:.2f}s...")
                         time.sleep(wait_time)
                         continue
+                    elif "403" in err_str or "permission_denied" in err_str:
+                        print(f"❌ [AUTH ERROR] Model {model_name} access denied (403).")
+                        print("👉 Lütfen Google AI Studio / Google Cloud Console üzerinden Gemini API'yi aktifleştirin.")
+                        print("👉 Link: https://console.developers.google.com/apis/api/generativelanguage.googleapis.com/overview?project=532062303305")
+                        break # Move to next model if available, but 403 usually affects all
+                    elif "404" in err_str or "not_found" in err_str:
+                        print(f"⚠️ [NOT FOUND] Model {model_name} is not available in your region/project. Trying fallback...")
+                        break # Swich model immediately
                     else:
                         # Other errors (e.g. 400 Bad Request, blockages), move to next model
                         print(f"[ERROR] Model {model_name} failed: {e}")

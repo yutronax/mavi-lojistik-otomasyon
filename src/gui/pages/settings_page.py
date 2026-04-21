@@ -15,12 +15,25 @@ class SettingsPage:
         self.api_manager = APIKeyManager(self.root_dir)
         
         # UI Bileşenleri
-        self.gemini_key_field = ft.TextField(
-            label="Gemini API Key",
-            password=True,
-            can_reveal_password=True,
+        self.llm_url_field = ft.TextField(
+            label="LLM Sunucu URL (Groq/Ollama)",
+            value="https://api.groq.com/openai/v1",
             border_radius=10,
             expand=True
+        )
+        self.llm_model_field = ft.TextField(
+            label="LLM Model Adı",
+            value="llama-3.1-8b-instant",
+            border_radius=10,
+            expand=True
+        )
+        self.llm_keys_field = ft.TextField(
+            label="LLM API Anahtarları (Virgülle ayırın)",
+            placeholder="gsk_..., gsk_...",
+            border_radius=10,
+            expand=True,
+            multiline=True,
+            min_lines=2
         )
         self.whapi_token_field = ft.TextField(
             label="Whapi Token",
@@ -46,12 +59,14 @@ class SettingsPage:
     async def load_settings(self):
         """Mevcut ayarları yükler"""
         try:
-            keys = self.api_manager.get_all_keys()
-            self.gemini_key_field.value = keys.get("GEMINI_API_KEY", "")
-            self.whapi_token_field.value = keys.get("WHATSAPP_TOKEN", "") or keys.get("WHAPI_TOKEN", "")
+            config = await self.data_service.load_config("app_settings") or {}
             
-            # config.json'dan ek ayarları oku
-            # Gelecekte eklenecek...
+            self.llm_url_field.value = config.get("llm_url", "https://api.groq.com/openai/v1")
+            self.llm_model_field.value = config.get("llm_model", "llama-3.1-8b-instant")
+            self.llm_keys_field.value = config.get("llm_keys", "")
+            self.whapi_token_field.value = config.get("whapi_token", "")
+            self.whapi_url_field.value = config.get("whapi_url", "https://gate.whapi.cloud")
+            self.refresh_interval_field.value = str(config.get("refresh_interval", "60"))
             
             self.page.update()
         except Exception as e:
@@ -60,16 +75,23 @@ class SettingsPage:
     async def save_settings(self, e):
         """Ayarları kaydeder"""
         try:
-            # API Anahtarlarını kaydet (.env)
-            self.api_manager.set_key("GEMINI_API_KEY", self.gemini_key_field.value)
-            self.api_manager.set_key("WHAPI_TOKEN", self.whapi_token_field.value)
-            
-            # Diğer ayarları config.json'a kaydet
             config = {
+                "llm_url": self.llm_url_field.value,
+                "llm_model": self.llm_model_field.value,
+                "llm_keys": self.llm_keys_field.value,
+                "whapi_token": self.whapi_token_field.value,
                 "whapi_url": self.whapi_url_field.value,
                 "refresh_interval": int(self.refresh_interval_field.value or 60)
             }
             await self.data_service.save_config("app_settings", config)
+            
+            # Update env for underlying scripts expecting OS Env vars immediately
+            os.environ["LLM_BASE_URL"] = self.llm_url_field.value
+            os.environ["LLM_MODEL"] = self.llm_model_field.value
+            os.environ["GROQ_API_KEYS"] = self.llm_keys_field.value
+            
+            # Reload keys in manager
+            self.api_manager.load_keys(reason='settings_update')
             
             self._show_success("Ayarlar başarıyla kaydedildi.")
         except Exception as e:
@@ -103,11 +125,18 @@ class SettingsPage:
         # Form Kartı
         form_content = ft.Container(
             content=ft.Column([
-                ft.Text("API Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
-                ft.Text("Gemini ve Whapi bağlantı bilgileri", size=12, color=AppColors.TEXT_MUTED),
+                ft.Text("Yapay Zeka (LLM) Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
+                ft.Text("Mesaj ayrıştırma için Groq veya Ollama bilgileri", size=12, color=AppColors.TEXT_MUTED),
                 ft.Divider(color="white10"),
                 
-                self.gemini_key_field,
+                self.llm_url_field,
+                self.llm_model_field,
+                self.llm_keys_field,
+                
+                ft.Divider(height=20, color="transparent"),
+                
+                ft.Text("WhatsApp API Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
+                ft.Divider(color="white10"),
                 self.whapi_token_field,
                 self.whapi_url_field,
                 

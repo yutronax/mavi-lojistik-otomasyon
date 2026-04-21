@@ -35,6 +35,14 @@ class APIKeyManager:
 
     def _collect_from_env(self) -> List[str]:
         keys: List[str] = []
+        # Groq keys (primary - new system)
+        groq_multi = os.getenv('GROQ_API_KEYS')
+        if groq_multi:
+            keys.extend(self._parse_api_keys_from_string(groq_multi))
+        groq_single = os.getenv('GROQ_API_KEY')
+        if groq_single:
+            keys.append(groq_single.strip())
+        # Legacy Gemini keys (fallback)
         multi_env = os.getenv('GEMINI_API_KEYS') or os.getenv('GOOGLE_API_KEYS')
         if multi_env:
             keys.extend(self._parse_api_keys_from_string(multi_env))
@@ -158,4 +166,5 @@ def get_default_manager(root_dir: Optional[str] = None) -> APIKeyManager:
     global _default_manager
     if _default_manager is None:
         _default_manager = APIKeyManager(root_dir=root_dir)
+        _default_manager.load_keys(reason='manager_lazy_init')
     return _default_manager
