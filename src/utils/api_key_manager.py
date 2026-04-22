@@ -13,6 +13,7 @@ import time
 import re
 from typing import List, Optional
 import logging
+import asyncio
 logger = logging.getLogger(__name__)
 
 
@@ -23,6 +24,7 @@ class APIKeyManager:
         self._exhausted = set()
         self._last_check_time: float = 0.0
         self.root_dir = root_dir
+        self._lock = asyncio.Lock()
 
     import re
 
@@ -130,7 +132,33 @@ class APIKeyManager:
             reason_text = f" ({reason})" if reason else ""
             logger.debug(f"[] API key #{index}/{total} aktif: {masked}{reason_text}")
 
+    async def switch_to_next_async(self, reason: str = "") -> bool:
+        """Asynchronous version of switch_to_next with locking."""
+        async with self._lock:
+            if not self._keys:
+                if not self.load_keys(force_reload=True, reason=reason or 'reload'):
+                    return False
+            
+            if 0 <= self._active_index < len(self._keys):
+                self._exhausted.add(self._keys[self._active_index])
+            
+            # find next non-exhausted
+            for idx in range(self._active_index + 1, len(self._keys)):
+                if self._keys[idx] not in self._exhausted:
+                    self._active_index = idx
+                    self.apply_key(self._keys[self._active_index], announce=True, reason=reason or 'quota limit')
+                    return True
+            
+            # try reloading and selecting again
+            if self.load_keys(force_reload=True, reason=reason or 'reload'):
+                if 0 <= self._active_index < len(self._keys):
+                    current = self._keys[self._active_index]
+                    if current not in self._exhausted:
+                        return True
+            return False
+
     def switch_to_next(self, reason: str = "") -> bool:
+        # Keep sync version for compatibility, but note it's not lock-protected for async
         if not self._keys:
             if not self.load_keys(force_reload=True, reason=reason or 'reload'):
                 return False

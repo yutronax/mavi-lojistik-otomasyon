@@ -1,4 +1,4 @@
-requests
+requirements
 python-dotenv
 pyinstaller
 pydantic
@@ -7,3 +7,5 @@ google-generativeai
 pymongo
 watchdog
 numpy
+groq
+nest-asyncio

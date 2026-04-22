@@ -363,17 +363,13 @@ class VehicleTypeMatcher:
         if re.search(r'\b\d+(?:\.\d+)?\s*M\b', norm_message):
             found_loads.add("PARÇA")
         
-        # 3. PALET / TON Count Check
-        numeric_matches = re.findall(r'(\d+)\s*(?:PALET|PLT|PALETLİ|PALETLI|TON|TONLUK|T)', norm_message)
+        # 3. PALET Count Check
+        numeric_matches = re.findall(r'(\d+)\s*(?:PALET|PLT|PALETLİ|PALETLI)', norm_message)
         for count_str in numeric_matches:
             try:
                 count = int(count_str)
-                if "PALET" in norm_message or "PLT" in norm_message:
-                    if count >= 7:
-                        found_loads.add("PARÇA")
-                else:
-                    if count < 10:
-                        found_loads.add("PARÇA")
+                if ("PALET" in norm_message or "PLT" in norm_message) and count >= 7:
+                    found_loads.add("PARÇA")
             except ValueError:
                 pass
 
@@ -382,8 +378,8 @@ class VehicleTypeMatcher:
         tarim_keywords = {
             # Tahıl, Bakliyat ve Yem Grubu
             "BUGDAY", "SOGAN", "MEYVE", "SEBZE", "YEM", "MISIR", 
-            "PATATES", "DOMATES", "ARPA", "YULAF", "SAMAN", "KUSPE", "GUBRE", "KEPEK",
-            "NOHUT", "MERCIMEK", "FASULYE", "PIRINC", "BAKLIYAT", "SILAJ", "YONCA", "FIY", "MANGAL KOMURU",
+            "PATATES", "DOMATES", "ARPA", "YULAF",  "KUSPE", "GUBRE", "KEPEK",
+            "NOHUT", "MERCIMEK", "FASULYE", "PIRINC", "BAKLIYAT", "SILAJ", "YONCA",  "MANGAL KOMURU",
             # Endüstriyel Tarım ve Diğer Ürünler
             "PANCAR", "SEKER PANCARI", "AYCICEGI", "CEKIRDEK", "PAMUK", "SOYA",
             # Dökme İnşaat, Maden ve Orman Ürünleri (Bunlar da genelde 860 damperli kullanır)

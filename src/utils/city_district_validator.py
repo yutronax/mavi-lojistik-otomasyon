@@ -12,8 +12,7 @@ class CityDistrictValidator:
     Validates city (il) and district (ilçe) pairs using a JSON data file.
     Ensures that for a given city, the district is actually valid.
     """
-
-    def __init__(self, data_path: str = None):
+    def __init__(self, data_path: str = None):
         if data_path is None:
             # Default to data/il_ilçe_mahalle.json relative to project root
             base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -25,257 +24,350 @@ class CityDistrictValidator:
         
         self.city_map = {}  # Normalized City -> Set of normalized Districts
         self.district_reverse_map = {} # Normalized District -> List of Cities containing it
+        self.neighborhood_map = {} # Normalized Neighborhood -> List of (City, District)
         self.default_districts = {}
+        
+        # District Alias Map (Kısa isimler -> Resmi isimler)
+        self.district_aliases = {
+            "KEMALPAŞA": "MUSTAFAKEMALPAŞA",
+            "M.KEMALPAŞA": "MUSTAFAKEMALPAŞA",
+            "MUSTAFA KEMAL PAŞA": "MUSTAFAKEMALPAŞA"
+        }
+        
+        # City Alias Map (Yaygın kısaltmalar -> Resmi isimler)
+        self.city_aliases = {
+            "MARAŞ": "KAHRAMANMARAŞ",
+            "ANTEP": "GAZİANTEP",
+            "URFA": "ŞANLIURFA",
+            "YAMAN": "ADIYAMAN",
+            "ELAZIĞ": "ELAZIĞ", # Fix potential İ/I confusion
+            "AFYON": "AFYONKARAHİSAR",
+            "İÇEL": "MERSİN"
+        }
+        
+        # Neighborhood manually injected (Stratejik eksik bölgeler)
+        self.manual_neighborhoods = {
+            "SİTELER": [("ANKARA", "ALTINDAĞ")],
+            "OVACIK": [("ANKARA", "KEÇİÖREN")],
+            "VEZİRHAN": [("BİLECİK", "MERKEZ")],
+            "KEMALPAŞA": [("BURSA", "MUSTAFAKEMALPAŞA")],
+            "HADIMKÖY": [("İSTANBUL", "ARNAVUTKÖY")],
+            "TOPKAPI": [("İSTANBUL", "FATİH")]
+        }
         
         self._load_data()
 
     def _normalize(self, text: str) -> str:
         """
-        Uppercase and handles Turkish characters correctly with Unicode normalization.
-        Ensures decomposed characters (like I + dot) are merged into proper Turkish İ.
+        Turkish normalization: ensures i -> İ and ı -> I.
+        Does not use upper() directly on the whole string to avoid ASCII I issues.
         """
         if not text:
             return ""
         
-        # 1. Preliminary NFC normalization to merge existing decomposed marks
+        # Consistent Turkish uppercase mapping
+        map_low_to_up = {
+            'i': 'İ', 'ı': 'I', 'ç': 'Ç', 'ğ': 'Ğ', 'ö': 'Ö', 'ş': 'Ş', 'ü': 'Ü',
+            'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F', 'g': 'G',
+            'h': 'H', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N', 'o': 'O',
+            'p': 'P', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U', 'v': 'V', 'y': 'Y',
+            'z': 'Z', 'x': 'X', 'q': 'Q', 'w': 'W'
+        }
+        
+        # 1. Normalize Unicode first
         text = unicodedata.normalize('NFC', text)
         
-        # 2. Manual uppercase for Turkish (i -> İ, ı -> I)
-        # Avoids logic bugs where .lower() decomposes 'İ' back to 'i' + 'dot'
-        repls = {'i': 'İ', 'ı': 'I', 'ş': 'Ş', 'ğ': 'Ğ', 'ü': 'Ü', 'ö': 'Ö', 'ç': 'Ç'}
-        upper_text = ""
+        # 2. Manual Uppercase
+        res = ""
         for char in text:
-            if char in repls:
-                upper_text += repls[char]
-            elif char == 'İ' or char == 'I':
-                upper_text += char # Preserve already uppercase
-            else:
-                upper_text += char.upper()
+            res += map_low_to_up.get(char, char.upper())
+            
+        # 3. Clean combining marks (already mostly handled by NFC + map, but for safety)
+        res = unicodedata.normalize('NFC', res)
+        # Remove redundant dots above I/İ
+        res = res.replace('I\u0307', 'İ').replace('İ\u0307', 'İ')
         
-        # 3. Final NFC normalization to ensure any newly formed compositions are correct
-        return unicodedata.normalize('NFC', upper_text).strip()
+        return res.strip()
 
     def _load_data(self):
+        """
+        Loads hierarchical data from il_ilçe_mahalle.json
+        Structure: [ {"il": "CITY", "ilceler": [{"ilce": "DIST", "mahalleler": [...]}]}, ... ]
+        """
         try:
-            # 1. First load curated defaults from il_ilçeler.json if available
+            if not os.path.exists(self.data_path):
+                logger.error(f"Data file not found: {self.data_path}")
+                return
+
+            with open(self.data_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+            # Clear current maps
+            self.city_map = {}
+            self.neighborhood_map = {}
+            self.district_reverse_map = {}
+            self.default_districts = {}
+
+            for entry in data:
+                city = self._normalize(entry.get('il', ''))
+                if not city: continue
+                
+                if city not in self.city_map:
+                    self.city_map[city] = set()
+                
+                ilceler = entry.get('ilceler', [])
+                # Some files might use 'ilçe' or other keys, but hierarchical uses ilceler
+                if not ilceler and 'ilçe' in entry:
+                    # Handle flat list if present
+                    ilceler = [{"ilce": d, "mahalleler": []} for d in entry['ilçe']]
+
+                for d_obj in ilceler:
+                    dist = self._normalize(d_obj.get('ilce', ''))
+                    if not dist: continue
+                    
+                    self.city_map[city].add(dist)
+                    
+                    # Reverse map (District -> [Cities])
+                    if dist not in self.district_reverse_map:
+                        self.district_reverse_map[dist] = []
+                    self.district_reverse_map[dist].append(city)
+                    
+                    # Neighborhoods (Mahalle -> [(City, District)])
+                    mahs = d_obj.get('mahalleler', [])
+                    for m in mahs:
+                        m_norm = self._normalize(m)
+                        if m_norm:
+                            if m_norm not in self.neighborhood_map:
+                                self.neighborhood_map[m_norm] = []
+                            self.neighborhood_map[m_norm].append((city, dist))
+                    
+                    # Also treat district as neighborhood for lookup
+                    if dist not in self.neighborhood_map:
+                        self.neighborhood_map[dist] = []
+                    if (city, dist) not in self.neighborhood_map[dist]:
+                        self.neighborhood_map[dist].append((city, dist))
+
+            # Load curated defaults if exists
             if os.path.exists(self.defaults_path):
                 try:
                     with open(self.defaults_path, 'r', encoding='utf-8') as f:
-                        defaults_list = json.load(f)
-                    for item in defaults_list:
+                        defaults = json.load(f)
+                    for item in defaults:
                         c = self._normalize(item.get('il', ''))
                         d = self._normalize(item.get('varsayılan_ilçe', ''))
                         if c and d:
                             self.default_districts[c] = d
-                    logger.info(f"Loaded {len(self.default_districts)} curated defaults from {self.defaults_path}")
-                except Exception as de:
-                    logger.warning(f"Could not load curated defaults: {de}")
+                except: pass
 
-            # 2. Load main hierarchical data
-            with open(self.data_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            for entry in data:
-                city = self._normalize(entry.get('il', ''))
-                if not city:
-                    continue
-                
-                districts = []
-                # Support for new 'ilceler' hierarchical structure
-                if 'ilceler' in entry:
-                    for d_obj in entry.get('ilceler', []):
-                        d_name = self._normalize(d_obj.get('ilce', ''))
-                        if d_name:
-                            districts.append(d_name)
-                # Fallback to old 'ilçe' flat structure
-                elif 'ilçe' in entry:
-                    districts = [self._normalize(d) for d in entry.get('ilçe', [])]
-                
-                # Default district matching logic
-                # A. Check if specifically defined in this entry (highest priority)
-                default_dist = self._normalize(entry.get('varsayılan_ilçe', ''))
-                
-                # B. Use curated default if not defined in main entry
-                if not default_dist:
-                    default_dist = self.default_districts.get(city)
-                
-                # C. Final fallback heuristic: 'MERKEZ' or first in list
-                if not default_dist and districts:
-                    default_dist = 'MERKEZ' if 'MERKEZ' in districts else districts[0]
-                
-                if city:
-                    self.city_map[city] = set(districts)
-                    if default_dist:
-                        self.default_districts[city] = default_dist
-                        
-                    for d in districts:
-                        if d not in self.district_reverse_map:
-                            self.district_reverse_map[d] = []
-                        self.district_reverse_map[d].append(city)
-            
-            # Explicit Default Overrides / Additions
-            # Handling "İSTANBUL ANADOLU" and "İSTANBUL AVRUPA" as pseudo-defaults
-            # We map specific keywords if they appear as CITY input to normalized specific districts
-            
-            logger.info(f"Loaded {len(self.city_map)} cities for validation.")
-            
+            # Set automatic defaults for cities without one
+            for city in self.city_map:
+                if city not in self.default_districts:
+                    dists = list(self.city_map[city])
+                    if 'MERKEZ' in dists:
+                         self.default_districts[city] = 'MERKEZ'
+                    elif dists:
+                         self.default_districts[city] = sorted(dists)[0]
+
+            logger.info(f"Loaded {len(self.city_map)} cities and {len(self.neighborhood_map)} unique neighborhood strings.")
+            print(f"DEBUG: Cities={len(self.city_map)}, Neighborhoods={len(self.neighborhood_map)}")
+
         except Exception as e:
-            logger.error(f"Failed to load city data from {self.data_path}: {e}")
-            # Do not crash; validation will just be pass-through or minimal
+            logger.error(f"Error loading city data: {e}")
 
     def validate(self, city: str, district: str) -> Tuple[str, str]:
         """
-        Validates and possibly corrects the city-district pair using strict and fuzzy logic.
+        Validates and corrects the city-district pair with a STRICT HIERARCHY.
+        
+        1. PRECISE CITY MATCH: If city is valid, only search within that city.
+        2. UNIQUE DISTRICT MATCH: If city is ambiguous, check if district is unique in Turkey.
+        3. FUZZY CITY/DISTRICT: Fix typos.
+        4. NEIGHBORHOOD LOOKUP: Global search (only if previous steps fail).
         """
         norm_city = self._normalize(city)
         norm_dist = self._normalize(district)
         
-        # --- SPECIAL HANDLING FOR ISTANBUL SIDES ---
-        # User defined defaults: İSTANBUL ANADOLU -> MALTEPE, İSTANBUL AVRUPA -> AVCILAR
-        # We strip the side info from city name to allow validation, but override default if district is missing.
+        # Apply Alias mapping (e.g., KEMALPAŞA -> MUSTAFAKEMALPAŞA)
+        if norm_dist in self.district_aliases:
+            norm_dist = self.district_aliases[norm_dist]
+        
+        # Handle Istanbul sides
         forced_default = None
         if "İSTANBUL" in norm_city:
             if "ANADOLU" in norm_city:
-                norm_city = "İSTANBUL"
-                forced_default = "MALTEPE"
+                norm_city, forced_default = "İSTANBUL", "MALTEPE"
             elif "AVRUPA" in norm_city:
-                norm_city = "İSTANBUL"
-                forced_default = "AVCILAR"
+                norm_city, forced_default = "İSTANBUL", "AVCILAR"
         
-        # Handle when "ANADOLU" or "AVRUPA" appears as district name for Istanbul
         if norm_city == "İSTANBUL":
-            if norm_dist == "ANADOLU":
-                norm_dist = "MALTEPE"
-                logger.info(f"Istanbul district 'ANADOLU' -> 'MALTEPE'")
-            elif norm_dist == "AVRUPA":
-                norm_dist = "AVCILAR"
-                logger.info(f"Istanbul district 'AVRUPA' -> 'AVCILAR'")
+            if norm_dist == "ANADOLU": norm_dist = "MALTEPE"
+            elif norm_dist == "AVRUPA": norm_dist = "AVCILAR"
 
-        # If basics missing, just return normalized
-        if not norm_city:
-            return norm_city, norm_dist
+        if not norm_city and not norm_dist:
+            return "", ""
 
-        # If we have no data, pass through
-        if not self.city_map:
-            return norm_city, norm_dist
-
-        # If district is empty or MERKEZ, matches ANY city (basically)
-        if not norm_dist or norm_dist == 'MERKEZ':
-            # Check if city itself is valid or fuzzy matchable
-            effective_city = norm_city
-            if norm_city not in self.city_map:
-                fuzzy = self._fuzzy_match_city(norm_city)
-                if fuzzy:
-                    logger.info(f"Fuzzy City Match: '{norm_city}' -> '{fuzzy}'")
-                    effective_city = fuzzy
+        # --- STEP 1: PRECISE CITY MATCH (The "Hard" Filter) ---
+        if norm_city in self.city_map:
+            valid_dists = self.city_map[norm_city]
             
-            # --- APPLY DEFAULT DISTRICT ---
-            # If we resolved to a valid city, check if we should apply a default
-            if effective_city in self.city_map:
-                # Use forced (Istanbul side) default if applicable
-                if forced_default and effective_city == "İSTANBUL":
-                    logger.info(f"Applying Side-Specific Default: '{effective_city}' -> '{forced_default}'")
-                    return effective_city, forced_default
-                
-                # Use standard default from JSON data
-                default = self.default_districts.get(effective_city)
-                if default:
-                     # Strict replacement: If input was empty OR 'MERKEZ', upgrade to specific default
-                     # User rule: "eğer merkez yazılmışsa direkt bu yapılmalı"
-                     logger.info(f"Applying Default District (Strict): '{effective_city}' -> '{default}' (was '{norm_dist}')")
-                     return effective_city, default
+            # A. Check if input is directly a district in this city
+            if norm_dist in valid_dists:
+                return norm_city, norm_dist
             
-            return effective_city, 'MERKEZ'
-
-        # Check if city exists exact
-        valid_districts = self.city_map.get(norm_city)
-        
-        # 1. City Exact Match, District Exact Match
-        if valid_districts and norm_dist in valid_districts:
-            return norm_city, norm_dist
+            # B. Check if input is a neighborhood/village in this city
+            if norm_dist in self.neighborhood_map:
+                for c, d in self.neighborhood_map[norm_dist]:
+                    if c == norm_city:
+                        return c, d
             
-        # 2. City Exact Match, District Fuzzy or Mismatch
-        if valid_districts:
-            # Try fuzzy match district within this city
-            fuzzy_d = self._fuzzy_match_district(norm_dist, valid_districts)
-            if fuzzy_d:
-                logger.info(f"District Fuzzy Correct: '{norm_dist}' -> '{fuzzy_d}' (in {norm_city})")
-                return norm_city, fuzzy_d
+            # C. Fuzzy match district ONLY within this city
+            if norm_dist and len(norm_dist) > 2:
+                fuzzy_d = self._fuzzy_match_district(norm_dist, valid_dists)
+                if fuzzy_d: return norm_city, fuzzy_d
+            
+            # D. Fallback to default district for this city
+            return norm_city, forced_default or self.default_districts.get(norm_city, 'MERKEZ')
 
-        # 3. City Not Found (or Mismatch), Check Reverse Lookup for District
-        # Case: "TIRE" -> "İZMİR" (City was empty or wrong, District was correct/fuzzy)
-        
-        # First try assuming 'district' input is actually a valid district somewhere
-        # Check exact district lookup
+        # --- STEP 2: UNIQUE DISTRICT MATCH (Reverse Lookup) ---
         if norm_dist in self.district_reverse_map:
-             cities = self.district_reverse_map[norm_dist]
-             if len(cities) == 1:
-                 # Unique match (e.g. Pendik -> Istanbul)
-                 # Override city if original was wrong/empty
-                 if norm_city not in cities:
-                     logger.info(f"City Correction by Unique District: '{norm_city}' -> '{cities[0]}' (via '{norm_dist}')")
-                     return cities[0], norm_dist
-        
-        # Check fuzzy district lookup in entire dataset (expensive but worth for TIRE -> TİRE)
-        # However, entire district list is huge. Let's optimize:
-        # If 'norm_dist' is very close to a known district like 'TİRE' (normalized), map it.
-        # But we don't have a flat list of all normalized districts easily accessible in generic fuzzy match.
-        # We constructed 'district_reverse_map' keys as normalized districts.
-        
-        fuzzy_global_dist = self._fuzzy_match_district_global(norm_dist)
-        if fuzzy_global_dist:
-             # If we found a global fuzzy match (e.g. TIRE -> TİRE)
-             cities = self.district_reverse_map[fuzzy_global_dist]
-             if len(cities) == 1:
-                 logger.info(f"Global District Fuzzy & City Correction: '{norm_city}' + '{norm_dist}' -> '{cities[0]}' + '{fuzzy_global_dist}'")
-                 return cities[0], fuzzy_global_dist
-             elif norm_city in cities:
-                 # It was valid city, just typo in district
-                 return norm_city, fuzzy_global_dist
-        
-        # 4. City Fuzzy Match (if city was the issue and district didn't help)
-        fuzzy_city = self._fuzzy_match_city(norm_city)
-        if fuzzy_city:
-            # Check district against fuzzy city
-            valid_dists_fuzzy = self.city_map.get(fuzzy_city)
-            if norm_dist in valid_dists_fuzzy:
-                return fuzzy_city, norm_dist
-            # Fuzzy check district in fuzzy city
-            fuzzy_d_in_fuzzy_city = self._fuzzy_match_district(norm_dist, valid_dists_fuzzy)
-            if fuzzy_d_in_fuzzy_city:
-                 return fuzzy_city, fuzzy_d_in_fuzzy_city
-            
-            # Use fuzzy city, reset district if unmatched
-            logger.info(f"Fuzzy City Match (District Reset): '{norm_city}' -> '{fuzzy_city}'")
-            return fuzzy_city, 'MERKEZ'
+            cities = self.district_reverse_map[norm_dist]
+            if len(cities) == 1:
+                return cities[0], norm_dist
+            # If city was provided but didn't match exactly, try to find it in the options
+            if norm_city:
+                for c in cities:
+                    if norm_city in c or c in norm_city: return c, norm_dist
 
-        # 5. Last Resort: Ambiguous or Unknown
-        # If district matches multiple cities (e.g. MERKEZ, YENIMAHALLE), and city is invalid...
-        # We can't guess. 
+        # --- STEP 3: FUZZY CITY ---
+        fuzzy_c = self._fuzzy_match_city(norm_city)
+        if fuzzy_c:
+            valid_dists = self.city_map[fuzzy_c]
+            if norm_dist in valid_dists:
+                return fuzzy_c, norm_dist
+            # Check neighborhood in this fuzzy city
+            if norm_dist in self.neighborhood_map:
+                for c, d in self.neighborhood_map[norm_dist]:
+                    if c == fuzzy_c: return c, d
+            
+            fuzzy_d = self._fuzzy_match_district(norm_dist, valid_dists)
+            return fuzzy_c, fuzzy_d or self.default_districts.get(fuzzy_c, 'MERKEZ')
+
+        # --- STEP 4: GLOBAL NEIGHBORHOOD LOOKUP (The Last Resort) ---
+        # Only search 73,000 neighborhoods if we have no clear city or district match
+        if norm_dist in self.neighborhood_map:
+            res = self.neighborhood_map[norm_dist]
+            # If city matches partially
+            if norm_city:
+                for c, d in res:
+                    if norm_city in c: return c, d
+            return res[0]
+
+        # --- STEP 5: GLOBAL FUZZY DISTRICT ---
+        fuzzy_global_d = self._fuzzy_match_district_global(norm_dist)
+        if fuzzy_global_d:
+            cities = self.district_reverse_map[fuzzy_global_d]
+            return cities[0], fuzzy_global_d
+
+        return norm_city or "BİLİNMEYEN", norm_dist or "MERKEZ"
+
+    def get_loc_context(self, message: str) -> str:
+        """
+        Scans message for keywords and returns relevant official location registry.
+        Supports Aliases (Maraş, Urfa) and Fuzzy matches for typos.
+        """
+        if not message:
+            return ""
+            
+        norm_msg = self._normalize(message)
+        tokens = re.findall(r'\b\w+\b', norm_msg)
+        search_space = tokens + [" ".join(tokens[i:i+2]) for i in range(len(tokens)-1)]
         
-        if norm_city in self.default_districts:
-             default_d = self.default_districts[norm_city]
-             logger.warning(f"Validation Failed: '{norm_city}' - '{norm_dist}'. Resetting to default '{default_d}'.")
-             return norm_city, default_d
+        found_cities = set()
+        found_districts = set() # (City, Dist)
+        neighborhood_hints = []
         
-        logger.warning(f"Validation Failed: '{norm_city}' - '{norm_dist}'. Resetting district to MERKEZ.")
-        return norm_city, 'MERKEZ'
+        valid_cities_list = list(self.city_map.keys())
+        valid_districts_list = list(self.district_reverse_map.keys())
+
+        import difflib
+
+        for term in search_space:
+            target_city = None
+            target_dist = None
+            
+            # A. Check City (Exact or Alias or Fuzzy)
+            if term in self.city_map:
+                target_city = term
+            elif term in self.city_aliases:
+                target_city = self.city_aliases[term]
+            else:
+                fuzzy_city_matches = difflib.get_close_matches(term, valid_cities_list, n=1, cutoff=0.85)
+                if fuzzy_city_matches: target_city = fuzzy_city_matches[0]
+
+            if target_city:
+                found_cities.add(target_city)
+
+            # B. Check District (Exact or Alias or Fuzzy)
+            resolved_dist = term
+            if term in self.district_aliases:
+                resolved_dist = self.district_aliases[term]
+            
+            if resolved_dist in self.district_reverse_map:
+                target_dist = resolved_dist
+            else:
+                fuzzy_dist_matches = difflib.get_close_matches(resolved_dist, valid_districts_list, n=1, cutoff=0.85)
+                if fuzzy_dist_matches: target_dist = fuzzy_dist_matches[0]
+
+            if target_dist:
+                for city in self.district_reverse_map[target_dist]:
+                    found_districts.add((city, target_dist))
+                    found_cities.add(city)
+
+            # C. Check Neighborhood (Exact or Manual Hints)
+            # Check manual neighborhoods first (High priority)
+            if term in self.manual_neighborhoods:
+                for city, dist in self.manual_neighborhoods[term]:
+                    neighborhood_hints.append(f"{term} -> {city}/{dist}")
+                    found_cities.add(city)
+                    found_districts.add((city, dist))
+
+            # Check from data registry
+            elif term in self.neighborhood_map:
+                for city, dist in self.neighborhood_map[term]:
+                    neighborhood_hints.append(f"{term} -> {city}/{dist}")
+                    found_cities.add(city)
+                    found_districts.add((city, dist))
+
+        if not found_cities and not found_districts:
+            return "No specific location matches found in the registry for these tokens."
+
+        # Format context
+        ctx = "OFFICIAL LOCATION REGISTRY FOR THIS MESSAGE (Use these official names):\n"
+        for city in sorted(list(found_cities)):
+            all_dists = sorted(list(self.city_map.get(city, [])))
+            ctx += f"- {city} Districts: {', '.join(all_dists)}\n"
+            
+        if neighborhood_hints:
+            ctx += "\nNEIGHBORHOOD TO DISTRICT MAPPING:\n"
+            ctx += "\n".join(sorted(list(set(neighborhood_hints))))
+            
+        return ctx
 
     def _fuzzy_match_city(self, candidate: str) -> Optional[str]:
-        """Find closest city name."""
+        if len(candidate) < 3: return None
         import difflib
-        matches = difflib.get_close_matches(candidate, self.city_map.keys(), n=1, cutoff=0.7)
+        matches = difflib.get_close_matches(candidate, self.city_map.keys(), n=1, cutoff=0.8)
         return matches[0] if matches else None
 
     def _fuzzy_match_district(self, candidate: str, possibilities: set) -> Optional[str]:
-        """Find closest district in a given set."""
+        if len(candidate) < 3: return None
         import difflib
-        matches = difflib.get_close_matches(candidate, list(possibilities), n=1, cutoff=0.7)
+        matches = difflib.get_close_matches(candidate, list(possibilities), n=1, cutoff=0.8)
         return matches[0] if matches else None
 
     def _fuzzy_match_district_global(self, candidate: str) -> Optional[str]:
-        """Find closest district in ALL districts (keys of reverse map)."""
+        if len(candidate) < 3: return None
         import difflib
-        # Optimization: only check if length is reasonable
-        matches = difflib.get_close_matches(candidate, self.district_reverse_map.keys(), n=1, cutoff=0.7) # Relaxed cutoff for short words
+        matches = difflib.get_close_matches(candidate, self.district_reverse_map.keys(), n=1, cutoff=0.85)
+        return matches[0] if matches else None
+
         return matches[0] if matches else None
