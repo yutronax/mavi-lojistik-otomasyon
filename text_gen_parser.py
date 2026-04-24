@@ -15,6 +15,7 @@ import asyncio
 import time
 import random
 from typing import List, Dict, Any
+from datetime import datetime
 
 from src.utils.file_operations import save_json_safe, load_json_safe
 from src.services.persistence_manager import persistence_manager
@@ -37,6 +38,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from groq import AsyncGroq, Groq
+from openai import AsyncOpenAI
+from google import genai as google_genai
 
 # Import validators
 from src.utils.vehicle_type_matcher import VehicleTypeMatcher
@@ -57,19 +60,76 @@ class TextGenParser:
         # Traffic Control: Limit concurrent API calls to stay within TPM/RPM limits
         self.semaphore = asyncio.Semaphore(max_concurrent)
         
-        # Models
+        # Models - Gemini is on "paydos", using Groq as primary
         self.model_fast = 'llama-3.1-8b-instant'
         self.model_robust = 'llama-3.3-70b-versatile'
-        self.fallback_models = ['mixtral-8x7b-32768', 'llama-3.1-70b-versatile'] # Keep decommed as secondary fallback just in case of regional availability
+        self.model_deepseek = 'deepseek-chat'
+        self.model_gemini = 'llama-3.3-70b-versatile' # Switched from gemini-2.0-flash
+        self.fallback_models = ['mixtral-8x7b-32768', 'llama-3.1-70b-versatile']
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
         self._load_cache()
 
     def _get_async_client(self):
-        """Returns an AsyncGroq client with a rotated API key."""
-        api_key = self.key_manager.get_active_key()
+        """Returns an AsyncGroq client with a rotated API key from the groq pool."""
+        api_key = self.key_manager.get_active_key(key_type='groq')
         return AsyncGroq(api_key=api_key)
+
+    def _get_deepseek_client(self):
+        """Returns an AsyncOpenAI client for DeepSeek."""
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            api_key = self.key_manager.get_active_key()
+        return AsyncOpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+
+    def _get_gemini_client(self):
+        """Returns a modern Gemini client with explicit key."""
+        # Force remove GOOGLE_API_KEY from env to prevent confusion if it's set to a Groq key
+        if "GOOGLE_API_KEY" in os.environ and os.environ["GOOGLE_API_KEY"].startswith('gsk_'):
+            del os.environ["GOOGLE_API_KEY"]
+            
+        # Re-read from env to be safe against accidental overwrites
+        load_dotenv(override=True)
+        api_key = os.getenv("GEMINI_API_KEY")
+        
+        if not api_key or not api_key.startswith('AIza'):
+            logger.error("❌ GEMINI_API_KEY is missing or invalid in .env")
+            raise ValueError("Invalid Gemini API Key")
+            
+        return google_genai.Client(api_key=api_key)
+
+    def _track_spend(self, model_name: str, input_tokens: int, output_tokens: int):
+        """Estimates, logs and persists spending based on model prices."""
+        cost = 0.0
+        if "flash" in model_name:
+            # $0.075 / 1M input, $0.30 / 1M output
+            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+        elif "deepseek" in model_name:
+            cost = (input_tokens * 0.27 / 1_000_000) + (output_tokens * 1.10 / 1_000_000)
+        elif "llama-3.3-70b" in model_name:
+            # Groq 70b approx: $0.59 / 1M input, $0.79 / 1M output
+            cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
+        
+        if cost > 0:
+            cost_try = cost * 33 # Approx 33 TL per USD
+            
+            # Persist spend data
+            spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
+            history = load_json_safe(spend_file, default=[])
+            entry = {
+                "timestamp": datetime.now().isoformat(),
+                "model": model_name,
+                "input": input_tokens,
+                "output": output_tokens,
+                "cost_usd": cost,
+                "cost_try": cost_try
+            }
+            history.append(entry)
+            save_json_safe(spend_file, history)
+            
+            logger.info(f"💰 SPEND TRACKER [{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
+            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Total Entries: {len(history)}")
 
     def _get_client(self):
         """Synchronous client for legacy methods."""
@@ -85,31 +145,50 @@ class TextGenParser:
         persistence_manager.queue_write(cache_path, self.neighborhood_cache)
 
     def _get_model_for_message(self, message: str) -> str:
-        """Determines which model to use based on message complexity."""
-        if len(message) < 150:
-            return self.model_fast
-        return self.model_robust
+        """Determines which model to use. Prioritize Gemini if requested."""
+        return self.model_gemini
 
     async def _extract_locations_stage1_async(self, message: str) -> str:
         """Stage 1: Fast extraction of just origins and destinations (Async)."""
         system_prompt = "You are a location extractor. Output only the logical routes found in the message in 'ORIGIN -> DESTINATION' format."
         user_prompt = f"Extract routes from this logistics message:\n{message}"
+        model_to_use = self.model_gemini
         
         async with self.semaphore:
-            try:
-                client = self._get_async_client()
-                response = await client.chat.completions.create(
-                    model=self.model_fast,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt}
-                    ],
-                    temperature=0.0
-                )
-                return response.choices[0].message.content.strip()
-            except Exception as e:
-                logger.warning(f"Stage 1 Async failed: {str(e)[:100]}")
-                return ""
+            for attempt in range(3):
+                try:
+                    if "gemini" in model_to_use:
+                        client = self._get_gemini_client()
+                        response = await asyncio.to_thread(
+                            client.models.generate_content,
+                            model=model_to_use,
+                            contents=f"{system_prompt}\n\n{user_prompt}"
+                        )
+                        text = response.text
+                        self._track_spend(model_to_use, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
+                        return text.strip()
+                    else:
+                        # Fallback for Stage 1 if needed
+                        client = self._get_async_client()
+                        response = await client.chat.completions.create(
+                            model=self.model_fast,
+                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                            temperature=0.0
+                        )
+                        text = response.choices[0].message.content
+                        self._track_spend(self.model_fast, response.usage.prompt_tokens, response.usage.completion_tokens)
+                        return text.strip()
+                except Exception as e:
+                    error_str = str(e)
+                    if "429" in error_str and "gemini" in model_to_use:
+                        logger.warning(f"Stage 1 Gemini Rate Limit. Rotating key...")
+                        if await self.key_manager.switch_to_next_async(key_type='google', reason="Stage 1 Limit"):
+                            continue
+                    
+                    print(f"STAGE 1 ERROR: {e}")
+                    logger.warning(f"Stage 1 Async failed: {str(e)[:100]}")
+                    return ""
+        return ""
 
     async def parse_async(self, message: str) -> list:
         """Asynchronously parse logistics message with full logic recovery."""
@@ -137,6 +216,16 @@ class TextGenParser:
         
         system_prompt = """You are a Turkish logistics parsing expert. Output ONLY valid JSON.
 CRITICAL: ONLY extract routes explicitly mentioned in the message. DO NOT hallucinate or imagine destinations not found in the text.
+
+LOGISTICS ABBREVIATIONS & RULES:
+- "İ." or "İZM" followed by "KEMALPAŞA" ALWAYS means "İZMİR / KEMALPAŞA".
+- "K.PAŞA" or "K. PASA" usually means "KEMALPAŞA".
+- EXTREME PRIORITY: If "BURSA" is mentioned anywhere in the message, "KEMALPAŞA" or "K.PAŞA" MUST be extracted as "BURSA / MUSTAFAKEMALPAŞA". DO NOT extract it as İzmir if Bursa is present.
+- "İST" = İSTANBUL, "İZM" = İZMİR, "ANK" = ANKARA, "KOC" = KOCAELİ.
+- "M." followed by "YATAĞAN" means "MUĞLA / YATAĞAN".
+- "DİLOVASI" is a district in KOCAELİ.
+- "GEBZE" is a district in KOCAELİ.
+
 VALID TURKISH CITIES: ADANA, ADIYAMAN, AFYONKARAHİSAR, AĞRI, AKSARAY, AMASYA, ANKARA, ANTALYA, ARDAHAN, ARTVİN, AYDIN, BALIKESİR, BARTIN, BATMAN, BAYBURT, BİLECİK, BİNGÖL, BİTLİS, BOLU, BURDUR, BURSA, ÇANAKKALE, ÇANKIRI, ÇORUM, DENİZLİ, DİYARBAKIR, DÜZCE, EDİRNE, ELAZIĞ, ERZİNCAN, ERZURUM, ESKİŞEHİR, GAZİANTEP, GİRESUN, GÜMÜŞHANE, HAKKARİ, HATAY, IĞDIR, ISPARTA, MERSİN, İSTANBUL, İZMİR, KAHRAMANMARAŞ, KARABÜK, KARAMAN, KARS, KASTAMONU, KAYSERİ, KIRIKKALE, KIRKLARELİ, KIRŞEHİR, KİLİS, KOCAELİ, KONYA, KÜTAHYA, MALATYA, MANİSA, MARDİN, MUĞLA, MUŞ, NEVŞEHİR, NİĞDE, ORDU, OSMANİYE, RİZE, SAKARYA, SAMSUN, SİİRT, SİNOP, SİVAS, ŞANLIURFA, ŞIRNAK, TEKİRDAĞ, TOKAT, TRABZON, TUNCELİ, UŞAK, VAN, YALOVA, YOZGAT, ZONGULDAK."""
 
         user_prompt = f"""Extract ALL routes from this message. 
@@ -151,6 +240,13 @@ EXTRACTION RULES:
 4. MULTI-ROUTE: "X'den Y ve Z'ye" = (X->Y) and (X->Z). 
 5. MANDATORY KEYS: "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type".
 6. AMBIGUITY: If a name could be both a City and a District (e.g. "AYDIN"), prioritize it as a CITY unless context clearly says otherwise.
+7. STOP COUNTS: Ignore phrases like "2 NOKTA", "3 YER", "DÖNÜŞLÜ". Do NOT extract numbers as districts.
+8. MULTI-STOP: In "A'dan B + C", extract (A->B) and (A->C).
+9. VERBS: 
+   - "YÜKLER", "YÜKLEME", "DAN/DEN" = Loading point (nereden).
+   - "BOŞALTIR", "İNER", "TESLİM", "A/E" = Unloading point (nereye).
+   - "VERİLDİ", "İPTAL", "DOLDU" = This message is an update, but still extract the route.
+10. ORDER: In simple "A B" or "A B verildi" patterns without arrows or verbs, the first location is usually ORIGIN and the second is DESTINATION.
 
 {loc_context}
 {rules_context}
@@ -168,25 +264,77 @@ Return ONLY a JSON object in this format:
             for model_name in models_to_try:
                 for attempt in range(3):
                     try:
-                        client = self._get_async_client()
-                        active_key = self.key_manager.get_active_key()
-                        response = await client.chat.completions.create(
-                            model=model_name,
-                            messages=[
-                                {"role": "system", "content": system_prompt},
-                                {"role": "user", "content": user_prompt}
-                            ],
-                            temperature=0.0,
-                            response_format={"type": "json_object"}
-                        )
-                        text = response.choices[0].message.content.strip()
+                        if "gemini" in model_name:
+                            client = self._get_gemini_client()
+                            response = await asyncio.to_thread(
+                                client.models.generate_content,
+                                model=model_name,
+                                contents=f"{system_prompt}\n\n{user_prompt}"
+                            )
+                            text = response.text
+                            self._track_spend(model_name, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
+                        elif "deepseek" in model_name:
+                            client = self._get_deepseek_client()
+                            response = await client.chat.completions.create(
+                                model=model_name,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0,
+                                response_format={"type": "json_object"}
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                        else:
+                            client = self._get_async_client()
+                            response = await client.chat.completions.create(
+                                model=model_name,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0,
+                                response_format={"type": "json_object"}
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                        
+                        text = text.strip()
                         return await self._process_raw_json_async(text, message)
                     except Exception as e:
                         error_str = str(e)
-                        if "429" in error_str or "401" in error_str:
-                            await self.key_manager.switch_to_next_async(reason=f"Batch {model_name}")
-                            await asyncio.sleep(1)
-                            continue
+                        print(f"⚠️ STAGE 2 ERROR [{model_name}]: {error_str[:150]}")
+                        
+                        if "429" in error_str:
+                            if "gemini" in model_name:
+                                # Try next Google key in pool
+                                if await self.key_manager.switch_to_next_async(key_type='google', reason=f"Rate Limit {model_name}"):
+                                    logger.warning(f"🔄 RATE LIMIT on Gemini. Switched to next key in pool.")
+                                    await asyncio.sleep(1)
+                                    continue # Retry with new Gemini key
+                                else:
+                                    # All Google keys exhausted. Should we wait or fallback?
+                                    wait_sec = self.key_manager.get_wait_time(key_type='google')
+                                    if 0 < wait_sec < 20:
+                                        logger.info(f"⏳ All Gemini keys exhausted. Waiting {wait_sec:.1f}s for cooldown...")
+                                        await asyncio.sleep(wait_sec + 0.5)
+                                        # After waiting, the first key should be available again.
+                                        # switch_to_next_async will detect the cooled down key.
+                                        if await self.key_manager.switch_to_next_async(key_type='google', reason="Cooldown Recovery"):
+                                            continue 
+                                    
+                                    logger.warning(f"🚨 All Gemini keys exhausted. Falling back to next model.")
+                                    break 
+                            
+                            # Rotate Groq keys
+                            if await self.key_manager.switch_to_next_async(key_type='groq', reason=f"Rate Limit {model_name}"):
+                                logger.warning(f"🔄 RATE LIMIT on {model_name}. Switched to next Groq key.")
+                                await asyncio.sleep(2)
+                                continue
+                            else:
+                                break
+                        elif "401" in error_str or "400" in error_str:
+                            logger.error(f"AUTH/CONFIG ERROR on {model_name}: {error_str}")
+                            if not "gemini" in model_name:
+                                await self.key_manager.switch_to_next_async(reason=f"Error {model_name}")
+                            break
+                        
+                        await asyncio.sleep(1)
                 # If 3 attempts failed for this model, try next model
                 continue
             
@@ -217,27 +365,40 @@ Return ONLY a JSON object in this format:
         raw_routes = data.get('routes', [])
         final_routes = []
         
-        # Global phone extraction
+        # Pre-process message for context
+        msg_up = message.upper().replace('İ', 'İ').replace('I', 'I')
         phone_match = re.search(r"(0\s*5\d{2}[\s\.\-\(\)]*\d{3}[\s\.\-\(\)]*\d{2}[\s\.\-\(\)]*\d{2})", message)
         default_phone = re.sub(r'\D', '', phone_match.group(1)) if phone_match else ""
         global_type_match = self.vehicle_matcher.find_match(message, per_route=False)
-        
+
         for r in raw_routes:
-            # Validate cities/districts via local registry
-            origin_il, origin_ilce = self.city_validator.validate(r.get('nereden_il', ''), r.get('nereden_ilce', ''))
-            dest_il, dest_ilce = self.city_validator.validate(r.get('nereye_il', ''), r.get('nereye_ilce', ''))
+            # 1. Contextual Corrections (Bursa Kemalpaşa Trap)
+            n_il, n_dist = r.get('nereden_il', ''), r.get('nereden_ilce', '')
+            ny_il, ny_dist = r.get('nereye_il', ''), r.get('nereye_ilce', '')
+
+            if n_dist == 'KEMALPAŞA' and n_il == 'İZMİR':
+                if 'BURSA' in msg_up and 'İZMİR' not in msg_up:
+                    n_il, n_dist = 'BURSA', 'MUSTAFAKEMALPAŞA'
             
-            # Neighborhood fallback (Async)
-            if not origin_ilce and r.get('nereden_ilce'):
-                origin_il, origin_ilce = await self._resolve_neighborhood_async(r.get('nereden_ilce'), r.get('nereden_il', ''))
-            if not dest_ilce and r.get('nereye_ilce'):
-                dest_il, dest_ilce = await self._resolve_neighborhood_async(r.get('nereye_ilce'), r.get('nereye_il', ''))
+            if ny_dist == 'KEMALPAŞA' and ny_il == 'İZMİR':
+                if 'BURSA' in msg_up and 'İZMİR' not in msg_up:
+                    ny_il, ny_dist = 'BURSA', 'MUSTAFAKEMALPAŞA'
 
-            # Re-validate after neighborhood fallback
-            origin_il, origin_ilce = self.city_validator.validate(origin_il, origin_ilce)
-            dest_il, dest_ilce = self.city_validator.validate(dest_il, dest_ilce)
+            # 2. Strict Validation via Registry
+            n_il, n_dist = self.city_validator.validate(n_il, n_dist)
+            ny_il, ny_dist = self.city_validator.validate(ny_il, ny_dist)
 
-            route_context = f"{r.get('nereden_il', '')} {r.get('nereye_il', '')} {r.get('type', '')}"
+            # 3. Neighborhood fallback if still missing district
+            if not n_dist and r.get('nereden_ilce'):
+                n_il, n_dist = await self._resolve_neighborhood_async(r.get('nereden_ilce'), n_il)
+                n_il, n_dist = self.city_validator.validate(n_il, n_dist)
+
+            if not ny_dist and r.get('nereye_ilce'):
+                ny_il, ny_dist = await self._resolve_neighborhood_async(r.get('nereye_ilce'), ny_il)
+                ny_il, ny_dist = self.city_validator.validate(ny_il, ny_dist)
+
+            # 4. Vehicle & Load Type Matching
+            route_context = f"{n_il} {ny_il} {r.get('type', '')}"
             type_match = self.vehicle_matcher.find_match(route_context, per_route=True) or global_type_match
             
             if type_match:
@@ -245,25 +406,24 @@ Return ONLY a JSON object in this format:
                 kasa_tipi = [k.strip() for k in type_match.get('KASA TİPİ', 'AÇIK KAPALI').split('+')]
                 yuk_tipi = [type_match.get('YÜKÜN TİPİ', 'KOMPLE')]
             else:
-                arac_tipi, kasa_tipi, yuk_tipi = ['1360'], ['AÇIK KAPALI'], ['KOMPLE']
-            
+                arac_tipi = ['1360']
+                kasa_tipi = ['AÇIK', 'KAPALI']
+                yuk_tipi = ['KOMPLE']
+
             route = {
-                "isim": "",
-                "nereden_il": origin_il, "nereden_ilce": origin_ilce,
-                "nereye_il": dest_il, "nereye_ilce": dest_ilce,
-                "arac_tipi": arac_tipi, "kasa_tipi": kasa_tipi, "yuk_tipi": yuk_tipi,
-                "fiyat": "SORUNUZ",  # Always default to 'SORUNUZ' as per user request
-                "telefon": default_phone,
-                "aciklama": message, "orijinal_mesaj": message
+                "nereden_il": n_il,
+                "nereden_ilce": n_dist,
+                "nereye_il": ny_il,
+                "nereye_ilce": ny_dist,
+                "arac_tipi": arac_tipi,
+                "kasa_tipi": kasa_tipi,
+                "yuk_tipi": yuk_tipi,
+                "fiyat": r.get('fiyat', '0'),
+                "telefon": r.get('telefon', default_phone) or default_phone,
+                "aciklama": r.get('aciklama', message[:100]),
+                "createdAt": datetime.now().isoformat(),
+                "body": message
             }
-            # Special pallet logic
-            pallet_match = re.search(r"(\d+)\s*palet", message.lower())
-            if pallet_match:
-                try:
-                    count = int(pallet_match.group(1))
-                    route['yuk_tipi'] = ["PARÇA"] if 1 <= count <= 7 else ["KOMPLE"]
-                except: pass
-                
             final_routes.append(route)
             
         return final_routes

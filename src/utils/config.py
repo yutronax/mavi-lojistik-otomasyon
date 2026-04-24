@@ -37,9 +37,9 @@ AUTO_SUBMIT = os.getenv('AUTO_SUBMIT', 'true').lower() == 'true'
 # fetch_all_messages(hours_back=...)
 FETCH_HOURS_BACK = float(os.getenv('FETCH_HOURS_BACK', '12'))
 
-# Kopya mesaj kontrolü penceresi (Saat)
-# Aynı içeriğe sahip mesajlar bu süre içinde tekrar işlenmez (DataService.is_body_known)
-DUPLICATE_CHECK_HOURS = float(os.getenv('DUPLICATE_CHECK_HOURS', '12.0'))
+# Kopya mesaj kontrol penceresi (Saat)
+# Ayn ierie sahip mesajlar bu sre iinde tekrar ilenmez (DataService.is_body_known)
+DUPLICATE_CHECK_HOURS = float(os.getenv('DUPLICATE_CHECK_HOURS', '2.0'))
 
 # --- DÖNGÜ VE BEKLEME SÜRELERİ (SANİYE CİNSİNDEN) ---
 

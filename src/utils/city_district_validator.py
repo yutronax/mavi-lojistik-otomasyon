@@ -29,30 +29,73 @@ class CityDistrictValidator:
         
         # District Alias Map (Kısa isimler -> Resmi isimler)
         self.district_aliases = {
-            "KEMALPAŞA": "MUSTAFAKEMALPAŞA",
-            "M.KEMALPAŞA": "MUSTAFAKEMALPAŞA",
-            "MUSTAFA KEMAL PAŞA": "MUSTAFAKEMALPAŞA"
+            "MKEMALPAŞA": "MUSTAFAKEMALPAŞA",
+            "MUSTAFAKEMALPAŞA": "MUSTAFAKEMALPAŞA",
+            "KPASA": "KEMALPAŞA",
+            "KEMALPAŞA": "KEMALPAŞA",
+            "İKEMALPAŞA": "KEMALPAŞA",
+            "KEREĞLİ": "EREĞLİ",
+            "ZEREĞLİ": "KARADENİZ EREĞLİ",
+            "EREGLI": "EREĞLİ",
+            "MEREĞLİ": "MARMARAEREĞLİSİ",
+            "YKASABA": "TURGUTLU",
+            "SERİNYOL": "ANTAKYA",
+            "TEPECEK": "BÜYÜKÇEKMECE",
+            "KÇEKMECE": "KÜÇÜKÇEKMECE",
+            "BÇEKMECE": "BÜYÜKÇEKMECE",
+            "KBAKKALKÖY": "ATAŞEHİR",
+            "İKAYALAR": "MENDERES",
+            "AVRUPA": "AVCILAR",
+            "AVRUPA YAKASI": "AVCILAR",
+            "AVRUPAYAKASI": "AVCILAR",
+            "ANADOLU": "MALTEPE",
+            "ANADOLU YAKASI": "MALTEPE",
+            "ANADOLUYAKASI": "MALTEPE"
         }
         
         # City Alias Map (Yaygın kısaltmalar -> Resmi isimler)
         self.city_aliases = {
             "MARAŞ": "KAHRAMANMARAŞ",
+            "KMARAŞ": "KAHRAMANMARAŞ",
             "ANTEP": "GAZİANTEP",
+            "GANTEP": "GAZİANTEP",
             "URFA": "ŞANLIURFA",
+            "ŞURFA": "ŞANLIURFA",
             "YAMAN": "ADIYAMAN",
-            "ELAZIĞ": "ELAZIĞ", # Fix potential İ/I confusion
+            "ELAZIĞ": "ELAZIĞ", 
             "AFYON": "AFYONKARAHİSAR",
-            "İÇEL": "MERSİN"
+            "İÇEL": "MERSİN",
+            "İST": "İSTANBUL",
+            "İZM": "İZMİR",
+            "ANK": "ANKARA",
+            "KOC": "KOCAELİ",
+            "SAK": "SAKARYA",
+            "BUR": "BURSA"
         }
         
         # Neighborhood manually injected (Stratejik eksik bölgeler)
         self.manual_neighborhoods = {
             "SİTELER": [("ANKARA", "ALTINDAĞ")],
+            "EREĞLİ": [("ZONGULDAK", "KARADENİZ EREĞLİ")],
             "OVACIK": [("ANKARA", "KEÇİÖREN")],
             "VEZİRHAN": [("BİLECİK", "MERKEZ")],
-            "KEMALPAŞA": [("BURSA", "MUSTAFAKEMALPAŞA")],
+            "KEMALPAŞA": [("İZMİR", "KEMALPAŞA"), ("BURSA", "MUSTAFAKEMALPAŞA"), ("İSTANBUL", "BAĞCILAR")],
+            "K.PAŞA": [("İZMİR", "KEMALPAŞA")],
+            "İ.KEMALPAŞA": [("İZMİR", "KEMALPAŞA")],
+            "TEMELLİ": [("ANKARA", "SİNCAN")],
             "HADIMKÖY": [("İSTANBUL", "ARNAVUTKÖY")],
-            "TOPKAPI": [("İSTANBUL", "FATİH")]
+            "TOPKAPI": [("İSTANBUL", "FATİH")],
+            "İSTOÇ": [("İSTANBUL", "BAĞCILAR")],
+            "İMRAHOR": [("İSTANBUL", "ARNAVUTKÖY")],
+            "KEMERBURGAZ": [("İSTANBUL", "EYÜPSULTAN")],
+            "GÜRPINAR": [("İSTANBUL", "BEYLİKDÜZÜ")],
+            "KIRAÇ": [("İSTANBUL", "ESENYURT")],
+            "DUDULLU": [("İSTANBUL", "ÜMRANİYE")],
+            "GEBZE": [("KOCAELİ", "GEBZE")], 
+            "ÇORLU": [("TEKİRDAĞ", "ÇORLU")],
+            "İNEGÖL": [("BURSA", "İNEGÖL")],
+            "İSKENDERUN": [("HATAY", "İSKENDERUN")],
+            "TEPESİDELİK": [("KIRŞEHİR", "MERKEZ")]
         }
         
         self._load_data()
@@ -60,32 +103,33 @@ class CityDistrictValidator:
     def _normalize(self, text: str) -> str:
         """
         Turkish normalization: ensures i -> İ and ı -> I.
-        Does not use upper() directly on the whole string to avoid ASCII I issues.
+        Also strips punctuation and spaces for robust matching.
         """
         if not text:
             return ""
         
-        # Consistent Turkish uppercase mapping
-        map_low_to_up = {
-            'i': 'İ', 'ı': 'I', 'ç': 'Ç', 'ğ': 'Ğ', 'ö': 'Ö', 'ş': 'Ş', 'ü': 'Ü',
-            'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F', 'g': 'G',
-            'h': 'H', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N', 'o': 'O',
-            'p': 'P', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U', 'v': 'V', 'y': 'Y',
-            'z': 'Z', 'x': 'X', 'q': 'Q', 'w': 'W'
-        }
+        # 0. Strip punctuation (BUT KEEP WHITESPACE)
+        import re
+        text = re.sub(r'[\.\,\'\"\-\(\)\:]+', '', text)
         
-        # 1. Normalize Unicode first
-        text = unicodedata.normalize('NFC', text)
-        
-        # 2. Manual Uppercase
+        # 1. Manual Turkish Uppercase (Robust)
+        # Avoids combining characters by explicitly mapping common forms
+        text = text.replace('i', 'İ').replace('ı', 'I')
         res = ""
         for char in text:
-            res += map_low_to_up.get(char, char.upper())
+            if char == 'i': res += 'İ'
+            elif char == 'ı': res += 'I'
+            elif char == 'ç': res += 'Ç'
+            elif char == 'ğ': res += 'Ğ'
+            elif char == 'ö': res += 'Ö'
+            elif char == 'ş': res += 'Ş'
+            elif char == 'ü': res += 'Ü'
+            else: res += char.upper()
             
-        # 3. Clean combining marks (already mostly handled by NFC + map, but for safety)
+        # 2. Cleanup Unicode artifacts (especially the combining dot above I)
+        import unicodedata
         res = unicodedata.normalize('NFC', res)
-        # Remove redundant dots above I/İ
-        res = res.replace('I\u0307', 'İ').replace('İ\u0307', 'İ')
+        res = res.replace('\u0307', '') # Strip combining dot above if any remains
         
         return res.strip()
 
@@ -168,6 +212,17 @@ class CityDistrictValidator:
                     elif dists:
                          self.default_districts[city] = sorted(dists)[0]
 
+            # Inject manual neighborhoods
+            for m_name, locs in self.manual_neighborhoods.items():
+                m_norm = self._normalize(m_name)
+                if m_norm not in self.neighborhood_map:
+                    self.neighborhood_map[m_norm] = []
+                for city, dist in locs:
+                    c_norm, d_norm = self._normalize(city), self._normalize(dist)
+                    if (c_norm, d_norm) in self.neighborhood_map[m_norm]:
+                        self.neighborhood_map[m_norm].remove((c_norm, d_norm))
+                    self.neighborhood_map[m_norm].insert(0, (c_norm, d_norm))
+
             logger.info(f"Loaded {len(self.city_map)} cities and {len(self.neighborhood_map)} unique neighborhood strings.")
             print(f"DEBUG: Cities={len(self.city_map)}, Neighborhoods={len(self.neighborhood_map)}")
 
@@ -199,11 +254,24 @@ class CityDistrictValidator:
                 norm_city, forced_default = "İSTANBUL", "AVCILAR"
         
         if norm_city == "İSTANBUL":
-            if norm_dist == "ANADOLU": norm_dist = "MALTEPE"
-            elif norm_dist == "AVRUPA": norm_dist = "AVCILAR"
+            if "ANADOLU" in norm_dist: norm_dist = "MALTEPE"
+            elif "AVRUPA" in norm_dist: norm_dist = "AVCILAR"
+            elif forced_default: norm_dist = forced_default
+        
+        # Ignore numeric districts (e.g. "2" from "2 NOKTA")
+        if norm_dist and norm_dist.isdigit():
+            norm_dist = ""
 
         if not norm_city and not norm_dist:
             return "", ""
+
+        # --- TRAP LOCATIONS (Common Logistics Errors) ---
+        if norm_city == "İSTANBUL" and norm_dist == "KEMALPAŞA":
+            # In 99% of logistics messages, "İ. Kemalpaşa" means İzmir
+            return "İZMİR", "KEMALPAŞA"
+        
+        if norm_city == "İSTANBUL" and norm_dist == "İKEMALPAŞA":
+            return "İZMİR", "KEMALPAŞA"
 
         # --- STEP 1: PRECISE CITY MATCH (The "Hard" Filter) ---
         if norm_city in self.city_map:
@@ -213,19 +281,19 @@ class CityDistrictValidator:
             if norm_dist in valid_dists:
                 return norm_city, norm_dist
             
+            # Special case: If user says 'MERKEZ', prioritize city default over neighborhoods named 'MERKEZ'
+            if norm_dist == "MERKEZ" and norm_city in self.default_districts:
+                return norm_city, self.default_districts[norm_city]
+            
             # B. Check if input is a neighborhood/village in this city
             if norm_dist in self.neighborhood_map:
                 for c, d in self.neighborhood_map[norm_dist]:
                     if c == norm_city:
                         return c, d
             
-            # C. Fuzzy match district ONLY within this city
-            if norm_dist and len(norm_dist) > 2:
-                fuzzy_d = self._fuzzy_match_district(norm_dist, valid_dists)
-                if fuzzy_d: return norm_city, fuzzy_d
-            
-            # D. Fallback to default district for this city
-            return norm_city, forced_default or self.default_districts.get(norm_city, 'MERKEZ')
+            # D. If it's a neighborhood but NOT in this city, maybe the city is wrong?
+            # We don't return here yet, we let Step 2-4 try to find it elsewhere.
+            pass
 
         # --- STEP 2: UNIQUE DISTRICT MATCH (Reverse Lookup) ---
         if norm_dist in self.district_reverse_map:
@@ -267,6 +335,10 @@ class CityDistrictValidator:
             cities = self.district_reverse_map[fuzzy_global_d]
             return cities[0], fuzzy_global_d
 
+        # --- STEP 6: FINAL FALLBACK ---
+        if norm_city in self.city_map:
+            return norm_city, self.default_districts.get(norm_city, 'MERKEZ')
+
         return norm_city or "BİLİNMEYEN", norm_dist or "MERKEZ"
 
     def get_loc_context(self, message: str) -> str:
@@ -277,8 +349,15 @@ class CityDistrictValidator:
         if not message:
             return ""
             
+        # 1. Normalize carefully for Turkish
         norm_msg = self._normalize(message)
-        tokens = re.findall(r'\b\w+\b', norm_msg)
+        
+        # 2. Tokenize carefully (keep dots for abbreviations)
+        # Use a more robust split that handles Turkish characters better than \b in some environments
+        # First remove non-alphanumeric (keep spaces and dots)
+        clean_msg = re.sub(r'[^\w\s\.]', ' ', norm_msg)
+        tokens = clean_msg.split()
+        # Search space includes single tokens and pairs (for multi-word locations)
         search_space = tokens + [" ".join(tokens[i:i+2]) for i in range(len(tokens)-1)]
         
         found_cities = set()
@@ -290,7 +369,11 @@ class CityDistrictValidator:
 
         import difflib
 
-        for term in search_space:
+        for raw_term in search_space:
+            # Normalize for comparison (remove dots etc)
+            term = self._normalize(raw_term)
+            if not term: continue
+            
             target_city = None
             target_dist = None
             

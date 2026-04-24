@@ -356,15 +356,24 @@ def fetch_all_messages(
 
     # EARLY ABORT: Check Health first before hitting all 57 channels
     health_data = check_health()
-    status = health_data.get('status', 'error')
-    if status in ['auth_required', 'disconnected']:
-        logger.warning(f"⚠️ fetch_all_messages aborted: WhatsApp is disconnected ({status}).")
-        if status_callback: status_callback({'status': 'error', 'message': f'WhatsApp disconnected ({status})'})
+    status_raw = health_data.get('status', {})
+    
+    # Extract status text (Handle both dict and string responses)
+    if isinstance(status_raw, dict):
+        status_text = str(status_raw.get('text', 'unknown')).lower()
+    else:
+        status_text = str(status_raw).lower()
+        
+    if status_text in ['auth_required', 'disconnected']:
+        logger.warning(f"⚠️ fetch_all_messages aborted: WhatsApp is disconnected ({status_text.upper()}). QR Scan required!")
+        if status_callback: status_callback({'status': 'error', 'message': f'WhatsApp disconnected ({status_text.upper()})'})
         return 0
-    elif status == 'blocked':
+    elif status_text == 'blocked':
         logger.error("🚫 fetch_all_messages aborted: WHAPI account blocked!")
         if status_callback: status_callback({'status': 'error', 'message': 'Account Blocked'})
         return 0
+    
+    logger.info(f"✅ Whapi Bağlantısı Aktif: {status_text.upper()}")
 
     # Enforce only-saved-groups policy if requested by environment (default: enforced)
     enforce_only_saved = os.getenv('ONLY_SAVED_GROUPS_ENFORCE', '1') == '1'
@@ -515,6 +524,7 @@ def fetch_all_messages(
                 
             # Random drop processing
             if behavior_model.should_cancel_click():
+                logger.debug(f"👻 Human behavior: Cancelled click/read for {msg_id}")
                 continue
                 
             # Random pause on media
@@ -530,6 +540,7 @@ def fetch_all_messages(
                     
                 if ignore_older_than_2m:
                     if int(datetime.now().timestamp()) - msg_ts_int > 120:
+                        logger.debug(f"👻 Human behavior: Ignoring message older than 2 min ({msg_id})")
                         continue
             except:
                 pass
@@ -543,6 +554,7 @@ def fetch_all_messages(
             
             # Skip consecutive
             if skip_consecutive_sender and sender == last_sender:
+                logger.debug(f"👻 Human behavior: Skipping consecutive block from {sender}")
                 continue
             last_sender = sender
             

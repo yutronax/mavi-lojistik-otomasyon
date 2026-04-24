@@ -8,8 +8,9 @@ WhatsApp üzerinden gelen lojistik mesajlarını (yük ilanları) otomatik olara
 - **Backend:** Asenkron Python (Asyncio)
 - **Veri:** Yerel JSON (DataService + PersistenceManager üzerinden yönetilir)
 - **Persistence:** Non-blocking Arka Plan Yazma Kuyruğu (PersistenceManager) - *Yeni mimari.*
-- **AI:** Google Gemini (Mesaj ayrıştırma)
-l tabanlı regex.
+- **AI:** Google Gemini (Primary), Groq Llama 3.3 (Fallback).
+- **Spend Tracking:** AI kullanım maliyetlerini takip eden ve `data/ai_spend_history.json` dosyasında saklayan kalıcı sistem.
+- **Location Validation:** Şehir/İlçe/Mahalle hiyerarşisiyle çalışan, 'Kemalpaşa' gibi tuzak konumları ve İstanbul yakalarını (Avrupa/Anadolu) otomatik düzelten validator.
 - **Veri Depolama:** Hibrit (Yerel JSON + Opsiyonel MongoDB).
 - **Entegrasyon:** WhatsApp (Whapi.cloud), Webhook desteği, Canlı grup senkronizasyonu.
 - **Otomatik Onay:** Yeni gelen ilanların kriterlere göre manuel müdahale olmadan otomatik onaylanması ve kuyruğa gönderilmesi.

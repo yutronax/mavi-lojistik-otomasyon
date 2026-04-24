@@ -129,24 +129,24 @@ class HumanBehaviorModel:
         return random.random() < 0.35
 
     def should_not_reach_latest(self) -> bool:
-        """42% probability: do not reach latest message"""
-        return random.random() < 0.42
+        """10% probability: do not reach latest message (reduced from 42%)"""
+        return random.random() < 0.10
         
     def should_pause_on_media(self) -> bool:
         """30% probability: pause on media without opening"""
         return random.random() < 0.30
 
     def should_ignore_last_5_messages(self) -> bool:
-        """20% probability: ignore last 5 messages"""
-        return random.random() < 0.20
+        """5% probability: ignore last 5 messages (reduced from 20%)"""
+        return random.random() < 0.05
 
     def should_ignore_older_than_2_min(self) -> bool:
-        """15% probability: ignore messages >2 min old"""
-        return random.random() < 0.15
+        """5% probability: ignore messages >2 min old (reduced from 15%)"""
+        return random.random() < 0.05
 
     def should_skip_consecutive_sender(self) -> bool:
-        """25% probability: skip consecutive sender blocks"""
-        return random.random() < 0.25
+        """10% probability: skip consecutive sender blocks (reduced from 25%)"""
+        return random.random() < 0.10
 
     def adjust_behavior_by_risk(self, risk_score: int):
         """

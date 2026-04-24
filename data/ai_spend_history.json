@@ -1,0 +1,850 @@
+[
+  {
+    "timestamp": "2026-04-23T15:08:23.963468",
+    "model": "gemini-2.0-flash",
+    "input": 2248,
+    "output": 152,
+    "cost_usd": 0.0002142,
+    "cost_try": 0.0070686
+  },
+  {
+    "timestamp": "2026-04-23T15:13:55.988858",
+    "model": "gemini-2.0-flash",
+    "input": 244,
+    "output": 77,
+    "cost_usd": 4.1400000000000003e-05,
+    "cost_try": 0.0013662000000000001
+  },
+  {
+    "timestamp": "2026-04-23T15:14:01.085353",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4090,
+    "output": 399,
+    "cost_usd": 0.0027283100000000003,
+    "cost_try": 0.09003423
+  },
+  {
+    "timestamp": "2026-04-23T15:14:08.238413",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4229,
+    "output": 319,
+    "cost_usd": 0.0027471199999999996,
+    "cost_try": 0.09065495999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:14:12.129501",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2658,
+    "output": 96,
+    "cost_usd": 0.00164406,
+    "cost_try": 0.05425398
+  },
+  {
+    "timestamp": "2026-04-23T15:14:18.478427",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3373,
+    "output": 220,
+    "cost_usd": 0.00216387,
+    "cost_try": 0.07140771
+  },
+  {
+    "timestamp": "2026-04-23T15:14:31.994843",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2610,
+    "output": 92,
+    "cost_usd": 0.00161258,
+    "cost_try": 0.05321514
+  },
+  {
+    "timestamp": "2026-04-23T15:14:35.124420",
+    "model": "gemini-2.0-flash",
+    "input": 126,
+    "output": 39,
+    "cost_usd": 2.115e-05,
+    "cost_try": 0.0006979499999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:14:41.125382",
+    "model": "gemini-2.0-flash",
+    "input": 3089,
+    "output": 344,
+    "cost_usd": 0.000334875,
+    "cost_try": 0.011050875
+  },
+  {
+    "timestamp": "2026-04-23T15:15:52.824709",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3998,
+    "output": 397,
+    "cost_usd": 0.00267245,
+    "cost_try": 0.08819084999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:16:03.855087",
+    "model": "gemini-2.0-flash",
+    "input": 120,
+    "output": 38,
+    "cost_usd": 2.04e-05,
+    "cost_try": 0.0006732
+  },
+  {
+    "timestamp": "2026-04-23T15:16:07.227746",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4278,
+    "output": 311,
+    "cost_usd": 0.00276971,
+    "cost_try": 0.09140042999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:16:10.924217",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2658,
+    "output": 96,
+    "cost_usd": 0.00164406,
+    "cost_try": 0.05425398
+  },
+  {
+    "timestamp": "2026-04-23T15:16:16.954961",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3373,
+    "output": 223,
+    "cost_usd": 0.00216624,
+    "cost_try": 0.07148592
+  },
+  {
+    "timestamp": "2026-04-23T15:16:25.055314",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2610,
+    "output": 91,
+    "cost_usd": 0.0016117899999999999,
+    "cost_try": 0.05318907
+  },
+  {
+    "timestamp": "2026-04-23T15:16:27.779779",
+    "model": "gemini-2.0-flash",
+    "input": 126,
+    "output": 39,
+    "cost_usd": 2.115e-05,
+    "cost_try": 0.0006979499999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:16:40.815024",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3068,
+    "output": 219,
+    "cost_usd": 0.00198313,
+    "cost_try": 0.06544329
+  },
+  {
+    "timestamp": "2026-04-23T15:18:03.201467",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3998,
+    "output": 399,
+    "cost_usd": 0.00267403,
+    "cost_try": 0.08824299
+  },
+  {
+    "timestamp": "2026-04-23T15:18:06.173467",
+    "model": "gemini-2.0-flash",
+    "input": 120,
+    "output": 38,
+    "cost_usd": 2.04e-05,
+    "cost_try": 0.0006732
+  },
+  {
+    "timestamp": "2026-04-23T15:18:09.286859",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4278,
+    "output": 311,
+    "cost_usd": 0.00276971,
+    "cost_try": 0.09140042999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:18:13.181267",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2658,
+    "output": 96,
+    "cost_usd": 0.00164406,
+    "cost_try": 0.05425398
+  },
+  {
+    "timestamp": "2026-04-23T15:18:20.963307",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3373,
+    "output": 220,
+    "cost_usd": 0.00216387,
+    "cost_try": 0.07140771
+  },
+  {
+    "timestamp": "2026-04-23T15:18:35.311473",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2610,
+    "output": 94,
+    "cost_usd": 0.00161416,
+    "cost_try": 0.05326728
+  },
+  {
+    "timestamp": "2026-04-23T15:18:38.208994",
+    "model": "gemini-2.0-flash",
+    "input": 126,
+    "output": 39,
+    "cost_usd": 2.115e-05,
+    "cost_try": 0.0006979499999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:18:50.967052",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3068,
+    "output": 219,
+    "cost_usd": 0.00198313,
+    "cost_try": 0.06544329
+  },
+  {
+    "timestamp": "2026-04-23T15:25:13.794601",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1576,
+    "output": 88,
+    "cost_usd": 0.00099936,
+    "cost_try": 0.032978879999999995
+  },
+  {
+    "timestamp": "2026-04-23T15:25:17.019027",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2217,
+    "output": 87,
+    "cost_usd": 0.0013767599999999999,
+    "cost_try": 0.045433079999999994
+  },
+  {
+    "timestamp": "2026-04-23T15:28:19.419543",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1576,
+    "output": 88,
+    "cost_usd": 0.00099936,
+    "cost_try": 0.032978879999999995
+  },
+  {
+    "timestamp": "2026-04-23T15:28:22.364286",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2217,
+    "output": 87,
+    "cost_usd": 0.0013767599999999999,
+    "cost_try": 0.045433079999999994
+  },
+  {
+    "timestamp": "2026-04-23T15:28:25.846773",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1708,
+    "output": 149,
+    "cost_usd": 0.00112543,
+    "cost_try": 0.037139189999999996
+  },
+  {
+    "timestamp": "2026-04-23T15:28:28.969646",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1947,
+    "output": 83,
+    "cost_usd": 0.0012143,
+    "cost_try": 0.0400719
+  },
+  {
+    "timestamp": "2026-04-23T15:28:31.785491",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1978,
+    "output": 81,
+    "cost_usd": 0.00123101,
+    "cost_try": 0.04062333
+  },
+  {
+    "timestamp": "2026-04-23T15:28:34.446930",
+    "model": "gemini-2.0-flash",
+    "input": 2899,
+    "output": 144,
+    "cost_usd": 0.000260625,
+    "cost_try": 0.008600625
+  },
+  {
+    "timestamp": "2026-04-23T15:28:37.621277",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1594,
+    "output": 93,
+    "cost_usd": 0.00101393,
+    "cost_try": 0.03345969
+  },
+  {
+    "timestamp": "2026-04-23T15:28:40.386923",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2497,
+    "output": 162,
+    "cost_usd": 0.00160121,
+    "cost_try": 0.05283993
+  },
+  {
+    "timestamp": "2026-04-23T15:30:04.656630",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1576,
+    "output": 88,
+    "cost_usd": 0.00099936,
+    "cost_try": 0.032978879999999995
+  },
+  {
+    "timestamp": "2026-04-23T15:30:30.020413",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2217,
+    "output": 87,
+    "cost_usd": 0.0013767599999999999,
+    "cost_try": 0.045433079999999994
+  },
+  {
+    "timestamp": "2026-04-23T15:30:46.009437",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1708,
+    "output": 150,
+    "cost_usd": 0.0011262199999999998,
+    "cost_try": 0.03716525999999999
+  },
+  {
+    "timestamp": "2026-04-23T15:30:51.563407",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1947,
+    "output": 85,
+    "cost_usd": 0.00121588,
+    "cost_try": 0.04012404
+  },
+  {
+    "timestamp": "2026-04-23T15:30:56.173469",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1978,
+    "output": 81,
+    "cost_usd": 0.00123101,
+    "cost_try": 0.04062333
+  },
+  {
+    "timestamp": "2026-04-23T15:31:00.676554",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3022,
+    "output": 96,
+    "cost_usd": 0.00185882,
+    "cost_try": 0.061341059999999996
+  },
+  {
+    "timestamp": "2026-04-23T15:31:05.699365",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1594,
+    "output": 92,
+    "cost_usd": 0.00101314,
+    "cost_try": 0.033433620000000004
+  },
+  {
+    "timestamp": "2026-04-23T15:31:10.097103",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2497,
+    "output": 162,
+    "cost_usd": 0.00160121,
+    "cost_try": 0.05283993
+  },
+  {
+    "timestamp": "2026-04-23T15:35:14.240671",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1576,
+    "output": 88,
+    "cost_usd": 0.00099936,
+    "cost_try": 0.032978879999999995
+  },
+  {
+    "timestamp": "2026-04-23T15:35:17.467502",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2217,
+    "output": 85,
+    "cost_usd": 0.00137518,
+    "cost_try": 0.045380939999999995
+  },
+  {
+    "timestamp": "2026-04-23T15:35:20.308624",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1708,
+    "output": 149,
+    "cost_usd": 0.00112543,
+    "cost_try": 0.037139189999999996
+  },
+  {
+    "timestamp": "2026-04-23T15:35:23.115865",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1947,
+    "output": 85,
+    "cost_usd": 0.00121588,
+    "cost_try": 0.04012404
+  },
+  {
+    "timestamp": "2026-04-23T15:35:26.147600",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1978,
+    "output": 81,
+    "cost_usd": 0.00123101,
+    "cost_try": 0.04062333
+  },
+  {
+    "timestamp": "2026-04-23T15:35:28.658036",
+    "model": "gemini-2.0-flash",
+    "input": 2899,
+    "output": 120,
+    "cost_usd": 0.000253425,
+    "cost_try": 0.008363025
+  },
+  {
+    "timestamp": "2026-04-23T15:35:31.729251",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1594,
+    "output": 93,
+    "cost_usd": 0.00101393,
+    "cost_try": 0.03345969
+  },
+  {
+    "timestamp": "2026-04-23T15:35:34.371134",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2497,
+    "output": 162,
+    "cost_usd": 0.00160121,
+    "cost_try": 0.05283993
+  },
+  {
+    "timestamp": "2026-04-23T23:14:05.756038",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1493,
+    "output": 109,
+    "cost_usd": 0.00096698,
+    "cost_try": 0.03191034
+  },
+  {
+    "timestamp": "2026-04-23T23:14:46.328336",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3514,
+    "output": 102,
+    "cost_usd": 0.0021538399999999997,
+    "cost_try": 0.07107672
+  },
+  {
+    "timestamp": "2026-04-23T23:15:57.297725",
+    "model": "llama-3.3-70b-versatile",
+    "input": 8511,
+    "output": 475,
+    "cost_usd": 0.00539674,
+    "cost_try": 0.17809242
+  },
+  {
+    "timestamp": "2026-04-23T23:17:19.903036",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3135,
+    "output": 83,
+    "cost_usd": 0.0019152199999999998,
+    "cost_try": 0.06320226
+  },
+  {
+    "timestamp": "2026-04-23T23:17:22.632612",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2846,
+    "output": 400,
+    "cost_usd": 0.00199514,
+    "cost_try": 0.06583962
+  },
+  {
+    "timestamp": "2026-04-23T23:18:06.166941",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2624,
+    "output": 141,
+    "cost_usd": 0.0016595499999999999,
+    "cost_try": 0.05476515
+  },
+  {
+    "timestamp": "2026-04-23T23:18:12.868246",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2558,
+    "output": 915,
+    "cost_usd": 0.00223207,
+    "cost_try": 0.07365831
+  },
+  {
+    "timestamp": "2026-04-23T23:18:13.262079",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2268,
+    "output": 24,
+    "cost_usd": 0.0013570799999999999,
+    "cost_try": 0.04478363999999999
+  },
+  {
+    "timestamp": "2026-04-23T23:18:19.509261",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1923,
+    "output": 249,
+    "cost_usd": 0.0013312799999999998,
+    "cost_try": 0.04393223999999999
+  },
+  {
+    "timestamp": "2026-04-23T23:20:39.993020",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2648,
+    "output": 213,
+    "cost_usd": 0.00173059,
+    "cost_try": 0.057109469999999996
+  },
+  {
+    "timestamp": "2026-04-23T23:20:40.608729",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2710,
+    "output": 81,
+    "cost_usd": 0.00166289,
+    "cost_try": 0.05487537
+  },
+  {
+    "timestamp": "2026-04-23T23:22:24.442122",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1268,
+    "output": 26,
+    "cost_usd": 0.00076866,
+    "cost_try": 0.02536578
+  },
+  {
+    "timestamp": "2026-04-23T23:23:50.561198",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2019,
+    "output": 86,
+    "cost_usd": 0.0012591500000000001,
+    "cost_try": 0.041551950000000004
+  },
+  {
+    "timestamp": "2026-04-23T23:26:07.075080",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2624,
+    "output": 258,
+    "cost_usd": 0.0017519799999999998,
+    "cost_try": 0.05781533999999999
+  },
+  {
+    "timestamp": "2026-04-23T23:34:03.158700",
+    "model": "llama-3.3-70b-versatile",
+    "input": 11028,
+    "output": 426,
+    "cost_usd": 0.006843059999999999,
+    "cost_try": 0.22582097999999998
+  },
+  {
+    "timestamp": "2026-04-23T23:46:32.682054",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1958,
+    "output": 111,
+    "cost_usd": 0.00124291,
+    "cost_try": 0.04101603
+  },
+  {
+    "timestamp": "2026-04-23T23:57:14.129305",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2677,
+    "output": 149,
+    "cost_usd": 0.00169714,
+    "cost_try": 0.05600562
+  },
+  {
+    "timestamp": "2026-04-24T13:31:16.478298",
+    "model": "llama-3.3-70b-versatile",
+    "input": 7514,
+    "output": 2611,
+    "cost_usd": 0.00649595,
+    "cost_try": 0.21436635
+  },
+  {
+    "timestamp": "2026-04-24T13:31:44.666517",
+    "model": "llama-3.3-70b-versatile",
+    "input": 7514,
+    "output": 2675,
+    "cost_usd": 0.00654651,
+    "cost_try": 0.21603483
+  },
+  {
+    "timestamp": "2026-04-24T13:32:06.467968",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1651,
+    "output": 134,
+    "cost_usd": 0.0010799499999999999,
+    "cost_try": 0.03563835
+  },
+  {
+    "timestamp": "2026-04-24T13:32:16.604708",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1724,
+    "output": 89,
+    "cost_usd": 0.00108747,
+    "cost_try": 0.03588651
+  },
+  {
+    "timestamp": "2026-04-24T13:32:31.225144",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2757,
+    "output": 237,
+    "cost_usd": 0.0018138599999999998,
+    "cost_try": 0.059857379999999995
+  },
+  {
+    "timestamp": "2026-04-24T14:51:47.728993",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2875,
+    "output": 230,
+    "cost_usd": 0.0018779500000000002,
+    "cost_try": 0.06197235000000001
+  },
+  {
+    "timestamp": "2026-04-24T14:51:49.253352",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1218,
+    "output": 21,
+    "cost_usd": 0.00073521,
+    "cost_try": 0.02426193
+  },
+  {
+    "timestamp": "2026-04-24T14:51:50.700562",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2044,
+    "output": 149,
+    "cost_usd": 0.00132367,
+    "cost_try": 0.04368111
+  },
+  {
+    "timestamp": "2026-04-24T14:51:51.968263",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1598,
+    "output": 89,
+    "cost_usd": 0.0010131299999999999,
+    "cost_try": 0.03343329
+  },
+  {
+    "timestamp": "2026-04-24T14:51:53.180628",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3048,
+    "output": 89,
+    "cost_usd": 0.00186863,
+    "cost_try": 0.061664790000000004
+  },
+  {
+    "timestamp": "2026-04-24T14:51:55.083875",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1367,
+    "output": 79,
+    "cost_usd": 0.00086894,
+    "cost_try": 0.02867502
+  },
+  {
+    "timestamp": "2026-04-24T14:52:01.082552",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1565,
+    "output": 104,
+    "cost_usd": 0.0010055099999999998,
+    "cost_try": 0.033181829999999995
+  },
+  {
+    "timestamp": "2026-04-24T14:52:15.336378",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2661,
+    "output": 91,
+    "cost_usd": 0.00164188,
+    "cost_try": 0.05418204
+  },
+  {
+    "timestamp": "2026-04-24T14:52:27.538569",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2402,
+    "output": 114,
+    "cost_usd": 0.00150724,
+    "cost_try": 0.04973892
+  },
+  {
+    "timestamp": "2026-04-24T14:52:35.701203",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1589,
+    "output": 89,
+    "cost_usd": 0.00100782,
+    "cost_try": 0.03325806
+  },
+  {
+    "timestamp": "2026-04-24T14:53:12.408768",
+    "model": "llama-3.3-70b-versatile",
+    "input": 7185,
+    "output": 104,
+    "cost_usd": 0.00432131,
+    "cost_try": 0.14260323
+  },
+  {
+    "timestamp": "2026-04-24T14:53:29.724868",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3411,
+    "output": 109,
+    "cost_usd": 0.0020985999999999995,
+    "cost_try": 0.06925379999999999
+  },
+  {
+    "timestamp": "2026-04-24T14:53:45.475408",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2765,
+    "output": 451,
+    "cost_usd": 0.00198764,
+    "cost_try": 0.06559212
+  },
+  {
+    "timestamp": "2026-04-24T14:53:53.491041",
+    "model": "llama-3.3-70b-versatile",
+    "input": 6011,
+    "output": 403,
+    "cost_usd": 0.00386486,
+    "cost_try": 0.12754038
+  },
+  {
+    "timestamp": "2026-04-24T14:53:55.860327",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1669,
+    "output": 98,
+    "cost_usd": 0.0010621299999999999,
+    "cost_try": 0.03505029
+  },
+  {
+    "timestamp": "2026-04-24T14:53:57.636157",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2572,
+    "output": 86,
+    "cost_usd": 0.0015854200000000001,
+    "cost_try": 0.05231886
+  },
+  {
+    "timestamp": "2026-04-24T14:54:01.650537",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2801,
+    "output": 161,
+    "cost_usd": 0.00177978,
+    "cost_try": 0.05873274
+  },
+  {
+    "timestamp": "2026-04-24T14:54:12.220204",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1728,
+    "output": 137,
+    "cost_usd": 0.0011277499999999998,
+    "cost_try": 0.03721574999999999
+  },
+  {
+    "timestamp": "2026-04-24T14:54:24.847759",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2191,
+    "output": 180,
+    "cost_usd": 0.0014348899999999999,
+    "cost_try": 0.04735137
+  },
+  {
+    "timestamp": "2026-04-24T14:54:35.946785",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2185,
+    "output": 350,
+    "cost_usd": 0.0015656499999999998,
+    "cost_try": 0.051666449999999996
+  },
+  {
+    "timestamp": "2026-04-24T14:54:52.031417",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2765,
+    "output": 457,
+    "cost_usd": 0.00199238,
+    "cost_try": 0.06574854000000001
+  },
+  {
+    "timestamp": "2026-04-24T14:55:10.517162",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3197,
+    "output": 94,
+    "cost_usd": 0.0019604899999999996,
+    "cost_try": 0.06469616999999998
+  },
+  {
+    "timestamp": "2026-04-24T14:55:21.137617",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2048,
+    "output": 153,
+    "cost_usd": 0.0013291899999999998,
+    "cost_try": 0.043863269999999996
+  },
+  {
+    "timestamp": "2026-04-24T14:55:29.936563",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1769,
+    "output": 101,
+    "cost_usd": 0.0011235,
+    "cost_try": 0.0370755
+  },
+  {
+    "timestamp": "2026-04-24T14:55:30.479673",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2044,
+    "output": 149,
+    "cost_usd": 0.00132367,
+    "cost_try": 0.04368111
+  },
+  {
+    "timestamp": "2026-04-24T14:55:32.543729",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1598,
+    "output": 89,
+    "cost_usd": 0.0010131299999999999,
+    "cost_try": 0.03343329
+  },
+  {
+    "timestamp": "2026-04-24T14:55:46.095842",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3048,
+    "output": 89,
+    "cost_usd": 0.00186863,
+    "cost_try": 0.061664790000000004
+  },
+  {
+    "timestamp": "2026-04-24T14:55:52.978953",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1367,
+    "output": 79,
+    "cost_usd": 0.00086894,
+    "cost_try": 0.02867502
+  },
+  {
+    "timestamp": "2026-04-24T14:56:02.351505",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1565,
+    "output": 102,
+    "cost_usd": 0.0010039299999999999,
+    "cost_try": 0.033129689999999996
+  },
+  {
+    "timestamp": "2026-04-24T14:56:15.866765",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2661,
+    "output": 104,
+    "cost_usd": 0.00165215,
+    "cost_try": 0.05452095
+  },
+  {
+    "timestamp": "2026-04-24T14:56:56.873760",
+    "model": "llama-3.3-70b-versatile",
+    "input": 8197,
+    "output": 421,
+    "cost_usd": 0.005168819999999999,
+    "cost_try": 0.17057105999999997
+  },
+  {
+    "timestamp": "2026-04-24T14:56:59.336151",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2502,
+    "output": 163,
+    "cost_usd": 0.00160495,
+    "cost_try": 0.05296335
+  },
+  {
+    "timestamp": "2026-04-24T14:57:04.237225",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1987,
+    "output": 297,
+    "cost_usd": 0.0014069599999999999,
+    "cost_try": 0.046429679999999994
+  }
+]
