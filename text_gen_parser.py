@@ -12,6 +12,7 @@ import json
 import re
 import logging
 import asyncio
+import threading
 import time
 import random
 from typing import List, Dict, Any
@@ -48,7 +49,7 @@ from src.utils.city_district_validator import CityDistrictValidator
 class TextGenParser:
     """Async/Parallel Groq (Llama 3.1) based parser with Traffic Control."""
     
-    def __init__(self, api_key=None, max_concurrent=2):
+    def __init__(self, api_key=None, max_concurrent=1):
         # Initialize API Key Manager for rotation
         self.key_manager = get_default_manager(os.getcwd())
         self.key_manager.load_keys()
@@ -58,7 +59,8 @@ class TextGenParser:
         self.city_validator = CityDistrictValidator()
         
         # Traffic Control: Limit concurrent API calls to stay within TPM/RPM limits
-        self.semaphore = asyncio.Semaphore(max_concurrent)
+        # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
+        self.semaphore = threading.Semaphore(max_concurrent)
         
         # Models - Gemini is on "paydos", using Groq as primary
         self.model_fast = 'llama-3.1-8b-instant'
@@ -148,13 +150,70 @@ class TextGenParser:
         """Determines which model to use. Prioritize Gemini if requested."""
         return self.model_gemini
 
+    def _tag_cities(self, text: str) -> str:
+        """Finds all Turkish cities and tags them like [CITY] using safe regex replace."""
+        if not text: return ""
+        
+        cities = ["ADANA", "ADIYAMAN", "AFYON", "AFYONKARAHİSAR", "AĞRI", "AKSARAY", "AMASYA", "ANKARA", "ANTALYA", "ARDAHAN", "ARTVİN", "AYDIN", "BALIKESİR", "BARTIN", "BATMAN", "BAYBURT", "BİLECİK", "BİNGÖL", "BİTLİS", "BOLU", "BURDUR", "BURSA", "ÇANAKKALE", "ÇANKIRI", "ÇORUM", "DENİZLİ", "DİYARBAKIR", "DÜZCE", "EDİRNE", "ELAZIĞ", "ERZİNCAN", "ERZURUM", "ESKİŞEHİR", "GAZİANTEP", "GİRESUN", "GÜMÜŞHANE", "HAKKARİ", "HATAY", "IĞDIR", "ISPARTA", "MERSİN", "İÇEL", "İSTANBUL", "İZMİR", "KAHRAMANMARAŞ", "KARABÜK", "KARAMAN", "KARS", "KASTAMONU", "KAYSERİ", "KIRIKKALE", "KIRKLARELİ", "KIRŞEHİR", "KİLİS", "KOCAELİ", "KONYA", "KÜTAHYA", "MALATYA", "MANİSA", "MARDİN", "MUĞLA", "MUŞ", "NEVŞEHİR", "NİĞDE", "ORDU", "OSMANİYE", "RİZE", "SAKARYA", "SAMSUN", "SİİRT", "SİNOP", "SİVAS", "ŞANLIURFA", "ŞIRNAK", "TEKİRDAĞ", "TOKAT", "TRABZON", "TUNCELİ", "UŞAK", "VAN", "YALOVA", "YOZGAT", "ZONGULDAK"]
+        cities.sort(key=len, reverse=True)
+        
+        # Create a single pattern for all cities with word boundaries
+        # Use a function as replace to handle the found word's case
+        pattern = r'\b(' + '|'.join(re.escape(city) for city in cities) + r')\b'
+        
+        def replace_func(match):
+            city_found = match.group(0)
+            return f"[{city_found.upper()}]"
+
+        # Case insensitive match, but we'll use a trick to handle Turkish İ/I
+        # Normal re.IGNORECASE might fail on İ/I. So we search in a normalized string 
+        # BUT re.sub needs to work on the original. 
+        # Let's use a simpler but safer multi-step replace for now.
+        tagged_text = text
+        for city in cities:
+            # Safe regex for each city: Case insensitive, Word boundary
+            # Handles Turkish İ/I by using a specific pattern if needed, but 
+            # for now \b and re.IGNORECASE is standard.
+            pattern = rf'\b{re.escape(city)}\b'
+            # Check if already tagged to avoid [[CITY]]
+            if f"[{city}]" in tagged_text.upper(): continue
+            
+            tagged_text = re.sub(pattern, lambda m: f"[{m.group(0).upper()}]", tagged_text, flags=re.IGNORECASE)
+            
+        return tagged_text
+
+    def _clean_message(self, text: str) -> str:
+        """Removes sticky emojis and normalizes text for better parsing."""
+        if not text: return ""
+        # Common emojis that stick to words
+        stickies = ['📍', '➡️', '🚚', '📦', '🧅', '📞', '👉', '👉🏻', '👉🏼', '✅', '🚛']
+        for s in stickies:
+            text = text.replace(s, f" {s} ")
+        
+        # Replace arrow-like symbols with standard arrows
+        text = text.replace('👉', ' -> ').replace('➡️', ' -> ').replace('👉🏻', ' -> ')
+        
+        # Collapse multiple spaces
+        text = ' '.join(text.split())
+        
+        # --- AUTO TAG CITIES ---
+        return self._tag_cities(text)
+
     async def _extract_locations_stage1_async(self, message: str) -> str:
         """Stage 1: Fast extraction of just origins and destinations (Async)."""
-        system_prompt = "You are a location extractor. Output only the logical routes found in the message in 'ORIGIN -> DESTINATION' format."
-        user_prompt = f"Extract routes from this logistics message:\n{message}"
+        clean_msg = self._clean_message(message)
+        
+        # --- REGEX DISCOVERY ---
+        # Find all Turkish cities tagged in the message to give AI a hint
+        # The message is already tagged by parse_async -> _clean_message
+        found_tags = re.findall(r'\[(.*?)\]', clean_msg)
+        hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
+
+        system_prompt = "You are a location extractor. Output only the logical routes found in the message in 'ORIGIN -> DESTINATION' format. IMPORTANT: If a city and its district are together (e.g. 'Diyarbakır Çermik'), it is ONE location, NOT a route."
+        user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
         model_to_use = self.model_gemini
         
-        async with self.semaphore:
+        with self.semaphore:
             for attempt in range(3):
                 try:
                     if "gemini" in model_to_use:
@@ -192,6 +251,8 @@ class TextGenParser:
 
     async def parse_async(self, message: str) -> list:
         """Asynchronously parse logistics message with full logic recovery."""
+        # 0. Clean Message (Emoji separation, symbol normalization)
+        message = self._clean_message(message)
         
         # 1. Context Preparation
         relevant_rules = self.vehicle_matcher.get_relevant_rules(message)
@@ -251,16 +312,28 @@ EXTRACTION RULES:
 {loc_context}
 {rules_context}
 
+CRITICAL ANTI-HALLUCINATION RULES:
+1. "HAFİF" is a LOAD TYPE (weight), NOT a location. NEVER output "HAFİK" unless the word "HAFİK" is explicitly spelled in the message with a 'K'.
+2. "MADEN", "MERMER", "KÖMÜR", "SOĞAN", "DEMİR" are LOAD TYPES, NOT locations. Never extract them as cities or districts (especially NOT ELAZIĞ/MADEN).
+3. "SÖKE BOŞALTIR" means destination is "AYDIN / SÖKE".
+4. "DİYARBAKIR ÇERMİK" or "İSTANBUL TUZLA" is ONE SINGLE LOCATION. However, "TOKAT SARIGÖL" is a ROUTE (TOKAT -> SARIGÖL) because Sarıgöl is NOT in Tokat.
+5. If a line starts with a City and is followed by another City/District, it's usually a route (Origin -> Destination).
+6. If you see "📍CITY1 -> CITY2", CITY1 is ORIGIN, CITY2 is DESTINATION.
+
 MESSAGE TO PARSE:
 {message.strip()}
 
 Return ONLY a JSON object in this format: 
 {{"akil_yurutme": "...", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE" }}]}}"""
 
+        # 413 Payload Too Large protection
+        if len(message) > 8000:
+            message = message[:8000] + "... [TRUNCATED]"
+
         models_to_try = [target_model, self.model_robust, self.model_fast]
         models_to_try = list(dict.fromkeys(models_to_try))
 
-        async with self.semaphore:
+        with self.semaphore:
             for model_name in models_to_try:
                 for attempt in range(3):
                     try:
@@ -295,38 +368,38 @@ Return ONLY a JSON object in this format:
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
                         
                         text = text.strip()
+                        print(f"\n[DEBUG] AI RESPONSE:\n{text}\n") 
                         return await self._process_raw_json_async(text, message)
                     except Exception as e:
                         error_str = str(e)
                         print(f"⚠️ STAGE 2 ERROR [{model_name}]: {error_str[:150]}")
                         
                         if "429" in error_str:
+                            # --- SMART WAIT LOGIC ---
+                            wait_sec = 5 # Default
+                            # Try to extract seconds from message: "Try again in 12.5s"
+                            match = re.search(r"try again in ([\d\.]+)s", error_str.lower())
+                            if match:
+                                wait_sec = float(match.group(1)) + 0.5
+                                logger.info(f"⏳ Groq requested explicit wait: {wait_sec}s")
+                            
                             if "gemini" in model_name:
-                                # Try next Google key in pool
                                 if await self.key_manager.switch_to_next_async(key_type='google', reason=f"Rate Limit {model_name}"):
-                                    logger.warning(f"🔄 RATE LIMIT on Gemini. Switched to next key in pool.")
-                                    await asyncio.sleep(1)
-                                    continue # Retry with new Gemini key
+                                    logger.warning(f"🔄 Gemini Limit. Switching key and waiting {wait_sec}s...")
+                                    await asyncio.sleep(wait_sec)
+                                    continue
                                 else:
-                                    # All Google keys exhausted. Should we wait or fallback?
-                                    wait_sec = self.key_manager.get_wait_time(key_type='google')
-                                    if 0 < wait_sec < 20:
-                                        logger.info(f"⏳ All Gemini keys exhausted. Waiting {wait_sec:.1f}s for cooldown...")
-                                        await asyncio.sleep(wait_sec + 0.5)
-                                        # After waiting, the first key should be available again.
-                                        # switch_to_next_async will detect the cooled down key.
-                                        if await self.key_manager.switch_to_next_async(key_type='google', reason="Cooldown Recovery"):
-                                            continue 
-                                    
-                                    logger.warning(f"🚨 All Gemini keys exhausted. Falling back to next model.")
-                                    break 
+                                    break
                             
                             # Rotate Groq keys
                             if await self.key_manager.switch_to_next_async(key_type='groq', reason=f"Rate Limit {model_name}"):
-                                logger.warning(f"🔄 RATE LIMIT on {model_name}. Switched to next Groq key.")
-                                await asyncio.sleep(2)
+                                logger.warning(f"🔄 Groq Limit on {model_name}. Switching key and waiting {wait_sec}s...")
+                                await asyncio.sleep(wait_sec)
                                 continue
                             else:
+                                # All exhausted, wait longer before failing
+                                logger.error(f"🚨 ALL KEYS EXHAUSTED! Cooling down for {wait_sec*2}s...")
+                                await asyncio.sleep(wait_sec * 2)
                                 break
                         elif "401" in error_str or "400" in error_str:
                             logger.error(f"AUTH/CONFIG ERROR on {model_name}: {error_str}")
@@ -435,7 +508,7 @@ Return ONLY a JSON object in this format:
             res = self.neighborhood_cache[cache_key]
             return tuple(res) if res else ("", "")
 
-        async with self.semaphore:
+        with self.semaphore:
             try:
                 client = self._get_async_client()
                 prompt = f"Target: Find TURKISH CITY/DISTRICT for '{term}'. Context: '{context_city}'. Output ONLY: CITY / DISTRICT"

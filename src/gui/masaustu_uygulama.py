@@ -520,8 +520,9 @@ class LojistikYonetimGUI:
         # Zaman filtresi: Son X dakika (kaydırmalı pencere)
         tk.Label(content, text="⏱ Son X dakika:", bg=self.COLORS['surface'], fg=self.COLORS['text'], font=('Segoe UI Semibold', 9)).pack(side=tk.LEFT, padx=(10, 5))
 
-        minutes_options = ['10', '20', '40', '60']
-        self.minutes_filter_var = tk.StringVar(value='60')
+        from src.utils.config import UI_FILTER_OPTIONS, DEFAULT_UI_FILTER_MINUTES
+        minutes_options = UI_FILTER_OPTIONS
+        self.minutes_filter_var = tk.StringVar(value=DEFAULT_UI_FILTER_MINUTES)
         self.minutes_filter_combo = ttk.Combobox(content, textvariable=self.minutes_filter_var, values=minutes_options, width=8, font=('Segoe UI', 9), state='readonly')
         self.minutes_filter_combo.pack(side=tk.LEFT)
         self.minutes_filter_combo.bind('<<ComboboxSelected>>', self._on_minutes_filter_change)

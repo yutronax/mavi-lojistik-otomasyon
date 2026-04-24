@@ -452,7 +452,7 @@ class OrchestratorSDK:
 
             # Tüm kontrollerden geçtiyse kuyruğa at
             self.active_ids.add(mid)
-            self.data_service.mark_id_handled(mid) # Kuyruğa alındığı an işaretle
+            # mark_id_handled BURADAN KALDIRILDI - Sadece başarıyla kaydedildiğinde işaretlenecek
             self.processing_queue.put(msg)
             added_count += 1
             
@@ -847,6 +847,12 @@ class OrchestratorSDK:
                     success = self.data_service.save_unprocessed_messages(save_payload, merge=True)
                     if success:
                         logger.info(f"{len(save_payload)} yeni geçerli sonuç yerel veri servisine aktarıldı.")
+                        # --- CRITICAL: SADECE BAŞARIYLA KAYDEDİLENLERİ "İŞLENDİ" OLARAK İŞARETLE ---
+                        for message_id in save_payload.keys():
+                            self.data_service.mark_id_handled(message_id)
+                            # Hafızadaki aktif listeden de çıkar
+                            if message_id in self.active_ids:
+                                self.active_ids.remove(message_id)
                         
                         # --- AUTO SUBMIT LOGIC ---
                         if self.auto_submit_active and self.submitter:

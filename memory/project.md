@@ -13,7 +13,8 @@ WhatsApp üzerinden gelen lojistik mesajlarını (yük ilanları) otomatik olara
 - **Location Validation:** Şehir/İlçe/Mahalle hiyerarşisiyle çalışan, 'Kemalpaşa' gibi tuzak konumları ve İstanbul yakalarını (Avrupa/Anadolu) otomatik düzelten validator.
 - **Veri Depolama:** Hibrit (Yerel JSON + Opsiyonel MongoDB).
 - **Entegrasyon:** WhatsApp (Whapi.cloud), Webhook desteği, Canlı grup senkronizasyonu.
-- **Otomatik Onay:** Yeni gelen ilanların kriterlere göre manuel müdahale olmadan otomatik onaylanması ve kuyruğa gönderilmesi.
+- **Otomatik Onay:** Yeni gelen ilanlerin kriterlere göre manuel müdahale olmadan otomatik onaylanması ve kuyruğa gönderilmesi.
+- **Güvenilir İşleme (Reliability):** Mesajlar ancak AI başarısıyla kaydedildiğinde "işlendi" olarak işaretlenir. API hatalarında veri kaybı önlenir.
 
 ## Teknolojiler
 - **Dil:** Python 3.x

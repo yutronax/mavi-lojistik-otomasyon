@@ -232,114 +232,68 @@ class CityDistrictValidator:
     def validate(self, city: str, district: str) -> Tuple[str, str]:
         """
         Validates and corrects the city-district pair with a STRICT HIERARCHY.
-        
-        1. PRECISE CITY MATCH: If city is valid, only search within that city.
-        2. UNIQUE DISTRICT MATCH: If city is ambiguous, check if district is unique in Turkey.
-        3. FUZZY CITY/DISTRICT: Fix typos.
-        4. NEIGHBORHOOD LOOKUP: Global search (only if previous steps fail).
+        1. Resolve City (Precise or Fuzzy)
+        2. Resolve District within that City (Precise or High-Similarity Fuzzy)
+        3. If no match, ignore district.
         """
         norm_city = self._normalize(city)
         norm_dist = self._normalize(district)
         
-        # Apply Alias mapping (e.g., KEMALPAŞA -> MUSTAFAKEMALPAŞA)
-        if norm_dist in self.district_aliases:
-            norm_dist = self.district_aliases[norm_dist]
-        
-        # Handle Istanbul sides
-        forced_default = None
-        if "İSTANBUL" in norm_city:
-            if "ANADOLU" in norm_city:
-                norm_city, forced_default = "İSTANBUL", "MALTEPE"
-            elif "AVRUPA" in norm_city:
-                norm_city, forced_default = "İSTANBUL", "AVCILAR"
-        
-        if norm_city == "İSTANBUL":
-            if "ANADOLU" in norm_dist: norm_dist = "MALTEPE"
-            elif "AVRUPA" in norm_dist: norm_dist = "AVCILAR"
-            elif forced_default: norm_dist = forced_default
-        
-        # Ignore numeric districts (e.g. "2" from "2 NOKTA")
-        if norm_dist and norm_dist.isdigit():
-            norm_dist = ""
+        # --- BLACKLIST TRAP (Do not even try to validate these as locations) ---
+        forbidden = ["HAFİF", "MADEN", "MERMER", "SOĞAN", "DEMİR", "KÖMÜR", "KARTON", "SUNTA", "BRANDA", "NAKLİYE", "NAK", "LOJİSTİK"]
+        if norm_dist in forbidden: norm_dist = ""
+        if norm_city in forbidden: norm_city = ""
 
-        if not norm_city and not norm_dist:
-            return "", ""
-
-        # --- TRAP LOCATIONS (Common Logistics Errors) ---
-        if norm_city == "İSTANBUL" and norm_dist == "KEMALPAŞA":
-            # In 99% of logistics messages, "İ. Kemalpaşa" means İzmir
-            return "İZMİR", "KEMALPAŞA"
+        # Step 1: Resolve City (OR Check if city parameter is actually a district)
+        resolved_city = None
         
-        if norm_city == "İSTANBUL" and norm_dist == "İKEMALPAŞA":
-            return "İZMİR", "KEMALPAŞA"
+        # A. If the 'city' provided is actually a unique district in Turkey, recover it!
+        if norm_city and norm_city not in self.city_map:
+            if norm_city in self.district_reverse_map:
+                cities = self.district_reverse_map[norm_city]
+                if len(cities) == 1:
+                    resolved_city = cities[0]
+                    norm_dist = norm_city
+        
+        # B. Normal City Resolve
+        if not resolved_city:
+            if norm_city in self.city_map:
+                resolved_city = norm_city
+            elif norm_city in self.city_aliases:
+                resolved_city = self.city_aliases[norm_city]
+            else:
+                resolved_city = self._fuzzy_match_city(norm_city)
 
-        # --- STEP 1: PRECISE CITY MATCH (The "Hard" Filter) ---
-        if norm_city in self.city_map:
-            valid_dists = self.city_map[norm_city]
+        # Step 2: Resolve District (Strict Hierarchy)
+        if resolved_city:
+            valid_dists = self.city_map[resolved_city]
             
-            # A. Check if input is directly a district in this city
+            # A. Precise Match
             if norm_dist in valid_dists:
-                return norm_city, norm_dist
+                return resolved_city, norm_dist
             
-            # Special case: If user says 'MERKEZ', prioritize city default over neighborhoods named 'MERKEZ'
-            if norm_dist == "MERKEZ" and norm_city in self.default_districts:
-                return norm_city, self.default_districts[norm_city]
-            
-            # B. Check if input is a neighborhood/village in this city
+            # B. Precise Neighborhood Match in this City
             if norm_dist in self.neighborhood_map:
                 for c, d in self.neighborhood_map[norm_dist]:
-                    if c == norm_city:
-                        return c, d
-            
-            # D. If it's a neighborhood but NOT in this city, maybe the city is wrong?
-            # We don't return here yet, we let Step 2-4 try to find it elsewhere.
-            pass
+                    if c == resolved_city: return c, d
 
-        # --- STEP 2: UNIQUE DISTRICT MATCH (Reverse Lookup) ---
-        if norm_dist in self.district_reverse_map:
-            cities = self.district_reverse_map[norm_dist]
-            if len(cities) == 1:
-                return cities[0], norm_dist
-            # If city was provided but didn't match exactly, try to find it in the options
-            if norm_city:
-                for c in cities:
-                    if norm_city in c or c in norm_city: return c, norm_dist
+            # C. High-Similarity Fuzzy Match (ONLY within this City)
+            if norm_dist and len(norm_dist) > 3:
+                import difflib
+                matches = difflib.get_close_matches(norm_dist, list(valid_dists), n=1, cutoff=0.92) # Very high cutoff
+                if matches:
+                    return resolved_city, matches[0]
 
-        # --- STEP 3: FUZZY CITY ---
-        fuzzy_c = self._fuzzy_match_city(norm_city)
-        if fuzzy_c:
-            valid_dists = self.city_map[fuzzy_c]
-            if norm_dist in valid_dists:
-                return fuzzy_c, norm_dist
-            # Check neighborhood in this fuzzy city
-            if norm_dist in self.neighborhood_map:
-                for c, d in self.neighborhood_map[norm_dist]:
-                    if c == fuzzy_c: return c, d
-            
-            fuzzy_d = self._fuzzy_match_district(norm_dist, valid_dists)
-            return fuzzy_c, fuzzy_d or self.default_districts.get(fuzzy_c, 'MERKEZ')
+            # D. No match? Ignore the district name if it's suspicious
+            return resolved_city, self.default_districts.get(resolved_city, 'MERKEZ')
 
-        # --- STEP 4: GLOBAL NEIGHBORHOOD LOOKUP (The Last Resort) ---
-        # Only search 73,000 neighborhoods if we have no clear city or district match
-        if norm_dist in self.neighborhood_map:
-            res = self.neighborhood_map[norm_dist]
-            # If city matches partially
-            if norm_city:
-                for c, d in res:
-                    if norm_city in c: return c, d
-            return res[0]
+        # Step 3: No City found? Search District Globally (ONLY if name is unique and long)
+        if norm_dist and len(norm_dist) > 4:
+            if norm_dist in self.district_reverse_map:
+                cities = self.district_reverse_map[norm_dist]
+                if len(cities) == 1: return cities[0], norm_dist
 
-        # --- STEP 5: GLOBAL FUZZY DISTRICT ---
-        fuzzy_global_d = self._fuzzy_match_district_global(norm_dist)
-        if fuzzy_global_d:
-            cities = self.district_reverse_map[fuzzy_global_d]
-            return cities[0], fuzzy_global_d
-
-        # --- STEP 6: FINAL FALLBACK ---
-        if norm_city in self.city_map:
-            return norm_city, self.default_districts.get(norm_city, 'MERKEZ')
-
-        return norm_city or "BİLİNMEYEN", norm_dist or "MERKEZ"
+        return resolved_city or "BİLİNMEYEN", "MERKEZ"
 
     def get_loc_context(self, message: str) -> str:
         """
@@ -426,12 +380,25 @@ class CityDistrictValidator:
         # Format context
         ctx = "OFFICIAL LOCATION REGISTRY FOR THIS MESSAGE (Use these official names):\n"
         for city in sorted(list(found_cities)):
-            all_dists = sorted(list(self.city_map.get(city, [])))
-            ctx += f"- {city} Districts: {', '.join(all_dists)}\n"
+            # Find which districts of THIS city were actually in the message
+            districts_in_msg = [d for c, d in found_districts if c == city]
+            
+            if districts_in_msg:
+                # If we found specific districts, list them
+                ctx += f"- {city} (Relevant Districts: {', '.join(sorted(districts_in_msg))})\n"
+            else:
+                # If only city was found, don't list all districts if there are too many
+                all_dists = sorted(list(self.city_map.get(city, [])))
+                if len(all_dists) > 10:
+                    ctx += f"- {city} (City identified)\n"
+                else:
+                    ctx += f"- {city} Districts: {', '.join(all_dists)}\n"
             
         if neighborhood_hints:
             ctx += "\nNEIGHBORHOOD TO DISTRICT MAPPING:\n"
-            ctx += "\n".join(sorted(list(set(neighborhood_hints))))
+            # Limit neighborhood hints to avoid overflow
+            limited_hints = sorted(list(set(neighborhood_hints)))[:20]
+            ctx += "\n".join(limited_hints)
             
         return ctx
 
