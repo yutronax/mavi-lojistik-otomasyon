@@ -18140,5 +18140,48 @@
         "invalid_location": false
       }
     ]
+  },
+  {
+    "message_id": "rK6b7Ca6GdvwAEhLpTi6Mg-ghQBq53disJrRw",
+    "message_timestamp": 1777048014.0,
+    "createdAt": 1777048014.0,
+    "message_date": "2026-04-24T19:26:54",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Menderes antalya organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+      "sender": "Sedat",
+      "sender_number": "905392863261",
+      "timestamp": 1777048014,
+      "chat_id": "120363389896780615@g.us",
+      "chat_name": "32 ISPARTA—DOĞU NAKLİYE"
+    },
+    "parse_timestamp": "2026-04-24T19:27:49.439986",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "nereden_il": "İZMİR",
+        "nereden_ilce": "MENDERES",
+        "nereye_il": "ANTALYA",
+        "nereye_ilce": "KONYAALTI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "0",
+        "telefon": "05392863261",
+        "aciklama": "Menderes antalya organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+        "createdAt": "2026-04-24T19:27:49.437581",
+        "body": "Menderes [ANTALYA] organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+        "original_message": "Menderes antalya organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+        "message_id": "rK6b7Ca6GdvwAEhLpTi6Mg-ghQBq53disJrRw",
+        "invalid_location": false
+      }
+    ]
   }
 ]

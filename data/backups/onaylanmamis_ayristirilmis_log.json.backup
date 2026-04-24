@@ -1,318 +1,5 @@
 [
   {
-    "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-    "message_timestamp": 1777034642.0,
-    "createdAt": 1777034642.0,
-    "message_date": "2026-04-24T15:44:02",
-    "invalid_location": true,
-    "message_info": {
-      "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-      "sender": "nar logistic",
-      "sender_number": "995568745547",
-      "timestamp": 1777034642,
-      "chat_id": "120363400939176177@g.us",
-      "chat_name": "🌎TÜRKİYE🌎İRAN🌎IRAK🌎NAKLİYAT"
-    },
-    "parse_timestamp": "2026-04-24T15:53:47.223456",
-    "total_shipments": 14,
-    "shipments": [
-      {
-        "nereden_il": "PITER",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.660827",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "SAMARA",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIVLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.698364",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "ROSTOV",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.735434",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "VLADIMIR",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.774044",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "KIROV",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.813239",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "UFA",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.851205",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "SAMARA",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.892624",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "MINSK",
-        "nereden_ilce": "GOMEL",
-        "nereye_il": "TIVLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.930337",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "ÇAGODA",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:46.979412",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "ROSTOV",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIGLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:47.043813",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "MOŞKA",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:47.095135",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "TVER",
-        "nereden_ilce": "NONE",
-        "nereye_il": "KAXETI",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:47.132522",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "MOSKOV",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLIS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:47.178321",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      },
-      {
-        "nereden_il": "EGOROVSK",
-        "nereden_ilce": "NONE",
-        "nereye_il": "TIFLUS",
-        "nereye_ilce": "NONE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "0",
-        "telefon": "995568745547",
-        "createdAt": "2026-04-24T15:53:47.217556",
-        "body": "🇳🇱 PITER.     🇬🇪   TIFLIS REF\n\n🇳🇱 SAMARA  🇬🇪  TIVLIS REF/TENT\n\n🇳🇱ROSTOV.   🇬🇪 TIFLIS 120 KUB\n\n🇳🇱 VLADIMIR 🇬🇪 TIFLIS REF/TENT\n\n🇳🇱 KIROV  🇬🇪 TIFLIS 105 KUB. REF. TENT.\n\n🇳🇱 UFA  🇬🇪  TIFLIS \nREF. TENT.\n\n🇳🇱 SAMARA 🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 MINSK GOMEL \n🇬🇪 TIVLIS 2 GRUZ\n       REF. TENT.\n\n🇳🇱 ÇAGODA  🇬🇪 TIFLIS\nREF. TENT.\n\n🇳🇱 ROSTOV 🇬🇪 TIGLIS\n      120 KUB.\n\n🇳🇱 MOŞKA 🇬🇪 TIFLIS\n      REF. TENT\n\n🇳🇱 TVER  🇬🇪  KAXETI\n       REF  TENT.\n\n🇳🇱  MOSKOV  🇬🇪 TIFLIS\n       2 TENT\n\n🇳🇱  EGOROVSK \n 🇬🇪 TIFLUS  TENT REF.",
-        "message_id": "rAW8vChQYoqzEL4V5iwApg-gtoBq53gHPAA8Q",
-        "invalid_location": true
-      }
-    ]
-  },
-  {
     "message_id": "pRqAJuGI644XUoufD6s7Lw-gjkBq53gHPAA8Q",
     "error": "All shipments filtered (International or Empty)",
     "parse_timestamp": "2026-04-24T15:55:07.526195",
@@ -26403,6 +26090,47 @@
         "createdAt": "2026-04-24T19:27:42.373522",
         "body": "📍 Nevşehir ➝ Bitlis Tatvan ▫️ 13.60 Açık Tır 3 Adet ▫️ Bims Paleti 0-25 Ton ▫️ 50 Bin Kdv dahil ⚡ Hemen Yükleme 📞 0542 530 79 60",
         "message_id": "KkVR3b6HNsKfvA-gvABq53k8GR9rQ",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
+    "message_id": "rK6b7Ca6GdvwAEhLpTi6Mg-ghQBq53disJrRw",
+    "message_timestamp": 1777048014.0,
+    "createdAt": 1777048014.0,
+    "message_date": "2026-04-24T19:26:54",
+    "invalid_location": false,
+    "message_info": {
+      "body": "Menderes antalya organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+      "sender": "Sedat",
+      "sender_number": "905392863261",
+      "timestamp": 1777048014,
+      "chat_id": "120363389896780615@g.us",
+      "chat_name": "32 ISPARTA—DOĞU NAKLİYE"
+    },
+    "parse_timestamp": "2026-04-24T19:27:49.439986",
+    "total_shipments": 1,
+    "shipments": [
+      {
+        "nereden_il": "İZMİR",
+        "nereden_ilce": "MENDERES",
+        "nereye_il": "ANTALYA",
+        "nereye_ilce": "KONYAALTI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "0",
+        "telefon": "05392863261",
+        "createdAt": "2026-04-24T19:27:49.437581",
+        "body": "Menderes [ANTALYA] organize 13 60 açık tır yük odun tomruk 0539 286 32 61",
+        "message_id": "rK6b7Ca6GdvwAEhLpTi6Mg-ghQBq53disJrRw",
         "invalid_location": false
       }
     ]

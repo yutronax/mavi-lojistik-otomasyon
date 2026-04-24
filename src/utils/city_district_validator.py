@@ -101,16 +101,6 @@ class CityDistrictValidator:
         self._load_data()
 
     def _normalize(self, text: str) -> str:
-        """
-        Turkish normalization: ensures i -> İ and ı -> I.
-        Also strips punctuation and spaces for robust matching.
-        """
-        if not text:
-            return ""
-        
-        # 0. Strip punctuation (BUT KEEP WHITESPACE)
-        import re
-        text = re.sub(r'[\.\,\'\"\-\(\)\:]+', '', text)
         
         # 1. Manual Turkish Uppercase (Robust)
         # Avoids combining characters by explicitly mapping common forms
@@ -133,6 +123,16 @@ class CityDistrictValidator:
         
         return res.strip()
 
+    def _ascii_key(self, text: str) -> str:
+        """Converts Turkish characters to ASCII equivalents for loose matching.
+        Examples: İNEGÖL->INEGOL, GÜRSU->GURSU, ŞANLIURFA->SANLIURFA
+        """
+        if not text: return ""
+        t = self._normalize(text)
+        t = t.replace('İ', 'I').replace('Ö', 'O').replace('Ü', 'U')
+        t = t.replace('Ş', 'S').replace('Ç', 'C').replace('Ğ', 'G')
+        return t
+
     def _load_data(self):
         """
         Loads hierarchical data from il_ilçe_mahalle.json
@@ -151,6 +151,8 @@ class CityDistrictValidator:
             self.neighborhood_map = {}
             self.district_reverse_map = {}
             self.default_districts = {}
+            # ASCII-key -> (proper_city, proper_district) for loose matching
+            self.ascii_district_index = {}
 
             for entry in data:
                 city = self._normalize(entry.get('il', ''))
@@ -175,6 +177,12 @@ class CityDistrictValidator:
                     if dist not in self.district_reverse_map:
                         self.district_reverse_map[dist] = []
                     self.district_reverse_map[dist].append(city)
+
+                    # ASCII-key index for loose (no special char) matching
+                    akey = self._ascii_key(dist)
+                    if akey not in self.ascii_district_index:
+                        self.ascii_district_index[akey] = []
+                    self.ascii_district_index[akey].append((city, dist))
                     
                     # Neighborhoods (Mahalle -> [(City, District)])
                     mahs = d_obj.get('mahalleler', [])
@@ -240,20 +248,38 @@ class CityDistrictValidator:
         norm_dist = self._normalize(district)
         
         # --- BLACKLIST TRAP (Do not even try to validate these as locations) ---
-        forbidden = ["HAFİF", "MADEN", "MERMER", "SOĞAN", "DEMİR", "KÖMÜR", "KARTON", "SUNTA", "BRANDA", "NAKLİYE", "NAK", "LOJİSTİK"]
+        # Covers Turkish char variants: ÖLÜR (for OLUR), GÜNÜ, etc.
+        forbidden = {
+            "HAFİF", "MADEN", "MERMER", "SOĞAN", "DEMİR", "KÖMÜR",
+            "KARTON", "SUNTA", "BRANDA", "NAKLİYE", "NAK", "LOJİSTİK",
+            "OLUR", "ÖLÜR", "GÜNÜ", "SAAT", "PARÇA", "PARCA", "TONAJ",
+            "KADAR", "KAPASITE"
+        }
         if norm_dist in forbidden: norm_dist = ""
         if norm_city in forbidden: norm_city = ""
 
         # Step 1: Resolve City (OR Check if city parameter is actually a district)
         resolved_city = None
         
-        # A. If the 'city' provided is actually a unique district in Turkey, recover it!
+        # A. If the 'city' provided is actually a district (Exact or Fuzzy), recover it!
         if norm_city and norm_city not in self.city_map:
+            # First try EXACT match for district
+            target_dist = None
             if norm_city in self.district_reverse_map:
-                cities = self.district_reverse_map[norm_city]
+                target_dist = norm_city
+            else:
+                # If no exact match, try FUZZY match across ALL districts in Turkey
+                import difflib
+                all_districts = list(self.district_reverse_map.keys())
+                fuzzy_matches = difflib.get_close_matches(norm_city, all_districts, n=1, cutoff=0.90)
+                if fuzzy_matches:
+                    target_dist = fuzzy_matches[0]
+            
+            if target_dist:
+                cities = self.district_reverse_map[target_dist]
                 if len(cities) == 1:
                     resolved_city = cities[0]
-                    norm_dist = norm_city
+                    norm_dist = target_dist
         
         # B. Normal City Resolve
         if not resolved_city:
@@ -277,21 +303,35 @@ class CityDistrictValidator:
                 for c, d in self.neighborhood_map[norm_dist]:
                     if c == resolved_city: return c, d
 
-            # C. High-Similarity Fuzzy Match (ONLY within this City)
+            # C. ASCII Loose Match (handles İnegol->İnegöl, Gursu->Gürsu)
+            if norm_dist:
+                dist_akey = self._ascii_key(norm_dist)
+                if dist_akey in self.ascii_district_index:
+                    for c, d in self.ascii_district_index[dist_akey]:
+                        if c == resolved_city:
+                            return resolved_city, d
+
+            # D. High-Similarity Fuzzy Match (ONLY within this City)
             if norm_dist and len(norm_dist) > 3:
                 import difflib
-                matches = difflib.get_close_matches(norm_dist, list(valid_dists), n=1, cutoff=0.92) # Very high cutoff
+                matches = difflib.get_close_matches(norm_dist, list(valid_dists), n=1, cutoff=0.92)
                 if matches:
                     return resolved_city, matches[0]
 
-            # D. No match? Ignore the district name if it's suspicious
+            # E. No match? Fall back to city default
             return resolved_city, self.default_districts.get(resolved_city, 'MERKEZ')
 
-        # Step 3: No City found? Search District Globally (ONLY if name is unique and long)
+        # Step 3: No City found? Search District Globally (exact or ASCII-loose)
         if norm_dist and len(norm_dist) > 4:
             if norm_dist in self.district_reverse_map:
                 cities = self.district_reverse_map[norm_dist]
                 if len(cities) == 1: return cities[0], norm_dist
+            # ASCII loose global search
+            dist_akey = self._ascii_key(norm_dist)
+            if dist_akey in self.ascii_district_index:
+                candidates = self.ascii_district_index[dist_akey]
+                if len(candidates) == 1:
+                    return candidates[0]
 
         return resolved_city or "BİLİNMEYEN", "MERKEZ"
 

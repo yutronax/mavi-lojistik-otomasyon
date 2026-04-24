@@ -11,20 +11,39 @@ from text_gen_parser import TextGenParser
 async def test_complex():
     parser = TextGenParser()
     
-    # TOKAT BAL NAKLİYAT TESTİ
+    # CEVA LOGISTICS TESTİ
     complex_message = """
-    *TOKAT BAL NAKLİYAT*
-    SİVAS➡️ANKARA TIR hafif
-    SİVAS➡️İNEGÖL TIR hafif
-    TOKAT SARIGÖL TIR -2
-    TOKAT RİZE TIR
-    TOKAT ALAŞEHİR 10-12 TON BİG BAG ÇUVALLI MALZEME
-    TOKAT KASTAMONU AÇIK TIR
+    *CEVA LOGISTICS*
+    *0543 251 61 77*
 
-    ÇORUM BAYAT➡️TOKAT AÇIK TIR
+    *25/04/2026 CUMARTESİ GÜNÜ YÜKLMELİ*
 
-    05322531160
-    CEM BAL
+    *BURSA(NİLÜFER)-BİTLİS(AHLAT)*
+    13.60 (0-25 TON)
+
+    *BURSA(TEKNOSAB)-EDREMİT+ÇANAKKALE*
+    13.60 (0-19 TON)
+
+    *BURSA(NİLÜFER)-KONYA+KONYA*
+    13.60 (0-25 TON)
+
+    *BURSA(NİLÜFER)-MANİSA*
+    13.60 (0-25 TON) 2 ARAC
+
+    *BURSA(NİLÜFER)+ERZİN.(İLİÇ)+ERZURUM*
+    10 TEKER (0-12 TON)
+    TIR’A PARCA OLUR
+
+    *BURSA(GÜRSU)-KONYA(KARATAY)*
+    13.60 (0-26 TON)
+
+    *BURSA(İNEGOL)-YALOVA*
+    13.60 (0-25 TON)
+    20.00’E KADAR YÜKLEME VAR
+
+    *BURSA(GÜRSU)-DÜZCE+DÜZCE*
+    10 TEKER (0-16 TON),
+    TIR’A PARCA OLUR
     """
     
     print("\n--- TEST BAŞLIYOR ---")

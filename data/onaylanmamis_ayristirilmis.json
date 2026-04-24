@@ -18183,5 +18183,13 @@
         "invalid_location": false
       }
     ]
+  },
+  {
+    "message_id": "rMe6a.B6YfyZf_7i6zH4RA-gokBq53kvaJzQQ",
+    "error": "All shipments filtered (International or Empty)",
+    "parse_timestamp": "2026-04-24T19:33:03.933321",
+    "total_shipments": 0,
+    "shipments": [],
+    "createdAt": 1777048383.93335
   }
 ]

@@ -153,6 +153,12 @@ class TextGenParser:
     def _tag_cities(self, text: str) -> str:
         """Finds all Turkish cities and tags them like [CITY] using safe regex replace."""
         if not text: return ""
+
+        # --- BLACKLIST TRAP (Do not even try to validate these as locations) ---
+        # Includes Turkish-character variants (ÖLÜR for OLUR, etc.)
+        forbidden = ["HAFİF", "MADEN", "MERMER", "SOĞAN", "DEMİR", "KÖMÜR", "KARTON",
+                     "SUNTA", "BRANDA", "NAKLİYE", "NAK", "LOJİSTİK",
+                     "OLUR", "ÖLÜR", "GÜNÜ", "SAAT", "PARÇA", "PARCA"]
         
         cities = ["ADANA", "ADIYAMAN", "AFYON", "AFYONKARAHİSAR", "AĞRI", "AKSARAY", "AMASYA", "ANKARA", "ANTALYA", "ARDAHAN", "ARTVİN", "AYDIN", "BALIKESİR", "BARTIN", "BATMAN", "BAYBURT", "BİLECİK", "BİNGÖL", "BİTLİS", "BOLU", "BURDUR", "BURSA", "ÇANAKKALE", "ÇANKIRI", "ÇORUM", "DENİZLİ", "DİYARBAKIR", "DÜZCE", "EDİRNE", "ELAZIĞ", "ERZİNCAN", "ERZURUM", "ESKİŞEHİR", "GAZİANTEP", "GİRESUN", "GÜMÜŞHANE", "HAKKARİ", "HATAY", "IĞDIR", "ISPARTA", "MERSİN", "İÇEL", "İSTANBUL", "İZMİR", "KAHRAMANMARAŞ", "KARABÜK", "KARAMAN", "KARS", "KASTAMONU", "KAYSERİ", "KIRIKKALE", "KIRKLARELİ", "KIRŞEHİR", "KİLİS", "KOCAELİ", "KONYA", "KÜTAHYA", "MALATYA", "MANİSA", "MARDİN", "MUĞLA", "MUŞ", "NEVŞEHİR", "NİĞDE", "ORDU", "OSMANİYE", "RİZE", "SAKARYA", "SAMSUN", "SİİRT", "SİNOP", "SİVAS", "ŞANLIURFA", "ŞIRNAK", "TEKİRDAĞ", "TOKAT", "TRABZON", "TUNCELİ", "UŞAK", "VAN", "YALOVA", "YOZGAT", "ZONGULDAK"]
         cities.sort(key=len, reverse=True)
@@ -313,12 +319,14 @@ EXTRACTION RULES:
 {rules_context}
 
 CRITICAL ANTI-HALLUCINATION RULES:
-1. "HAFİF" is a LOAD TYPE (weight), NOT a location. NEVER output "HAFİK" unless the word "HAFİK" is explicitly spelled in the message with a 'K'.
-2. "MADEN", "MERMER", "KÖMÜR", "SOĞAN", "DEMİR" are LOAD TYPES, NOT locations. Never extract them as cities or districts (especially NOT ELAZIĞ/MADEN).
-3. "SÖKE BOŞALTIR" means destination is "AYDIN / SÖKE".
-4. "DİYARBAKIR ÇERMİK" or "İSTANBUL TUZLA" is ONE SINGLE LOCATION. However, "TOKAT SARIGÖL" is a ROUTE (TOKAT -> SARIGÖL) because Sarıgöl is NOT in Tokat.
-5. If a line starts with a City and is followed by another City/District, it's usually a route (Origin -> Destination).
-6. If you see "📍CITY1 -> CITY2", CITY1 is ORIGIN, CITY2 is DESTINATION.
+1. "HAFİF" and "OLUR" are NOT locations. Never output "HAFİK" or "ERZURUM/OLUR" unless explicitly spelled as a separate city/district word.
+2. "MUSTAFAKEMALPAŞA" is a major district in BURSA. Never ignore it.
+3. INDEPENDENT ROUTES: Each line in the message is a separate shipment. Do NOT copy the origin city/district from the first route to the following routes unless explicitly stated.
+4. "MADEN", "MERMER", "KÖMÜR", "SOĞAN", "DEMİR" are LOAD TYPES, NOT locations.
+5. "SÖKE BOŞALTIR" means destination is "AYDIN / SÖKE".
+6. "DİYARBAKIR ÇERMİK" or "İSTANBUL TUZLA" is ONE SINGLE LOCATION. 
+7. If you see "📍CITY1 -> CITY2", CITY1 is ORIGIN, CITY2 is DESTINATION.
+8. If you see "İLÇE1+İLÇE2", it means two distinct destinations for the same origin. Create two route objects if necessary or include both.
 
 MESSAGE TO PARSE:
 {message.strip()}
@@ -446,8 +454,10 @@ Return ONLY a JSON object in this format:
 
         for r in raw_routes:
             # 1. Contextual Corrections (Bursa Kemalpaşa Trap)
-            n_il, n_dist = r.get('nereden_il', ''), r.get('nereden_ilce', '')
-            ny_il, ny_dist = r.get('nereye_il', ''), r.get('nereye_ilce', '')
+            n_il   = r.get('nereden_il', '') or ''
+            n_dist = r.get('nereden_ilce', '') or ''   # Guard against None
+            ny_il  = r.get('nereye_il', '') or ''
+            ny_dist = r.get('nereye_ilce', '') or ''   # Guard against None
 
             if n_dist == 'KEMALPAŞA' and n_il == 'İZMİR':
                 if 'BURSA' in msg_up and 'İZMİR' not in msg_up:
