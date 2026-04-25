@@ -11,20 +11,13 @@ from production_parser import ProductionParser
 
 async def test_parse():
     parser = ProductionParser()
-    message = """📌 ADANA 'DAN📌
-
-     🧅🧅 SOĞAN 🧅🧅  
-
-➡️ SİVAS DEPO➖ 13.60
-➡️ KAZAN DEPO➖ 13.60
-➡️ AKYURT DEPO➖ 13.60
-🟰
-➡️ NEVŞEHİR DEPO➖13.60
-➡️ ERZURUM DEPO➖13.60 TENTELİ 
-
-☎️ 0546 -183- 0165 ☎️
-☎️ 0534 -253- 0165 ☎️
-🚛 AMAÇ NAKLİYAT 🚚 bunda çok hata yapıyor """
+    message = """📍Erzin ➝ Çumra 860+Kdv
+📍Erzin ➝ Cihanbeyli 900+kdv
+▫️ 13.60 Açık Tır-Kapalı sınırsız araç
+▫️ Çuvallı Gübre
+▫️7-24 Yükleme Mevcut 
+📞05419677835
+✨CEYLAN LOJİSTİK NAKLİYE ✨"""
 
     print("--- PARSING MESSAGE ---")
     results = parser.parse_message(message)

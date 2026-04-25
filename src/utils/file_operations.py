@@ -59,15 +59,25 @@ def load_json_safe(
     
     try:
         with lock:
+            # Check if file is empty before loading
+            if path.stat().st_size == 0:
+                logger.warning(f"File {filepath} is empty (0 bytes). Returning default.")
+                return default if default is not None else {}
+                
             with open(path, 'r', encoding='utf-8') as f:
                 return json.load(f)
     except json.JSONDecodeError as e:
-        # Detaylı hata mesajı
+        logger.error(f"JSON parse error in {filepath} at line {e.lineno}, column {e.colno}: {e.msg}")
+        if default is not None:
+            return default
         raise ValueError(
             f"JSON parse error in {filepath} at line {e.lineno}, "
             f"column {e.colno}: {e.msg}"
         )
     except Exception as e:
+        logger.error(f"Error reading {filepath}: {str(e)}")
+        if default is not None:
+            return default
         raise IOError(f"Error reading {filepath}: {str(e)}")
 
 

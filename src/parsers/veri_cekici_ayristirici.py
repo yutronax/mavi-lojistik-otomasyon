@@ -296,7 +296,7 @@ class OrchestratorSDK:
                 return
             mtime = os.path.getmtime(PROCESSED_FILE)
             if mtime > self._processed_cache_mtime:
-                data = load_json_safe(PROCESSED_FILE)
+                data = load_json_safe(PROCESSED_FILE, default=[])
                 if isinstance(data, list):
                     self.processed_ids_cache = {m.get('message_id') for m in data if m.get('message_id')}
                 self._processed_cache_mtime = mtime
@@ -563,7 +563,7 @@ class OrchestratorSDK:
             # 1. Tüm mesajları yerel kuyruktan yükle (Yeni gelen mesajlar geçici olarak MESSAGES_FILE'da tutulur)
             all_messages = []
             if os.path.exists(MESSAGES_FILE):
-                data = load_json_safe(MESSAGES_FILE)
+                data = load_json_safe(MESSAGES_FILE, default=[])
                 if isinstance(data, dict):
                     all_messages = data.get('messages', [])
                 elif isinstance(data, list):
@@ -735,7 +735,7 @@ class OrchestratorSDK:
                 # Mevcut veriyi yükle
                 current_data = []
                 if os.path.exists(PROCESSED_FILE):
-                    loaded = load_json_safe(PROCESSED_FILE)
+                    loaded = load_json_safe(PROCESSED_FILE, default=[])
                     if isinstance(loaded, list):
                         current_data = loaded
                 

@@ -339,6 +339,9 @@ CRITICAL ANTI-HALLUCINATION & ANTI-CHAINING RULES:
    EXAMPLE INCORRECT: (Adana -> Sivas), (Sivas -> Kazan). 
    EXAMPLE CORRECT: (Adana -> Sivas), (Adana -> Kazan).
 6. COMPANY NAME: Extract the company or person name into the "isim" field (e.g. "AMAÇ NAKLİYAT"). It is usually at the bottom.
+7. VEHICLE METRICS: "13.60" and "860" are vehicle lengths/types (13.60 meters). DO NOT treat them as prices or locations.
+8. LOCATION PRECISION: Extract locations like "KARLIOVA" as districts. If you see "X Y", X is likely the City and Y is the District.
+9. NO PHONE AS PRICE: Never use phone numbers as price.
 
 MESSAGE TO PARSE:
 {message.strip()}
@@ -450,10 +453,6 @@ Return ONLY a JSON object:
     def _extract_price_regex(self, text: str) -> str:
         """
         Extracts price from a single line or short text using regex rules.
-        Rules:
-        - Exclude 1360 and 860.
-        - Look for numbers near TL, KDV, Fiyat or at the end of line.
-        - Decimals like 13.60 are prioritized.
         """
         if not text: return "SORUNUZ"
         
@@ -461,28 +460,51 @@ Return ONLY a JSON object:
         clean_text = text.upper().replace('İ', 'I').replace('₺', ' TL ')
         
         # 2. Pattern to find numbers (including decimals/thousands)
-        # Matches 13.60, 15.000, 20000 etc.
-        # Excludes exact 1360 and 860
-        pattern = r'(?<!\d)(?!(?:1360|860)(?!\d))(\d{1,3}(?:[\.,]\d{3})*(?:[\.,]\d{1,2})?|\d+)(?!\d)'
+        # Simplified pattern: match any number sequence with potential separators
+        pattern = r'(?<!\d)(\d{1,3}(?:[\.,]\d{3})*(?:[\.,]\d{1,2})?|\d+)(?!\d)'
         
         matches = list(re.finditer(pattern, clean_text))
         candidates = []
         for m in matches:
             val_str = m.group(1)
-            # Only exclude if it is exactly '1360' or '860' without any decimal separators
-            # because 13.60 is a valid price/rate.
-            if val_str in ['1360', '860']:
+            # Remove dots/commas to check digits only
+            digits = re.sub(r'\D', '', val_str)
+            
+            # Normalize for comparison
+            val_norm = val_str.replace(',', '.')
+            
+            # 3. STRICT VALIDATION RULES:
+            # - Has decimal/thousands separator (e.g. 15.000)
+            # - OR Has price keywords nearby (e.g. 450 TL, 450+KDV)
+            has_separator = '.' in val_str or ',' in val_str
+            
+            # Check surrounding context (15 chars before/after)
+            surrounding = clean_text[max(0, m.start()-15):min(len(clean_text), m.end()+15)]
+            # Added '+' and 'KDV' variations
+            price_keywords = ['TL', 'KDV', 'FIYAT', 'HESAP', 'DAHIL', 'GIRIS', 'CORDER', '+']
+            has_keyword = any(kw in surrounding for kw in price_keywords)
+
+            # 4. CRITICAL: 13.60 and 860 are usually vehicle types.
+            # Exclude them ONLY IF they don't have price keywords nearby.
+            if val_norm in ['13.60', '1360', '860']:
+                if not has_keyword:
+                    continue
+            
+            # 5. CRITICAL: Exclude Phone Numbers
+            if len(digits) >= 10 and (digits.startswith('05') or digits.startswith('5')):
                 continue
+            if (len(digits) in [3, 4]) and (digits.startswith('05') or digits.startswith('5')):
+                after = clean_text[m.end():m.end()+10]
+                if re.search(r'\d', after):
+                    continue
             
-            # Calculate context score (near price-related words)
+            if not (has_separator or has_keyword):
+                continue
+
+            # Calculate context score
             score = 0
-            surrounding = clean_text[max(0, m.start()-10):min(len(clean_text), m.end()+10)]
-            if any(kw in surrounding for kw in ['TL', 'KDV', 'FIYAT', 'HESAP', 'DAHIL']):
-                score += 10
-            
-            # Decimals are very likely prices in this context (e.g. 13.60)
-            if '.' in val_str or ',' in val_str:
-                score += 5
+            if has_keyword: score += 10
+            if has_separator: score += 5
                 
             candidates.append((val_str, score, m.start()))
 
@@ -515,7 +537,9 @@ Return ONLY a JSON object:
         global_price = "SORUNUZ"
         for line in msg_lines:
             line_up = line.upper()
-            if not any(c in line_up for c in ['➡️', '->', 'DEN', 'DAN']) and any(kw in line_up for kw in ['TL', 'KDV', 'FIYAT']):
+            # Exclude lines that look like routes (containing arrows or "to")
+            is_route_line = any(c in line_up for c in ['➡️', '->', '➝', '➞', '➞', '➞', '➞', 'DEN', 'DAN'])
+            if not is_route_line and any(kw in line_up for kw in ['TL', 'KDV', 'FIYAT', 'HESAP', 'DAHIL']):
                 p = self._extract_price_regex(line)
                 if p != "SORUNUZ":
                     global_price = p
