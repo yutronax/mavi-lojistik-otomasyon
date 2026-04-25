@@ -66,7 +66,7 @@ class TextGenParser:
         self.model_fast = 'llama-3.1-8b-instant'
         self.model_robust = 'llama-3.3-70b-versatile'
         self.model_deepseek = 'deepseek-chat'
-        self.model_gemini = 'llama-3.3-70b-versatile' # Switched from gemini-2.0-flash
+        self.model_gemini = 'llama-3.3-70b-versatile' # Reverted to Llama as requested
         self.fallback_models = ['mixtral-8x7b-32768', 'llama-3.1-70b-versatile']
         
         # NEIGHBORHOOD CACHE
@@ -191,6 +191,13 @@ class TextGenParser:
     def _clean_message(self, text: str) -> str:
         """Removes sticky emojis and normalizes text for better parsing."""
         if not text: return ""
+        
+        # --- STEP 0: Detect repeated emoji chains as shipment separators ---
+        # e.g. "🚛🚛🚛🚛" = divider between two separate shipment ads
+        import unicodedata
+        # Replace sequences of 3+ identical emojis with a clear separator
+        text = re.sub(r'([\U0001F300-\U0001FFFF])\1{2,}', '\n---\n', text)
+        
         # Common emojis that stick to words
         stickies = ['📍', '➡️', '🚚', '📦', '🧅', '📞', '👉', '👉🏻', '👉🏼', '✅', '🚛']
         for s in stickies:
@@ -199,8 +206,10 @@ class TextGenParser:
         # Replace arrow-like symbols with standard arrows
         text = text.replace('👉', ' -> ').replace('➡️', ' -> ').replace('👉🏻', ' -> ')
         
-        # Collapse multiple spaces
-        text = ' '.join(text.split())
+        # Collapse multiple spaces but preserve line breaks
+        lines = text.split('\n')
+        lines = [' '.join(line.split()) for line in lines]
+        text = '\n'.join(lines)
         
         # --- AUTO TAG CITIES ---
         return self._tag_cities(text)
@@ -283,6 +292,7 @@ class TextGenParser:
         
         system_prompt = """You are a Turkish logistics parsing expert. Output ONLY valid JSON.
 CRITICAL: ONLY extract routes explicitly mentioned in the message. DO NOT hallucinate or imagine destinations not found in the text.
+DO NOT EXTRACT PRICE (fiyat). The price field will be handled by regex outside of AI. 
 
 LOGISTICS ABBREVIATIONS & RULES:
 - "İ." or "İZM" followed by "KEMALPAŞA" ALWAYS means "İZMİR / KEMALPAŞA".
@@ -305,34 +315,36 @@ EXTRACTION RULES:
 2. NO HALLUCINATION: If a location is not in the message, DO NOT add it.
 3. SUFFIXES: -den/-dan = ORIGIN, -e/-a = DESTINATION.
 4. MULTI-ROUTE: "X'den Y ve Z'ye" = (X->Y) and (X->Z). 
-5. MANDATORY KEYS: "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type".
+5. MANDATORY KEYS: "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type", "isim".
+   - CRITICAL: Use the EXACT words from the message for district names (e.g. if the message says "KAZAN", use "KAZAN", NOT "KAHRAMANKAZAN").
 6. AMBIGUITY: If a name could be both a City and a District (e.g. "AYDIN"), prioritize it as a CITY unless context clearly says otherwise.
 7. STOP COUNTS: Ignore phrases like "2 NOKTA", "3 YER", "DÖNÜŞLÜ". Do NOT extract numbers as districts.
 8. MULTI-STOP: In "A'dan B + C", extract (A->B) and (A->C).
-9. VERBS: 
+9. VERBS & VERTICALITY: 
    - "YÜKLER", "YÜKLEME", "DAN/DEN" = Loading point (nereden).
    - "BOŞALTIR", "İNER", "TESLİM", "A/E" = Unloading point (nereye).
-   - "VERİLDİ", "İPTAL", "DOLDU" = This message is an update, but still extract the route.
-10. ORDER: In simple "A B" or "A B verildi" patterns without arrows or verbs, the first location is usually ORIGIN and the second is DESTINATION.
+   - VERTICAL ROUTE: If location A is on Line 1 and location B is on Line 2, it's almost always A -> B.
+   - EXAMPLE: "BAYRAMPAŞA YÜKLER [line break] DENİZLİ" = BAYRAMPAŞA (Origin) -> DENİZLİ (Destination).
+10. ORDER: In simple "A B" patterns, the first location is ORIGIN and the second is DESTINATION.
 
 {loc_context}
 {rules_context}
 
-CRITICAL ANTI-HALLUCINATION RULES:
+CRITICAL ANTI-HALLUCINATION & ANTI-CHAINING RULES:
 1. "HAFİF" and "OLUR" are NOT locations. Never output "HAFİK" or "ERZURUM/OLUR" unless explicitly spelled as a separate city/district word.
 2. "MUSTAFAKEMALPAŞA" is a major district in BURSA. Never ignore it.
-3. INDEPENDENT ROUTES: Each line in the message is a separate shipment. Do NOT copy the origin city/district from the first route to the following routes unless explicitly stated.
-4. "MADEN", "MERMER", "KÖMÜR", "SOĞAN", "DEMİR" are LOAD TYPES, NOT locations.
-5. "SÖKE BOŞALTIR" means destination is "AYDIN / SÖKE".
-6. "DİYARBAKIR ÇERMİK" or "İSTANBUL TUZLA" is ONE SINGLE LOCATION. 
-7. If you see "📍CITY1 -> CITY2", CITY1 is ORIGIN, CITY2 is DESTINATION.
-8. If you see "İLÇE1+İLÇE2", it means two distinct destinations for the same origin. Create two route objects if necessary or include both.
+3. INDEPENDENT ROUTES: Each line in the message is a separate shipment. Do NOT copy the origin from previous route.
+4. GLOBAL ORIGIN RULE: If a message starts with a single City (e.g. "ADANA 'DAN") followed by a list of targets (destinations), that City is the ORIGIN for EVERY target in that list.
+5. NO CHAINING: Do NOT create chains like A -> B, B -> C. Treat each target as a separate route from the main origin (Origin -> A, Origin -> B).
+   EXAMPLE INCORRECT: (Adana -> Sivas), (Sivas -> Kazan). 
+   EXAMPLE CORRECT: (Adana -> Sivas), (Adana -> Kazan).
+6. COMPANY NAME: Extract the company or person name into the "isim" field (e.g. "AMAÇ NAKLİYAT"). It is usually at the bottom.
 
 MESSAGE TO PARSE:
 {message.strip()}
 
-Return ONLY a JSON object in this format: 
-{{"akil_yurutme": "...", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE" }}]}}"""
+Return ONLY a JSON object: 
+{{"akil_yurutme": "...", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
 
         # 413 Payload Too Large protection
         if len(message) > 8000:
@@ -435,6 +447,52 @@ Return ONLY a JSON object in this format:
             nest_asyncio.apply()
             return asyncio.get_event_loop().run_until_complete(self.parse_async(message))
 
+    def _extract_price_regex(self, text: str) -> str:
+        """
+        Extracts price from a single line or short text using regex rules.
+        Rules:
+        - Exclude 1360 and 860.
+        - Look for numbers near TL, KDV, Fiyat or at the end of line.
+        - Decimals like 13.60 are prioritized.
+        """
+        if not text: return "SORUNUZ"
+        
+        # 1. Clean up and normalize
+        clean_text = text.upper().replace('İ', 'I').replace('₺', ' TL ')
+        
+        # 2. Pattern to find numbers (including decimals/thousands)
+        # Matches 13.60, 15.000, 20000 etc.
+        # Excludes exact 1360 and 860
+        pattern = r'(?<!\d)(?!(?:1360|860)(?!\d))(\d{1,3}(?:[\.,]\d{3})*(?:[\.,]\d{1,2})?|\d+)(?!\d)'
+        
+        matches = list(re.finditer(pattern, clean_text))
+        candidates = []
+        for m in matches:
+            val_str = m.group(1)
+            # Only exclude if it is exactly '1360' or '860' without any decimal separators
+            # because 13.60 is a valid price/rate.
+            if val_str in ['1360', '860']:
+                continue
+            
+            # Calculate context score (near price-related words)
+            score = 0
+            surrounding = clean_text[max(0, m.start()-10):min(len(clean_text), m.end()+10)]
+            if any(kw in surrounding for kw in ['TL', 'KDV', 'FIYAT', 'HESAP', 'DAHIL']):
+                score += 10
+            
+            # Decimals are very likely prices in this context (e.g. 13.60)
+            if '.' in val_str or ',' in val_str:
+                score += 5
+                
+            candidates.append((val_str, score, m.start()))
+
+        if not candidates:
+            return "SORUNUZ"
+            
+        # Sort by score descending, then by position (prefer later in line)
+        candidates.sort(key=lambda x: (x[1], x[2]), reverse=True)
+        return candidates[0][0]
+
     async def _process_raw_json_async(self, text, message):
         """Processes raw JSON into validated routes (Async version)."""
         try:
@@ -447,25 +505,28 @@ Return ONLY a JSON object in this format:
         final_routes = []
         
         # Pre-process message for context
+        msg_lines = message.split('\n')
         msg_up = message.upper().replace('İ', 'İ').replace('I', 'I')
         phone_match = re.search(r"(0\s*5\d{2}[\s\.\-\(\)]*\d{3}[\s\.\-\(\)]*\d{2}[\s\.\-\(\)]*\d{2})", message)
         default_phone = re.sub(r'\D', '', phone_match.group(1)) if phone_match else ""
         global_type_match = self.vehicle_matcher.find_match(message, per_route=False)
+        
+        # --- GLOBAL PRICE DETECTION ---
+        global_price = "SORUNUZ"
+        for line in msg_lines:
+            line_up = line.upper()
+            if not any(c in line_up for c in ['➡️', '->', 'DEN', 'DAN']) and any(kw in line_up for kw in ['TL', 'KDV', 'FIYAT']):
+                p = self._extract_price_regex(line)
+                if p != "SORUNUZ":
+                    global_price = p
+                    break
 
         for r in raw_routes:
-            # 1. Contextual Corrections (Bursa Kemalpaşa Trap)
+            # 1. Contextual Corrections
             n_il   = r.get('nereden_il', '') or ''
-            n_dist = r.get('nereden_ilce', '') or ''   # Guard against None
+            n_dist = r.get('nereden_ilce', '') or ''
             ny_il  = r.get('nereye_il', '') or ''
-            ny_dist = r.get('nereye_ilce', '') or ''   # Guard against None
-
-            if n_dist == 'KEMALPAŞA' and n_il == 'İZMİR':
-                if 'BURSA' in msg_up and 'İZMİR' not in msg_up:
-                    n_il, n_dist = 'BURSA', 'MUSTAFAKEMALPAŞA'
-            
-            if ny_dist == 'KEMALPAŞA' and ny_il == 'İZMİR':
-                if 'BURSA' in msg_up and 'İZMİR' not in msg_up:
-                    ny_il, ny_dist = 'BURSA', 'MUSTAFAKEMALPAŞA'
+            ny_dist = r.get('nereye_ilce', '') or ''
 
             # 2. Strict Validation via Registry
             n_il, n_dist = self.city_validator.validate(n_il, n_dist)
@@ -493,7 +554,33 @@ Return ONLY a JSON object in this format:
                 kasa_tipi = ['AÇIK', 'KAPALI']
                 yuk_tipi = ['KOMPLE']
 
+            # --- PRICE EXTRACTION (REGEX ONLY) ---
+            fiyat = "SORUNUZ"
+            found_line = ""
+            # Use raw AI values for line matching (e.g. "KAZAN" instead of "KAHRAMANKAZAN")
+            search_terms = [r.get('nereye_il', ''), r.get('nereye_ilce', ''), ny_il, ny_dist]
+            
+            # Common abbreviations/short names
+            if ny_dist == 'KAHRAMANKAZAN': search_terms.append('KAZAN')
+            if ny_dist == 'MUSTAFAKEMALPAŞA': search_terms.append('KEMALPAŞA')
+            if ny_il == 'İSTANBUL': search_terms.append('İST')
+            if ny_il == 'ANKARA': search_terms.append('ANK')
+            
+            search_terms = [s for s in search_terms if s and len(s) > 2]
+            
+            for line in msg_lines:
+                if any(term.upper() in line.upper() for term in search_terms):
+                    found_line = line
+                    break
+            
+            if found_line:
+                fiyat = self._extract_price_regex(found_line)
+            
+            if fiyat == "SORUNUZ":
+                fiyat = global_price
+
             route = {
+                "isim": r.get('isim', 'Bilinmiyor'),
                 "nereden_il": n_il,
                 "nereden_ilce": n_dist,
                 "nereye_il": ny_il,
@@ -501,9 +588,9 @@ Return ONLY a JSON object in this format:
                 "arac_tipi": arac_tipi,
                 "kasa_tipi": kasa_tipi,
                 "yuk_tipi": yuk_tipi,
-                "fiyat": r.get('fiyat', '0'),
+                "fiyat": fiyat,
                 "telefon": r.get('telefon', default_phone) or default_phone,
-                "aciklama": r.get('aciklama', message[:100]),
+                "aciklama": message[:100],
                 "createdAt": datetime.now().isoformat(),
                 "body": message
             }
