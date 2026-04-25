@@ -67,9 +67,10 @@ def load_json_safe(
             with open(path, 'r', encoding='utf-8') as f:
                 return json.load(f)
     except json.JSONDecodeError as e:
-        logger.error(f"JSON parse error in {filepath} at line {e.lineno}, column {e.colno}: {e.msg}")
         if default is not None:
+            logger.warning(f"JSON parse error in {filepath} (using default): {e.msg}")
             return default
+        logger.error(f"JSON parse error in {filepath} at line {e.lineno}, column {e.colno}: {e.msg}")
         raise ValueError(
             f"JSON parse error in {filepath} at line {e.lineno}, "
             f"column {e.colno}: {e.msg}"

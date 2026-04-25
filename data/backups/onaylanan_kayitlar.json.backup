@@ -14249,447 +14249,6 @@
     "message_id": "pcPPBJ6Ae7msO65_QShlYA-gjEBq53D.1nBbQ"
   },
   {
-    "nereden_il": "NEVŞEHİR",
-    "nereden_ilce": "MERKEZ",
-    "nereye_il": "ADANA",
-    "nereye_ilce": "ÇUKUROVA",
-    "arac_tipi": [
-      "1360"
-    ],
-    "kasa_tipi": [
-      "AÇIK",
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05075580847",
-    "aciklama": "NEVSEHIR ADANA \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "createdAt": "2026-04-24T18:24:56.799993",
-    "body": "NEVSEHIR ADANA \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "original_message": "NEVSEHIR ADANA \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "message_id": "rArrO70ypsK.jtKR4eTV2g-olfSymxP_Q-XuXUeg",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ANKARA",
-    "nereden_ilce": "YENİMAHALLE",
-    "nereye_il": "MUĞLA",
-    "nereye_ilce": "ORTACA",
-    "arac_tipi": [
-      "1360"
-    ],
-    "kasa_tipi": [
-      "AÇIK",
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05313817686",
-    "aciklama": "ankara incek - ortaca\n3 metre 300kg parça\n\n0531 381 76 86",
-    "createdAt": "2026-04-24T18:28:53.130913",
-    "body": "ankara incek - ortaca\n3 metre 300kg parça\n\n0531 381 76 86",
-    "original_message": "ankara incek - ortaca\n3 metre 300kg parça\n\n0531 381 76 86",
-    "message_id": "PrA2MoLazMa0RTQ-grsBq53TdzViFQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "CEYHAN",
-    "nereye_il": "MANİSA",
-    "nereye_ilce": "SALİHLİ",
-    "arac_tipi": [
-      "1360"
-    ],
-    "kasa_tipi": [
-      "AÇIK"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05325428643",
-    "aciklama": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "createdAt": "2026-04-24T18:30:19.244179",
-    "body": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "original_message": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "message_id": "pRc.S_cZ1f7I9LPEqpXO8Q-grgBq53dgZXw0Q",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "MANİSA",
-    "nereden_ilce": "SALİHLİ",
-    "nereye_il": "MANİSA",
-    "nereye_ilce": "SALİHLİ",
-    "arac_tipi": [
-      "1360"
-    ],
-    "kasa_tipi": [
-      "AÇIK"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05325428643",
-    "aciklama": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "createdAt": "2026-04-24T18:30:19.284932",
-    "body": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "original_message": "*HEMEN YÜKLEME*\n\nCEYHAN LİMAN YÜKLEME 📍\nSALİHLİ FABRİKA BOŞALTMA 📍\n\nBOBİN - 20 TON\n*HAVUZ DORSE / AÇİK TİR 🚛*\n\n\n0532 542 8643 📞\n0532 404 0822📞",
-    "message_id": "pRc.S_cZ1f7I9LPEqpXO8Q-grgBq53dgZXw0Q",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "MERSİN",
-    "nereden_ilce": "ERDEMLİ",
-    "nereye_il": "MERSİN",
-    "nereye_ilce": "ERDEMLİ",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "AÇIK",
-      "DAMPERLİ"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05366337393",
-    "aciklama": "MİSİS - MERSİN TÖMÜK\n13.60 AÇIK 6 ARAÇ\n\n0536 633 7393\nGÖK NAKLİYAT KOZAN",
-    "createdAt": "2026-04-24T18:31:57.578594",
-    "body": "MİSİS - MERSİN TÖMÜK\n13.60 AÇIK 6 ARAÇ\n\n0536 633 7393\nGÖK NAKLİYAT KOZAN",
-    "original_message": "MİSİS - MERSİN TÖMÜK\n13.60 AÇIK 6 ARAÇ\n\n0536 633 7393\nGÖK NAKLİYAT KOZAN",
-    "message_id": "OpNWPYgylsbmzA-gpwBq53gjSJ0eg",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "NEVŞEHİR",
-    "nereden_ilce": "MERKEZ",
-    "nereye_il": "MERSİN",
-    "nereye_ilce": "AKDENİZ",
-    "arac_tipi": [
-      "1360"
-    ],
-    "kasa_tipi": [
-      "AÇIK",
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05075580847",
-    "aciklama": "NEVSEHIR MERSIN \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "createdAt": "2026-04-24T18:32:04.234635",
-    "body": "NEVSEHIR MERSIN \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "original_message": "NEVSEHIR MERSIN \nPOMZA NAKLİYESİ \nYUKLEME BOSALTMA \n24 SAAT ODEME PESIN \nIRT : 05075580847",
-    "message_id": "rB.d.ibJbu.KCtMjWfAOtA-oiXSymxP_Q-XuXUeg",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "MERSİN",
-    "nereden_ilce": "AKDENİZ",
-    "nereye_il": "MERSİN",
-    "nereye_ilce": "AKDENİZ",
-    "arac_tipi": [
-      "10 TEKER + KAMYONET + KIRKAYAK"
-    ],
-    "kasa_tipi": [
-      "FRİGO"
-    ],
-    "yuk_tipi": [
-      "KOMPLE"
-    ],
-    "fiyat": "0",
-    "telefon": "05415713370",
-    "aciklama": "MERSİN / BAZIRGAN \n\n🍌🍌🍌🍌🍌🍌🍌🍌🍌\n\nFRİGO ARAÇ LAZIM \n\nYARIN YÜKLEME\n\nANG LOJİSTİK \n\n0541 571 33 70",
-    "createdAt": "2026-04-24T18:34:04.298157",
-    "body": "MERSİN / BAZIRGAN \n\n🍌🍌🍌🍌🍌🍌🍌🍌🍌\n\nFRİGO ARAÇ LAZIM \n\nYARIN YÜKLEME\n\nANG LOJİSTİK \n\n0541 571 33 70",
-    "original_message": "MERSİN / BAZIRGAN \n\n🍌🍌🍌🍌🍌🍌🍌🍌🍌\n\nFRİGO ARAÇ LAZIM \n\nYARIN YÜKLEME\n\nANG LOJİSTİK \n\n0541 571 33 70",
-    "message_id": "OmeeaN5qWeDjMw-gmYBq53gHPAA8Q",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "AFYONKARAHİSAR",
-    "nereye_ilce": "MERKEZ",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.440132",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "ANTALYA",
-    "nereye_ilce": "KONYAALTI",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.488059",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "SAMSUN",
-    "nereye_ilce": "İLKADIM",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.538935",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "İSTANBUL",
-    "nereye_ilce": "ARNAVUTKÖY",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.587788",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "KIRKLARELİ",
-    "nereye_ilce": "LÜLEBURGAZ",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.644009",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "İSTANBUL",
-    "nereye_ilce": "ARNAVUTKÖY",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.691669",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "KIRKLARELİ",
-    "nereye_ilce": "LÜLEBURGAZ",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.744308",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "İSTANBUL",
-    "nereye_ilce": "ARNAVUTKÖY",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.800447",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "ERZURUM",
-    "nereye_ilce": "AZİZİYE",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.847462",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "TRABZON",
-    "nereye_ilce": "ORTAHİSAR",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:37:44.891487",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Ou3ieXf2s8ZETg-go4Bq52ICJPZWQ",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "BURSA",
-    "nereye_ilce": "MUSTAFAKEMALPAŞA",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:39:15.556932",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Orfcy0uGSNUOPQ-gtwBq52hRVff6g",
-    "invalid_location": false
-  },
-  {
-    "nereden_il": "ADANA",
-    "nereden_ilce": "ÇUKUROVA",
-    "nereye_il": "İSTANBUL",
-    "nereye_ilce": "ARNAVUTKÖY",
-    "arac_tipi": [
-      "1360 + 860"
-    ],
-    "kasa_tipi": [
-      "KAPALI"
-    ],
-    "yuk_tipi": [
-      "DÖKME"
-    ],
-    "fiyat": "0",
-    "telefon": "05342530165",
-    "aciklama": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "createdAt": "2026-04-24T18:39:15.818336",
-    "body": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "original_message": "📌 ADANA 'DAN📌\n\n     🧅🧅 SOĞAN 🧅🧅  \n\n➡️ AFYON DEPO ➖ 13.60\n➡️ BURSA DEPO ➖ 13.60\n➡️ ANTALYA DEPO ➖ 13.60\n🟰\n➡️ SAMSUN DEPO ➖ 13.60\n➡️ ARNAVUTKÖY DEPO ➖ 13.60\n➡️ LÜLEBURGAZ DEPO ➖ 13.60\n🟰\n➡️ HADIMKÖY DEPO ➖ 13.60\n➡️ ERZURUM DEPO➖13.60 TENTELi \n➡️ TRABZON DEPO ➖ 13.60 TENTELİ\n\n☎️ 0534 -253- 0165 ☎️\n☎️ 0546 -183- 0165 ☎️\n🚛 AMAÇ NAKLİYAT 🚚",
-    "message_id": "Orfcy0uGSNUOPQ-gtwBq52hRVff6g",
-    "invalid_location": false
-  },
-  {
     "nereden_il": "ANKARA",
     "nereden_ilce": "POLATLI",
     "nereye_il": "KAYSERİ",
@@ -25941,6 +25500,1483 @@
     "body": "Kızıltepe ve Viranşhirden pres saman yükleme\n\n🚛 Tenten termokin 🚛\n\n[HATAY] merkez\n[MANISA] Salihli\n[MANISA] Alaşhir\nAdapzarı merkez\nGebze merkez\nİst Arnavutköy\n\nTlf=0544 567 2124",
     "original_message": "Kızıltepe ve Viranşhirden pres saman yükleme \n\n🚛Tenten termokin🚛\n\nHatay merkez \nManisa Salihli \nManisa Alaşhir \nAdapzarı merkez\nGebze merkez\nİst Arnavutköy \n\nTlf=0544 567 2124",
     "message_id": "OiKtBBPq_B3aEQ-gsQBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "MUŞ",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "KAYSERİ",
+    "nereye_ilce": "KOCASİNAN",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05323314998",
+    "aciklama": "Muş tan Kayseri 3ton parça yük pazar günü yükleme \n\n0532 331 4998",
+    "createdAt": "2026-04-25T18:17:53.611998",
+    "body": "[MUŞ] tan [KAYSERI] 3ton parça yük pazar günü yükleme\n\n0532 331 4998",
+    "original_message": "Muş tan Kayseri 3ton parça yük pazar günü yükleme \n\n0532 331 4998",
+    "message_id": "rE7kNdF9YvIY0S.uAoiy9w-gpsBq53gwhGq8A",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "MUŞ",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "KAYSERİ",
+    "nereye_ilce": "KOCASİNAN",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05323314998",
+    "aciklama": "Muş tan Kayseri 3ton parça yük pazar günü yükleme \n\n0532 331 4998",
+    "createdAt": "2026-04-25T18:46:45.742196",
+    "body": "[MUŞ] tan [KAYSERI] 3ton parça yük pazar günü yükleme\n\n0532 331 4998",
+    "original_message": "Muş tan Kayseri 3ton parça yük pazar günü yükleme \n\n0532 331 4998",
+    "message_id": "rE7kNdF9YvIY0S.uAoiy9w-gpsBq53gwhGq8A",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "BURSA",
+    "nereye_ilce": "NİLÜFER",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.561413",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.369736",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "ÇANKIRI",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.625622",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "MERSİN",
+    "nereye_ilce": "ERDEMLİ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.418483",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "BORNOVA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.707575",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "MERSİN",
+    "nereye_ilce": "TARSUS",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.471610",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "KOCAELİ",
+    "nereye_ilce": "İZMİT",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.803267",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "HATAY",
+    "nereye_ilce": "ANTAKYA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.521320",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "BURSA",
+    "nereye_ilce": "GEMLİK",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.869910",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "KAHRAMANMARAŞ",
+    "nereye_ilce": "ONİKİŞUBAT",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.579705",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANKARA",
+    "nereden_ilce": "YENİMAHALLE",
+    "nereye_il": "ZONGULDAK",
+    "nereye_ilce": "KARADENİZ EREĞLİ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05533131612",
+    "aciklama": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "createdAt": "2026-04-25T18:47:01.999998",
+    "body": "* [ANKARA] [BURSA] 8 TIR\n\n* [ANKARA] [ÇANKIRI] 3 TIR\n\n* [ANKARA] [İZMİR] 5 TIR\n*\n[ANKARA] İZMİT 8 TIR\n\n[ANKARA] GEMLİK 2 TIR\n\n[ANKARA] [ZONGULDAK] EREĞLİ 2 TIR\n\n0553 313 16 12",
+    "original_message": "* ANKARA BURSA 8 TIR\n\n* ANKARA ÇANKIRI 3 TIR\n\n* ANKARA İZMİR 5 TIR\n* \nANKARA İZMİT 8  TIR \n\nANKARA GEMLİK 2 TIR \n\nANKARA ZONGULDAK EREĞLİ 2 TIR \n\n0553 313 16 12",
+    "message_id": "PrAetGeG9HnB6GM-ghUBq52oTq1WWg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "AKSARAY",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.625721",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "ÇUBUK",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.673079",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "ANTALYA",
+    "nereden_ilce": "KONYAALTI",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "YENİMAHALLE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "FRİGO"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_27.04.2026 (PAZARTESİ) YÜKLEME_*\n\nAntalya ➡️ Ankara Frigo Tır \n\n\n 0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:47:04.912781",
+    "body": "*_27.04.2026 (PAZARTESİ) YÜKLEME_*\n\n[ANTALYA] -> [ANKARA] Frigo Tır\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_27.04.2026 (PAZARTESİ) YÜKLEME_*\n\nAntalya ➡️ Ankara Frigo Tır \n\n\n 0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAgLPYtOPPj9vg-ggoBq520sJwc2g",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "KIZILCAHAMAM",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.714199",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "MALTEPE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.761943",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "ARNAVUTKÖY",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.807810",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "TUZLA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.855119",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "MARDİN",
+    "nereye_ilce": "ÖMERLİ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.895145",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "ARNAVUTKÖY",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.941660",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "BAŞAKŞEHİR",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:02.996901",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "KOCAELİ",
+    "nereye_ilce": "GEBZE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.037955",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ÇORUM",
+    "nereden_ilce": "ALACA",
+    "nereye_il": "ADANA",
+    "nereye_ilce": "ÇUKUROVA",
+    "arac_tipi": [
+      "KIRKAYAK"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05541212219",
+    "aciklama": "Çorum alaca'dan Adana kırkayak soğan 0554 121 22 19",
+    "createdAt": "2026-04-25T18:47:48.405558",
+    "body": "[ÇORUM] alaca'dan [ADANA] kırkayak soğan 0554 121 22 19",
+    "original_message": "Çorum alaca'dan Adana kırkayak soğan 0554 121 22 19",
+    "message_id": "rLqFcxP10d9f93Y.ErrvPw-gv0Bq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "SAKARYA",
+    "nereye_ilce": "GEYVE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.080116",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "SAKARYA",
+    "nereye_ilce": "KARASU",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.126331",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "DÜZCE",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.167953",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "ZONGULDAK",
+    "nereye_ilce": "KARADENİZ EREĞLİ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.216888",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "ZONGULDAK",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.273275",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "SAMSUN",
+    "nereden_ilce": "İLKADIM",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "ELMADAĞ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "AÇIK"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "700",
+    "telefon": "05431965525",
+    "aciklama": "SAMSUNDAN ELMADAG BASTAS CIMENTO KIRPIK LASTIK UZUN DORSE ACIK  KİSADAMPER FARKETMEZ \n\nGECE 22 YE KADAR YUKLEMESI VARDIR\n\nSIYAH NAK ÖDEMELI\n\nHAFTALIK\n\n700 ARTI KDV\n\n0543196 5525",
+    "createdAt": "2026-04-25T18:48:08.951794",
+    "body": "SAMSUNDAN ELMADAG BASTAS CIMENTO KIRPIK LASTIK UZUN DORSE ACIK KİSADAMPER FARKETMEZ\n\nGECE 22 YE KADAR YUKLEMESI VARDIR\n\nSIYAH NAK ÖDEMELI\n\nHAFTALIK\n\n700 ARTI KDV\n\n0543196 5525",
+    "original_message": "SAMSUNDAN ELMADAG BASTAS CIMENTO KIRPIK LASTIK UZUN DORSE ACIK  KİSADAMPER FARKETMEZ \n\nGECE 22 YE KADAR YUKLEMESI VARDIR\n\nSIYAH NAK ÖDEMELI\n\nHAFTALIK\n\n700 ARTI KDV\n\n0543196 5525",
+    "message_id": "pRX8Uec7hk0ViUpOqUx7DQ-otbSymxP_Q-XuXUeg",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "SAMSUN",
+    "nereye_ilce": "ASARCIK",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.312763",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "BURSA",
+    "nereye_ilce": "ORHANGAZİ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.364057",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "BALIKESİR",
+    "nereye_ilce": "HAVRAN",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.426542",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ANTALYA",
+    "nereden_ilce": "KONYAALTI",
+    "nereye_il": "ADANA",
+    "nereye_ilce": "ÇUKUROVA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05396874658",
+    "aciklama": "🚨ANTALYA YÜKLEME ADANA TENTELİ TIR BOŞ PALET HEMEN YÜKLEME👈\n\nİrtibat☎ 0539 687 46 58\n🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷",
+    "createdAt": "2026-04-25T18:48:21.687652",
+    "body": "🚨[ANTALYA] YÜKLEME [ADANA] TENTELİ TIR BOŞ PALET HEMEN YÜKLEME👈\n\nİrtibat☎ 0539 687 46 58\n🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷",
+    "original_message": "🚨ANTALYA YÜKLEME ADANA TENTELİ TIR BOŞ PALET HEMEN YÜKLEME👈\n\nİrtibat☎ 0539 687 46 58\n🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷🇹🇷",
+    "message_id": "rLJQvJSzcays4o0G6dL7oA-gsABq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "BORNOVA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.478869",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "KEMALPAŞA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.528230",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ADANA",
+    "nereden_ilce": "ÇUKUROVA",
+    "nereye_il": "BURSA",
+    "nereye_ilce": "MUSTAFAKEMALPAŞA",
+    "arac_tipi": [
+      "KAMYONET"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05072447978",
+    "aciklama": "ADANADAN\nB.PAŞA KAMYON \nÇORLU KAMYON \nYÜK SOĞAN \n05072447978",
+    "createdAt": "2026-04-25T18:48:31.594097",
+    "body": "ADANADAN\nB.PAŞA KAMYON\nÇORLU KAMYON\nYÜK SOĞAN\n05072447978",
+    "original_message": "ADANADAN\nB.PAŞA KAMYON \nÇORLU KAMYON \nYÜK SOĞAN \n05072447978",
+    "message_id": "rCk0t.vE0odZmksC7X_43A-gvABq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İZMİR",
+    "nereye_ilce": "TİRE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.582758",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "ADANA",
+    "nereden_ilce": "ÇUKUROVA",
+    "nereye_il": "TEKİRDAĞ",
+    "nereye_ilce": "ÇORLU",
+    "arac_tipi": [
+      "KAMYONET"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05072447978",
+    "aciklama": "ADANADAN\nB.PAŞA KAMYON \nÇORLU KAMYON \nYÜK SOĞAN \n05072447978",
+    "createdAt": "2026-04-25T18:48:31.653387",
+    "body": "ADANADAN\nB.PAŞA KAMYON\nÇORLU KAMYON\nYÜK SOĞAN\n05072447978",
+    "original_message": "ADANADAN\nB.PAŞA KAMYON \nÇORLU KAMYON \nYÜK SOĞAN \n05072447978",
+    "message_id": "rCk0t.vE0odZmksC7X_43A-gvABq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "MANİSA",
+    "nereye_ilce": "AKHİSAR",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.638193",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "MANİSA",
+    "nereye_ilce": "KULA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.691761",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": null,
+    "nereden_il": "OSMANİYE",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "KONYA",
+    "nereye_ilce": "SELÇUKLU",
+    "arac_tipi": [
+      "KIRKAYAK"
+    ],
+    "kasa_tipi": [
+      "AÇIK",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05394491899",
+    "aciklama": "OSMANİYE➡️KONYA\nKIRKAYAK 🧅\n\n☎️ 0539 449 1899",
+    "createdAt": "2026-04-25T18:48:43.259543",
+    "body": "[OSMANİYE] -> [KONYA]\nKIRKAYAK 🧅\n\n☎️ 0539 449 1899",
+    "original_message": "OSMANİYE➡️KONYA\nKIRKAYAK 🧅\n\n☎️ 0539 449 1899",
+    "message_id": "Oq0iV56q5H2PjQ-gjUBq52ICJPZWQ",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "AYDIN",
+    "nereye_ilce": "İNCİRLİOVA",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.740352",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "AYDIN",
+    "nereye_ilce": "KÖŞK",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.788513",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "HALİLOĞLU LOJİSTİK",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "OSMANİYE",
+    "nereye_ilce": "BAHÇE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "25",
+    "telefon": "05466360583",
+    "aciklama": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "createdAt": "2026-04-25T18:47:03.838763",
+    "body": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE -> BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe -> [MERSIN] Erdemli\n• Kızıltepe -> Tarsus (25 KM)\n• Kızıltepe -> [HATAY] Merkez\n• Kızıltepe -> Maraş Merkez\n• Kızıltepe -> [AKSARAY] Merkez\n• Kızıltepe -> [ANKARA] Çubuk\n• Kızıltepe -> Kızılcahamam\n• Kızıltepe -> [İSTANBUL] Avrupa\n• Kızıltepe -> [İSTANBUL] Anadolu\n• Kızıltepe -> [İSTANBUL] Tuzla\n• Kızıltepe -> Ömerli\n• Kızıltepe -> Arnavutköy\n• Kızıltepe -> Başakşehir\n• Kızıltepe -> [KOCAELI] Gebze\n• Kızıltepe -> [SAKARYA] Geyve\n• Kızıltepe -> [SAKARYA] Karasu\n• Kızıltepe -> [DÜZCE] Merkez\n• Kızıltepe -> [ZONGULDAK] Ereğli\n• Kızıltepe -> [ZONGULDAK] Merkez\n• Kızıltepe -> [SAMSUN] Merkez\n• Kızıltepe -> [BURSA] Orhangazi\n• Kızıltepe -> [BALIKESIR] Havran\n• Kızıltepe -> [İZMIR] Merkez\n• Kızıltepe -> [İZMIR] Kemalpaşa\n• Kızıltepe -> [İZMIR] Tire\n• Kızıltepe -> [MANISA] Akhisar\n• Kızıltepe -> [MANISA] Kula\n• Kızıltepe -> [AYDIN] İncirliova\n• Kızıltepe -> [AYDIN] Köşk\n• Kızıltepe -> Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "original_message": "🚛 _HALİLOĞLU LOJİSTİK_\n👤 Serkan Çaça\n📞 0546 636 05 83\n━━━━━━━━━━━━━━━\n📍 _KIZILTEPE ➡️ BOLU_\n📦 15–25 TON PALETLİ MALZEME – 🚚 TENTEN\n🌾 _PRESLİ SAMAN YÜKLEMESİ_\n🚚 TENTEN & TERMOKİNG\n📍 _GİDEN YERLER:_\n• Kızıltepe ➡️ Mersin Erdemli\n• Kızıltepe ➡️ Tarsus (25 KM)\n• Kızıltepe ➡️ Hatay Merkez\n• Kızıltepe ➡️ Maraş  Merkez\n• Kızıltepe ➡️ Aksaray Merkez\n• Kızıltepe ➡️ Ankara Çubuk \n• Kızıltepe ➡️  Kızılcahamam\n• Kızıltepe ➡️ İstanbul Avrupa\n• Kızıltepe ➡️ İstanbul Anadolu\n• Kızıltepe ➡️ İstanbul Tuzla\n• Kızıltepe ➡️  Ömerli \n• Kızıltepe ➡️  Arnavutköy\n• Kızıltepe ➡️  Başakşehir\n• Kızıltepe ➡️ Kocaeli Gebze\n• Kızıltepe ➡️ Sakarya Geyve\n• Kızıltepe ➡️ Sakarya Karasu\n• Kızıltepe ➡️ Düzce Merkez \n• Kızıltepe ➡️ Zonguldak Ereğli\n• Kızıltepe ➡️ Zonguldak Merkez\n• Kızıltepe ➡️ Samsun Merkez\n• Kızıltepe ➡️ Bursa Orhangazi\n• Kızıltepe ➡️ Balıkesir Havran\n• Kızıltepe ➡️ İzmir Merkez\n• Kızıltepe ➡️ İzmir Kemalpaşa\n• Kızıltepe ➡️ İzmir Tire\n• Kızıltepe ➡️ Manisa Akhisar\n• Kızıltepe ➡️ Manisa Kula\n• Kızıltepe ➡️ Aydın İncirliova\n• Kızıltepe ➡️ Aydın Köşk\n• Kızıltepe ➡️ Bahçe Merkez\n━━━━━━━━━━━━━━━\n⚡ Hızlı yükleme – Güvenilir sevkiyat\n📞 _0546 636 05 83_",
+    "message_id": "PrADfAh7U5vhNHA-gigBq53jrgAecA",
+    "invalid_location": false
+  },
+  {
+    "isim": "PRES SAMAN",
+    "nereden_il": "MARDİN",
+    "nereden_ilce": "KIZILTEPE",
+    "nereye_il": "İSTANBUL",
+    "nereye_ilce": "MALTEPE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05327354700",
+    "aciklama": "KIZILTEPE DEPODAN YÜKLEME \n\nPRES SAMAN KAPALI TENTEN ARAÇ LAZIM \n\n KIZILTEPE ≡ HATAY MERKEZ",
+    "createdAt": "2026-04-25T18:49:00.924626",
+    "body": "KIZILTEPE DEPODAN YÜKLEME\n\nPRES SAMAN KAPALI TENTEN ARAÇ LAZIM\n\nKIZILTEPE ≡ [HATAY] MERKEZ",
+    "original_message": "KIZILTEPE DEPODAN YÜKLEME \n\nPRES SAMAN KAPALI TENTEN ARAÇ LAZIM \n\n KIZILTEPE ≡ HATAY MERKEZ",
+    "message_id": "rI_ZoQaBMIiETY4uVYDJQg-otfS0Koctw-YB_5HA",
+    "invalid_location": false
+  },
+  {
+    "isim": "",
+    "nereden_il": "HATAY",
+    "nereden_ilce": "ERZİN",
+    "nereye_il": "SAMSUN",
+    "nereye_ilce": "TEKKEKÖY",
+    "arac_tipi": [
+      "10 TEKER"
+    ],
+    "kasa_tipi": [
+      "AÇIK KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05326326958",
+    "aciklama": "*HATAY ERZİN* ➡️ *SAMSUN TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*HATAY ERZİN* ➡️ *AMASYA* \n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "createdAt": "2026-04-25T18:49:15.584438",
+    "body": "*[HATAY] ERZİN* -> *[SAMSUN] TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*[HATAY] ERZİN* -> *[AMASYA]*\n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "original_message": "*HATAY ERZİN* ➡️ *SAMSUN TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*HATAY ERZİN* ➡️ *AMASYA* \n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "message_id": "PrAEt4ttwxTfZvc-gj4Bq53gjSJ0eg",
+    "invalid_location": false
+  },
+  {
+    "isim": "",
+    "nereden_il": "HATAY",
+    "nereden_ilce": "ERZİN",
+    "nereye_il": "AMASYA",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "10 TEKER"
+    ],
+    "kasa_tipi": [
+      "AÇIK KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05326326958",
+    "aciklama": "*HATAY ERZİN* ➡️ *SAMSUN TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*HATAY ERZİN* ➡️ *AMASYA* \n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "createdAt": "2026-04-25T18:49:15.618632",
+    "body": "*[HATAY] ERZİN* -> *[SAMSUN] TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*[HATAY] ERZİN* -> *[AMASYA]*\n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "original_message": "*HATAY ERZİN* ➡️ *SAMSUN TEKKEKÖY*\n\n\n7 PALET 2,5 TON\n\n\n*0 532 632 69 58*\n\n\n\n\n\n\n*HATAY ERZİN* ➡️ *AMASYA* \n\n\n1 PALET 400 KG.\n\n\n*0 532 632 69 58*",
+    "message_id": "PrAEt4ttwxTfZvc-gj4Bq53gjSJ0eg",
+    "invalid_location": false
+  },
+  {
+    "isim": "AMAÇ NAKLİYAT",
+    "nereden_il": "BOLU",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "2",
+    "telefon": "05326533614",
+    "aciklama": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "createdAt": "2026-04-25T18:49:52.971777",
+    "body": "_*📣 27.04.2026 ( PAZARTESİ ) Yüklemeli Sevkiyat Planı 📣*_\n\n\n1 - [BOLU] - ÇAYIROVA + ÜMRANİYE ( 2 NOKTA - 13.60 TENTELİ )\n\n2 - [BOLU] - SULTANBEYLİ ( 1 NOKTA - 13.60 TENTELİ )\n\n3 - [BOLU] - BAYRAMPAŞA ( 1 NOKTA - 13.60 TENTELİ )\n\n4 - [BOLU] - GEBZE ( 1 NOKTA - 13.60 TENTELİ )\n\n5 - [KARAMAN] - [BOLU] ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n* 🚛 13.60 TENTELİ 🚛 *\n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "original_message": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "message_id": "OrN2O1rjruvkdg-gvQBq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "AMAÇ NAKLİYAT",
+    "nereden_il": "BOLU",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "2",
+    "telefon": "05326533614",
+    "aciklama": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "createdAt": "2026-04-25T18:49:53.000926",
+    "body": "_*📣 27.04.2026 ( PAZARTESİ ) Yüklemeli Sevkiyat Planı 📣*_\n\n\n1 - [BOLU] - ÇAYIROVA + ÜMRANİYE ( 2 NOKTA - 13.60 TENTELİ )\n\n2 - [BOLU] - SULTANBEYLİ ( 1 NOKTA - 13.60 TENTELİ )\n\n3 - [BOLU] - BAYRAMPAŞA ( 1 NOKTA - 13.60 TENTELİ )\n\n4 - [BOLU] - GEBZE ( 1 NOKTA - 13.60 TENTELİ )\n\n5 - [KARAMAN] - [BOLU] ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n* 🚛 13.60 TENTELİ 🚛 *\n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "original_message": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "message_id": "OrN2O1rjruvkdg-gvQBq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "AMAÇ NAKLİYAT",
+    "nereden_il": "BOLU",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "2",
+    "telefon": "05326533614",
+    "aciklama": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "createdAt": "2026-04-25T18:49:53.033109",
+    "body": "_*📣 27.04.2026 ( PAZARTESİ ) Yüklemeli Sevkiyat Planı 📣*_\n\n\n1 - [BOLU] - ÇAYIROVA + ÜMRANİYE ( 2 NOKTA - 13.60 TENTELİ )\n\n2 - [BOLU] - SULTANBEYLİ ( 1 NOKTA - 13.60 TENTELİ )\n\n3 - [BOLU] - BAYRAMPAŞA ( 1 NOKTA - 13.60 TENTELİ )\n\n4 - [BOLU] - GEBZE ( 1 NOKTA - 13.60 TENTELİ )\n\n5 - [KARAMAN] - [BOLU] ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n* 🚛 13.60 TENTELİ 🚛 *\n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "original_message": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "message_id": "OrN2O1rjruvkdg-gvQBq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "AMAÇ NAKLİYAT",
+    "nereden_il": "BOLU",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "2",
+    "telefon": "05326533614",
+    "aciklama": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "createdAt": "2026-04-25T18:49:53.061527",
+    "body": "_*📣 27.04.2026 ( PAZARTESİ ) Yüklemeli Sevkiyat Planı 📣*_\n\n\n1 - [BOLU] - ÇAYIROVA + ÜMRANİYE ( 2 NOKTA - 13.60 TENTELİ )\n\n2 - [BOLU] - SULTANBEYLİ ( 1 NOKTA - 13.60 TENTELİ )\n\n3 - [BOLU] - BAYRAMPAŞA ( 1 NOKTA - 13.60 TENTELİ )\n\n4 - [BOLU] - GEBZE ( 1 NOKTA - 13.60 TENTELİ )\n\n5 - [KARAMAN] - [BOLU] ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n* 🚛 13.60 TENTELİ 🚛 *\n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "original_message": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "message_id": "OrN2O1rjruvkdg-gvQBq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "AMAÇ NAKLİYAT",
+    "nereden_il": "KARAMAN",
+    "nereden_ilce": "MERKEZ",
+    "nereye_il": "BOLU",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "2",
+    "telefon": "05326533614",
+    "aciklama": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "createdAt": "2026-04-25T18:49:53.091575",
+    "body": "_*📣 27.04.2026 ( PAZARTESİ ) Yüklemeli Sevkiyat Planı 📣*_\n\n\n1 - [BOLU] - ÇAYIROVA + ÜMRANİYE ( 2 NOKTA - 13.60 TENTELİ )\n\n2 - [BOLU] - SULTANBEYLİ ( 1 NOKTA - 13.60 TENTELİ )\n\n3 - [BOLU] - BAYRAMPAŞA ( 1 NOKTA - 13.60 TENTELİ )\n\n4 - [BOLU] - GEBZE ( 1 NOKTA - 13.60 TENTELİ )\n\n5 - [KARAMAN] - [BOLU] ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n* 🚛 13.60 TENTELİ 🚛 *\n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "original_message": "_*📣 27.04.2026  (  PAZARTESİ  ) Yüklemeli Sevkiyat  Planı 📣*_\n\n\n1 - BOLU - ÇAYIROVA + ÜMRANİYE   ( 2    NOKTA - 13.60 TENTELİ ) \n\n2 - BOLU - SULTANBEYLİ  ( 1    NOKTA - 13.60 TENTELİ ) \n\n3 - BOLU - BAYRAMPAŞA  ( 1    NOKTA - 13.60 TENTELİ ) \n\n4 - BOLU - GEBZE   ( 1    NOKTA - 13.60 TENTELİ ) \n\n5 - KARAMAN - BOLU ( 3 ARAÇ - 13.60 TENTELİ )\n\n\n*🚛 13.60 TENTELİ 🚛* \n\n*☎ 0 532 653 36 14 ☎*\n*☎ 0 532 389 68 14 ☎*",
+    "message_id": "OrN2O1rjruvkdg-gvQBq52hRVff6g",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "YENİMAHALLE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "FRİGO"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.465245",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "SAMSUN",
+    "nereye_ilce": "İLKADIM",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "FRİGO"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.490362",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "TOKAT",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "FRİGO"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.516887",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "ERZURUM",
+    "nereye_ilce": "AZİZİYE",
+    "arac_tipi": [
+      "1360"
+    ],
+    "kasa_tipi": [
+      "FRİGO"
+    ],
+    "yuk_tipi": [
+      "KOMPLE"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.544796",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "ANKARA",
+    "nereye_ilce": "YENİMAHALLE",
+    "arac_tipi": [
+      "KAMYONET"
+    ],
+    "kasa_tipi": [
+      "FRİGO",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.581230",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "SAMSUN",
+    "nereye_ilce": "İLKADIM",
+    "arac_tipi": [
+      "KAMYONET"
+    ],
+    "kasa_tipi": [
+      "FRİGO",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.621069",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
+    "invalid_location": false
+  },
+  {
+    "isim": "FASTLOG LOJİSTİK",
+    "nereden_il": "MERSİN",
+    "nereden_ilce": "AKDENİZ",
+    "nereye_il": "GİRESUN",
+    "nereye_ilce": "MERKEZ",
+    "arac_tipi": [
+      "KAMYONET"
+    ],
+    "kasa_tipi": [
+      "FRİGO",
+      "KAPALI"
+    ],
+    "yuk_tipi": [
+      "PARÇA"
+    ],
+    "fiyat": "SORUNUZ",
+    "telefon": "05061563210",
+    "aciklama": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "createdAt": "2026-04-25T18:50:03.657548",
+    "body": "*_YARIN (PAZAR) YÜKLEME_*\n\n[MERSIN] -> [ANKARA] Frigo Tır\n[MERSIN] -> [SAMSUN] Frigo Tır\n[MERSIN] -> [TOKAT] Frigo Tır\n[MERSIN] -> [ERZURUM] Frigo Tır\n\n[MERSIN] -> [ANKARA] Frigo Kamyon\n[MERSIN] -> [SAMSUN] Frigo Kamyon\n[MERSIN] -> [GIRESUN] Frigo Kamyon\n[MERSIN] -> [TOKAT] Frigo Kamyon\n[MERSIN] -> [ERZURUM] Frigo Kamyon\n\n\n0 506 156 32 10\n0 555 028 32 06\n0 552 327 32 13\n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "original_message": "*_YARIN (PAZAR) YÜKLEME_*\n\nMersin ➡️ Ankara Frigo Tır \nMersin ➡️ Samsun Frigo Tır \nMersin ➡️ Tokat Frigo Tır \nMersin ➡️ Erzurum Frigo Tır \n\nMersin ➡️ Ankara Frigo Kamyon \nMersin ➡️ Samsun Frigo Kamyon \nMersin ➡️ Giresun Frigo Kamyon \nMersin ➡️ Tokat Frigo Kamyon \nMersin ➡️ Erzurum Frigo Kamyon \n\n\n0 506 156 32 10 \n0 555 028 32 06 \n0 552 327 32 13 \n0 507 692 05 70\n\n*FASTLOG LOJİSTİK*",
+    "message_id": "PrAT4rRJLdbfazY-gswBq53gHPAA8Q",
     "invalid_location": false
   }
 ]
