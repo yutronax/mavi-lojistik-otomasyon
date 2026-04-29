@@ -155,34 +155,26 @@ class TextGenParser:
         if not text: return ""
 
         # --- BLACKLIST TRAP (Do not even try to validate these as locations) ---
-        # Includes Turkish-character variants (ÖLÜR for OLUR, etc.)
         forbidden = ["HAFİF", "MADEN", "MERMER", "SOĞAN", "DEMİR", "KÖMÜR", "KARTON",
                      "SUNTA", "BRANDA", "NAKLİYE", "NAK", "LOJİSTİK",
                      "OLUR", "ÖLÜR", "GÜNÜ", "SAAT", "PARÇA", "PARCA"]
         
+        # Standard Cities
         cities = ["ADANA", "ADIYAMAN", "AFYON", "AFYONKARAHİSAR", "AĞRI", "AKSARAY", "AMASYA", "ANKARA", "ANTALYA", "ARDAHAN", "ARTVİN", "AYDIN", "BALIKESİR", "BARTIN", "BATMAN", "BAYBURT", "BİLECİK", "BİNGÖL", "BİTLİS", "BOLU", "BURDUR", "BURSA", "ÇANAKKALE", "ÇANKIRI", "ÇORUM", "DENİZLİ", "DİYARBAKIR", "DÜZCE", "EDİRNE", "ELAZIĞ", "ERZİNCAN", "ERZURUM", "ESKİŞEHİR", "GAZİANTEP", "GİRESUN", "GÜMÜŞHANE", "HAKKARİ", "HATAY", "IĞDIR", "ISPARTA", "MERSİN", "İÇEL", "İSTANBUL", "İZMİR", "KAHRAMANMARAŞ", "KARABÜK", "KARAMAN", "KARS", "KASTAMONU", "KAYSERİ", "KIRIKKALE", "KIRKLARELİ", "KIRŞEHİR", "KİLİS", "KOCAELİ", "KONYA", "KÜTAHYA", "MALATYA", "MANİSA", "MARDİN", "MUĞLA", "MUŞ", "NEVŞEHİR", "NİĞDE", "ORDU", "OSMANİYE", "RİZE", "SAKARYA", "SAMSUN", "SİİRT", "SİNOP", "SİVAS", "ŞANLIURFA", "ŞIRNAK", "TEKİRDAĞ", "TOKAT", "TRABZON", "TUNCELİ", "UŞAK", "VAN", "YALOVA", "YOZGAT", "ZONGULDAK"]
-        cities.sort(key=len, reverse=True)
         
-        # Create a single pattern for all cities with word boundaries
-        # Use a function as replace to handle the found word's case
-        pattern = r'\b(' + '|'.join(re.escape(city) for city in cities) + r')\b'
+        # Add Common Aliases & Major Logistics Hubs (Districts that act like Cities in logistics)
+        aliases = ["ANTEP", "MARAŞ", "URFA", "GANTEP", "KMARAŞ", "ŞURFA"]
+        hubs = ["KIZILTEPE", "GEBZE", "ÇORLU", "İNEGÖL", "İSKENDERUN", "ÇERKEZKÖY", "SİLİVRİ", "TUZLA", "DİLOVASI", "KEMALPAŞA", "MUSTAFAKEMALPAŞA"]
         
-        def replace_func(match):
-            city_found = match.group(0)
-            return f"[{city_found.upper()}]"
-
-        # Case insensitive match, but we'll use a trick to handle Turkish İ/I
-        # Normal re.IGNORECASE might fail on İ/I. So we search in a normalized string 
-        # BUT re.sub needs to work on the original. 
-        # Let's use a simpler but safer multi-step replace for now.
+        all_locs = list(set(cities + aliases + hubs))
+        all_locs.sort(key=len, reverse=True)
+        
         tagged_text = text
-        for city in cities:
-            # Safe regex for each city: Case insensitive, Word boundary
-            # Handles Turkish İ/I by using a specific pattern if needed, but 
-            # for now \b and re.IGNORECASE is standard.
-            pattern = rf'\b{re.escape(city)}\b'
+        for loc in all_locs:
+            # Safe regex for each loc: Case insensitive, Word boundary
+            pattern = rf'\b{re.escape(loc)}\b'
             # Check if already tagged to avoid [[CITY]]
-            if f"[{city}]" in tagged_text.upper(): continue
+            if f"[{loc}]" in tagged_text.upper(): continue
             
             tagged_text = re.sub(pattern, lambda m: f"[{m.group(0).upper()}]", tagged_text, flags=re.IGNORECASE)
             
@@ -252,6 +244,10 @@ class TextGenParser:
                         text = response.choices[0].message.content
                         self._track_spend(self.model_fast, response.usage.prompt_tokens, response.usage.completion_tokens)
                         return text.strip()
+                except RuntimeError as e:
+                    if "interpreter shutdown" in str(e):
+                        return ""
+                    raise
                 except Exception as e:
                     error_str = str(e)
                     if "429" in error_str and "gemini" in model_to_use:
@@ -334,7 +330,7 @@ CRITICAL ANTI-HALLUCINATION & ANTI-CHAINING RULES:
 1. "HAFİF" and "OLUR" are NOT locations. Never output "HAFİK" or "ERZURUM/OLUR" unless explicitly spelled as a separate city/district word.
 2. "MUSTAFAKEMALPAŞA" is a major district in BURSA. Never ignore it.
 3. INDEPENDENT ROUTES: Each line in the message is a separate shipment. Do NOT copy the origin from previous route.
-4. GLOBAL ORIGIN RULE: If a message starts with a single City (e.g. "ADANA 'DAN") followed by a list of targets (destinations), that City is the ORIGIN for EVERY target in that list.
+4. GLOBAL ORIGIN RULE: If a message starts with a single Location (City or District, e.g. "ADANA 'DAN" or "KIZILTEPE") followed by a list of targets (destinations), that Location is the ORIGIN for EVERY target in that list.
 5. NO CHAINING: Do NOT create chains like A -> B, B -> C. Treat each target as a separate route from the main origin (Origin -> A, Origin -> B).
    EXAMPLE INCORRECT: (Adana -> Sivas), (Sivas -> Kazan). 
    EXAMPLE CORRECT: (Adana -> Sivas), (Adana -> Kazan).
@@ -342,6 +338,8 @@ CRITICAL ANTI-HALLUCINATION & ANTI-CHAINING RULES:
 7. VEHICLE METRICS: "13.60" and "860" are vehicle lengths/types (13.60 meters). DO NOT treat them as prices or locations.
 8. LOCATION PRECISION: Extract locations like "KARLIOVA" as districts. If you see "X Y", X is likely the City and Y is the District.
 9. NO PHONE AS PRICE: Never use phone numbers as price.
+10. HIERARCHY TRAP: In "A B" pattern, A is ALWAYS the ORIGIN even if B is a City and A is a District.
+    Example: "KIZILTEPE ANTEP" means KIZILTEPE (Origin) -> ANTEP (Destination).
 
 MESSAGE TO PARSE:
 {message.strip()}
@@ -393,6 +391,10 @@ Return ONLY a JSON object:
                         text = text.strip()
                         print(f"\n[DEBUG] AI RESPONSE:\n{text}\n") 
                         return await self._process_raw_json_async(text, message)
+                    except RuntimeError as e:
+                        if "interpreter shutdown" in str(e):
+                            return []
+                        raise
                     except Exception as e:
                         error_str = str(e)
                         print(f"⚠️ STAGE 2 ERROR [{model_name}]: {error_str[:150]}")
@@ -565,10 +567,32 @@ Return ONLY a JSON object:
                 ny_il, ny_dist = await self._resolve_neighborhood_async(r.get('nereye_ilce'), ny_il)
                 ny_il, ny_dist = self.city_validator.validate(ny_il, ny_dist)
 
-            # 4. Vehicle & Load Type Matching
-            route_context = f"{n_il} {ny_il} {r.get('type', '')}"
-            type_match = self.vehicle_matcher.find_match(route_context, per_route=True) or global_type_match
+            # 4. Vehicle & Load Type Matching (Line-by-Line Context)
+            # Find the specific line for this route to get accurate local context (metre, etc.)
+            search_terms = [r.get('nereye_il', ''), r.get('nereye_ilce', ''), ny_il, ny_dist]
+            if ny_dist == 'KAHRAMANKAZAN': search_terms.append('KAZAN')
+            if ny_dist == 'MUSTAFAKEMALPAŞA': search_terms.append('KEMALPAŞA')
             
+            found_line = ""
+            search_terms = [s for s in search_terms if s and len(s) > 2]
+            
+            # Use a normalized search to find the correct line regardless of Turkish chars
+            def quick_norm(t):
+                return t.upper().replace('İ', 'I').replace('ı', 'I').replace('Ğ', 'G').replace('Ü', 'U').replace('Ş', 'S').replace('Ö', 'O').replace('Ç', 'C')
+
+            for line in msg_lines:
+                norm_line = quick_norm(line)
+                if any(quick_norm(term) in norm_line for term in search_terms):
+                    found_line = line
+                    break
+            
+            # Match using the specific line context + AI type suggestion
+            route_context = f"{found_line} {r.get('type', '')}" if found_line else f"{n_il} {ny_il} {r.get('type', '')}"
+            type_match = self.vehicle_matcher.find_match(route_context, per_route=True)
+            
+            if not type_match and global_type_match:
+                type_match = global_type_match
+
             if type_match:
                 arac_tipi = [type_match.get('ARAÇ TİPİ', '1360')]
                 kasa_tipi = [k.strip() for k in type_match.get('KASA TİPİ', 'AÇIK KAPALI').split('+')]
@@ -580,23 +604,6 @@ Return ONLY a JSON object:
 
             # --- PRICE EXTRACTION (REGEX ONLY) ---
             fiyat = "SORUNUZ"
-            found_line = ""
-            # Use raw AI values for line matching (e.g. "KAZAN" instead of "KAHRAMANKAZAN")
-            search_terms = [r.get('nereye_il', ''), r.get('nereye_ilce', ''), ny_il, ny_dist]
-            
-            # Common abbreviations/short names
-            if ny_dist == 'KAHRAMANKAZAN': search_terms.append('KAZAN')
-            if ny_dist == 'MUSTAFAKEMALPAŞA': search_terms.append('KEMALPAŞA')
-            if ny_il == 'İSTANBUL': search_terms.append('İST')
-            if ny_il == 'ANKARA': search_terms.append('ANK')
-            
-            search_terms = [s for s in search_terms if s and len(s) > 2]
-            
-            for line in msg_lines:
-                if any(term.upper() in line.upper() for term in search_terms):
-                    found_line = line
-                    break
-            
             if found_line:
                 fiyat = self._extract_price_regex(found_line)
             
