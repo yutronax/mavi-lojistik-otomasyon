@@ -62,11 +62,11 @@ class TextGenParser:
         # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
         self.semaphore = threading.Semaphore(max_concurrent)
         
-        # Models - Gemini is on "paydos", using Groq as primary
+        # Models - Using Llama as primary due to Gemini environment 404s
         self.model_fast = 'llama-3.1-8b-instant'
         self.model_robust = 'llama-3.3-70b-versatile'
         self.model_deepseek = 'deepseek-chat'
-        self.model_gemini = 'llama-3.3-70b-versatile' # Reverted to Llama as requested
+        self.model_gemini = 'llama-3.3-70b-versatile'
         self.fallback_models = ['mixtral-8x7b-32768', 'llama-3.1-70b-versatile']
         
         # NEIGHBORHOOD CACHE
@@ -186,10 +186,13 @@ class TextGenParser:
         
         # --- STEP 0: Detect repeated emoji chains as shipment separators ---
         # e.g. "🚛🚛🚛🚛" = divider between two separate shipment ads
-        import unicodedata
-        # Replace sequences of 3+ identical emojis with a clear separator
         text = re.sub(r'([\U0001F300-\U0001FFFF])\1{2,}', '\n---\n', text)
         
+        # Normalize Bullet Points and List items to a standard format
+        # Replace -, *, •, ●, ▪️, ▫️, 1., 2. at the start of lines with a space
+        text = re.sub(r'^\s*[-*•●▪▫]\s*', ' ', text, flags=re.MULTILINE)
+        text = re.sub(r'^\s*\d+[\.\)]\s*', ' ', text, flags=re.MULTILINE)
+
         # Common emojis that stick to words
         stickies = ['📍', '➡️', '🚚', '📦', '🧅', '📞', '👉', '👉🏻', '👉🏼', '✅', '🚛']
         for s in stickies:
@@ -198,6 +201,14 @@ class TextGenParser:
         # Replace arrow-like symbols with standard arrows
         text = text.replace('👉', ' -> ').replace('➡️', ' -> ').replace('👉🏻', ' -> ')
         
+        # City Abbreviation Normalization (with dots)
+        text = text.replace('İST.', ' İSTANBUL ').replace('ANK.', ' ANKARA ').replace('İZM.', ' İZMİR ')
+        text = text.replace('KOC.', ' KOCAELİ ').replace('BUR.', ' BURSA ')
+        
+        # Separate locations joined by + or / (e.g. URFA+ADANA -> URFA + ADANA)
+        text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\+([a-zA-ZİıĞğÜüŞşÖöÇç])', r'\1 + \2', text)
+        text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\/([a-zA-ZİıĞğÜüŞşÖöÇç])', r'\1 / \2', text)
+
         # Collapse multiple spaces but preserve line breaks
         lines = text.split('\n')
         lines = [' '.join(line.split()) for line in lines]
@@ -216,7 +227,7 @@ class TextGenParser:
         found_tags = re.findall(r'\[(.*?)\]', clean_msg)
         hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
 
-        system_prompt = "You are a location extractor. Output only the logical routes found in the message in 'ORIGIN -> DESTINATION' format. IMPORTANT: If a city and its district are together (e.g. 'Diyarbakır Çermik'), it is ONE location, NOT a route."
+        system_prompt = "You are a logistics location extractor. If you see a multi-origin pattern like 'A+B+C -> D', you MUST output them as separate lines:\nA -> D\nB -> D\nC -> D\nNEVER join them with '+'. Output ONLY the routes in 'ORIGIN -> DESTINATION' format."
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
         model_to_use = self.model_gemini
         
@@ -287,9 +298,6 @@ class TextGenParser:
         target_model = self._get_model_for_message(message)
         
         system_prompt = """You are a Turkish logistics parsing expert. Output ONLY valid JSON.
-CRITICAL: ONLY extract routes explicitly mentioned in the message. DO NOT hallucinate or imagine destinations not found in the text.
-DO NOT EXTRACT PRICE (fiyat). The price field will be handled by regex outside of AI. 
-
 LOGISTICS ABBREVIATIONS & RULES:
 - "İ." or "İZM" followed by "KEMALPAŞA" ALWAYS means "İZMİR / KEMALPAŞA".
 - "K.PAŞA" or "K. PASA" usually means "KEMALPAŞA".
@@ -298,54 +306,56 @@ LOGISTICS ABBREVIATIONS & RULES:
 - "M." followed by "YATAĞAN" means "MUĞLA / YATAĞAN".
 - "DİLOVASI" is a district in KOCAELİ.
 - "GEBZE" is a district in KOCAELİ.
+- "X'TEN Y'YE" or "X - Y" patterns: X is ORIGIN, Y is DESTINATION.
 
 VALID TURKISH CITIES: ADANA, ADIYAMAN, AFYONKARAHİSAR, AĞRI, AKSARAY, AMASYA, ANKARA, ANTALYA, ARDAHAN, ARTVİN, AYDIN, BALIKESİR, BARTIN, BATMAN, BAYBURT, BİLECİK, BİNGÖL, BİTLİS, BOLU, BURDUR, BURSA, ÇANAKKALE, ÇANKIRI, ÇORUM, DENİZLİ, DİYARBAKIR, DÜZCE, EDİRNE, ELAZIĞ, ERZİNCAN, ERZURUM, ESKİŞEHİR, GAZİANTEP, GİRESUN, GÜMÜŞHANE, HAKKARİ, HATAY, IĞDIR, ISPARTA, MERSİN, İSTANBUL, İZMİR, KAHRAMANMARAŞ, KARABÜK, KARAMAN, KARS, KASTAMONU, KAYSERİ, KIRIKKALE, KIRKLARELİ, KIRŞEHİR, KİLİS, KOCAELİ, KONYA, KÜTAHYA, MALATYA, MANİSA, MARDİN, MUĞLA, MUŞ, NEVŞEHİR, NİĞDE, ORDU, OSMANİYE, RİZE, SAKARYA, SAMSUN, SİİRT, SİNOP, SİVAS, ŞANLIURFA, ŞIRNAK, TEKİRDAĞ, TOKAT, TRABZON, TUNCELİ, UŞAK, VAN, YALOVA, YOZGAT, ZONGULDAK."""
 
         user_prompt = f"""Extract ALL routes from this message. 
-STRICT RULE: Only create json objects for routes explicitly stated. Do NOT invent locations.
+STRICT RULE: Only extract routes explicitly stated. Do NOT invent locations.
 
 {loc_guideline}
 
-EXTRACTION RULES:
+EXAMPLE OF VERTICAL LIST PARSING:
+Message:
+ADANA CUMARTESİ YÜKLEME
+İSTANBUL AVR. 2 NOKTA
+ANKARA TEK NOKTA
+0532...
+Expected Logic:
+- Global Origin: ADANA
+- Route 1: ADANA -> İSTANBUL (AVR)
+- Route 2: ADANA -> ANKARA (MERKEZ)
+
+EXTRACTION & LOGIC RULES:
 1. HARD HIERARCHY: City > District > Neighborhood. ALWAYS identify the CITY (İL) first. 
-2. NO HALLUCINATION: If a location is not in the message, DO NOT add it.
-3. SUFFIXES: -den/-dan = ORIGIN, -e/-a = DESTINATION.
-4. MULTI-ROUTE: "X'den Y ve Z'ye" = (X->Y) and (X->Z). 
-5. MANDATORY KEYS: "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type", "isim".
-   - CRITICAL: Use the EXACT words from the message for district names (e.g. if the message says "KAZAN", use "KAZAN", NOT "KAHRAMANKAZAN").
-6. AMBIGUITY: If a name could be both a City and a District (e.g. "AYDIN"), prioritize it as a CITY unless context clearly says otherwise.
-7. STOP COUNTS: Ignore phrases like "2 NOKTA", "3 YER", "DÖNÜŞLÜ". Do NOT extract numbers as districts.
-8. MULTI-STOP: In "A'dan B + C", extract (A->B) and (A->C).
-9. VERBS & VERTICALITY: 
-   - "YÜKLER", "YÜKLEME", "DAN/DEN" = Loading point (nereden).
-   - "BOŞALTIR", "İNER", "TESLİM", "A/E" = Unloading point (nereye).
-   - VERTICAL ROUTE: If location A is on Line 1 and location B is on Line 2, it's almost always A -> B.
-   - EXAMPLE: "BAYRAMPAŞA YÜKLER [line break] DENİZLİ" = BAYRAMPAŞA (Origin) -> DENİZLİ (Destination).
-10. ORDER: In simple "A B" patterns, the first location is ORIGIN and the second is DESTINATION.
+2. NO HALLUCINATION: If a location is not in the message, DO NOT add it. Do NOT invent routes.
+3. SUFFIXES: -den/-dan indicates ORIGIN, -e/-a indicates DESTINATION.
+4. ORDER: In "A B" patterns, A is ALWAYS the ORIGIN even if B is a City and A is a District (e.g. "KIZILTEPE ANTEP" means KIZILTEPE -> ANTEP).
+5. GLOBAL ORIGIN (HEADER-BASED): If a message starts with a location (e.g., "NİĞDE CUMARTESİ YÜKLEME") and then lists multiple locations line-by-line, that first location is the ORIGIN for ALL subsequent locations.
+6. VERTICAL LISTS: In a vertical list where each line contains a location (e.g., "ALANYA TEK NOKTA", "ADANA 3 NOKTA"), these locations are ALWAYS the DESTINATIONS (nereye). The origin (nereden) is taken from the header.
+7. MULTI-DESTINATION (X NOKTA): Expressions like "ADANA 3 NOKTA" or "İZMİR 2 NOKTA" indicate that the location mentioned (ADANA, İZMİR) is the DESTINATION. The number (3, 2) is the count of drops at that destination.
+8. PLUS SIGN IN LIST: If a line in a vertical list is "DÜZCE + İSTANBUL", it means İki AYRI varış noktası (Separate destinations) from the same origin. Create two separate route objects.
+9. VERTICAL LIST RESET: If a new company name, phone number, or keywords like "YÜK", "YÜKLEME", "YENİ YÜK" appear at the top of a new block, the previous global origin is RESET.
+10. NO CHAINING: Treat each target as a separate route from the main origin. NEVER create routes between two destination points in a list.
+11. MULTI-ROUTE SYMBOLS: 
+   - "X'den Y ve Z'ye" = (X->Y) and (X->Z). 
+   - "X + Y + Z -> A" or "X/Y/Z -> A" = (X->A), (Y->A), (Z->A). EACH location before the arrow is a separate ORIGIN.
+12. STOP COUNTS: Ignore "TEK NOKTA", "2 NOKTA", "3 YER", "DÖNÜŞLÜ". Do NOT extract numbers as districts.
+13. COMPANY NAME: Extract company/person into "isim". It is usually at the bottom.
+14. VEHICLE & LOAD: "13.60" and "860" are vehicle types. "HAFİF" and "OLUR" are NOT locations.
+15. NO GUESSING (STRICT): If a district is not explicitly mentioned, use "MERKEZ". NEVER guess districts like "MALTEPE" or "BORNOVA".
+16. ISTANBUL DISTRICTS: If you see "AVR", set nereye_ilce="AVR". If you see "AND", set nereye_ilce="AND".
+17. GLOBAL DESTINATION: If a message says "X VARIŞLI" at the top and then lists cities, those cities are the ORIGINS, and X is the DESTINATION for all of them.
+18. MANDATORY: Every JSON route MUST have "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type", "isim".
 
 {loc_context}
 {rules_context}
-
-CRITICAL ANTI-HALLUCINATION & ANTI-CHAINING RULES:
-1. "HAFİF" and "OLUR" are NOT locations. Never output "HAFİK" or "ERZURUM/OLUR" unless explicitly spelled as a separate city/district word.
-2. "MUSTAFAKEMALPAŞA" is a major district in BURSA. Never ignore it.
-3. INDEPENDENT ROUTES: Each line in the message is a separate shipment. Do NOT copy the origin from previous route.
-4. GLOBAL ORIGIN RULE: If a message starts with a single Location (City or District, e.g. "ADANA 'DAN" or "KIZILTEPE") followed by a list of targets (destinations), that Location is the ORIGIN for EVERY target in that list.
-5. NO CHAINING: Do NOT create chains like A -> B, B -> C. Treat each target as a separate route from the main origin (Origin -> A, Origin -> B).
-   EXAMPLE INCORRECT: (Adana -> Sivas), (Sivas -> Kazan). 
-   EXAMPLE CORRECT: (Adana -> Sivas), (Adana -> Kazan).
-6. COMPANY NAME: Extract the company or person name into the "isim" field (e.g. "AMAÇ NAKLİYAT"). It is usually at the bottom.
-7. VEHICLE METRICS: "13.60" and "860" are vehicle lengths/types (13.60 meters). DO NOT treat them as prices or locations.
-8. LOCATION PRECISION: Extract locations like "KARLIOVA" as districts. If you see "X Y", X is likely the City and Y is the District.
-9. NO PHONE AS PRICE: Never use phone numbers as price.
-10. HIERARCHY TRAP: In "A B" pattern, A is ALWAYS the ORIGIN even if B is a City and A is a District.
-    Example: "KIZILTEPE ANTEP" means KIZILTEPE (Origin) -> ANTEP (Destination).
 
 MESSAGE TO PARSE:
 {message.strip()}
 
 Return ONLY a JSON object: 
-{{"akil_yurutme": "...", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
+{{"akil_yurutme": "Mesaj dikey liste yapısındadır. Baştaki konum [CITY] çıkış noktasıdır. Diğerleri varış noktasıdır.", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
 
         # 413 Payload Too Large protection
         if len(message) > 8000:
@@ -455,8 +465,9 @@ Return ONLY a JSON object:
     def _extract_price_regex(self, text: str) -> str:
         """
         Extracts price from a single line or short text using regex rules.
+        USER REQUEST: Always return 'SORUNUZ'.
         """
-        if not text: return "SORUNUZ"
+        return "SORUNUZ"
         
         # 1. Clean up and normalize
         clean_text = text.upper().replace('İ', 'I').replace('₺', ' TL ')
@@ -602,13 +613,8 @@ Return ONLY a JSON object:
                 kasa_tipi = ['AÇIK', 'KAPALI']
                 yuk_tipi = ['KOMPLE']
 
-            # --- PRICE EXTRACTION (REGEX ONLY) ---
+            # --- PRICE EXTRACTION (DISABLED BY USER REQUEST) ---
             fiyat = "SORUNUZ"
-            if found_line:
-                fiyat = self._extract_price_regex(found_line)
-            
-            if fiyat == "SORUNUZ":
-                fiyat = global_price
 
             route = {
                 "isim": r.get('isim', 'Bilinmiyor'),

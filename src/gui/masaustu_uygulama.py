@@ -254,6 +254,7 @@ class LojistikYonetimGUI:
         
         # Otomatik Onay Özelliği
         self.auto_approval_var = tk.BooleanVar(value=False)
+        self._auto_approval_enabled = False
         
         self.current_shipments: List[Dict] = []
         self.current_shipment_index: int = 0
@@ -376,12 +377,14 @@ class LojistikYonetimGUI:
                 self.logger.error(f"[FAIL] Periodic refresh thread error: {e}")
             finally:
                 self._sync_in_progress = False
-                # Schedule next refresh (15 seconds for more responsive UI)
-                self.root.after(15000, self.start_periodic_refresh)
 
         # Launch background worker
         thread = threading.Thread(target=background_task, daemon=True)
         thread.start()
+        
+        # Schedule next refresh (15 seconds for more responsive UI)
+        # CRITICAL FIX: Scheduled on main thread instead of background thread to prevent Tkinter deadlock
+        self.root.after(15000, self.start_periodic_refresh)
 
     def start_mongo_sync(self):
         """Metod kaldırıldı - start_periodic_refresh kullanılıyor."""
@@ -751,8 +754,12 @@ class LojistikYonetimGUI:
         auto_approve_frame = tk.Frame(content, bg='#f3f4f6', padx=10, pady=8, highlightthickness=1, highlightbackground=self.COLORS['border'])
         auto_approve_frame.pack(fill=tk.X, pady=(0, 10))
         
+        def _sync_auto_approve():
+            self._auto_approval_enabled = self.auto_approval_var.get()
+            
         tk.Checkbutton(auto_approve_frame, text="🤖 OTOMATİK ONAY", 
                        variable=self.auto_approval_var,
+                       command=_sync_auto_approve,
                        font=('Segoe UI Semibold', 10),
                        bg='#f3f4f6', activebackground='#f3f4f6',
                        fg=self.COLORS['primary'],
@@ -1031,7 +1038,10 @@ class LojistikYonetimGUI:
         
         # Telefon - Listbox yerine normal Entry
         self.create_form_field(scroll_frame, "Telefon:", shipment.get('telefon', ''), form_entries, 'telefon')
-        self.create_form_field(scroll_frame, "Fiyat:", shipment.get('fiyat', ''), form_entries, 'fiyat')
+        
+        # Fiyat alanı SORUNUZ olarak sabitlendi ve değiştirilemez yapıldı
+        fiyat_field = self.create_form_field(scroll_frame, "Fiyat:", "SORUNUZ", form_entries, 'fiyat')
+        form_entries['fiyat'].config(state='disabled')
         
         # Açıklama
         lbl = tk.Label(scroll_frame, text="Açıklama:", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg'], anchor='w')
@@ -1162,9 +1172,9 @@ class LojistikYonetimGUI:
                             value = v
                             break
                 
-                # FIX: Fiyat boşsa "Sorunuz" yaz
-                if field_name == 'fiyat' and not value:
-                    value = 'Sorunuz'
+                # USER REQUEST: Always "SORUNUZ"
+                if field_name == 'fiyat':
+                    value = 'SORUNUZ'
                 
                 shipment[field_name] = value
         
@@ -1863,6 +1873,23 @@ class LojistikYonetimGUI:
     
     def _get_message_datetime(self, msg):
         """Mesajın tam datetime nesnesini döndür (DataService uyumlu)"""
+        # --- CACHING OPTIMIZATION (PERSISTENT ACROSS RELOADS) ---
+        m_id = msg.get('message_id') or msg.get('id')
+        if m_id:
+            m_id = str(m_id)
+            if not hasattr(self, '_datetime_cache'):
+                self._datetime_cache = {}
+            if m_id in self._datetime_cache:
+                return self._datetime_cache[m_id]
+                
+        dt = self._parse_message_datetime_internal(msg)
+        
+        if m_id:
+            self._datetime_cache[m_id] = dt
+        return dt
+
+    def _parse_message_datetime_internal(self, msg):
+        """Asıl tarih ayrıştırma mantığı (ağır işlem)"""
         try:
             # 1. Root level timestamp fields
             ts = msg.get('message_timestamp') or msg.get('timestamp') or msg.get('createdAt')
@@ -2409,7 +2436,7 @@ class LojistikYonetimGUI:
                 arac_info,
                 kasa_info,
                 yuk_info,
-                s.get('fiyat', ''),
+                "SORUNUZ", # Always display SORUNUZ
                 telefon_info
                 # s.get('aciklama', '') # View removed
             )
@@ -3383,7 +3410,10 @@ class LojistikYonetimGUI:
         form_entries['yuk_tipi'] = yuk_selector
 
         self.create_form_field(scroll_frame, "Telefon:", "", form_entries, 'telefon')
-        self.create_form_field(scroll_frame, "Fiyat:", "", form_entries, 'fiyat')
+        
+        # Fiyat alanı SORUNUZ olarak sabitlendi ve değiştirilemez yapıldı
+        self.create_form_field(scroll_frame, "Fiyat:", "SORUNUZ", form_entries, 'fiyat')
+        form_entries['fiyat'].config(state='disabled')
 
         # Açıklama
         lbl = tk.Label(scroll_frame, text="Açıklama:", font=('Segoe UI', 9, 'bold'), bg=self.COLORS['panel_bg'], anchor='w')
@@ -3426,13 +3456,10 @@ class LojistikYonetimGUI:
                             value = v
                             break
                             
-                if field_name == 'fiyat' and not value:
-                    value = 'Sorunuz'
+                # USER REQUEST: Always "SORUNUZ"
+                if field_name == 'fiyat':
+                    value = 'SORUNUZ'
                 
-                # Telefon temizle (sadece rakamlar)
-                elif field_name == 'telefon':
-                    value = ''.join(filter(str.isdigit, value))
-
                 new_shipment[field_name] = value
 
         # Temel validasyon
@@ -3707,7 +3734,7 @@ class LojistikYonetimGUI:
                             self.root.after(0, lambda: self.refresh_messages(silent=True))
 
                             # Otomatik Onay Kontrolü (NEW)
-                            if self.auto_approval_var.get():
+                            if getattr(self, '_auto_approval_enabled', False):
                                 self.process_auto_approvals()
                         except Exception as e:
                             logger.error('Continuous: local processing error: %s', e)
@@ -4037,9 +4064,8 @@ class LojistikYonetimGUI:
         if not hasattr(self, 'live_msg_tree') or not self.all_messages_original:
             return
             
-        # Clear existing
-        for item in self.live_msg_tree.get_children():
-            self.live_msg_tree.delete(item)
+        # Clear existing fast
+        self.live_msg_tree.delete(*self.live_msg_tree.get_children())
             
         from datetime import datetime, timedelta
         

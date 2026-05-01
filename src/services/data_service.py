@@ -196,9 +196,17 @@ class DataService:
                         continue
 
                 # --- INTERNATIONAL/INVALID LOCATION FILTER ---
-                if item.get('invalid_location'):
-                    logger.info(f"[MAP] Foreign Location Filter: Skipping message {message_id}")
+                valid_shipments = []
+                for s in item.get('shipments', []):
+                    if not s.get('invalid_location'):
+                        valid_shipments.append(s)
+                
+                if not valid_shipments and item.get('shipments'):
+                    logger.info(f"[MAP] Strict Foreign Location Filter: Skipping message {message_id} (All shipments foreign/invalid)")
                     continue
+                
+                # Sadece gecerli olanlari birak
+                item['shipments'] = valid_shipments
 
                 # Extract timestamp for retention check
                 ts = None
@@ -958,18 +966,24 @@ class DataService:
 
     # ==================== CONTENT DEDUPLICATION ====================
 
-    def _normalize_and_hash(self, text: str) -> str:
+    def _normalize_and_hash(self, text: str, strict: bool = False) -> str:
         """Normalize text and return SHA256 hash."""
         if not text:
             return ""
-        # 1. Normalize spacing and lowercase
-        text = ' '.join(text.strip().lower().split())
-        # 2. Advanced: Strip common noise characters (punctuation, symbols) to catch "!!" vs "!!!"
-        import re
-        noise_pattern = re.compile(r'[\.\!\?\,\+\-\*\=\_\;\:\#\$\%\(\)\[\]\{\}\>\<]+')
-        text = noise_pattern.sub('', text)
-        # 3. Final collapse of whitespace
-        normalized = ' '.join(text.split())
+        
+        if strict:
+            # 100% matching (only strip surrounding whitespace)
+            normalized = text.strip()
+        else:
+            # 1. Normalize spacing and lowercase
+            text = ' '.join(text.strip().lower().split())
+            # 2. Advanced: Strip common noise characters (punctuation, symbols) to catch "!!" vs "!!!"
+            import re
+            noise_pattern = re.compile(r'[\.\!\?\,\+\-\*\=\_\;\:\#\$\%\(\)\[\]\{\}\>\<]+')
+            text = noise_pattern.sub('', text)
+            # 3. Final collapse of whitespace
+            normalized = ' '.join(text.split())
+            
         return hashlib.sha256(normalized.encode('utf-8')).hexdigest()
 
     def load_processed_content_hashes(self) -> Dict[str, str]:
@@ -1024,30 +1038,32 @@ class DataService:
 
     def is_body_known(self, body_text: str) -> bool:
         """
-        Check if message body has been seen in the LAST 1 HOUR.
+        Check if message body has been seen in the LAST X HOURS (default 2h).
         Returns True if we should SKIP processing this message.
-        (OPTIMIZED with caching)
         """
         if not body_text:
             return False
             
-        content_hash = self._normalize_and_hash(body_text)
-        if not content_hash:
-            return False
-            
+        # USER REQUEST: Strict 100% matching check
+        strict_hash = self._normalize_and_hash(body_text, strict=True)
+        # Fallback/Fuzzy check (still useful for similar messages)
+        fuzzy_hash = self._normalize_and_hash(body_text, strict=False)
+        
         from datetime import datetime, timedelta
         now = datetime.now()
         
-        # 1. Check Historical Processed (Centralized Window)
+        # 1. Check Historical Processed
         hashes = self.load_processed_content_hashes()
-        if content_hash in hashes:
-            try:
-                processed_time = datetime.fromisoformat(hashes[content_hash])
-                # If less than the configured window passed
-                if now - processed_time < timedelta(hours=DUPLICATE_CHECK_HOURS):
-                    return True
-            except:
-                pass
+        for h in [strict_hash, fuzzy_hash]:
+            if h in hashes:
+                try:
+                    processed_time = datetime.fromisoformat(hashes[h])
+                    # Ensure at least 2 hours window if config is lower, but follow config if higher
+                    window_hours = max(2.0, float(DUPLICATE_CHECK_HOURS))
+                    if now - processed_time < timedelta(hours=window_hours):
+                        return True
+                except:
+                    pass
             
         # 2. Check Active (Current Queue/Unprocessed file) - CACHED
         try:
@@ -1063,13 +1079,17 @@ class DataService:
                     for msg in active_list:
                         msg_body = msg.get('body') or msg.get('message_info', {}).get('body')
                         if msg_body:
-                            h = self._normalize_and_hash(msg_body)
-                            if h and self._unprocessed_hashes_cache is not None:
-                                self._unprocessed_hashes_cache.add(h)
+                            # Cache both strict and fuzzy for active items
+                            s_h = self._normalize_and_hash(msg_body, strict=True)
+                            f_h = self._normalize_and_hash(msg_body, strict=False)
+                            if self._unprocessed_hashes_cache is not None:
+                                self._unprocessed_hashes_cache.add(s_h)
+                                self._unprocessed_hashes_cache.add(f_h)
                 self._unprocessed_hashes_mtime = float(mtime)
             
-            if self._unprocessed_hashes_cache is not None and content_hash in self._unprocessed_hashes_cache:
-                return True
+            if self._unprocessed_hashes_cache is not None:
+                if strict_hash in self._unprocessed_hashes_cache or fuzzy_hash in self._unprocessed_hashes_cache:
+                    return True
 
         except Exception as e:
             logger.error(f"Error checking active messages for body duplicate: {e}")

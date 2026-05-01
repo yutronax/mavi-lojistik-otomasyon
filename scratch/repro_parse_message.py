@@ -1,35 +1,22 @@
-import sys
 import os
-import asyncio
+import sys
 import json
 
-# Add project root to path
-PROJECT_ROOT = r'c:\Users\YUSUF ÇİNAR\OneDrive\Belgeler\Masaüstü\projelerim\maviLojistik'
+# Add src to path
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
 from production_parser import ProductionParser
 
-async def test_parse():
+def test_single_message():
     parser = ProductionParser()
-    message = """📍Erzin ➝ Çumra 860+Kdv
-📍Erzin ➝ Cihanbeyli 900+kdv
-▫️ 13.60 Açık Tır-Kapalı sınırsız araç
-▫️ Çuvallı Gübre
-▫️7-24 Yükleme Mevcut 
-📞05419677835
-✨CEYLAN LOJİSTİK NAKLİYE ✨"""
-
-    print("--- PARSING MESSAGE ---")
+    message = "AYDIN MERKEZ ZİLE 4 TON 6 METRE AÇIK TIR OLACAK....0532 431 11 97....0532 059 54 60"
+    
+    print(f"Test ediliyor: {message}\n")
     results = parser.parse_message(message)
     
-    print(f"\nFound {len(results)} routes:")
-    for i, r in enumerate(results, 1):
-        print(f"\n[Route {i}]")
-        print(f"  Origin: {r.get('nereden_il')} / {r.get('nereden_ilce')}")
-        print(f"  Dest:   {r.get('nereye_il')} / {r.get('nereye_ilce')}")
-        print(f"  Price:  {r.get('fiyat')}")
-        print(f"  Tel:    {r.get('telefon')}")
-        print(f"  Kasa:   {r.get('kasa_tipi')}")
+    print("Ayrıştırma Sonucu:")
+    print(json.dumps(results, indent=2, ensure_ascii=False))
 
 if __name__ == "__main__":
-    asyncio.run(test_parse())
+    test_single_message()

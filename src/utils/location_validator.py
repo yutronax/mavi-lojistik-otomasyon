@@ -29,6 +29,23 @@ class LocationValidator:
             
             self._load_locations(json_path)
 
+    def _normalize_text(self, text: str) -> str:
+        """Normalizes Turkish characters for robust matching."""
+        if not text:
+            return ""
+        text = text.strip().upper()
+        replacements = {
+            'İ': 'I', 'I': 'I', 'ı': 'I', 'i': 'I',
+            'Ş': 'S', 'ş': 'S', 'S': 'S',
+            'Ğ': 'G', 'ğ': 'G', 'G': 'G',
+            'Ü': 'U', 'ü': 'U', 'U': 'U',
+            'Ö': 'O', 'ö': 'O', 'O': 'O',
+            'Ç': 'C', 'ç': 'C', 'C': 'C',
+        }
+        for search, replace in replacements.items():
+            text = text.replace(search, replace)
+        return text
+
     def _load_locations(self, json_path: str):
         """Loads and indexes locations for fast lookup."""
         try:
@@ -40,13 +57,13 @@ class LocationValidator:
                 data = json.load(f)
             
             for item in data:
-                city = item.get('il', '').upper().strip()
+                city = self._normalize_text(item.get('il', ''))
                 if not city:
                     continue
                 
                 districts = set()
                 for d in item.get('ilceler', []):
-                    dist_name = d.get('ilce', '').upper().strip()
+                    dist_name = self._normalize_text(d.get('ilce', ''))
                     if dist_name:
                         districts.add(dist_name)
                 
@@ -61,7 +78,7 @@ class LocationValidator:
         """Checks if the given city exists in Turkey."""
         if not city:
             return False
-        return city.upper().strip() in self._all_cities
+        return self._normalize_text(city) in self._all_cities
 
     def is_valid_location(self, city: str, district: Optional[str] = None) -> bool:
         """
@@ -72,15 +89,15 @@ class LocationValidator:
         if not city:
             return False
         
-        city_upper = city.upper().strip()
-        if city_upper not in self._all_cities:
+        city_norm = self._normalize_text(city)
+        if city_norm not in self._all_cities:
             return False
         
         if district:
-            dist_upper = district.upper().strip()
+            dist_norm = self._normalize_text(district)
             # Some districts might be missing or recorded differently, 
             # but usually they should be in the set.
-            return dist_upper in self._locations.get(city_upper, set())
+            return dist_norm in self._locations.get(city_norm, set())
         
         return True
 

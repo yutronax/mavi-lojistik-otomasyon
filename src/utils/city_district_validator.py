@@ -43,12 +43,19 @@ class CityDistrictValidator:
             "TEPECEK": "BÜYÜKÇEKMECE",
             "KÇEKMECE": "KÜÇÜKÇEKMECE",
             "BÇEKMECE": "BÜYÜKÇEKMECE",
+            "B.ÇEKMECE": "BÜYÜKÇEKMECE",
+            "B.CEKMECE": "BÜYÜKÇEKMECE",
+            "K.ÇEKMECE": "KÜÇÜKÇEKMECE",
+            "K.CEKMECE": "KÜÇÜKÇEKMECE",
+            "GÖL": "GÖLBAŞI",
             "KBAKKALKÖY": "ATAŞEHİR",
             "İKAYALAR": "MENDERES",
             "AVRUPA": "AVCILAR",
+            "AVR": "AVCILAR",
             "AVRUPA YAKASI": "AVCILAR",
             "AVRUPAYAKASI": "AVCILAR",
             "ANADOLU": "MALTEPE",
+            "AND": "MALTEPE",
             "ANADOLU YAKASI": "MALTEPE",
             "ANADOLUYAKASI": "MALTEPE"
         }
@@ -91,6 +98,10 @@ class CityDistrictValidator:
             "GÜRPINAR": [("İSTANBUL", "BEYLİKDÜZÜ")],
             "KIRAÇ": [("İSTANBUL", "ESENYURT")],
             "DUDULLU": [("İSTANBUL", "ÜMRANİYE")],
+            "YENİBOSNA": [("İSTANBUL", "BAHÇELİEVLER")],
+            "AMBARLAR": [("İSTANBUL", "ZEYTİNBURNU")],
+            "SAMANDIRA": [("İSTANBUL", "SANCAKTEPE")],
+            "ŞEKERPINAR": [("KOCAELI", "ÇAYIROVA")],
             "GEBZE": [("KOCAELİ", "GEBZE")], 
             "ÇORLU": [("TEKİRDAĞ", "ÇORLU")],
             "İNEGÖL": [("BURSA", "İNEGÖL")],
@@ -294,7 +305,11 @@ class CityDistrictValidator:
         if resolved_city:
             valid_dists = self.city_map[resolved_city]
             
-            # A. Precise Match
+            # A. Check Aliases first
+            if norm_dist in self.district_aliases:
+                norm_dist = self.district_aliases[norm_dist]
+
+            # B. Precise Match
             if norm_dist in valid_dists:
                 return resolved_city, norm_dist
             

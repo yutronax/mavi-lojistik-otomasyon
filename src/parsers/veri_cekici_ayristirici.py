@@ -204,7 +204,12 @@ class OrchestratorSDK:
                 
                 # Her mesaj için bir task oluştur ve hemen executor'a fırlat (beklemeden!)
                 api_key = next(self.api_key_cycle)
-                self.executor.submit(self._task_wrapper, msg, api_key)
+                try:
+                    self.executor.submit(self._task_wrapper, msg, api_key)
+                except RuntimeError:
+                    # Interpreter kapanırken executor yeni iş kabul etmez — sessizce çık
+                    logger.debug("[WORKER] Executor kapandı, worker döngüsü durduruluyor.")
+                    return
                 
             except queue.Empty:
                 continue
@@ -452,7 +457,7 @@ class OrchestratorSDK:
 
             # Tüm kontrollerden geçtiyse kuyruğa at
             self.active_ids.add(mid)
-            # mark_id_handled BURADAN KALDIRILDI - Sadece başarıyla kaydedildiğinde işaretlenecek
+            self.data_service.mark_id_handled(mid) # USER REQUEST: Mark ID immediately upon fetch/queue
             self.processing_queue.put(msg)
             added_count += 1
             
@@ -500,6 +505,10 @@ class OrchestratorSDK:
 
         if added_count > 0:
             logger.info(f"[IN] {added_count} yeni mesaj ayrıştırma kuyruğuna eklendi.")
+        else:
+            logger.debug("[SKIP] Yeni eklenecek mesaj bulunamadı (Tümü filtrelendi).")
+            
+        return added_count
 
     def fetch_new_messages(self):
         """WhatsApp'tan tüm grupların yeni mesajlarını çeker."""
@@ -574,9 +583,9 @@ class OrchestratorSDK:
             processed_data = self.data_service.load_unprocessed_messages(filter_today=False)
             processed_ids = set(processed_data.keys())
             
-            # Zaman eşiği (Şu an - 48 saat) - Kesinti sonrası veri kaybını önlemek için
+            # Zaman eşiği (Şu an - 2 saat) - USER REQUEST: Strict 2 hours
             import time
-            cutoff_time = time.time() - (12 * 3600)
+            cutoff_time = time.time() - (2 * 3600)
 
             # 3. Filtrele
             unprocessed = []
@@ -593,8 +602,8 @@ class OrchestratorSDK:
                 if not mid or not body:
                     continue
                 
-                # B. ID Kontrolü (Zaten işlenmiş mi?)
-                if mid in processed_ids:
+                # B. ID Kontrolü (Zaten işlenmiş veya elenmiş mi?)
+                if self.data_service.is_id_handled(mid) or mid in processed_ids:
                     skipped_count += 1
                     continue
                 
@@ -627,9 +636,9 @@ class OrchestratorSDK:
                 # Tüm filtreleri geçti
                 unprocessed.append(msg)
             
-            if expired_count > 0 or duplicate_count > 0:
-                logger.info(f"Filtreleme: {expired_count} eski mesaj, {duplicate_count} kopya içerik atlandı.")
-
+            if unprocessed or skipped_count > 0 or expired_count > 0:
+                logger.info(f"[CHECK] Tarama: {len(all_messages)} mesajdan {len(unprocessed)} tanesi yeni/işlenebilir. ({skipped_count} işlenmiş, {expired_count} eski)")
+            
             # Tarihe göre sırala (yeniden eskiye - anlık saate en yakın olandan başlasın)
             unprocessed.sort(key=lambda x: str(x.get('timestamp', '0')), reverse=True)
             
@@ -758,11 +767,15 @@ class OrchestratorSDK:
                             if not self.data_service.is_shipment_duplicate(s):
                                 unique_shipments.append(s)
                             else:
-                                logger.info(f"[SKIP] Mükerrer ilan atlandı (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
+                                logger.info(f"[UPDATE] Mükerrer ilan tespit edildi (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
                                 # AGGRESSIVE: Remove existing copies too
                                 removed_count = self.data_service.remove_shipment_duplicates(s)
                                 if removed_count > 0:
                                     logger.info(f"[CLEAN] Aggressive: {removed_count} adet eski kopya silindi.")
+                                
+                                # FIX: Add the new shipment anyway so it replaces the old one!
+                                unique_shipments.append(s)
+                                logger.info("[UPDATE] Eski ilan silinerek yenisi ile güncellendi.")
                         
                         if not unique_shipments:
                             logger.info(f"[SKIP] Mesaj içindeki tüm ilanlar mükerrer, mesaj yine de 'islenmis' işaretleniyor: {res['msg_id']}")
@@ -923,14 +936,16 @@ class OrchestratorSDK:
 
             if unprocessed:
                 count = len(unprocessed)
-                logger.info(f"[WAIT] {count} işlenmemiş mesaj kuyruğa alınıyor...")
-                self.add_to_processing_queue(unprocessed)
+                logger.info(f"[CHECK] {count} işlenmemiş mesaj filtrelerden geçiriliyor...")
+                actual_added = self.add_to_processing_queue(unprocessed)
                 
-                # Wait for the queue to drain (Synchronous mode for run_once)
-                # This ensures results are written to disk before we return.
-                logger.info("[WAIT] Kuyruğun tamamlanması bekleniyor...")
-                self.processing_queue.join()
-                logger.info("[OK] Tüm mesajlar işlendi.")
+                if actual_added > 0:
+                    # Wait for the queue to drain (Synchronous mode for run_once)
+                    logger.info(f"[WAIT] {actual_added} yeni mesajın tamamlanması bekleniyor...")
+                    self.processing_queue.join()
+                    logger.info("[OK] Tüm yeni mesajlar başarıyla işlendi.")
+                else:
+                    logger.info("[INFO] Kontrol edilen mesajların tamamı zaten işlenmiş veya filtrelendi.")
             else:
                 logger.info("[INFO] İşlenecek yeni mesaj bulunamadı.")
             
