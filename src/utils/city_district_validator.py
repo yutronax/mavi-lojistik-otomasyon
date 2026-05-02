@@ -95,6 +95,7 @@ class CityDistrictValidator:
             "İSTOÇ": [("İSTANBUL", "BAĞCILAR")],
             "İMRAHOR": [("İSTANBUL", "ARNAVUTKÖY")],
             "KEMERBURGAZ": [("İSTANBUL", "EYÜPSULTAN")],
+            "GÖZTEPE": [("İSTANBUL", "KADIKÖY")],
             "GÜRPINAR": [("İSTANBUL", "BEYLİKDÜZÜ")],
             "KIRAÇ": [("İSTANBUL", "ESENYURT")],
             "DUDULLU": [("İSTANBUL", "ÜMRANİYE")],
@@ -106,7 +107,18 @@ class CityDistrictValidator:
             "ÇORLU": [("TEKİRDAĞ", "ÇORLU")],
             "İNEGÖL": [("BURSA", "İNEGÖL")],
             "İSKENDERUN": [("HATAY", "İSKENDERUN")],
-            "TEPESİDELİK": [("KIRŞEHİR", "MERKEZ")]
+            "TEPESİDELİK": [("KIRŞEHİR", "MERKEZ")],
+            # Border Gates (Sınır Kapıları)
+            "CİLVEGÖZÜ": [("HATAY", "REYHANLI")],
+            "GÜRBULAK": [("AĞRI", "DOĞUBAYAZIT")],
+            "HABUR": [("ŞIRNAK", "SİLOPİ")],
+            "KAPIKULE": [("EDİRNE", "MERKEZ")],
+            "İPSALA": [("EDİRNE", "İPSALA")],
+            "SARP": [("ARTVİN", "KEMALPAŞA")],
+            "HAMZABEYLİ": [("EDİRNE", "LALAPAŞA")],
+            "ÖNCÜPINAR": [("KİLİS", "MERKEZ")],
+            "AKÇAKALE": [("ŞANLIURFA", "AKÇAKALE")],
+            "BAZİRGAN": [("AĞRI", "DOĞUBAYAZIT")] # Often used together with Gürbulak
         }
         
         self._load_data()
@@ -222,14 +234,9 @@ class CityDistrictValidator:
                             self.default_districts[c] = d
                 except: pass
 
-            # Set automatic defaults for cities without one
             for city in self.city_map:
                 if city not in self.default_districts:
-                    dists = list(self.city_map[city])
-                    if 'MERKEZ' in dists:
-                         self.default_districts[city] = 'MERKEZ'
-                    elif dists:
-                         self.default_districts[city] = sorted(dists)[0]
+                    self.default_districts[city] = 'MERKEZ'
 
             # Inject manual neighborhoods
             for m_name, locs in self.manual_neighborhoods.items():
@@ -309,16 +316,21 @@ class CityDistrictValidator:
             if norm_dist in self.district_aliases:
                 norm_dist = self.district_aliases[norm_dist]
 
-            # B. Precise Match
+            # B. Precise Match (Official District)
             if norm_dist in valid_dists:
                 return resolved_city, norm_dist
             
-            # B. Precise Neighborhood Match in this City
+            # --- SPECIAL CASE: MERKEZ (Ignore neighborhood matches for the word 'MERKEZ') ---
+            if norm_dist == "MERKEZ":
+                return resolved_city, self.default_districts.get(resolved_city, 'MERKEZ')
+
+            # C. Precise Neighborhood Match in this City
             if norm_dist in self.neighborhood_map:
                 for c, d in self.neighborhood_map[norm_dist]:
-                    if c == resolved_city: return c, d
+                    if c == resolved_city: 
+                        return c, d
 
-            # C. ASCII Loose Match (handles İnegol->İnegöl, Gursu->Gürsu)
+            # D. ASCII Loose Match (handles İnegol->İnegöl, Gursu->Gürsu)
             if norm_dist:
                 dist_akey = self._ascii_key(norm_dist)
                 if dist_akey in self.ascii_district_index:
@@ -326,14 +338,14 @@ class CityDistrictValidator:
                         if c == resolved_city:
                             return resolved_city, d
 
-            # D. High-Similarity Fuzzy Match (ONLY within this City)
+            # E. High-Similarity Fuzzy Match (ONLY within this City)
             if norm_dist and len(norm_dist) > 3:
                 import difflib
                 matches = difflib.get_close_matches(norm_dist, list(valid_dists), n=1, cutoff=0.92)
                 if matches:
                     return resolved_city, matches[0]
 
-            # E. No match? Fall back to city default
+            # F. No match? Fall back to city default
             return resolved_city, self.default_districts.get(resolved_city, 'MERKEZ')
 
         # Step 3: No City found? Search District Globally (exact or ASCII-loose)

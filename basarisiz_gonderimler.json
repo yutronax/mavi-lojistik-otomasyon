@@ -254,5 +254,205 @@
     },
     "error": "Auth failed for 05323101229",
     "timestamp": "2026-03-30 16:52:16"
+  },
+  {
+    "record": {
+      "isim": "VATAN NAKLİYAT",
+      "nereden_il": "TOKAT",
+      "nereden_ilce": "MERKEZ",
+      "nereye_il": "ADANA",
+      "nereye_ilce": "ÇUKUROVA",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05064543989",
+      "aciklama": "Tokattan adana 1 traktör\n\nVatan nakliyat\n05064543989",
+      "createdAt": "2026-05-02T12:18:39.183285",
+      "body": "Tokattan [ADANA] 1 traktör\n\nVatan nakliyat\n05064543989",
+      "original_message": "Tokattan adana 1 traktör\n\nVatan nakliyat\n05064543989",
+      "message_id": "rDSMH88DrUfjoy_I6YIOYw-gr4Bq52oTq1WWg",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-02 12:19:42"
+    },
+    "error": "'05064543989'",
+    "timestamp": "2026-05-02 12:24:29"
+  },
+  {
+    "record": {
+      "isim": "BOYRAZ GROUP",
+      "nereden_il": "SAMSUN",
+      "nereden_ilce": "İLKADIM",
+      "nereye_il": "KONYA",
+      "nereye_ilce": "SELÇUKLU",
+      "arac_tipi": [
+        "860"
+      ],
+      "kasa_tipi": [
+        "DAMPERLİ"
+      ],
+      "yuk_tipi": [
+        "DÖKME"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05492494073",
+      "aciklama": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "createdAt": "2026-05-02T12:15:57.751747",
+      "body": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA\n[SAMSUN] - [KONYA]\n750+KDV\n\nİLETİŞİM 404 33 25\n0549 249 40 73",
+      "original_message": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "message_id": "PrB3CzODPb3Z.zM-ojTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "860-DAMPERLİ"
+      ],
+      "onay_tarihi": "2026-05-02 12:19:43"
+    },
+    "error": "'05492494073'",
+    "timestamp": "2026-05-02 12:29:27"
+  },
+  {
+    "record": {
+      "isim": "BOYRAZ GROUP",
+      "nereden_il": "SAMSUN",
+      "nereden_ilce": "İLKADIM",
+      "nereye_il": "KONYA",
+      "nereye_ilce": "SELÇUKLU",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05492494073",
+      "aciklama": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "createdAt": "2026-05-02T12:15:57.775672",
+      "body": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA\n[SAMSUN] - [KONYA]\n750+KDV\n\nİLETİŞİM 404 33 25\n0549 249 40 73",
+      "original_message": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "message_id": "PrB3CzODPb3Z.zM-ojTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-02 12:19:43"
+    },
+    "error": "'05492494073'",
+    "timestamp": "2026-05-02 12:29:28"
+  },
+  {
+    "record": {
+      "isim": "BOYRAZ GROUP",
+      "nereden_il": "SAMSUN",
+      "nereden_ilce": "İLKADIM",
+      "nereye_il": "KONYA",
+      "nereye_ilce": "SELÇUKLU",
+      "arac_tipi": [
+        "860"
+      ],
+      "kasa_tipi": [
+        "DAMPERLİ"
+      ],
+      "yuk_tipi": [
+        "DÖKME"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05492494073",
+      "aciklama": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "createdAt": "2026-05-02T12:15:57.751747",
+      "body": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA\n[SAMSUN] - [KONYA]\n750+KDV\n\nİLETİŞİM 404 33 25\n0549 249 40 73",
+      "original_message": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "message_id": "PrB3CzODPb3Z.zM-ojTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "860-DAMPERLİ"
+      ],
+      "onay_tarihi": "2026-05-02 12:20:00"
+    },
+    "error": "'05492494073'",
+    "timestamp": "2026-05-02 12:32:15"
+  },
+  {
+    "record": {
+      "isim": "BOYRAZ GROUP",
+      "nereden_il": "SAMSUN",
+      "nereden_ilce": "İLKADIM",
+      "nereye_il": "KONYA",
+      "nereye_ilce": "SELÇUKLU",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05492494073",
+      "aciklama": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "createdAt": "2026-05-02T12:15:57.775672",
+      "body": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA\n[SAMSUN] - [KONYA]\n750+KDV\n\nİLETİŞİM 404 33 25\n0549 249 40 73",
+      "original_message": "🚛BOYRAZ GROUP🚛🚛\n\nUZUN-KISA \nSAMSUN - KONYA\n750+KDV\n\nİLETİŞİM :  0549 404 33 25\n                    0549 249 40 73",
+      "message_id": "PrB3CzODPb3Z.zM-ojTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-02 12:20:00"
+    },
+    "error": "'05492494073'",
+    "timestamp": "2026-05-02 12:32:16"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "İSTANBUL",
+      "nereden_ilce": "SİLİVRİ",
+      "nereye_il": "KOCAELİ",
+      "nereye_ilce": "ÇAYIROVA",
+      "arac_tipi": [
+        "10 TEKER + KAMYONET"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "PARÇA"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05434147250",
+      "aciklama": "📍 Yükleme: Silivri\n📍 Teslim: Çayırova\n\n🚚 Araç: 10 Teker Kamyon\n\n📅 Yükleme: Hemen\n📅 Teslim: Pazartesi\n\n📞 İletişim: 0543 414 72 50",
+      "createdAt": "2026-05-02T12:24:41.926793",
+      "body": "Yükleme: [SILIVRI]\nTeslim: Çayırova\n\n🚚 Araç Teker Kamyon\n\n📅 Yükleme: Hemen\n📅 Teslim: Pazartesi\n\n📞 İletişim 414 72 50",
+      "original_message": "📍 Yükleme: Silivri\n📍 Teslim: Çayırova\n\n🚚 Araç: 10 Teker Kamyon\n\n📅 Yükleme: Hemen\n📅 Teslim: Pazartesi\n\n📞 İletişim: 0543 414 72 50",
+      "message_id": "OgYtwyCoSXgctQ-gpoBq53lXoS5gw",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "10 TEKER + KAMYONET-AÇIK",
+        "10 TEKER + KAMYONET-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-02 12:27:54"
+    },
+    "error": "'05434147250'",
+    "timestamp": "2026-05-02 12:41:11"
   }
 ]

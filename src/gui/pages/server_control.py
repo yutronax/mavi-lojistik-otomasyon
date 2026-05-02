@@ -135,42 +135,28 @@ class ServerControlPage:
         # Action Buttons
         controls = ft.Container(
             content=ft.Column([
-                ft.Text("Sistem Kontrolleri", size=16, weight="bold", color=AppColors.TEXT),
-                ft.ResponsiveRow([
-                    ft.Button(
-                        content="Yeniden Başlat", 
-                        icon=ft.Icons.RESTART_ALT, 
-                        bgcolor=AppColors.PRIMARY, 
-                        color="white",
-                        on_click=lambda _: asyncio.create_task(self._run_command("restart")),
-                        col={"xs": 6, "sm": 3}
-                    ),
-                    ft.Button(
-                        content="Durdur", 
-                        icon=ft.Icons.STOP_CIRCLE_ROUNDED, 
-                        bgcolor=AppColors.DANGER, 
-                        color="white",
-                        on_click=lambda _: asyncio.create_task(self._run_command("stop")),
-                        col={"xs": 6, "sm": 3}
-                    ),
-                    ft.Button(
-                        content="Başlat", 
-                        icon=ft.Icons.PLAY_ARROW_ROUNDED, 
-                        bgcolor=AppColors.SUCCESS, 
+                ft.Text("Sunucu Operasyonları", size=16, weight="bold", color=AppColors.TEXT),
+                ft.Row([
+                    ft.ElevatedButton(
+                        content=ft.Row([ft.Icon(ft.Icons.PLAY_ARROW_ROUNDED), ft.Text("Başlat")], spacing=10),
+                        bgcolor=AppColors.SUCCESS,
                         color="white",
                         on_click=lambda _: asyncio.create_task(self._run_command("start")),
-                        col={"xs": 6, "sm": 3}
+                        expand=True,
+                        height=50,
+                        style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10))
                     ),
-                    ft.Button(
-                        content="Kod Güncelle", 
-                        icon=ft.Icons.DOWNLOAD_ROUNDED, 
-                        bgcolor=AppColors.WARNING, 
+                    ft.ElevatedButton(
+                        content=ft.Row([ft.Icon(ft.Icons.STOP_CIRCLE_ROUNDED), ft.Text("Durdur")], spacing=10),
+                        bgcolor=AppColors.DANGER,
                         color="white",
-                        on_click=lambda _: asyncio.create_task(self._run_command("pull")),
-                        col={"xs": 6, "sm": 3}
+                        on_click=lambda _: asyncio.create_task(self._run_command("stop")),
+                        expand=True,
+                        height=50,
+                        style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10))
                     ),
-                ], spacing=10),
-            ], spacing=10),
+                ], spacing=15),
+            ], spacing=15),
             padding=20,
             bgcolor=AppColors.SURFACE,
             border_radius=15,
@@ -180,8 +166,8 @@ class ServerControlPage:
         content = ft.Column([
             ft.Row([
                 ft.Column([
-                    ft.Text("Sunucu Yönetimi", size=24, weight="bold", color=AppColors.TEXT),
-                    ft.Text("Mavi Lojistik Otonom Motor Kontrolü", size=12, color=AppColors.TEXT_MUTED),
+                    ft.Text("VPS Kontrol Merkezi", size=24, weight="bold", color=AppColors.TEXT),
+                    ft.Text("Sunucu durumunu ve loglarını buradan yönetebilirsiniz", size=12, color=AppColors.TEXT_MUTED),
                 ]),
                 self.status_chip
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
@@ -191,7 +177,7 @@ class ServerControlPage:
             ft.Row([
                 self._create_stat_card("CPU", ft.Icons.MEMORY, self.cpu_text),
                 self._create_stat_card("RAM", ft.Icons.STORAGE, self.mem_text),
-                self._create_stat_card("UPTIME", ft.Icons.TIMER_OUTLINED, self.uptime_text),
+                self._create_stat_card("ÇALIŞMA SÜRESİ", ft.Icons.TIMER_OUTLINED, self.uptime_text),
             ], spacing=10),
             
             ft.Container(height=10),
@@ -202,11 +188,30 @@ class ServerControlPage:
             ft.Container(height=10),
             
             # Terminal
-            ft.Row([
-                ft.Text("Terminal & Log Geçmişi", size=16, weight="bold", color=AppColors.TEXT),
-                ft.IconButton(ft.Icons.REFRESH_ROUNDED, on_click=self._refresh_logs, icon_color=AppColors.PRIMARY)
-            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-            self.terminal_box
+            ft.Container(
+                content=ft.Column([
+                    ft.Row([
+                        ft.Row([
+                            ft.Icon(ft.Icons.TERMINAL_ROUNDED, color=AppColors.PRIMARY, size=18),
+                            ft.Text("Terminal & Sistem Logları (Son 50)", size=16, weight="bold", color=AppColors.TEXT),
+                        ], spacing=10),
+                        ft.ElevatedButton(
+                            "Terminali Çek",
+                            icon=ft.Icons.REFRESH_ROUNDED,
+                            on_click=self._refresh_logs,
+                            bgcolor=AppColors.PRIMARY,
+                            color="white",
+                            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
+                        )
+                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                    ft.Container(height=5),
+                    self.terminal_box
+                ], spacing=10),
+                padding=20,
+                bgcolor=AppColors.SURFACE,
+                border_radius=15,
+                shadow=[AppStyles.CARD_SHADOW]
+            )
             
         ], expand=True, spacing=15, scroll=ft.ScrollMode.ADAPTIVE)
 

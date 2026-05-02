@@ -71,7 +71,7 @@ def main(page: ft.Page):
                 # Ayarlar tıklandığında Yönetim Merkezi'ne git ve 5. sekmeye (index 4) seç
                 content = await mgmt_center.get_view()
                 if hasattr(mgmt_center, "tabs_wrapper") and mgmt_center.tabs_wrapper:
-                    mgmt_center.tabs_wrapper.selected_index = 4
+                    mgmt_center.tabs_wrapper.selected_index = 5
                 page_name = "Ayarlar" # Sidebar'da Ayarlar'ı işaretle
             
             main_content.content = content

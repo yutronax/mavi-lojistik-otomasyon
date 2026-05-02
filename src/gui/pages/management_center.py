@@ -7,6 +7,7 @@ from src.services.data_service import DataService
 from src.services.data_service_async import AsyncDataService
 from src.utils.text_utils import generate_keyword_variants
 from src.gui.pages.settings_page import SettingsPage
+from src.gui.pages.server_control import ServerControlPage
 
 class ManagementCenterPage:
     def __init__(self, page: ft.Page):
@@ -15,6 +16,7 @@ class ManagementCenterPage:
         self.root_dir = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
         self.data_service = AsyncDataService(DataService(self.root_dir))
         self.settings_page = SettingsPage(page)
+        self.server_control = ServerControlPage(page)
         
         # UI State
         self.yuk_rules = [] # yuk_tipi.json içeriği
@@ -177,6 +179,7 @@ class ManagementCenterPage:
                 ft.Tab(label="Mahalle Yönetimi", icon=ft.Icons.LOCATION_ON_ROUNDED),
                 ft.Tab(label="Grup Ayarları", icon=ft.Icons.GROUPS_ROUNDED),
                 ft.Tab(label="Kara Liste", icon=ft.Icons.BLOCK_ROUNDED),
+                ft.Tab(label="VPS Kontrolü", icon=ft.Icons.DNS_ROUNDED),
                 ft.Tab(label="Sistem Ayarları", icon=ft.Icons.SETTINGS_ROUNDED),
             ],
             indicator_color=AppColors.PRIMARY,
@@ -190,6 +193,7 @@ class ManagementCenterPage:
                 self._setup_mahalle_sync(),
                 self._setup_gruplar(),
                 self._setup_kara_liste(),
+                ft.Container(content=await self.server_control.get_view(), expand=True),
                 ft.Container(content=await self.settings_page.get_view(), expand=True),
             ],
             expand=True
@@ -197,7 +201,7 @@ class ManagementCenterPage:
 
         # Flet 0.82.2 Özel: Tabs kontrolü bir sarmalayıcı (wrapper) gibi çalışır
         self.tabs_wrapper = ft.Tabs(
-            length=5,
+            length=6,
             content=ft.Column([
                 ft.Container(
                     content=self.tab_bar, 

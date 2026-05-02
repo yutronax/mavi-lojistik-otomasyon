@@ -11478,5 +11478,3629 @@
     "output": 404,
     "cost_usd": 0.0019145199999999999,
     "cost_try": 0.06317916
+  },
+  {
+    "timestamp": "2026-05-01T18:08:33.150383",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2239,
+    "output": 216,
+    "cost_usd": 0.0014916500000000002,
+    "cost_try": 0.04922445
+  },
+  {
+    "timestamp": "2026-05-01T18:13:09.760512",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1955,
+    "output": 125,
+    "cost_usd": 0.0012522000000000002,
+    "cost_try": 0.04132260000000001
+  },
+  {
+    "timestamp": "2026-05-01T18:13:33.372914",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1997,
+    "output": 207,
+    "cost_usd": 0.00134176,
+    "cost_try": 0.04427808
+  },
+  {
+    "timestamp": "2026-05-01T18:19:37.172725",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2140,
+    "output": 127,
+    "cost_usd": 0.00136293,
+    "cost_try": 0.04497669
+  },
+  {
+    "timestamp": "2026-05-01T18:24:58.558654",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2018,
+    "output": 130,
+    "cost_usd": 0.00129332,
+    "cost_try": 0.04267956
+  },
+  {
+    "timestamp": "2026-05-01T18:36:25.865585",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2075,
+    "output": 275,
+    "cost_usd": 0.0014415,
+    "cost_try": 0.0475695
+  },
+  {
+    "timestamp": "2026-05-01T18:42:22.146931",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1942,
+    "output": 324,
+    "cost_usd": 0.0014017399999999998,
+    "cost_try": 0.046257419999999994
+  },
+  {
+    "timestamp": "2026-05-01T18:44:22.453026",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1716,
+    "output": 30,
+    "cost_usd": 0.0010361399999999998,
+    "cost_try": 0.03419261999999999
+  },
+  {
+    "timestamp": "2026-05-01T18:48:21.269652",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1707,
+    "output": 105,
+    "cost_usd": 0.00109008,
+    "cost_try": 0.03597264
+  },
+  {
+    "timestamp": "2026-05-01T18:51:14.130323",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2578,
+    "output": 177,
+    "cost_usd": 0.00166085,
+    "cost_try": 0.05480805
+  },
+  {
+    "timestamp": "2026-05-01T18:53:03.120297",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1930,
+    "output": 118,
+    "cost_usd": 0.00123192,
+    "cost_try": 0.04065336
+  },
+  {
+    "timestamp": "2026-05-01T19:04:02.245938",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1814,
+    "output": 211,
+    "cost_usd": 0.00123695,
+    "cost_try": 0.04081935
+  },
+  {
+    "timestamp": "2026-05-01T19:11:47.943310",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2037,
+    "output": 293,
+    "cost_usd": 0.0014332999999999998,
+    "cost_try": 0.04729889999999999
+  },
+  {
+    "timestamp": "2026-05-01T19:11:56.038423",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1941,
+    "output": 156,
+    "cost_usd": 0.0012684299999999999,
+    "cost_try": 0.041858189999999997
+  },
+  {
+    "timestamp": "2026-05-01T19:18:38.581343",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2151,
+    "output": 241,
+    "cost_usd": 0.00145948,
+    "cost_try": 0.04816284
+  },
+  {
+    "timestamp": "2026-05-01T19:21:29.685793",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1887,
+    "output": 275,
+    "cost_usd": 0.0013305799999999998,
+    "cost_try": 0.04390913999999999
+  },
+  {
+    "timestamp": "2026-05-01T19:24:44.845111",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1831,
+    "output": 118,
+    "cost_usd": 0.00117351,
+    "cost_try": 0.03872583
+  },
+  {
+    "timestamp": "2026-05-01T19:32:17.118919",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1761,
+    "output": 117,
+    "cost_usd": 0.0011314200000000002,
+    "cost_try": 0.037336860000000006
+  },
+  {
+    "timestamp": "2026-05-01T19:46:10.869374",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1827,
+    "output": 127,
+    "cost_usd": 0.0011782599999999998,
+    "cost_try": 0.03888257999999999
+  },
+  {
+    "timestamp": "2026-05-01T19:46:51.704613",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2244,
+    "output": 252,
+    "cost_usd": 0.0015230400000000002,
+    "cost_try": 0.05026032000000001
+  },
+  {
+    "timestamp": "2026-05-01T19:52:53.539796",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2489,
+    "output": 534,
+    "cost_usd": 0.00189037,
+    "cost_try": 0.06238221
+  },
+  {
+    "timestamp": "2026-05-01T19:53:02.636850",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2006,
+    "output": 183,
+    "cost_usd": 0.00132811,
+    "cost_try": 0.04382763
+  },
+  {
+    "timestamp": "2026-05-01T19:53:33.902478",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1913,
+    "output": 262,
+    "cost_usd": 0.0013356499999999999,
+    "cost_try": 0.044076449999999996
+  },
+  {
+    "timestamp": "2026-05-01T20:09:03.691587",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2041,
+    "output": 128,
+    "cost_usd": 0.0013053099999999996,
+    "cost_try": 0.043075229999999985
+  },
+  {
+    "timestamp": "2026-05-01T20:17:09.866776",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1749,
+    "output": 101,
+    "cost_usd": 0.0011116999999999998,
+    "cost_try": 0.03668609999999999
+  },
+  {
+    "timestamp": "2026-05-01T20:22:42.007787",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2193,
+    "output": 336,
+    "cost_usd": 0.00155931,
+    "cost_try": 0.05145723
+  },
+  {
+    "timestamp": "2026-05-01T20:22:50.468244",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1736,
+    "output": 212,
+    "cost_usd": 0.00119172,
+    "cost_try": 0.03932676
+  },
+  {
+    "timestamp": "2026-05-01T20:22:58.067780",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2040,
+    "output": 291,
+    "cost_usd": 0.00143349,
+    "cost_try": 0.04730517
+  },
+  {
+    "timestamp": "2026-05-01T20:24:31.247840",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2120,
+    "output": 292,
+    "cost_usd": 0.00148148,
+    "cost_try": 0.04888884
+  },
+  {
+    "timestamp": "2026-05-01T20:36:34.262027",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2064,
+    "output": 128,
+    "cost_usd": 0.0013188800000000001,
+    "cost_try": 0.043523040000000006
+  },
+  {
+    "timestamp": "2026-05-01T20:41:31.394283",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1855,
+    "output": 116,
+    "cost_usd": 0.00118609,
+    "cost_try": 0.039140970000000004
+  },
+  {
+    "timestamp": "2026-05-01T20:47:00.952263",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2007,
+    "output": 161,
+    "cost_usd": 0.00131132,
+    "cost_try": 0.043273559999999996
+  },
+  {
+    "timestamp": "2026-05-01T20:50:41.071269",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1880,
+    "output": 135,
+    "cost_usd": 0.00121585,
+    "cost_try": 0.04012305
+  },
+  {
+    "timestamp": "2026-05-01T21:45:52.229824",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3465,
+    "output": 876,
+    "cost_usd": 0.00273639,
+    "cost_try": 0.09030087
+  },
+  {
+    "timestamp": "2026-05-02T10:01:07.155782",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2652,
+    "output": 356,
+    "cost_usd": 0.00184592,
+    "cost_try": 0.06091536
+  },
+  {
+    "timestamp": "2026-05-02T10:01:08.864140",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2542,
+    "output": 126,
+    "cost_usd": 0.00159932,
+    "cost_try": 0.05277756
+  },
+  {
+    "timestamp": "2026-05-02T10:01:10.234436",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2168,
+    "output": 126,
+    "cost_usd": 0.0013786599999999999,
+    "cost_try": 0.04549577999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:01:11.585467",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2229,
+    "output": 155,
+    "cost_usd": 0.00143756,
+    "cost_try": 0.04743948
+  },
+  {
+    "timestamp": "2026-05-02T10:01:12.933145",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2133,
+    "output": 156,
+    "cost_usd": 0.00138171,
+    "cost_try": 0.04559643
+  },
+  {
+    "timestamp": "2026-05-02T10:01:23.068935",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2155,
+    "output": 132,
+    "cost_usd": 0.0013757300000000001,
+    "cost_try": 0.04539909
+  },
+  {
+    "timestamp": "2026-05-02T10:01:41.452870",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3450,
+    "output": 760,
+    "cost_usd": 0.0026359,
+    "cost_try": 0.0869847
+  },
+  {
+    "timestamp": "2026-05-02T10:01:56.077596",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2358,
+    "output": 203,
+    "cost_usd": 0.00155159,
+    "cost_try": 0.05120247
+  },
+  {
+    "timestamp": "2026-05-02T10:02:09.727032",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2025,
+    "output": 112,
+    "cost_usd": 0.00128323,
+    "cost_try": 0.04234659
+  },
+  {
+    "timestamp": "2026-05-02T10:02:17.539811",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2025,
+    "output": 112,
+    "cost_usd": 0.00128323,
+    "cost_try": 0.04234659
+  },
+  {
+    "timestamp": "2026-05-02T10:02:31.621145",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2195,
+    "output": 273,
+    "cost_usd": 0.00151072,
+    "cost_try": 0.04985376
+  },
+  {
+    "timestamp": "2026-05-02T10:03:15.861823",
+    "model": "llama-3.3-70b-versatile",
+    "input": 7740,
+    "output": 4096,
+    "cost_usd": 0.00780244,
+    "cost_try": 0.25748052
+  },
+  {
+    "timestamp": "2026-05-02T10:03:53.122431",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5721,
+    "output": 1837,
+    "cost_usd": 0.00482662,
+    "cost_try": 0.15927846
+  },
+  {
+    "timestamp": "2026-05-02T10:04:11.578347",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5721,
+    "output": 1850,
+    "cost_usd": 0.00483689,
+    "cost_try": 0.15961737
+  },
+  {
+    "timestamp": "2026-05-02T10:04:16.329048",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4032,
+    "output": 483,
+    "cost_usd": 0.0027604499999999994,
+    "cost_try": 0.09109484999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:04:41.830635",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4043,
+    "output": 2058,
+    "cost_usd": 0.00401119,
+    "cost_try": 0.13236927
+  },
+  {
+    "timestamp": "2026-05-02T10:05:04.049674",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2654,
+    "output": 194,
+    "cost_usd": 0.0017191199999999998,
+    "cost_try": 0.05673095999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:05:37.405470",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5814,
+    "output": 1869,
+    "cost_usd": 0.0049067699999999995,
+    "cost_try": 0.16192341
+  },
+  {
+    "timestamp": "2026-05-02T10:06:15.935401",
+    "model": "llama-3.3-70b-versatile",
+    "input": 6003,
+    "output": 2251,
+    "cost_usd": 0.005320060000000001,
+    "cost_try": 0.17556198
+  },
+  {
+    "timestamp": "2026-05-02T10:06:37.228378",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2408,
+    "output": 210,
+    "cost_usd": 0.0015866200000000002,
+    "cost_try": 0.05235846
+  },
+  {
+    "timestamp": "2026-05-02T10:06:54.236372",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2869,
+    "output": 1671,
+    "cost_usd": 0.0030128,
+    "cost_try": 0.0994224
+  },
+  {
+    "timestamp": "2026-05-02T10:07:11.278232",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2114,
+    "output": 135,
+    "cost_usd": 0.00135391,
+    "cost_try": 0.04467903
+  },
+  {
+    "timestamp": "2026-05-02T10:07:24.881573",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2777,
+    "output": 123,
+    "cost_usd": 0.0017355999999999997,
+    "cost_try": 0.05727479999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:07:37.769160",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2294,
+    "output": 271,
+    "cost_usd": 0.00156755,
+    "cost_try": 0.05172915
+  },
+  {
+    "timestamp": "2026-05-02T10:07:44.712764",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2140,
+    "output": 119,
+    "cost_usd": 0.00135661,
+    "cost_try": 0.04476813
+  },
+  {
+    "timestamp": "2026-05-02T10:07:57.082551",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5721,
+    "output": 1838,
+    "cost_usd": 0.00482741,
+    "cost_try": 0.15930453
+  },
+  {
+    "timestamp": "2026-05-02T10:08:00.408467",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1966,
+    "output": 146,
+    "cost_usd": 0.00127528,
+    "cost_try": 0.042084239999999995
+  },
+  {
+    "timestamp": "2026-05-02T10:08:02.463275",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2912,
+    "output": 436,
+    "cost_usd": 0.00206252,
+    "cost_try": 0.06806316
+  },
+  {
+    "timestamp": "2026-05-02T10:08:28.135813",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3944,
+    "output": 1813,
+    "cost_usd": 0.0037592299999999997,
+    "cost_try": 0.12405458999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:08:36.118476",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2747,
+    "output": 1456,
+    "cost_usd": 0.00277097,
+    "cost_try": 0.09144201
+  },
+  {
+    "timestamp": "2026-05-02T10:08:43.039180",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4027,
+    "output": 1891,
+    "cost_usd": 0.0038698199999999995,
+    "cost_try": 0.12770405999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:09:03.865979",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2059,
+    "output": 110,
+    "cost_usd": 0.00130171,
+    "cost_try": 0.04295643
+  },
+  {
+    "timestamp": "2026-05-02T10:09:22.812191",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2841,
+    "output": 115,
+    "cost_usd": 0.0017670399999999999,
+    "cost_try": 0.058312319999999994
+  },
+  {
+    "timestamp": "2026-05-02T10:09:42.470130",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4521,
+    "output": 431,
+    "cost_usd": 0.00300788,
+    "cost_try": 0.09926004000000001
+  },
+  {
+    "timestamp": "2026-05-02T10:10:00.592447",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3492,
+    "output": 791,
+    "cost_usd": 0.0026851699999999997,
+    "cost_try": 0.08861060999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:10:38.890783",
+    "model": "llama-3.3-70b-versatile",
+    "input": 6003,
+    "output": 2320,
+    "cost_usd": 0.00537457,
+    "cost_try": 0.17736081
+  },
+  {
+    "timestamp": "2026-05-02T10:10:57.323583",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2152,
+    "output": 122,
+    "cost_usd": 0.0013660599999999999,
+    "cost_try": 0.04507998
+  },
+  {
+    "timestamp": "2026-05-02T10:11:10.998725",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2563,
+    "output": 138,
+    "cost_usd": 0.0016211899999999998,
+    "cost_try": 0.053499269999999995
+  },
+  {
+    "timestamp": "2026-05-02T10:11:23.702086",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2331,
+    "output": 101,
+    "cost_usd": 0.0014550799999999999,
+    "cost_try": 0.04801763999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:11:35.122352",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2065,
+    "output": 121,
+    "cost_usd": 0.00131394,
+    "cost_try": 0.04336002
+  },
+  {
+    "timestamp": "2026-05-02T10:11:48.529731",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2331,
+    "output": 109,
+    "cost_usd": 0.0014613999999999999,
+    "cost_try": 0.0482262
+  },
+  {
+    "timestamp": "2026-05-02T10:12:07.772155",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3342,
+    "output": 1017,
+    "cost_usd": 0.0027752099999999997,
+    "cost_try": 0.09158192999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:12:16.683230",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2912,
+    "output": 436,
+    "cost_usd": 0.00206252,
+    "cost_try": 0.06806316
+  },
+  {
+    "timestamp": "2026-05-02T10:12:29.996334",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2059,
+    "output": 110,
+    "cost_usd": 0.00130171,
+    "cost_try": 0.04295643
+  },
+  {
+    "timestamp": "2026-05-02T10:12:37.471124",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5721,
+    "output": 1838,
+    "cost_usd": 0.00482741,
+    "cost_try": 0.15930453
+  },
+  {
+    "timestamp": "2026-05-02T10:12:40.873009",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2153,
+    "output": 122,
+    "cost_usd": 0.00136665,
+    "cost_try": 0.04509945
+  },
+  {
+    "timestamp": "2026-05-02T10:12:54.561270",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2787,
+    "output": 582,
+    "cost_usd": 0.0021041099999999997,
+    "cost_try": 0.06943563
+  },
+  {
+    "timestamp": "2026-05-02T10:12:58.870608",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2153,
+    "output": 122,
+    "cost_usd": 0.00136665,
+    "cost_try": 0.04509945
+  },
+  {
+    "timestamp": "2026-05-02T10:13:39.431850",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5759,
+    "output": 1336,
+    "cost_usd": 0.00445325,
+    "cost_try": 0.14695724999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:13:47.305437",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2405,
+    "output": 484,
+    "cost_usd": 0.0018013099999999998,
+    "cost_try": 0.05944322999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:13:59.081023",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2152,
+    "output": 122,
+    "cost_usd": 0.0013660599999999999,
+    "cost_try": 0.04507998
+  },
+  {
+    "timestamp": "2026-05-02T10:14:20.853685",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2442,
+    "output": 154,
+    "cost_usd": 0.00156244,
+    "cost_try": 0.05156052
+  },
+  {
+    "timestamp": "2026-05-02T10:14:37.797062",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3090,
+    "output": 492,
+    "cost_usd": 0.00221178,
+    "cost_try": 0.07298874
+  },
+  {
+    "timestamp": "2026-05-02T10:14:55.502145",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2737,
+    "output": 1301,
+    "cost_usd": 0.00264262,
+    "cost_try": 0.08720646
+  },
+  {
+    "timestamp": "2026-05-02T10:15:13.319507",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2563,
+    "output": 145,
+    "cost_usd": 0.0016267199999999997,
+    "cost_try": 0.05368175999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:15:42.198433",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2050,
+    "output": 114,
+    "cost_usd": 0.0012995600000000002,
+    "cost_try": 0.042885480000000004
+  },
+  {
+    "timestamp": "2026-05-02T10:15:46.600219",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2747,
+    "output": 1455,
+    "cost_usd": 0.0027701799999999997,
+    "cost_try": 0.09141593999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:15:49.180298",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2654,
+    "output": 217,
+    "cost_usd": 0.0017372899999999998,
+    "cost_try": 0.05733057
+  },
+  {
+    "timestamp": "2026-05-02T10:15:51.620150",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2901,
+    "output": 203,
+    "cost_usd": 0.0018719599999999998,
+    "cost_try": 0.06177467999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:15:56.531519",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2108,
+    "output": 201,
+    "cost_usd": 0.00140251,
+    "cost_try": 0.046282830000000004
+  },
+  {
+    "timestamp": "2026-05-02T10:16:17.422751",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2654,
+    "output": 255,
+    "cost_usd": 0.0017673099999999998,
+    "cost_try": 0.058321229999999995
+  },
+  {
+    "timestamp": "2026-05-02T10:16:26.212855",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2799,
+    "output": 180,
+    "cost_usd": 0.00179361,
+    "cost_try": 0.05918913
+  },
+  {
+    "timestamp": "2026-05-02T10:16:37.394326",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2185,
+    "output": 199,
+    "cost_usd": 0.0014463599999999998,
+    "cost_try": 0.047729879999999995
+  },
+  {
+    "timestamp": "2026-05-02T10:16:51.839412",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2511,
+    "output": 426,
+    "cost_usd": 0.00181803,
+    "cost_try": 0.05999499
+  },
+  {
+    "timestamp": "2026-05-02T10:17:21.834625",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4289,
+    "output": 285,
+    "cost_usd": 0.0027556599999999996,
+    "cost_try": 0.09093677999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:17:31.659030",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1931,
+    "output": 121,
+    "cost_usd": 0.00123488,
+    "cost_try": 0.04075104
+  },
+  {
+    "timestamp": "2026-05-02T10:17:37.107238",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2063,
+    "output": 119,
+    "cost_usd": 0.00131118,
+    "cost_try": 0.04326894
+  },
+  {
+    "timestamp": "2026-05-02T10:18:07.507809",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4521,
+    "output": 434,
+    "cost_usd": 0.00301025,
+    "cost_try": 0.09933825
+  },
+  {
+    "timestamp": "2026-05-02T10:18:26.445637",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3351,
+    "output": 817,
+    "cost_usd": 0.00262252,
+    "cost_try": 0.08654316000000001
+  },
+  {
+    "timestamp": "2026-05-02T10:18:41.811352",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2449,
+    "output": 131,
+    "cost_usd": 0.0015483999999999997,
+    "cost_try": 0.05109719999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:18:54.382410",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2323,
+    "output": 458,
+    "cost_usd": 0.0017323899999999999,
+    "cost_try": 0.05716887
+  },
+  {
+    "timestamp": "2026-05-02T10:19:11.379921",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2912,
+    "output": 282,
+    "cost_usd": 0.00194086,
+    "cost_try": 0.06404838
+  },
+  {
+    "timestamp": "2026-05-02T10:19:25.939826",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2847,
+    "output": 189,
+    "cost_usd": 0.0018290399999999999,
+    "cost_try": 0.06035831999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:19:43.088525",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3944,
+    "output": 1813,
+    "cost_usd": 0.0037592299999999997,
+    "cost_try": 0.12405458999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:20:44.699831",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4027,
+    "output": 1891,
+    "cost_usd": 0.0038698199999999995,
+    "cost_try": 0.12770405999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:20:50.897738",
+    "model": "llama-3.3-70b-versatile",
+    "input": 1999,
+    "output": 184,
+    "cost_usd": 0.0013247699999999999,
+    "cost_try": 0.04371741
+  },
+  {
+    "timestamp": "2026-05-02T10:21:03.791262",
+    "model": "llama-3.3-70b-versatile",
+    "input": 5814,
+    "output": 1831,
+    "cost_usd": 0.004876749999999999,
+    "cost_try": 0.16093274999999996
+  },
+  {
+    "timestamp": "2026-05-02T10:21:29.863287",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3630,
+    "output": 747,
+    "cost_usd": 0.0027318299999999998,
+    "cost_try": 0.09015039
+  },
+  {
+    "timestamp": "2026-05-02T10:21:43.363497",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2062,
+    "output": 153,
+    "cost_usd": 0.0013374499999999998,
+    "cost_try": 0.04413584999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:21:50.439088",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3051,
+    "output": 443,
+    "cost_usd": 0.0021500599999999996,
+    "cost_try": 0.07095197999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:22:15.490956",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4289,
+    "output": 357,
+    "cost_usd": 0.0028125399999999997,
+    "cost_try": 0.09281381999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:22:43.253751",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3753,
+    "output": 600,
+    "cost_usd": 0.00268827,
+    "cost_try": 0.08871291
+  },
+  {
+    "timestamp": "2026-05-02T10:23:00.771809",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2723,
+    "output": 900,
+    "cost_usd": 0.0023175699999999997,
+    "cost_try": 0.07647981
+  },
+  {
+    "timestamp": "2026-05-02T10:23:10.488760",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2613,
+    "output": 164,
+    "cost_usd": 0.0016712299999999997,
+    "cost_try": 0.05515058999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:23:35.716388",
+    "model": "llama-3.3-70b-versatile",
+    "input": 3496,
+    "output": 417,
+    "cost_usd": 0.0023920699999999996,
+    "cost_try": 0.07893830999999998
+  },
+  {
+    "timestamp": "2026-05-02T10:23:39.993554",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2097,
+    "output": 116,
+    "cost_usd": 0.00132887,
+    "cost_try": 0.04385271
+  },
+  {
+    "timestamp": "2026-05-02T10:23:55.656994",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2739,
+    "output": 104,
+    "cost_usd": 0.00169817,
+    "cost_try": 0.05603961
+  },
+  {
+    "timestamp": "2026-05-02T10:24:18.507335",
+    "model": "llama-3.3-70b-versatile",
+    "input": 4521,
+    "output": 433,
+    "cost_usd": 0.00300946,
+    "cost_try": 0.09931218
+  },
+  {
+    "timestamp": "2026-05-02T10:24:42.762037",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2411,
+    "output": 735,
+    "cost_usd": 0.00200314,
+    "cost_try": 0.06610362
+  },
+  {
+    "timestamp": "2026-05-02T10:24:50.132511",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2082,
+    "output": 146,
+    "cost_usd": 0.0013437199999999999,
+    "cost_try": 0.044342759999999995
+  },
+  {
+    "timestamp": "2026-05-02T10:31:03.372179",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2323,
+    "output": 458,
+    "cost_usd": 0.0017323899999999999,
+    "cost_try": 0.05716887
+  },
+  {
+    "timestamp": "2026-05-02T10:32:14.700671",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2270,
+    "output": 113,
+    "cost_usd": 0.0014285699999999999,
+    "cost_try": 0.04714280999999999
+  },
+  {
+    "timestamp": "2026-05-02T10:46:27.331496",
+    "model": "llama-3.3-70b-versatile",
+    "input": 2094,
+    "output": 31,
+    "cost_usd": 0.0012599500000000001,
+    "cost_try": 0.04157835000000001
+  },
+  {
+    "timestamp": "2026-05-02T10:53:35.156176",
+    "model": "llama-3.3-70b-versatile",
+    "input": 521,
+    "output": 193,
+    "cost_usd": 0.00045986,
+    "cost_try": 0.015175379999999999
+  },
+  {
+    "timestamp": "2026-05-02T12:09:52.505401",
+    "model": "deepseek-chat",
+    "input": 526,
+    "output": 242,
+    "cost_usd": 0.00040822000000000005,
+    "cost_try": 0.013471260000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:10:13.970411",
+    "model": "deepseek-chat",
+    "input": 4948,
+    "output": 1694,
+    "cost_usd": 0.00319936,
+    "cost_try": 0.10557888
+  },
+  {
+    "timestamp": "2026-05-02T12:14:06.221966",
+    "model": "deepseek-chat",
+    "input": 433,
+    "output": 64,
+    "cost_usd": 0.00018731000000000002,
+    "cost_try": 0.006181230000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:14:16.979761",
+    "model": "deepseek-chat",
+    "input": 4502,
+    "output": 752,
+    "cost_usd": 0.0020427400000000004,
+    "cost_try": 0.06741042000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:14:22.805784",
+    "model": "deepseek-chat",
+    "input": 3081,
+    "output": 181,
+    "cost_usd": 0.00103097,
+    "cost_try": 0.03402201
+  },
+  {
+    "timestamp": "2026-05-02T12:14:26.910541",
+    "model": "deepseek-chat",
+    "input": 2689,
+    "output": 130,
+    "cost_usd": 0.0008690300000000001,
+    "cost_try": 0.028677990000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:14:30.066644",
+    "model": "deepseek-chat",
+    "input": 436,
+    "output": 63,
+    "cost_usd": 0.00018702000000000004,
+    "cost_try": 0.0061716600000000016
+  },
+  {
+    "timestamp": "2026-05-02T12:14:38.471687",
+    "model": "deepseek-chat",
+    "input": 3506,
+    "output": 564,
+    "cost_usd": 0.0015670200000000001,
+    "cost_try": 0.051711660000000007
+  },
+  {
+    "timestamp": "2026-05-02T12:14:42.364963",
+    "model": "deepseek-chat",
+    "input": 2866,
+    "output": 147,
+    "cost_usd": 0.00093552,
+    "cost_try": 0.03087216
+  },
+  {
+    "timestamp": "2026-05-02T12:14:46.917019",
+    "model": "deepseek-chat",
+    "input": 2918,
+    "output": 210,
+    "cost_usd": 0.0010188600000000001,
+    "cost_try": 0.03362238000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:14:50.581047",
+    "model": "deepseek-chat",
+    "input": 2665,
+    "output": 178,
+    "cost_usd": 0.0009153500000000001,
+    "cost_try": 0.030206550000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:14:54.041431",
+    "model": "deepseek-chat",
+    "input": 2758,
+    "output": 164,
+    "cost_usd": 0.0009250600000000001,
+    "cost_try": 0.030526980000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:14:57.616187",
+    "model": "deepseek-chat",
+    "input": 544,
+    "output": 131,
+    "cost_usd": 0.00029098000000000004,
+    "cost_try": 0.009602340000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:15:19.542699",
+    "model": "deepseek-chat",
+    "input": 3452,
+    "output": 1796,
+    "cost_usd": 0.0029076400000000004,
+    "cost_try": 0.09595212000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:15:24.822396",
+    "model": "deepseek-chat",
+    "input": 312,
+    "output": 13,
+    "cost_usd": 9.854e-05,
+    "cost_try": 0.00325182
+  },
+  {
+    "timestamp": "2026-05-02T12:15:29.637960",
+    "model": "deepseek-chat",
+    "input": 3104,
+    "output": 254,
+    "cost_usd": 0.0011174800000000001,
+    "cost_try": 0.03687684
+  },
+  {
+    "timestamp": "2026-05-02T12:15:33.781814",
+    "model": "deepseek-chat",
+    "input": 2527,
+    "output": 164,
+    "cost_usd": 0.0008626900000000002,
+    "cost_try": 0.028468770000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:15:38.060562",
+    "model": "deepseek-chat",
+    "input": 2783,
+    "output": 171,
+    "cost_usd": 0.0009395100000000002,
+    "cost_try": 0.031003830000000007
+  },
+  {
+    "timestamp": "2026-05-02T12:15:39.801376",
+    "model": "deepseek-chat",
+    "input": 307,
+    "output": 10,
+    "cost_usd": 9.389e-05,
+    "cost_try": 0.00309837
+  },
+  {
+    "timestamp": "2026-05-02T12:15:43.478964",
+    "model": "deepseek-chat",
+    "input": 3075,
+    "output": 169,
+    "cost_usd": 0.00101615,
+    "cost_try": 0.03353295
+  },
+  {
+    "timestamp": "2026-05-02T12:15:46.150408",
+    "model": "deepseek-chat",
+    "input": 426,
+    "output": 41,
+    "cost_usd": 0.00016012,
+    "cost_try": 0.00528396
+  },
+  {
+    "timestamp": "2026-05-02T12:15:52.372101",
+    "model": "deepseek-chat",
+    "input": 3208,
+    "output": 374,
+    "cost_usd": 0.00127756,
+    "cost_try": 0.04215948
+  },
+  {
+    "timestamp": "2026-05-02T12:15:57.618397",
+    "model": "deepseek-chat",
+    "input": 3219,
+    "output": 232,
+    "cost_usd": 0.0011243300000000002,
+    "cost_try": 0.037102890000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:16:01.135908",
+    "model": "deepseek-chat",
+    "input": 2744,
+    "output": 155,
+    "cost_usd": 0.0009113799999999999,
+    "cost_try": 0.030075539999999998
+  },
+  {
+    "timestamp": "2026-05-02T12:16:05.195935",
+    "model": "deepseek-chat",
+    "input": 2545,
+    "output": 184,
+    "cost_usd": 0.0008895500000000001,
+    "cost_try": 0.029355150000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:16:09.191809",
+    "model": "deepseek-chat",
+    "input": 3238,
+    "output": 175,
+    "cost_usd": 0.0010667600000000001,
+    "cost_try": 0.035203080000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:16:13.335562",
+    "model": "deepseek-chat",
+    "input": 2545,
+    "output": 185,
+    "cost_usd": 0.0008906500000000001,
+    "cost_try": 0.029391450000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:16:17.123623",
+    "model": "deepseek-chat",
+    "input": 2783,
+    "output": 171,
+    "cost_usd": 0.0009395100000000002,
+    "cost_try": 0.031003830000000007
+  },
+  {
+    "timestamp": "2026-05-02T12:16:22.402556",
+    "model": "deepseek-chat",
+    "input": 2878,
+    "output": 249,
+    "cost_usd": 0.00105096,
+    "cost_try": 0.034681680000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:16:27.651170",
+    "model": "deepseek-chat",
+    "input": 859,
+    "output": 219,
+    "cost_usd": 0.00047283000000000004,
+    "cost_try": 0.015603390000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:16:51.700936",
+    "model": "deepseek-chat",
+    "input": 4592,
+    "output": 1929,
+    "cost_usd": 0.00336174,
+    "cost_try": 0.11093742000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:17:00.592824",
+    "model": "deepseek-chat",
+    "input": 2611,
+    "output": 225,
+    "cost_usd": 0.0009524700000000002,
+    "cost_try": 0.03143151
+  },
+  {
+    "timestamp": "2026-05-02T12:17:04.694235",
+    "model": "deepseek-chat",
+    "input": 2543,
+    "output": 145,
+    "cost_usd": 0.0008461100000000001,
+    "cost_try": 0.027921630000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:17:08.992967",
+    "model": "deepseek-chat",
+    "input": 857,
+    "output": 205,
+    "cost_usd": 0.00045689000000000005,
+    "cost_try": 0.015077370000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:17:29.285116",
+    "model": "deepseek-chat",
+    "input": 4373,
+    "output": 1705,
+    "cost_usd": 0.00305621,
+    "cost_try": 0.10085493000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:17:37.170429",
+    "model": "deepseek-chat",
+    "input": 2545,
+    "output": 191,
+    "cost_usd": 0.00089725,
+    "cost_try": 0.02960925
+  },
+  {
+    "timestamp": "2026-05-02T12:17:41.571918",
+    "model": "deepseek-chat",
+    "input": 2545,
+    "output": 193,
+    "cost_usd": 0.0008994500000000001,
+    "cost_try": 0.029681850000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:17:45.250257",
+    "model": "deepseek-chat",
+    "input": 2545,
+    "output": 153,
+    "cost_usd": 0.0008554500000000001,
+    "cost_try": 0.028229850000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:17:48.075276",
+    "model": "deepseek-chat",
+    "input": 377,
+    "output": 42,
+    "cost_usd": 0.00014799,
+    "cost_try": 0.00488367
+  },
+  {
+    "timestamp": "2026-05-02T12:17:54.399084",
+    "model": "deepseek-chat",
+    "input": 3119,
+    "output": 368,
+    "cost_usd": 0.00124693,
+    "cost_try": 0.04114869
+  },
+  {
+    "timestamp": "2026-05-02T12:18:00.979004",
+    "model": "deepseek-chat",
+    "input": 2727,
+    "output": 177,
+    "cost_usd": 0.0009309900000000001,
+    "cost_try": 0.030722670000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:18:06.445470",
+    "model": "deepseek-chat",
+    "input": 2683,
+    "output": 259,
+    "cost_usd": 0.0010093100000000002,
+    "cost_try": 0.03330723000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:18:09.381441",
+    "model": "deepseek-chat",
+    "input": 363,
+    "output": 9,
+    "cost_usd": 0.00010791,
+    "cost_try": 0.00356103
+  },
+  {
+    "timestamp": "2026-05-02T12:18:13.170247",
+    "model": "deepseek-chat",
+    "input": 3054,
+    "output": 151,
+    "cost_usd": 0.00099068,
+    "cost_try": 0.03269244
+  },
+  {
+    "timestamp": "2026-05-02T12:18:16.463293",
+    "model": "deepseek-chat",
+    "input": 596,
+    "output": 31,
+    "cost_usd": 0.00019502,
+    "cost_try": 0.00643566
+  },
+  {
+    "timestamp": "2026-05-02T12:18:31.952478",
+    "model": "deepseek-chat",
+    "input": 3940,
+    "output": 1148,
+    "cost_usd": 0.0023266000000000003,
+    "cost_try": 0.07677780000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:18:38.986030",
+    "model": "deepseek-chat",
+    "input": 2566,
+    "output": 249,
+    "cost_usd": 0.0009667200000000001,
+    "cost_try": 0.03190176
+  },
+  {
+    "timestamp": "2026-05-02T12:18:43.925667",
+    "model": "deepseek-chat",
+    "input": 2894,
+    "output": 189,
+    "cost_usd": 0.00098928,
+    "cost_try": 0.03264624
+  },
+  {
+    "timestamp": "2026-05-02T12:18:48.514123",
+    "model": "deepseek-chat",
+    "input": 2878,
+    "output": 230,
+    "cost_usd": 0.0010300600000000002,
+    "cost_try": 0.033991980000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:18:52.532317",
+    "model": "deepseek-chat",
+    "input": 2894,
+    "output": 187,
+    "cost_usd": 0.00098708,
+    "cost_try": 0.03257364
+  },
+  {
+    "timestamp": "2026-05-02T12:18:57.434312",
+    "model": "deepseek-chat",
+    "input": 2683,
+    "output": 253,
+    "cost_usd": 0.00100271,
+    "cost_try": 0.033089429999999996
+  },
+  {
+    "timestamp": "2026-05-02T12:19:03.684515",
+    "model": "deepseek-chat",
+    "input": 979,
+    "output": 339,
+    "cost_usd": 0.0006372300000000001,
+    "cost_try": 0.021028590000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:19:35.224365",
+    "model": "deepseek-chat",
+    "input": 4608,
+    "output": 2491,
+    "cost_usd": 0.003984260000000001,
+    "cost_try": 0.13148058
+  },
+  {
+    "timestamp": "2026-05-02T12:19:41.279188",
+    "model": "deepseek-chat",
+    "input": 507,
+    "output": 84,
+    "cost_usd": 0.00022929000000000005,
+    "cost_try": 0.007566570000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:19:51.299660",
+    "model": "deepseek-chat",
+    "input": 3430,
+    "output": 724,
+    "cost_usd": 0.0017225,
+    "cost_try": 0.056842500000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:19:56.009569",
+    "model": "deepseek-chat",
+    "input": 2576,
+    "output": 139,
+    "cost_usd": 0.0008484200000000001,
+    "cost_try": 0.027997860000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:20:00.942545",
+    "model": "deepseek-chat",
+    "input": 2627,
+    "output": 232,
+    "cost_usd": 0.0009644900000000001,
+    "cost_try": 0.03182817
+  },
+  {
+    "timestamp": "2026-05-02T12:20:03.075913",
+    "model": "deepseek-chat",
+    "input": 363,
+    "output": 9,
+    "cost_usd": 0.00010791,
+    "cost_try": 0.00356103
+  },
+  {
+    "timestamp": "2026-05-02T12:20:06.455493",
+    "model": "deepseek-chat",
+    "input": 3054,
+    "output": 151,
+    "cost_usd": 0.00099068,
+    "cost_try": 0.03269244
+  },
+  {
+    "timestamp": "2026-05-02T12:20:11.063367",
+    "model": "deepseek-chat",
+    "input": 2613,
+    "output": 184,
+    "cost_usd": 0.00090791,
+    "cost_try": 0.029961030000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:20:16.070134",
+    "model": "deepseek-chat",
+    "input": 2629,
+    "output": 242,
+    "cost_usd": 0.0009760300000000001,
+    "cost_try": 0.03220899000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:20:21.646766",
+    "model": "deepseek-chat",
+    "input": 2929,
+    "output": 305,
+    "cost_usd": 0.00112633,
+    "cost_try": 0.03716889
+  },
+  {
+    "timestamp": "2026-05-02T12:20:27.332521",
+    "model": "deepseek-chat",
+    "input": 3725,
+    "output": 302,
+    "cost_usd": 0.00133795,
+    "cost_try": 0.04415235
+  },
+  {
+    "timestamp": "2026-05-02T12:20:35.020317",
+    "model": "deepseek-chat",
+    "input": 2796,
+    "output": 429,
+    "cost_usd": 0.00122682,
+    "cost_try": 0.04048506
+  },
+  {
+    "timestamp": "2026-05-02T12:20:42.506494",
+    "model": "deepseek-chat",
+    "input": 2742,
+    "output": 425,
+    "cost_usd": 0.00120784,
+    "cost_try": 0.03985872
+  },
+  {
+    "timestamp": "2026-05-02T12:20:46.800290",
+    "model": "deepseek-chat",
+    "input": 622,
+    "output": 157,
+    "cost_usd": 0.00034064,
+    "cost_try": 0.01124112
+  },
+  {
+    "timestamp": "2026-05-02T12:21:06.566883",
+    "model": "deepseek-chat",
+    "input": 4253,
+    "output": 1621,
+    "cost_usd": 0.0029314100000000006,
+    "cost_try": 0.09673653000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:21:14.760866",
+    "model": "deepseek-chat",
+    "input": 3153,
+    "output": 127,
+    "cost_usd": 0.00099101,
+    "cost_try": 0.03270333
+  },
+  {
+    "timestamp": "2026-05-02T12:21:18.591329",
+    "model": "deepseek-chat",
+    "input": 1297,
+    "output": 139,
+    "cost_usd": 0.00050309,
+    "cost_try": 0.01660197
+  },
+  {
+    "timestamp": "2026-05-02T12:21:35.448651",
+    "model": "deepseek-chat",
+    "input": 4692,
+    "output": 1353,
+    "cost_usd": 0.0027551400000000005,
+    "cost_try": 0.09091962000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:21:46.810645",
+    "model": "deepseek-chat",
+    "input": 2695,
+    "output": 178,
+    "cost_usd": 0.00092345,
+    "cost_try": 0.03047385
+  },
+  {
+    "timestamp": "2026-05-02T12:21:51.215200",
+    "model": "deepseek-chat",
+    "input": 2606,
+    "output": 158,
+    "cost_usd": 0.00087742,
+    "cost_try": 0.02895486
+  },
+  {
+    "timestamp": "2026-05-02T12:21:55.438389",
+    "model": "deepseek-chat",
+    "input": 2631,
+    "output": 175,
+    "cost_usd": 0.0009028700000000001,
+    "cost_try": 0.029794710000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:22:00.794484",
+    "model": "deepseek-chat",
+    "input": 2665,
+    "output": 227,
+    "cost_usd": 0.0009692500000000001,
+    "cost_try": 0.03198525
+  },
+  {
+    "timestamp": "2026-05-02T12:22:05.243656",
+    "model": "deepseek-chat",
+    "input": 2701,
+    "output": 150,
+    "cost_usd": 0.0008942700000000001,
+    "cost_try": 0.02951091
+  },
+  {
+    "timestamp": "2026-05-02T12:22:09.806739",
+    "model": "deepseek-chat",
+    "input": 2709,
+    "output": 143,
+    "cost_usd": 0.00088873,
+    "cost_try": 0.02932809
+  },
+  {
+    "timestamp": "2026-05-02T12:22:17.552662",
+    "model": "deepseek-chat",
+    "input": 3328,
+    "output": 302,
+    "cost_usd": 0.00123076,
+    "cost_try": 0.04061508
+  },
+  {
+    "timestamp": "2026-05-02T12:22:23.376481",
+    "model": "deepseek-chat",
+    "input": 2739,
+    "output": 294,
+    "cost_usd": 0.0010629300000000001,
+    "cost_try": 0.03507669000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:22:28.085359",
+    "model": "deepseek-chat",
+    "input": 2725,
+    "output": 184,
+    "cost_usd": 0.00093815,
+    "cost_try": 0.03095895
+  },
+  {
+    "timestamp": "2026-05-02T12:22:32.587762",
+    "model": "deepseek-chat",
+    "input": 2638,
+    "output": 175,
+    "cost_usd": 0.0009047600000000001,
+    "cost_try": 0.029857080000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:22:37.708816",
+    "model": "deepseek-chat",
+    "input": 2714,
+    "output": 201,
+    "cost_usd": 0.00095388,
+    "cost_try": 0.03147804
+  },
+  {
+    "timestamp": "2026-05-02T12:22:42.147970",
+    "model": "deepseek-chat",
+    "input": 2606,
+    "output": 157,
+    "cost_usd": 0.00087632,
+    "cost_try": 0.02891856
+  },
+  {
+    "timestamp": "2026-05-02T12:22:46.311051",
+    "model": "deepseek-chat",
+    "input": 859,
+    "output": 190,
+    "cost_usd": 0.0004409300000000001,
+    "cost_try": 0.014550690000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:23:11.086295",
+    "model": "deepseek-chat",
+    "input": 4563,
+    "output": 1908,
+    "cost_usd": 0.00333081,
+    "cost_try": 0.10991673
+  },
+  {
+    "timestamp": "2026-05-02T12:23:19.477444",
+    "model": "deepseek-chat",
+    "input": 3285,
+    "output": 233,
+    "cost_usd": 0.0011432500000000002,
+    "cost_try": 0.037727250000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:23:23.558108",
+    "model": "deepseek-chat",
+    "input": 1297,
+    "output": 157,
+    "cost_usd": 0.00052289,
+    "cost_try": 0.017255370000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:23:41.372815",
+    "model": "deepseek-chat",
+    "input": 4710,
+    "output": 1445,
+    "cost_usd": 0.0028612000000000004,
+    "cost_try": 0.0944196
+  },
+  {
+    "timestamp": "2026-05-02T12:23:51.218310",
+    "model": "deepseek-chat",
+    "input": 679,
+    "output": 110,
+    "cost_usd": 0.00030433,
+    "cost_try": 0.01004289
+  },
+  {
+    "timestamp": "2026-05-02T12:24:05.369219",
+    "model": "deepseek-chat",
+    "input": 4140,
+    "output": 1015,
+    "cost_usd": 0.0022343000000000003,
+    "cost_try": 0.0737319
+  },
+  {
+    "timestamp": "2026-05-02T12:24:11.993850",
+    "model": "deepseek-chat",
+    "input": 2948,
+    "output": 161,
+    "cost_usd": 0.0009730600000000001,
+    "cost_try": 0.032110980000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:24:17.443136",
+    "model": "deepseek-chat",
+    "input": 3725,
+    "output": 278,
+    "cost_usd": 0.00131155,
+    "cost_try": 0.043281150000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:24:24.816267",
+    "model": "deepseek-chat",
+    "input": 3441,
+    "output": 349,
+    "cost_usd": 0.0013129700000000001,
+    "cost_try": 0.04332801
+  },
+  {
+    "timestamp": "2026-05-02T12:24:27.575780",
+    "model": "deepseek-chat",
+    "input": 507,
+    "output": 61,
+    "cost_usd": 0.00020399000000000003,
+    "cost_try": 0.006731670000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:24:36.402981",
+    "model": "deepseek-chat",
+    "input": 5525,
+    "output": 579,
+    "cost_usd": 0.00212865,
+    "cost_try": 0.07024545
+  },
+  {
+    "timestamp": "2026-05-02T12:24:41.609927",
+    "model": "deepseek-chat",
+    "input": 2719,
+    "output": 146,
+    "cost_usd": 0.00089473,
+    "cost_try": 0.02952609
+  },
+  {
+    "timestamp": "2026-05-02T12:24:44.991124",
+    "model": "deepseek-chat",
+    "input": 567,
+    "output": 89,
+    "cost_usd": 0.00025099000000000003,
+    "cost_try": 0.00828267
+  },
+  {
+    "timestamp": "2026-05-02T12:24:56.395783",
+    "model": "deepseek-chat",
+    "input": 4179,
+    "output": 793,
+    "cost_usd": 0.00200063,
+    "cost_try": 0.06602079000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:25:02.497768",
+    "model": "deepseek-chat",
+    "input": 2979,
+    "output": 194,
+    "cost_usd": 0.0010177300000000001,
+    "cost_try": 0.033585090000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:25:05.575272",
+    "model": "deepseek-chat",
+    "input": 2767,
+    "output": 232,
+    "cost_usd": 0.00100229,
+    "cost_try": 0.033075570000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:25:07.487011",
+    "model": "deepseek-chat",
+    "input": 3083,
+    "output": 264,
+    "cost_usd": 0.0011228100000000001,
+    "cost_try": 0.037052730000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:25:11.095834",
+    "model": "deepseek-chat",
+    "input": 2486,
+    "output": 155,
+    "cost_usd": 0.00084172,
+    "cost_try": 0.02777676
+  },
+  {
+    "timestamp": "2026-05-02T12:25:15.905721",
+    "model": "deepseek-chat",
+    "input": 2586,
+    "output": 247,
+    "cost_usd": 0.0009699200000000001,
+    "cost_try": 0.032007360000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:25:20.781512",
+    "model": "deepseek-chat",
+    "input": 565,
+    "output": 235,
+    "cost_usd": 0.00041105000000000004,
+    "cost_try": 0.013564650000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:25:36.601782",
+    "model": "deepseek-chat",
+    "input": 4166,
+    "output": 1172,
+    "cost_usd": 0.0024140200000000002,
+    "cost_try": 0.07966266000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:25:42.631199",
+    "model": "deepseek-chat",
+    "input": 621,
+    "output": 116,
+    "cost_usd": 0.00029527000000000004,
+    "cost_try": 0.009743910000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:25:54.921009",
+    "model": "deepseek-chat",
+    "input": 4956,
+    "output": 882,
+    "cost_usd": 0.00230832,
+    "cost_try": 0.07617456
+  },
+  {
+    "timestamp": "2026-05-02T12:25:58.712571",
+    "model": "deepseek-chat",
+    "input": 324,
+    "output": 23,
+    "cost_usd": 0.00011278000000000001,
+    "cost_try": 0.0037217400000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:26:05.261897",
+    "model": "deepseek-chat",
+    "input": 3390,
+    "output": 386,
+    "cost_usd": 0.0013399000000000002,
+    "cost_try": 0.044216700000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:26:08.637824",
+    "model": "deepseek-chat",
+    "input": 735,
+    "output": 54,
+    "cost_usd": 0.00025785,
+    "cost_try": 0.00850905
+  },
+  {
+    "timestamp": "2026-05-02T12:26:16.755958",
+    "model": "deepseek-chat",
+    "input": 4290,
+    "output": 532,
+    "cost_usd": 0.0017435000000000003,
+    "cost_try": 0.05753550000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:26:21.876474",
+    "model": "deepseek-chat",
+    "input": 2760,
+    "output": 143,
+    "cost_usd": 0.0009025,
+    "cost_try": 0.0297825
+  },
+  {
+    "timestamp": "2026-05-02T12:26:24.713919",
+    "model": "deepseek-chat",
+    "input": 310,
+    "output": 22,
+    "cost_usd": 0.00010790000000000001,
+    "cost_try": 0.0035607000000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:26:29.124249",
+    "model": "deepseek-chat",
+    "input": 2695,
+    "output": 205,
+    "cost_usd": 0.00095315,
+    "cost_try": 0.03145395
+  },
+  {
+    "timestamp": "2026-05-02T12:26:31.627049",
+    "model": "deepseek-chat",
+    "input": 358,
+    "output": 28,
+    "cost_usd": 0.00012746000000000003,
+    "cost_try": 0.004206180000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:26:39.054444",
+    "model": "deepseek-chat",
+    "input": 4291,
+    "output": 498,
+    "cost_usd": 0.0017063700000000005,
+    "cost_try": 0.05631021000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:26:45.330921",
+    "model": "deepseek-chat",
+    "input": 3083,
+    "output": 237,
+    "cost_usd": 0.0010931100000000002,
+    "cost_try": 0.03607263000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:26:51.446462",
+    "model": "deepseek-chat",
+    "input": 2548,
+    "output": 199,
+    "cost_usd": 0.00090686,
+    "cost_try": 0.02992638
+  },
+  {
+    "timestamp": "2026-05-02T12:26:55.338152",
+    "model": "deepseek-chat",
+    "input": 471,
+    "output": 163,
+    "cost_usd": 0.00030647,
+    "cost_try": 0.01011351
+  },
+  {
+    "timestamp": "2026-05-02T12:27:10.575709",
+    "model": "deepseek-chat",
+    "input": 3717,
+    "output": 1133,
+    "cost_usd": 0.00224989,
+    "cost_try": 0.07424637
+  },
+  {
+    "timestamp": "2026-05-02T12:27:15.914911",
+    "model": "deepseek-chat",
+    "input": 2574,
+    "output": 133,
+    "cost_usd": 0.00084128,
+    "cost_try": 0.02776224
+  },
+  {
+    "timestamp": "2026-05-02T12:27:21.039256",
+    "model": "deepseek-chat",
+    "input": 3083,
+    "output": 268,
+    "cost_usd": 0.00112721,
+    "cost_try": 0.037197930000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:27:26.784751",
+    "model": "deepseek-chat",
+    "input": 3083,
+    "output": 264,
+    "cost_usd": 0.0011228100000000001,
+    "cost_try": 0.037052730000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:27:29.334050",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 11,
+    "cost_usd": 0.00012037,
+    "cost_try": 0.00397221
+  },
+  {
+    "timestamp": "2026-05-02T12:27:32.773428",
+    "model": "deepseek-chat",
+    "input": 2836,
+    "output": 162,
+    "cost_usd": 0.00094392,
+    "cost_try": 0.03114936
+  },
+  {
+    "timestamp": "2026-05-02T12:27:36.637502",
+    "model": "deepseek-chat",
+    "input": 2960,
+    "output": 162,
+    "cost_usd": 0.0009774,
+    "cost_try": 0.032254200000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:27:39.882240",
+    "model": "deepseek-chat",
+    "input": 1297,
+    "output": 106,
+    "cost_usd": 0.00046679,
+    "cost_try": 0.01540407
+  },
+  {
+    "timestamp": "2026-05-02T12:28:00.087591",
+    "model": "deepseek-chat",
+    "input": 4659,
+    "output": 1503,
+    "cost_usd": 0.00291123,
+    "cost_try": 0.09607059
+  },
+  {
+    "timestamp": "2026-05-02T12:28:10.292011",
+    "model": "deepseek-chat",
+    "input": 2669,
+    "output": 164,
+    "cost_usd": 0.0009010299999999999,
+    "cost_try": 0.02973399
+  },
+  {
+    "timestamp": "2026-05-02T12:28:14.547697",
+    "model": "deepseek-chat",
+    "input": 2920,
+    "output": 199,
+    "cost_usd": 0.0010073,
+    "cost_try": 0.033240900000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:28:17.505875",
+    "model": "deepseek-chat",
+    "input": 471,
+    "output": 56,
+    "cost_usd": 0.00018877,
+    "cost_try": 0.0062294099999999995
+  },
+  {
+    "timestamp": "2026-05-02T12:28:25.207202",
+    "model": "deepseek-chat",
+    "input": 3318,
+    "output": 540,
+    "cost_usd": 0.00148986,
+    "cost_try": 0.04916538
+  },
+  {
+    "timestamp": "2026-05-02T12:28:28.894982",
+    "model": "deepseek-chat",
+    "input": 375,
+    "output": 25,
+    "cost_usd": 0.00012875,
+    "cost_try": 0.004248750000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:28:34.475949",
+    "model": "deepseek-chat",
+    "input": 3209,
+    "output": 300,
+    "cost_usd": 0.00119643,
+    "cost_try": 0.03948219
+  },
+  {
+    "timestamp": "2026-05-02T12:28:40.550420",
+    "model": "deepseek-chat",
+    "input": 4092,
+    "output": 290,
+    "cost_usd": 0.0014238400000000002,
+    "cost_try": 0.04698672000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:28:47.565583",
+    "model": "deepseek-chat",
+    "input": 3441,
+    "output": 419,
+    "cost_usd": 0.0013899700000000001,
+    "cost_try": 0.04586901
+  },
+  {
+    "timestamp": "2026-05-02T12:28:50.310030",
+    "model": "deepseek-chat",
+    "input": 336,
+    "output": 14,
+    "cost_usd": 0.00010612,
+    "cost_try": 0.0035019599999999997
+  },
+  {
+    "timestamp": "2026-05-02T12:28:55.517552",
+    "model": "deepseek-chat",
+    "input": 4214,
+    "output": 261,
+    "cost_usd": 0.00142488,
+    "cost_try": 0.04702104
+  },
+  {
+    "timestamp": "2026-05-02T12:28:59.338206",
+    "model": "deepseek-chat",
+    "input": 2559,
+    "output": 115,
+    "cost_usd": 0.0008174300000000001,
+    "cost_try": 0.026975190000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:29:02.108911",
+    "model": "deepseek-chat",
+    "input": 512,
+    "output": 70,
+    "cost_usd": 0.00021524,
+    "cost_try": 0.00710292
+  },
+  {
+    "timestamp": "2026-05-02T12:29:11.831271",
+    "model": "deepseek-chat",
+    "input": 4564,
+    "output": 660,
+    "cost_usd": 0.0019582799999999997,
+    "cost_try": 0.06462324
+  },
+  {
+    "timestamp": "2026-05-02T12:29:16.133514",
+    "model": "deepseek-chat",
+    "input": 450,
+    "output": 78,
+    "cost_usd": 0.00020730000000000002,
+    "cost_try": 0.0068409000000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:29:25.235993",
+    "model": "deepseek-chat",
+    "input": 3237,
+    "output": 644,
+    "cost_usd": 0.0015823900000000001,
+    "cost_try": 0.05221887000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:29:28.628764",
+    "model": "deepseek-chat",
+    "input": 340,
+    "output": 43,
+    "cost_usd": 0.00013910000000000002,
+    "cost_try": 0.0045903
+  },
+  {
+    "timestamp": "2026-05-02T12:29:34.181508",
+    "model": "deepseek-chat",
+    "input": 3916,
+    "output": 311,
+    "cost_usd": 0.0013994200000000002,
+    "cost_try": 0.046180860000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:29:38.772740",
+    "model": "deepseek-chat",
+    "input": 3522,
+    "output": 154,
+    "cost_usd": 0.00112034,
+    "cost_try": 0.03697122
+  },
+  {
+    "timestamp": "2026-05-02T12:29:42.251873",
+    "model": "deepseek-chat",
+    "input": 471,
+    "output": 64,
+    "cost_usd": 0.00019757,
+    "cost_try": 0.00651981
+  },
+  {
+    "timestamp": "2026-05-02T12:29:51.666948",
+    "model": "deepseek-chat",
+    "input": 3256,
+    "output": 626,
+    "cost_usd": 0.00156772,
+    "cost_try": 0.051734760000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:29:57.809615",
+    "model": "deepseek-chat",
+    "input": 2865,
+    "output": 247,
+    "cost_usd": 0.0010452500000000002,
+    "cost_try": 0.03449325
+  },
+  {
+    "timestamp": "2026-05-02T12:30:02.155363",
+    "model": "deepseek-chat",
+    "input": 3185,
+    "output": 210,
+    "cost_usd": 0.00109095,
+    "cost_try": 0.03600135
+  },
+  {
+    "timestamp": "2026-05-02T12:30:06.282165",
+    "model": "deepseek-chat",
+    "input": 2619,
+    "output": 149,
+    "cost_usd": 0.0008710300000000001,
+    "cost_try": 0.028743990000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:30:10.508579",
+    "model": "deepseek-chat",
+    "input": 2692,
+    "output": 181,
+    "cost_usd": 0.0009259400000000001,
+    "cost_try": 0.030556020000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:30:15.619230",
+    "model": "deepseek-chat",
+    "input": 2767,
+    "output": 241,
+    "cost_usd": 0.00101219,
+    "cost_try": 0.033402270000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:30:21.167516",
+    "model": "deepseek-chat",
+    "input": 2515,
+    "output": 261,
+    "cost_usd": 0.00096615,
+    "cost_try": 0.03188295
+  },
+  {
+    "timestamp": "2026-05-02T12:30:25.106000",
+    "model": "deepseek-chat",
+    "input": 505,
+    "output": 138,
+    "cost_usd": 0.00028815000000000004,
+    "cost_try": 0.009508950000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:30:38.467269",
+    "model": "deepseek-chat",
+    "input": 4031,
+    "output": 977,
+    "cost_usd": 0.0021630700000000004,
+    "cost_try": 0.07138131000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:30:44.390355",
+    "model": "deepseek-chat",
+    "input": 2920,
+    "output": 191,
+    "cost_usd": 0.0009985,
+    "cost_try": 0.0329505
+  },
+  {
+    "timestamp": "2026-05-02T12:30:46.465142",
+    "model": "deepseek-chat",
+    "input": 289,
+    "output": 7,
+    "cost_usd": 8.573e-05,
+    "cost_try": 0.00282909
+  },
+  {
+    "timestamp": "2026-05-02T12:30:51.167125",
+    "model": "deepseek-chat",
+    "input": 2888,
+    "output": 230,
+    "cost_usd": 0.0010327600000000002,
+    "cost_try": 0.03408108000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:30:55.568311",
+    "model": "deepseek-chat",
+    "input": 2645,
+    "output": 204,
+    "cost_usd": 0.0009385500000000001,
+    "cost_try": 0.030972150000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:30:58.954246",
+    "model": "deepseek-chat",
+    "input": 3989,
+    "output": 133,
+    "cost_usd": 0.00122333,
+    "cost_try": 0.04036989
+  },
+  {
+    "timestamp": "2026-05-02T12:31:02.841092",
+    "model": "deepseek-chat",
+    "input": 2665,
+    "output": 153,
+    "cost_usd": 0.0008878500000000001,
+    "cost_try": 0.029299050000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:31:05.701844",
+    "model": "deepseek-chat",
+    "input": 498,
+    "output": 50,
+    "cost_usd": 0.00018946000000000002,
+    "cost_try": 0.00625218
+  },
+  {
+    "timestamp": "2026-05-02T12:31:14.414667",
+    "model": "deepseek-chat",
+    "input": 3930,
+    "output": 569,
+    "cost_usd": 0.0016870000000000001,
+    "cost_try": 0.055671000000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:31:17.380763",
+    "model": "deepseek-chat",
+    "input": 340,
+    "output": 43,
+    "cost_usd": 0.00013910000000000002,
+    "cost_try": 0.0045903
+  },
+  {
+    "timestamp": "2026-05-02T12:31:22.594706",
+    "model": "deepseek-chat",
+    "input": 3916,
+    "output": 305,
+    "cost_usd": 0.0013928200000000003,
+    "cost_try": 0.045963060000000014
+  },
+  {
+    "timestamp": "2026-05-02T12:31:25.366424",
+    "model": "deepseek-chat",
+    "input": 349,
+    "output": 59,
+    "cost_usd": 0.00015913,
+    "cost_try": 0.0052512900000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:31:33.048845",
+    "model": "deepseek-chat",
+    "input": 2706,
+    "output": 508,
+    "cost_usd": 0.0012894199999999999,
+    "cost_try": 0.042550859999999996
+  },
+  {
+    "timestamp": "2026-05-02T12:31:37.140512",
+    "model": "deepseek-chat",
+    "input": 376,
+    "output": 73,
+    "cost_usd": 0.00018182000000000002,
+    "cost_try": 0.006000060000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:31:46.797372",
+    "model": "deepseek-chat",
+    "input": 3133,
+    "output": 706,
+    "cost_usd": 0.0016225100000000002,
+    "cost_try": 0.053542830000000007
+  },
+  {
+    "timestamp": "2026-05-02T12:31:51.659258",
+    "model": "deepseek-chat",
+    "input": 2582,
+    "output": 185,
+    "cost_usd": 0.0009006400000000001,
+    "cost_try": 0.029721120000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:31:54.853265",
+    "model": "deepseek-chat",
+    "input": 490,
+    "output": 62,
+    "cost_usd": 0.00020050000000000002,
+    "cost_try": 0.006616500000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:32:02.780209",
+    "model": "deepseek-chat",
+    "input": 3705,
+    "output": 516,
+    "cost_usd": 0.0015679500000000002,
+    "cost_try": 0.051742350000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:32:07.460364",
+    "model": "deepseek-chat",
+    "input": 621,
+    "output": 116,
+    "cost_usd": 0.00029527000000000004,
+    "cost_try": 0.009743910000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:32:15.751086",
+    "model": "deepseek-chat",
+    "input": 3514,
+    "output": 250,
+    "cost_usd": 0.00122378,
+    "cost_try": 0.04038474
+  },
+  {
+    "timestamp": "2026-05-02T12:32:19.635645",
+    "model": "deepseek-chat",
+    "input": 4956,
+    "output": 859,
+    "cost_usd": 0.00228302,
+    "cost_try": 0.07533966
+  },
+  {
+    "timestamp": "2026-05-02T12:32:25.583444",
+    "model": "deepseek-chat",
+    "input": 2665,
+    "output": 147,
+    "cost_usd": 0.0008812500000000001,
+    "cost_try": 0.029081250000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:32:29.446518",
+    "model": "deepseek-chat",
+    "input": 1297,
+    "output": 157,
+    "cost_usd": 0.00052289,
+    "cost_try": 0.017255370000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:32:48.319936",
+    "model": "deepseek-chat",
+    "input": 4710,
+    "output": 1445,
+    "cost_usd": 0.0028612000000000004,
+    "cost_try": 0.0944196
+  },
+  {
+    "timestamp": "2026-05-02T12:33:00.288044",
+    "model": "deepseek-chat",
+    "input": 2662,
+    "output": 201,
+    "cost_usd": 0.0009398400000000001,
+    "cost_try": 0.031014720000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:33:03.056737",
+    "model": "deepseek-chat",
+    "input": 418,
+    "output": 63,
+    "cost_usd": 0.00018216000000000003,
+    "cost_try": 0.006011280000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:33:10.644421",
+    "model": "deepseek-chat",
+    "input": 5303,
+    "output": 463,
+    "cost_usd": 0.0019411100000000002,
+    "cost_try": 0.06405663
+  },
+  {
+    "timestamp": "2026-05-02T12:33:17.343862",
+    "model": "deepseek-chat",
+    "input": 2829,
+    "output": 222,
+    "cost_usd": 0.00100803,
+    "cost_try": 0.03326499
+  },
+  {
+    "timestamp": "2026-05-02T12:33:21.382800",
+    "model": "deepseek-chat",
+    "input": 2601,
+    "output": 162,
+    "cost_usd": 0.0008804700000000001,
+    "cost_try": 0.029055510000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:33:25.501097",
+    "model": "deepseek-chat",
+    "input": 471,
+    "output": 163,
+    "cost_usd": 0.00030647,
+    "cost_try": 0.01011351
+  },
+  {
+    "timestamp": "2026-05-02T12:33:40.468076",
+    "model": "deepseek-chat",
+    "input": 3717,
+    "output": 1126,
+    "cost_usd": 0.00224219,
+    "cost_try": 0.07399227
+  },
+  {
+    "timestamp": "2026-05-02T12:34:00.868919",
+    "model": "deepseek-chat",
+    "input": 3441,
+    "output": 719,
+    "cost_usd": 0.0017199700000000001,
+    "cost_try": 0.056759010000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:34:04.942224",
+    "model": "deepseek-chat",
+    "input": 2738,
+    "output": 145,
+    "cost_usd": 0.0008987600000000002,
+    "cost_try": 0.029659080000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:34:09.912746",
+    "model": "deepseek-chat",
+    "input": 2613,
+    "output": 271,
+    "cost_usd": 0.00100361,
+    "cost_try": 0.033119130000000004
+  },
+  {
+    "timestamp": "2026-05-02T12:34:13.647575",
+    "model": "deepseek-chat",
+    "input": 452,
+    "output": 149,
+    "cost_usd": 0.00028594,
+    "cost_try": 0.00943602
+  },
+  {
+    "timestamp": "2026-05-02T12:34:28.453079",
+    "model": "deepseek-chat",
+    "input": 3682,
+    "output": 1043,
+    "cost_usd": 0.0021414400000000005,
+    "cost_try": 0.07066752000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:34:32.796577",
+    "model": "deepseek-chat",
+    "input": 718,
+    "output": 98,
+    "cost_usd": 0.00030166000000000004,
+    "cost_try": 0.009954780000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:34:46.952972",
+    "model": "deepseek-chat",
+    "input": 3452,
+    "output": 1019,
+    "cost_usd": 0.0020529400000000005,
+    "cost_try": 0.06774702000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:34:52.498615",
+    "model": "deepseek-chat",
+    "input": 2603,
+    "output": 132,
+    "cost_usd": 0.0008480100000000002,
+    "cost_try": 0.027984330000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:34:54.874088",
+    "model": "deepseek-chat",
+    "input": 426,
+    "output": 41,
+    "cost_usd": 0.00016012,
+    "cost_try": 0.00528396
+  },
+  {
+    "timestamp": "2026-05-02T12:35:01.086336",
+    "model": "deepseek-chat",
+    "input": 3208,
+    "output": 392,
+    "cost_usd": 0.00129736,
+    "cost_try": 0.04281288
+  },
+  {
+    "timestamp": "2026-05-02T12:35:05.977359",
+    "model": "deepseek-chat",
+    "input": 896,
+    "output": 144,
+    "cost_usd": 0.00040032,
+    "cost_try": 0.01321056
+  },
+  {
+    "timestamp": "2026-05-02T12:35:25.401988",
+    "model": "deepseek-chat",
+    "input": 3706,
+    "output": 1428,
+    "cost_usd": 0.0025714200000000005,
+    "cost_try": 0.08485686000000002
+  },
+  {
+    "timestamp": "2026-05-02T12:35:31.311377",
+    "model": "deepseek-chat",
+    "input": 467,
+    "output": 80,
+    "cost_usd": 0.00021409,
+    "cost_try": 0.00706497
+  },
+  {
+    "timestamp": "2026-05-02T12:35:42.965099",
+    "model": "deepseek-chat",
+    "input": 3694,
+    "output": 814,
+    "cost_usd": 0.0018927800000000002,
+    "cost_try": 0.06246174
+  },
+  {
+    "timestamp": "2026-05-02T12:35:47.200548",
+    "model": "deepseek-chat",
+    "input": 392,
+    "output": 106,
+    "cost_usd": 0.00022244000000000002,
+    "cost_try": 0.0073405200000000006
+  },
+  {
+    "timestamp": "2026-05-02T12:35:58.899511",
+    "model": "deepseek-chat",
+    "input": 3331,
+    "output": 849,
+    "cost_usd": 0.0018332700000000001,
+    "cost_try": 0.06049791
+  },
+  {
+    "timestamp": "2026-05-02T12:36:03.844953",
+    "model": "deepseek-chat",
+    "input": 529,
+    "output": 129,
+    "cost_usd": 0.00028473,
+    "cost_try": 0.009396090000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:36:22.466916",
+    "model": "deepseek-chat",
+    "input": 4316,
+    "output": 1214,
+    "cost_usd": 0.00250072,
+    "cost_try": 0.08252376
+  },
+  {
+    "timestamp": "2026-05-02T12:36:28.798345",
+    "model": "deepseek-chat",
+    "input": 2559,
+    "output": 115,
+    "cost_usd": 0.0008174300000000001,
+    "cost_try": 0.026975190000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:36:30.744871",
+    "model": "deepseek-chat",
+    "input": 324,
+    "output": 23,
+    "cost_usd": 0.00011278000000000001,
+    "cost_try": 0.0037217400000000003
+  },
+  {
+    "timestamp": "2026-05-02T12:36:36.721245",
+    "model": "deepseek-chat",
+    "input": 3390,
+    "output": 353,
+    "cost_usd": 0.0013036,
+    "cost_try": 0.0430188
+  },
+  {
+    "timestamp": "2026-05-02T12:36:41.806328",
+    "model": "deepseek-chat",
+    "input": 2563,
+    "output": 194,
+    "cost_usd": 0.0009054099999999999,
+    "cost_try": 0.029878529999999997
+  },
+  {
+    "timestamp": "2026-05-02T12:36:46.040376",
+    "model": "deepseek-chat",
+    "input": 2567,
+    "output": 202,
+    "cost_usd": 0.00091529,
+    "cost_try": 0.03020457
+  },
+  {
+    "timestamp": "2026-05-02T12:36:48.367083",
+    "model": "deepseek-chat",
+    "input": 324,
+    "output": 28,
+    "cost_usd": 0.00011828000000000001,
+    "cost_try": 0.0039032400000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:36:56.272407",
+    "model": "deepseek-chat",
+    "input": 3054,
+    "output": 514,
+    "cost_usd": 0.00138998,
+    "cost_try": 0.04586934
+  },
+  {
+    "timestamp": "2026-05-02T12:36:59.632966",
+    "model": "deepseek-chat",
+    "input": 450,
+    "output": 78,
+    "cost_usd": 0.00020730000000000002,
+    "cost_try": 0.0068409000000000005
+  },
+  {
+    "timestamp": "2026-05-02T12:37:09.725168",
+    "model": "deepseek-chat",
+    "input": 3237,
+    "output": 705,
+    "cost_usd": 0.0016494900000000002,
+    "cost_try": 0.05443317000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:37:13.496993",
+    "model": "deepseek-chat",
+    "input": 498,
+    "output": 50,
+    "cost_usd": 0.00018946000000000002,
+    "cost_try": 0.00625218
+  },
+  {
+    "timestamp": "2026-05-02T12:37:21.400823",
+    "model": "deepseek-chat",
+    "input": 3930,
+    "output": 540,
+    "cost_usd": 0.0016551,
+    "cost_try": 0.0546183
+  },
+  {
+    "timestamp": "2026-05-02T12:37:37.185449",
+    "model": "deepseek-chat",
+    "input": 3719,
+    "output": 1089,
+    "cost_usd": 0.0022020300000000002,
+    "cost_try": 0.07266699
+  },
+  {
+    "timestamp": "2026-05-02T12:39:16.680725",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T12:40:56.599242",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T12:42:37.047659",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T12:42:40.513468",
+    "model": "deepseek-chat",
+    "input": 488,
+    "output": 69,
+    "cost_usd": 0.00020766000000000003,
+    "cost_try": 0.006852780000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:42:51.227719",
+    "model": "deepseek-chat",
+    "input": 3370,
+    "output": 780,
+    "cost_usd": 0.0017679000000000002,
+    "cost_try": 0.05834070000000001
+  },
+  {
+    "timestamp": "2026-05-02T12:42:56.583451",
+    "model": "deepseek-chat",
+    "input": 1106,
+    "output": 241,
+    "cost_usd": 0.00056372,
+    "cost_try": 0.01860276
+  },
+  {
+    "timestamp": "2026-05-02T20:27:07.150500",
+    "model": "deepseek-chat",
+    "input": 3272,
+    "output": 131,
+    "cost_usd": 0.0010275400000000002,
+    "cost_try": 0.033908820000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:27:11.488313",
+    "model": "deepseek-chat",
+    "input": 2807,
+    "output": 201,
+    "cost_usd": 0.0009789900000000001,
+    "cost_try": 0.03230667
+  },
+  {
+    "timestamp": "2026-05-02T20:27:15.460813",
+    "model": "deepseek-chat",
+    "input": 2736,
+    "output": 176,
+    "cost_usd": 0.00093232,
+    "cost_try": 0.030766560000000002
+  },
+  {
+    "timestamp": "2026-05-02T20:27:23.179078",
+    "model": "deepseek-chat",
+    "input": 2702,
+    "output": 504,
+    "cost_usd": 0.0012839400000000003,
+    "cost_try": 0.04237002000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:27:31.242910",
+    "model": "deepseek-chat",
+    "input": 2702,
+    "output": 513,
+    "cost_usd": 0.00129384,
+    "cost_try": 0.04269672
+  },
+  {
+    "timestamp": "2026-05-02T20:27:36.739587",
+    "model": "deepseek-chat",
+    "input": 2719,
+    "output": 269,
+    "cost_usd": 0.0010300300000000001,
+    "cost_try": 0.033990990000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:27:49.881869",
+    "model": "deepseek-chat",
+    "input": 337,
+    "output": 10,
+    "cost_usd": 0.00010199,
+    "cost_try": 0.0033656700000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:27:53.360320",
+    "model": "deepseek-chat",
+    "input": 3558,
+    "output": 157,
+    "cost_usd": 0.0011333600000000001,
+    "cost_try": 0.037400880000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:28:12.134882",
+    "model": "deepseek-chat",
+    "input": 326,
+    "output": 33,
+    "cost_usd": 0.00012432000000000003,
+    "cost_try": 0.004102560000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:28:19.997101",
+    "model": "deepseek-chat",
+    "input": 2771,
+    "output": 499,
+    "cost_usd": 0.00129707,
+    "cost_try": 0.04280331
+  },
+  {
+    "timestamp": "2026-05-02T20:28:59.509421",
+    "model": "deepseek-chat",
+    "input": 328,
+    "output": 25,
+    "cost_usd": 0.00011606000000000001,
+    "cost_try": 0.00382998
+  },
+  {
+    "timestamp": "2026-05-02T20:29:05.798351",
+    "model": "deepseek-chat",
+    "input": 3721,
+    "output": 374,
+    "cost_usd": 0.0014160700000000002,
+    "cost_try": 0.046730310000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:29:09.376378",
+    "model": "deepseek-chat",
+    "input": 488,
+    "output": 116,
+    "cost_usd": 0.00025936000000000004,
+    "cost_try": 0.008558880000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:29:31.130712",
+    "model": "deepseek-chat",
+    "input": 5116,
+    "output": 1675,
+    "cost_usd": 0.0032238200000000005,
+    "cost_try": 0.10638606000000002
+  },
+  {
+    "timestamp": "2026-05-02T20:29:35.243988",
+    "model": "deepseek-chat",
+    "input": 426,
+    "output": 91,
+    "cost_usd": 0.00021512000000000001,
+    "cost_try": 0.0070989600000000005
+  },
+  {
+    "timestamp": "2026-05-02T20:29:43.874021",
+    "model": "deepseek-chat",
+    "input": 3881,
+    "output": 602,
+    "cost_usd": 0.0017100700000000002,
+    "cost_try": 0.056432310000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:29:48.202379",
+    "model": "deepseek-chat",
+    "input": 2694,
+    "output": 134,
+    "cost_usd": 0.00087478,
+    "cost_try": 0.02886774
+  },
+  {
+    "timestamp": "2026-05-02T20:30:02.354611",
+    "model": "deepseek-chat",
+    "input": 3719,
+    "output": 1089,
+    "cost_usd": 0.0022020300000000002,
+    "cost_try": 0.07266699
+  },
+  {
+    "timestamp": "2026-05-02T20:31:41.987019",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T20:33:23.746615",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8181,
+    "cost_usd": 0.011507400000000001,
+    "cost_try": 0.37974420000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:33:44.659073",
+    "model": "deepseek-chat",
+    "input": 2740,
+    "output": 162,
+    "cost_usd": 0.0009180000000000001,
+    "cost_try": 0.030294
+  },
+  {
+    "timestamp": "2026-05-02T20:33:48.599744",
+    "model": "deepseek-chat",
+    "input": 2657,
+    "output": 214,
+    "cost_usd": 0.0009527900000000001,
+    "cost_try": 0.03144207
+  },
+  {
+    "timestamp": "2026-05-02T20:33:53.480999",
+    "model": "deepseek-chat",
+    "input": 2736,
+    "output": 259,
+    "cost_usd": 0.00102362,
+    "cost_try": 0.033779460000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:33:55.703932",
+    "model": "deepseek-chat",
+    "input": 362,
+    "output": 25,
+    "cost_usd": 0.00012524000000000001,
+    "cost_try": 0.004132920000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:34:00.770351",
+    "model": "deepseek-chat",
+    "input": 2689,
+    "output": 309,
+    "cost_usd": 0.00106593,
+    "cost_try": 0.03517569
+  },
+  {
+    "timestamp": "2026-05-02T20:34:03.446811",
+    "model": "deepseek-chat",
+    "input": 514,
+    "output": 43,
+    "cost_usd": 0.00018608,
+    "cost_try": 0.00614064
+  },
+  {
+    "timestamp": "2026-05-02T20:34:11.868148",
+    "model": "deepseek-chat",
+    "input": 3564,
+    "output": 605,
+    "cost_usd": 0.0016277800000000001,
+    "cost_try": 0.053716740000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:34:15.548437",
+    "model": "deepseek-chat",
+    "input": 539,
+    "output": 80,
+    "cost_usd": 0.00023353,
+    "cost_try": 0.00770649
+  },
+  {
+    "timestamp": "2026-05-02T20:34:25.470007",
+    "model": "deepseek-chat",
+    "input": 3441,
+    "output": 710,
+    "cost_usd": 0.0017100700000000002,
+    "cost_try": 0.056432310000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:34:30.412327",
+    "model": "deepseek-chat",
+    "input": 2614,
+    "output": 186,
+    "cost_usd": 0.00091038,
+    "cost_try": 0.03004254
+  },
+  {
+    "timestamp": "2026-05-02T20:34:32.369322",
+    "model": "deepseek-chat",
+    "input": 410,
+    "output": 10,
+    "cost_usd": 0.0001217,
+    "cost_try": 0.0040161
+  },
+  {
+    "timestamp": "2026-05-02T20:34:35.619688",
+    "model": "deepseek-chat",
+    "input": 2744,
+    "output": 157,
+    "cost_usd": 0.00091358,
+    "cost_try": 0.03014814
+  },
+  {
+    "timestamp": "2026-05-02T20:34:50.671558",
+    "model": "deepseek-chat",
+    "input": 3719,
+    "output": 1089,
+    "cost_usd": 0.0022020300000000002,
+    "cost_try": 0.07266699
+  },
+  {
+    "timestamp": "2026-05-02T20:36:29.344831",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T20:38:07.950814",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T20:39:50.257172",
+    "model": "deepseek-chat",
+    "input": 9290,
+    "output": 8192,
+    "cost_usd": 0.0115195,
+    "cost_try": 0.3801435
+  },
+  {
+    "timestamp": "2026-05-02T20:40:02.489862",
+    "model": "deepseek-chat",
+    "input": 2686,
+    "output": 132,
+    "cost_usd": 0.00087042,
+    "cost_try": 0.02872386
+  },
+  {
+    "timestamp": "2026-05-02T20:40:04.906931",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 6,
+    "cost_usd": 0.00011487,
+    "cost_try": 0.00379071
+  },
+  {
+    "timestamp": "2026-05-02T20:40:14.982815",
+    "model": "deepseek-chat",
+    "input": 2689,
+    "output": 666,
+    "cost_usd": 0.0014586300000000003,
+    "cost_try": 0.04813479000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:40:17.841359",
+    "model": "deepseek-chat",
+    "input": 415,
+    "output": 28,
+    "cost_usd": 0.00014285000000000003,
+    "cost_try": 0.004714050000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:40:23.785804",
+    "model": "deepseek-chat",
+    "input": 2740,
+    "output": 393,
+    "cost_usd": 0.0011721000000000001,
+    "cost_try": 0.03867930000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:40:26.255590",
+    "model": "deepseek-chat",
+    "input": 325,
+    "output": 23,
+    "cost_usd": 0.00011305000000000001,
+    "cost_try": 0.0037306500000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:40:31.188117",
+    "model": "deepseek-chat",
+    "input": 3143,
+    "output": 307,
+    "cost_usd": 0.0011863099999999999,
+    "cost_try": 0.03914823
+  },
+  {
+    "timestamp": "2026-05-02T20:40:35.698470",
+    "model": "deepseek-chat",
+    "input": 2605,
+    "output": 216,
+    "cost_usd": 0.0009409500000000001,
+    "cost_try": 0.031051350000000002
+  },
+  {
+    "timestamp": "2026-05-02T20:40:38.240261",
+    "model": "deepseek-chat",
+    "input": 263,
+    "output": 69,
+    "cost_usd": 0.00014691,
+    "cost_try": 0.00484803
+  },
+  {
+    "timestamp": "2026-05-02T20:40:44.103855",
+    "model": "deepseek-chat",
+    "input": 2777,
+    "output": 378,
+    "cost_usd": 0.0011655900000000002,
+    "cost_try": 0.03846447000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:40:50.472867",
+    "model": "deepseek-chat",
+    "input": 2740,
+    "output": 357,
+    "cost_usd": 0.0011325000000000003,
+    "cost_try": 0.03737250000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:40:54.208852",
+    "model": "deepseek-chat",
+    "input": 2547,
+    "output": 144,
+    "cost_usd": 0.0008460900000000001,
+    "cost_try": 0.027920970000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:41:00.405809",
+    "model": "deepseek-chat",
+    "input": 2636,
+    "output": 245,
+    "cost_usd": 0.00098122,
+    "cost_try": 0.03238026
+  },
+  {
+    "timestamp": "2026-05-02T20:41:05.416258",
+    "model": "deepseek-chat",
+    "input": 1038,
+    "output": 264,
+    "cost_usd": 0.00057066,
+    "cost_try": 0.01883178
+  },
+  {
+    "timestamp": "2026-05-02T20:41:28.739141",
+    "model": "deepseek-chat",
+    "input": 5794,
+    "output": 1995,
+    "cost_usd": 0.00375888,
+    "cost_try": 0.12404304000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:41:36.131043",
+    "model": "deepseek-chat",
+    "input": 787,
+    "output": 229,
+    "cost_usd": 0.00046439000000000007,
+    "cost_try": 0.015324870000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:42:00.971405",
+    "model": "deepseek-chat",
+    "input": 5242,
+    "output": 1973,
+    "cost_usd": 0.00358564,
+    "cost_try": 0.11832612
+  },
+  {
+    "timestamp": "2026-05-02T20:42:06.682852",
+    "model": "deepseek-chat",
+    "input": 2605,
+    "output": 153,
+    "cost_usd": 0.0008716500000000001,
+    "cost_try": 0.028764450000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:42:10.046200",
+    "model": "deepseek-chat",
+    "input": 2605,
+    "output": 153,
+    "cost_usd": 0.0008716500000000001,
+    "cost_try": 0.028764450000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:42:14.271961",
+    "model": "deepseek-chat",
+    "input": 2513,
+    "output": 177,
+    "cost_usd": 0.00087321,
+    "cost_try": 0.02881593
+  },
+  {
+    "timestamp": "2026-05-02T20:42:17.425356",
+    "model": "deepseek-chat",
+    "input": 2701,
+    "output": 72,
+    "cost_usd": 0.00080847,
+    "cost_try": 0.02667951
+  },
+  {
+    "timestamp": "2026-05-02T20:42:21.849564",
+    "model": "deepseek-chat",
+    "input": 3534,
+    "output": 207,
+    "cost_usd": 0.0011818800000000002,
+    "cost_try": 0.03900204000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:42:23.758598",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:42:25.709955",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 32,
+    "cost_usd": 0.00074881,
+    "cost_try": 0.02471073
+  },
+  {
+    "timestamp": "2026-05-02T20:42:28.969962",
+    "model": "deepseek-chat",
+    "input": 2494,
+    "output": 48,
+    "cost_usd": 0.00072618,
+    "cost_try": 0.02396394
+  },
+  {
+    "timestamp": "2026-05-02T20:42:30.741371",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:42:32.702187",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 32,
+    "cost_usd": 0.00074881,
+    "cost_try": 0.02471073
+  },
+  {
+    "timestamp": "2026-05-02T20:43:39.126765",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:43:41.374817",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 46,
+    "cost_usd": 0.0007642100000000001,
+    "cost_try": 0.025218930000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:44:00.477063",
+    "model": "deepseek-chat",
+    "input": 298,
+    "output": 8,
+    "cost_usd": 8.926000000000001e-05,
+    "cost_try": 0.00294558
+  },
+  {
+    "timestamp": "2026-05-02T20:44:04.004834",
+    "model": "deepseek-chat",
+    "input": 2638,
+    "output": 172,
+    "cost_usd": 0.0009014600000000001,
+    "cost_try": 0.029748180000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:44:11.561266",
+    "model": "deepseek-chat",
+    "input": 2618,
+    "output": 207,
+    "cost_usd": 0.0009345600000000001,
+    "cost_try": 0.030840480000000003
+  },
+  {
+    "timestamp": "2026-05-02T20:45:45.473329",
+    "model": "deepseek-chat",
+    "input": 2644,
+    "output": 925,
+    "cost_usd": 0.0017313800000000002,
+    "cost_try": 0.057135540000000005
+  },
+  {
+    "timestamp": "2026-05-02T20:47:10.399160",
+    "model": "deepseek-chat",
+    "input": 7476,
+    "output": 7073,
+    "cost_usd": 0.00979882,
+    "cost_try": 0.32336106
+  },
+  {
+    "timestamp": "2026-05-02T20:47:32.624481",
+    "model": "deepseek-chat",
+    "input": 2644,
+    "output": 925,
+    "cost_usd": 0.0017313800000000002,
+    "cost_try": 0.057135540000000005
+  },
+  {
+    "timestamp": "2026-05-02T20:49:11.014473",
+    "model": "deepseek-chat",
+    "input": 7476,
+    "output": 8112,
+    "cost_usd": 0.010941720000000002,
+    "cost_try": 0.36107676000000005
+  },
+  {
+    "timestamp": "2026-05-02T20:51:25.393037",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:51:26.952888",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 32,
+    "cost_usd": 0.00074881,
+    "cost_try": 0.02471073
+  },
+  {
+    "timestamp": "2026-05-02T20:53:45.449269",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:53:47.747414",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 32,
+    "cost_usd": 0.00074881,
+    "cost_try": 0.02471073
+  },
+  {
+    "timestamp": "2026-05-02T20:53:50.689940",
+    "model": "deepseek-chat",
+    "input": 347,
+    "output": 4,
+    "cost_usd": 9.809e-05,
+    "cost_try": 0.00323697
+  },
+  {
+    "timestamp": "2026-05-02T20:53:52.722494",
+    "model": "deepseek-chat",
+    "input": 2643,
+    "output": 46,
+    "cost_usd": 0.0007642100000000001,
+    "cost_try": 0.025218930000000004
+  },
+  {
+    "timestamp": "2026-05-02T20:54:59.736364",
+    "model": "deepseek-chat",
+    "input": 2497,
+    "output": 87,
+    "cost_usd": 0.0007698900000000001,
+    "cost_try": 0.02540637
+  },
+  {
+    "timestamp": "2026-05-02T20:55:08.197728",
+    "model": "deepseek-chat",
+    "input": 2715,
+    "output": 191,
+    "cost_usd": 0.00094315,
+    "cost_try": 0.03112395
+  },
+  {
+    "timestamp": "2026-05-02T20:55:33.951539",
+    "model": "deepseek-chat",
+    "input": 345,
+    "output": 66,
+    "cost_usd": 0.00016575,
+    "cost_try": 0.00546975
+  },
+  {
+    "timestamp": "2026-05-02T20:55:42.187558",
+    "model": "deepseek-chat",
+    "input": 4258,
+    "output": 600,
+    "cost_usd": 0.00180966,
+    "cost_try": 0.05971878
+  },
+  {
+    "timestamp": "2026-05-02T20:56:00.214956",
+    "model": "deepseek-chat",
+    "input": 4699,
+    "output": 84,
+    "cost_usd": 0.0013611300000000001,
+    "cost_try": 0.044917290000000006
+  },
+  {
+    "timestamp": "2026-05-02T20:57:09.448810",
+    "model": "deepseek-chat",
+    "input": 3044,
+    "output": 243,
+    "cost_usd": 0.0010891800000000001,
+    "cost_try": 0.03594294000000001
+  },
+  {
+    "timestamp": "2026-05-02T20:59:59.557642",
+    "model": "deepseek-chat",
+    "input": 376,
+    "output": 84,
+    "cost_usd": 0.00019392000000000001,
+    "cost_try": 0.006399360000000001
+  },
+  {
+    "timestamp": "2026-05-02T21:00:13.160331",
+    "model": "deepseek-chat",
+    "input": 3078,
+    "output": 982,
+    "cost_usd": 0.0019112600000000001,
+    "cost_try": 0.06307158
+  },
+  {
+    "timestamp": "2026-05-02T21:01:40.200516",
+    "model": "deepseek-chat",
+    "input": 377,
+    "output": 42,
+    "cost_usd": 0.00014799,
+    "cost_try": 0.00488367
+  },
+  {
+    "timestamp": "2026-05-02T21:01:45.528627",
+    "model": "deepseek-chat",
+    "input": 3119,
+    "output": 361,
+    "cost_usd": 0.00123923,
+    "cost_try": 0.04089459
+  },
+  {
+    "timestamp": "2026-05-02T21:02:43.976319",
+    "model": "deepseek-chat",
+    "input": 2727,
+    "output": 217,
+    "cost_usd": 0.0009749900000000001,
+    "cost_try": 0.03217467
+  },
+  {
+    "timestamp": "2026-05-02T21:04:06.508902",
+    "model": "deepseek-chat",
+    "input": 3060,
+    "output": 206,
+    "cost_usd": 0.0010528,
+    "cost_try": 0.0347424
+  },
+  {
+    "timestamp": "2026-05-02T21:08:24.933004",
+    "model": "deepseek-chat",
+    "input": 2570,
+    "output": 132,
+    "cost_usd": 0.0008391000000000002,
+    "cost_try": 0.027690300000000004
+  },
+  {
+    "timestamp": "2026-05-02T21:09:03.255558",
+    "model": "deepseek-chat",
+    "input": 336,
+    "output": 10,
+    "cost_usd": 0.00010172,
+    "cost_try": 0.00335676
+  },
+  {
+    "timestamp": "2026-05-02T21:09:07.862356",
+    "model": "deepseek-chat",
+    "input": 2874,
+    "output": 271,
+    "cost_usd": 0.00107408,
+    "cost_try": 0.03544464
+  },
+  {
+    "timestamp": "2026-05-02T21:12:56.216274",
+    "model": "deepseek-chat",
+    "input": 2896,
+    "output": 197,
+    "cost_usd": 0.00099862,
+    "cost_try": 0.03295446
+  },
+  {
+    "timestamp": "2026-05-02T21:13:37.330768",
+    "model": "deepseek-chat",
+    "input": 366,
+    "output": 91,
+    "cost_usd": 0.00019892,
+    "cost_try": 0.00656436
+  },
+  {
+    "timestamp": "2026-05-02T21:13:54.500645",
+    "model": "deepseek-chat",
+    "input": 4904,
+    "output": 1376,
+    "cost_usd": 0.0028376800000000004,
+    "cost_try": 0.09364344000000001
+  },
+  {
+    "timestamp": "2026-05-02T21:17:08.819902",
+    "model": "deepseek-chat",
+    "input": 2660,
+    "output": 169,
+    "cost_usd": 0.0009041,
+    "cost_try": 0.029835300000000002
+  },
+  {
+    "timestamp": "2026-05-02T21:20:37.273827",
+    "model": "deepseek-chat",
+    "input": 3558,
+    "output": 145,
+    "cost_usd": 0.00112016,
+    "cost_try": 0.03696528
+  },
+  {
+    "timestamp": "2026-05-02T21:21:53.342761",
+    "model": "deepseek-chat",
+    "input": 3496,
+    "output": 189,
+    "cost_usd": 0.00115182,
+    "cost_try": 0.03801006
+  },
+  {
+    "timestamp": "2026-05-02T21:22:05.716868",
+    "model": "deepseek-chat",
+    "input": 4829,
+    "output": 19,
+    "cost_usd": 0.00132473,
+    "cost_try": 0.043716090000000006
+  },
+  {
+    "timestamp": "2026-05-02T21:22:07.700935",
+    "model": "deepseek-chat",
+    "input": 7475,
+    "output": 39,
+    "cost_usd": 0.00206115,
+    "cost_try": 0.06801795
+  },
+  {
+    "timestamp": "2026-05-02T21:24:14.878104",
+    "model": "deepseek-chat",
+    "input": 3350,
+    "output": 128,
+    "cost_usd": 0.0010453,
+    "cost_try": 0.0344949
+  },
+  {
+    "timestamp": "2026-05-02T21:26:56.087956",
+    "model": "deepseek-chat",
+    "input": 477,
+    "output": 66,
+    "cost_usd": 0.00020139000000000002,
+    "cost_try": 0.006645870000000001
+  },
+  {
+    "timestamp": "2026-05-02T21:27:03.969817",
+    "model": "deepseek-chat",
+    "input": 3439,
+    "output": 551,
+    "cost_usd": 0.0015346300000000002,
+    "cost_try": 0.05064279000000001
   }
 ]

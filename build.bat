@@ -78,7 +78,7 @@ echo.
 echo [INFO] Building executable with PyInstaller...
 echo.
 
-%PYTHON_CMD% -m PyInstaller mavi_lojistik.spec
+%PYTHON_CMD% -m PyInstaller -y mavi_lojistik.spec
 
 if %errorlevel% neq 0 (
     echo.

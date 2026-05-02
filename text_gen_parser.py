@@ -62,12 +62,12 @@ class TextGenParser:
         # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
         self.semaphore = threading.Semaphore(max_concurrent)
         
-        # Models - Using Llama as primary due to Gemini environment 404s
-        self.model_fast = 'llama-3.1-8b-instant'
-        self.model_robust = 'llama-3.3-70b-versatile'
+        # Models
+        self.model_fast = 'deepseek-chat'
+        self.model_robust = 'deepseek-chat'
         self.model_deepseek = 'deepseek-chat'
-        self.model_gemini = 'llama-3.3-70b-versatile'
-        self.fallback_models = ['mixtral-8x7b-32768', 'llama-3.1-70b-versatile']
+        self.model_gemini = 'deepseek-chat'
+        self.fallback_models = ['llama-3.1-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
@@ -164,7 +164,7 @@ class TextGenParser:
         
         # Add Common Aliases & Major Logistics Hubs (Districts that act like Cities in logistics)
         aliases = ["ANTEP", "MARAŞ", "URFA", "GANTEP", "KMARAŞ", "ŞURFA"]
-        hubs = ["KIZILTEPE", "GEBZE", "ÇORLU", "İNEGÖL", "İSKENDERUN", "ÇERKEZKÖY", "SİLİVRİ", "TUZLA", "DİLOVASI", "KEMALPAŞA", "MUSTAFAKEMALPAŞA"]
+        hubs = ["ALİAĞA", "KIZILTEPE", "GEBZE", "ÇORLU", "İNEGÖL", "İSKENDERUN", "ÇERKEZKÖY", "SİLİVRİ", "TUZLA", "DİLOVASI", "KEMALPAŞA", "MUSTAFAKEMALPAŞA"]
         
         all_locs = list(set(cities + aliases + hubs))
         all_locs.sort(key=len, reverse=True)
@@ -185,27 +185,49 @@ class TextGenParser:
         if not text: return ""
         
         # --- STEP 0: Detect repeated emoji chains as shipment separators ---
-        # e.g. "🚛🚛🚛🚛" = divider between two separate shipment ads
         text = re.sub(r'([\U0001F300-\U0001FFFF])\1{2,}', '\n---\n', text)
-        
-        # Normalize Bullet Points and List items to a standard format
-        # Replace -, *, •, ●, ▪️, ▫️, 1., 2. at the start of lines with a space
-        text = re.sub(r'^\s*[-*•●▪▫]\s*', ' ', text, flags=re.MULTILINE)
-        text = re.sub(r'^\s*\d+[\.\)]\s*', ' ', text, flags=re.MULTILINE)
 
-        # Common emojis that stick to words
-        stickies = ['📍', '➡️', '🚚', '📦', '🧅', '📞', '👉', '👉🏻', '👉🏼', '✅', '🚛']
-        for s in stickies:
-            text = text.replace(s, f" {s} ")
+        # Remove distracting characters that confuse the AI's structure analysis
+        text = text.replace('"', '').replace('!', '').replace('*', '')
         
-        # Replace arrow-like symbols with standard arrows
+        # Common logistics symbols to remove if they are at the start of a line (Bullet points)
+        # Includes stars, arrows, pins, dots etc.
+        text = re.sub(r'^\s*[*📍•●▪▫]\s*', '', text, flags=re.MULTILINE)
+
+        # SECTION SEPARATORS: ⬇️/⬆️ arrows indicate section boundaries between origin groups
+        # Must be AFTER bullet cleanup to prevent --- from being eaten
+        text = text.replace('⬇️', '\n---\n').replace('⬇', '\n---\n')
+        text = text.replace('⬆️', '\n---\n').replace('⬆', '\n---\n')
+        
+        # Normalize Arrows in the middle of text
         text = text.replace('👉', ' -> ').replace('➡️', ' -> ').replace('👉🏻', ' -> ')
+        text = text.replace(' • ', ' -> ').replace('•', ' -> ')
         
-        # City Abbreviation Normalization (with dots)
-        text = text.replace('İST.', ' İSTANBUL ').replace('ANK.', ' ANKARA ').replace('İZM.', ' İZMİR ')
-        text = text.replace('KOC.', ' KOCAELİ ').replace('BUR.', ' BURSA ')
+        # CRITICAL: If a line starts with an arrow "-> LOCATION", it's just a bullet point.
+        # Remove arrows at the start of lines to prevent "X -> Y" confusion where X is missing.
+        text = re.sub(r'^\s*->\s*', '', text, flags=re.MULTILINE)
+        text = re.sub(r'^\s*=>\s*', '', text, flags=re.MULTILINE)
+
+        # HEADER CLEANUP: "ANKARA -> YÜKLER" should be "ANKARA YÜKLER" (section header, not route)
+        text = re.sub(r'->\s*YÜKLER', ' YÜKLER', text, flags=re.IGNORECASE)
+
+        # PRICE CLEANING: Remove price patterns like :600+, :1.150+, :35.000₺ to prevent AI noise
+        text = re.sub(r':\s*[\d\.]+\s*\+?\s*₺?(?=\s|$)', '', text)
+
+        # Remove trailing periods at end of location names (e.g. "Ferizli." -> "Ferizli")
+        text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\.(?=\s|$)', r'\1', text)
+
+        # Space out joined locations (e.g. İST.ESENYURT -> İST. ESENYURT)
+        text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\.([a-zA-ZİıĞğÜüŞşÖöÇç])', r'\1. \2', text)
+
+        # City Abbreviation Normalization (Case-insensitive for İst./İzm./Ank. etc.)
+        text = text.replace('İst.', ' İSTANBUL ').replace('İST.', ' İSTANBUL ')
+        text = text.replace('Ank.', ' ANKARA ').replace('ANK.', ' ANKARA ')
+        text = text.replace('İzm.', ' İZMİR ').replace('İZM.', ' İZMİR ')
+        text = text.replace('Koc.', ' KOCAELİ ').replace('KOC.', ' KOCAELİ ')
+        text = text.replace('Bur.', ' BURSA ').replace('BUR.', ' BURSA ')
         
-        # Separate locations joined by + or / (e.g. URFA+ADANA -> URFA + ADANA)
+        # Separate locations joined by + or /
         text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\+([a-zA-ZİıĞğÜüŞşÖöÇç])', r'\1 + \2', text)
         text = re.sub(r'([a-zA-ZİıĞğÜüŞşÖöÇç])\/([a-zA-ZİıĞğÜüŞşÖöÇç])', r'\1 / \2', text)
 
@@ -214,7 +236,6 @@ class TextGenParser:
         lines = [' '.join(line.split()) for line in lines]
         text = '\n'.join(lines)
         
-        # --- AUTO TAG CITIES ---
         return self._tag_cities(text)
 
     async def _extract_locations_stage1_async(self, message: str) -> str:
@@ -227,7 +248,13 @@ class TextGenParser:
         found_tags = re.findall(r'\[(.*?)\]', clean_msg)
         hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
 
-        system_prompt = "You are a logistics location extractor. If you see a multi-origin pattern like 'A+B+C -> D', you MUST output them as separate lines:\nA -> D\nB -> D\nC -> D\nNEVER join them with '+'. Output ONLY the routes in 'ORIGIN -> DESTINATION' format."
+        system_prompt = """You are a logistics location extractor. 
+RULES:
+1. If a line contains 'LOCATION YÜKLER', 'LOCATION YÜKLEMELİ' or 'LOCATION ÇIKIŞLI', that LOCATION is the ORIGIN for ALL subsequent destinations until a '---' separator or new header.
+2. '---' separators mark SECTION BOUNDARIES. Each section has its own ORIGIN header. NEVER carry an origin across a '---' boundary.
+3. If you see a multi-origin pattern like 'A+B+C -> D', output separate lines: A -> D, B -> D, C -> D.
+4. NEVER create routes between two list items (chaining). Only HEADER -> list_item routes.
+5. Output ONLY the routes in 'ORIGIN -> DESTINATION' format. No explanations."""
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
         model_to_use = self.model_gemini
         
@@ -243,6 +270,16 @@ class TextGenParser:
                         )
                         text = response.text
                         self._track_spend(model_to_use, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
+                        return text.strip()
+                    elif "deepseek" in model_to_use:
+                        client = self._get_deepseek_client()
+                        response = await client.chat.completions.create(
+                            model=model_to_use,
+                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                            temperature=0.0
+                        )
+                        text = response.choices[0].message.content
+                        self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
                         return text.strip()
                     else:
                         # Fallback for Stage 1 if needed
@@ -287,6 +324,12 @@ class TextGenParser:
         
         loc_context = self.city_validator.get_loc_context(message)
         
+        # --- HALLUCINATION PROTECTION ---
+        # If no locations found in registry AND message is short, do NOT call AI.
+        if "No specific location matches found" in loc_context and len(message) < 100:
+            logger.info(f"🚫 Hallucination protection triggered for: '{message}'")
+            return []
+
         # 2. Stage 1 (Ground Truth)
         confirmed_locs = ""
         if len(message) > 150:
@@ -315,38 +358,70 @@ STRICT RULE: Only extract routes explicitly stated. Do NOT invent locations.
 
 {loc_guideline}
 
-EXAMPLE OF VERTICAL LIST PARSING:
-Message:
-ADANA CUMARTESİ YÜKLEME
-İSTANBUL AVR. 2 NOKTA
-ANKARA TEK NOKTA
-0532...
-Expected Logic:
-- Global Origin: ADANA
-- Route 1: ADANA -> İSTANBUL (AVR)
-- Route 2: ADANA -> ANKARA (MERKEZ)
-
 EXTRACTION & LOGIC RULES:
-1. HARD HIERARCHY: City > District > Neighborhood. ALWAYS identify the CITY (İL) first. 
-2. NO HALLUCINATION: If a location is not in the message, DO NOT add it. Do NOT invent routes.
-3. SUFFIXES: -den/-dan indicates ORIGIN, -e/-a indicates DESTINATION.
-4. ORDER: In "A B" patterns, A is ALWAYS the ORIGIN even if B is a City and A is a District (e.g. "KIZILTEPE ANTEP" means KIZILTEPE -> ANTEP).
-5. GLOBAL ORIGIN (HEADER-BASED): If a message starts with a location (e.g., "NİĞDE CUMARTESİ YÜKLEME") and then lists multiple locations line-by-line, that first location is the ORIGIN for ALL subsequent locations.
-6. VERTICAL LISTS: In a vertical list where each line contains a location (e.g., "ALANYA TEK NOKTA", "ADANA 3 NOKTA"), these locations are ALWAYS the DESTINATIONS (nereye). The origin (nereden) is taken from the header.
-7. MULTI-DESTINATION (X NOKTA): Expressions like "ADANA 3 NOKTA" or "İZMİR 2 NOKTA" indicate that the location mentioned (ADANA, İZMİR) is the DESTINATION. The number (3, 2) is the count of drops at that destination.
-8. PLUS SIGN IN LIST: If a line in a vertical list is "DÜZCE + İSTANBUL", it means İki AYRI varış noktası (Separate destinations) from the same origin. Create two separate route objects.
-9. VERTICAL LIST RESET: If a new company name, phone number, or keywords like "YÜK", "YÜKLEME", "YENİ YÜK" appear at the top of a new block, the previous global origin is RESET.
-10. NO CHAINING: Treat each target as a separate route from the main origin. NEVER create routes between two destination points in a list.
-11. MULTI-ROUTE SYMBOLS: 
+5. GLOBAL ORIGIN (HEADER-BASED): If a line contains "LOCATION YÜKLER", "LOCATION YÜKLER:", "LOCATION ÇIKIŞLI", "LOCATION YÜKLEME" or similar, that LOCATION is ALWAYS the ORIGIN (nereden) for ALL subsequent locations until a '---' separator or a new header appears. Words like "ORGANİZE", "ERCİYES", "HAL" are qualifiers (industrial zone, market area), NOT locations.
+6. VERTICAL LISTS (MANY-TO-ONE): In a vertical list following an origin header, EVERY line between the header and the next '---' separator is a DESTINATION (nereye) from that header's origin. Even if a line contains a city name like "ORDU merkez" or "Amasya merkez", it is still a DESTINATION, not a new origin. The header is ALWAYS the start, the list items are ALWAYS the ends.
+7. MULTI-DESTINATION (X NOKTA): Expressions like "ADANA 3 NOKTA" or "İZMİR 2 NOKTA" indicate that the location mentioned (ADANA, İZMİR) is the DESTINATION.
+8. PLUS SIGN IN LIST: If a line in a vertical list is "DÜZCE + İSTANBUL" or "Akhisar + Saruhanlı", it means two separate destinations.
+9. VERTICAL LIST RESET (STRICT): If a line contains "ÇIKIŞLI", "YÜKLEME", "KALKIŞ", "YÜKLER", "YÜKLER:" or if a "---" separator appears, the previous global origin is RESET. The NEW location on that line becomes the global origin. EVERY section separated by '---' is INDEPENDENT — origins NEVER carry across '---'.
+10. NO CHAINING (ABSOLUTE RULE): In a vertical list under "ORIGIN YÜKLER:", each item is a destination FROM that origin. NEVER create routes from one list item to the next. If the header is "ANKARA YÜKLER:" and items are "Sakarya Ferizli", "İstanbul Tuzla", "İzmir Dikili", the routes are: ANKARA->SAKARYA/FERİZLİ, ANKARA->İSTANBUL/TUZLA, ANKARA->İZMİR/DİKİLİ. NEVER Ferizli->Tuzla or Tuzla->İzmir.
+11. MANY-TO-MANY COMBINATIONS: If a message says "X ve Y'den -> A ve B'ye", you MUST create 4 routes: (X->A), (X->B), (Y->A), (Y->B). Combinations are mandatory.
+12. MULTI-ROUTE SYMBOLS: 
    - "X'den Y ve Z'ye" = (X->Y) and (X->Z). 
-   - "X + Y + Z -> A" or "X/Y/Z -> A" = (X->A), (Y->A), (Z->A). EACH location before the arrow is a separate ORIGIN.
-12. STOP COUNTS: Ignore "TEK NOKTA", "2 NOKTA", "3 YER", "DÖNÜŞLÜ". Do NOT extract numbers as districts.
-13. COMPANY NAME: Extract company/person into "isim". It is usually at the bottom.
-14. VEHICLE & LOAD: "13.60" and "860" are vehicle types. "HAFİF" and "OLUR" are NOT locations.
-15. NO GUESSING (STRICT): If a district is not explicitly mentioned, use "MERKEZ". NEVER guess districts like "MALTEPE" or "BORNOVA".
+   - "X + Y + Z -> A" or "X/Y/Z -> A" = (X->A), (Y->A), (Z->A).
+13. IGNORE NUMBERS IN LISTS (STRICT): If a location is followed by a number (e.g., "KONYA 400+", "BOZKIR 700", "2 ARAÇ"), that number is a price or quantity. It is NOT a district. Use "MERKEZ" as district if no real district name is found.
+14. COMPANY NAME: Extract company/person into "isim".
+15. NO GUESSING: If a district is not explicitly mentioned, use "MERKEZ". Do NOT use "MALTEPE" or others as default.
 16. ISTANBUL DISTRICTS: If you see "AVR", set nereye_ilce="AVR". If you see "AND", set nereye_ilce="AND".
-17. GLOBAL DESTINATION: If a message says "X VARIŞLI" at the top and then lists cities, those cities are the ORIGINS, and X is the DESTINATION for all of them.
-18. MANDATORY: Every JSON route MUST have "nereden_il", "nereden_ilce", "nereye_il", "nereye_ilce", "type", "isim".
+17. GLOBAL DESTINATION: If a message says "X VARIŞLI" at the top, X is the DESTINATION for all origins listed below.
+18. PRICE RULE: ALWAYS set "fiyat" to "SORUNUZ" regardless of any numbers in the message.
+19. NO HALLUCINATION (CRITICAL): If you cannot find a valid origin or destination, do NOT guess. Return an empty list "routes": [] instead of inventing locations like İstanbul or others.
+20. VEHICLE COUNT: "3. Araç Lazım" or "2 Araç" means a single shipment with that quantity. NEVER create multiple duplicate routes because of a vehicle count.
+21. "MERKEZ" KEYWORD: When a list item says "Ordu merkez" or "Sivas merkez", "merkez" means the city center district. The city name IS the destination city, and district is "MERKEZ". It does NOT mean a new origin.
+
+EXAMPLE OF MULTI-SECTION MESSAGE (MOST COMMON FORMAT):
+Message:
+BURSA YÜKLER:
+Adana merkez
+Mersin Tarsus
+13.60 Tır
+---
+KONYA KARATAY YÜKLER:
+İzmir Aliağa
+Manisa Akhisar
+---
+SAMSUN YÜKLER:
+Ankara merkez
+Expected Logic:
+- Section 1 (Origin=BURSA/MERKEZ): BURSA -> ADANA/MERKEZ, BURSA -> MERSİN/TARSUS
+- Section 2 (Origin=KONYA/KARATAY): KONYA/KARATAY -> İZMİR/ALİAĞA, KONYA/KARATAY -> MANİSA/AKHİSAR
+- Section 3 (Origin=SAMSUN/MERKEZ): SAMSUN -> ANKARA/MERKEZ
+CRITICAL: Tarsus->Aliağa is WRONG (chaining). Each section is independent!
+
+EXAMPLE OF VERTICAL LIST RESET:
+Message:
+İZMİR ÇIKIŞLI
+MANİSA
+---
+BALIKESİR ÇIKIŞLI
+İSTANBUL
+Expected Logic:
+- Route 1: İZMİR -> MANİSA
+- Route 2: BALIKESİR -> İSTANBUL (Reset worked!)
+
+EXAMPLE OF MANY-TO-MANY:
+Message: "İzmir ve Aydın'dan -> İstanbul ve Ankara'ya"
+Expected Routes: (İzmir->İstanbul), (İzmir->Ankara), (Aydın->İstanbul), (Aydın->Ankara)
+
+EXAMPLE OF VERTICAL LIST WITH NUMBERS:
+Message:
+AKSARAY AK ALÇIDAN YÜKLER
+KONYA 400+
+ÇUMRA 400+
+Expected Logic:
+- Origin: AKSARAY
+- Route 1: AKSARAY -> KONYA (MERKEZ)
+- Route 2: AKSARAY -> ÇUMRA (KONYA)
 
 {loc_context}
 {rules_context}
@@ -354,14 +429,14 @@ EXTRACTION & LOGIC RULES:
 MESSAGE TO PARSE:
 {message.strip()}
 
-Return ONLY a JSON object: 
-{{"akil_yurutme": "Mesaj dikey liste yapısındadır. Baştaki konum [CITY] çıkış noktasıdır. Diğerleri varış noktasıdır.", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
+Return ONLY a JSON object in this format: 
+{{"akil_yurutme": "Kısa analiziniz buraya", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
 
         # 413 Payload Too Large protection
         if len(message) > 8000:
             message = message[:8000] + "... [TRUNCATED]"
 
-        models_to_try = [target_model, self.model_robust, self.model_fast]
+        models_to_try = [target_model, self.model_robust] + self.fallback_models
         models_to_try = list(dict.fromkeys(models_to_try))
 
         with self.semaphore:
@@ -546,17 +621,8 @@ Return ONLY a JSON object:
         default_phone = re.sub(r'\D', '', phone_match.group(1)) if phone_match else ""
         global_type_match = self.vehicle_matcher.find_match(message, per_route=False)
         
-        # --- GLOBAL PRICE DETECTION ---
+        # --- GLOBAL PRICE DETECTION (DISABLED BY USER REQUEST) ---
         global_price = "SORUNUZ"
-        for line in msg_lines:
-            line_up = line.upper()
-            # Exclude lines that look like routes (containing arrows or "to")
-            is_route_line = any(c in line_up for c in ['➡️', '->', '➝', '➞', '➞', '➞', '➞', 'DEN', 'DAN'])
-            if not is_route_line and any(kw in line_up for kw in ['TL', 'KDV', 'FIYAT', 'HESAP', 'DAHIL']):
-                p = self._extract_price_regex(line)
-                if p != "SORUNUZ":
-                    global_price = p
-                    break
 
         for r in raw_routes:
             # 1. Contextual Corrections
@@ -564,6 +630,24 @@ Return ONLY a JSON object:
             n_dist = r.get('nereden_ilce', '') or ''
             ny_il  = r.get('nereye_il', '') or ''
             ny_dist = r.get('nereye_ilce', '') or ''
+
+            # GUARD: Skip routes where AI hallucinated MERKEZ as destination city
+            # or produced empty/invalid destinations (common with weak models on vertical lists)
+            if ny_il.upper().strip() in ('MERKEZ', '', 'BİLİNMEYEN'):
+                logger.info(f"[FILTER] Skipping invalid route: nereye_il='{ny_il}' (hallucination)")
+                continue
+
+            # GUARD: Clean slash-formatted values like "SİVAS/GEMEREK" in district fields  
+            if '/' in n_dist:
+                parts = n_dist.split('/')
+                if len(parts) == 2:
+                    n_il = parts[0].strip() or n_il
+                    n_dist = parts[1].strip()
+            if '/' in ny_dist:
+                parts = ny_dist.split('/')
+                if len(parts) == 2:
+                    ny_il = parts[0].strip() or ny_il
+                    ny_dist = parts[1].strip()
 
             # 2. Strict Validation via Registry
             n_il, n_dist = self.city_validator.validate(n_il, n_dist)

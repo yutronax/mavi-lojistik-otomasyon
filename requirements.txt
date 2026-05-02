@@ -1,4 +1,4 @@
-requirements
+openai
 python-dotenv
 pyinstaller
 pydantic
