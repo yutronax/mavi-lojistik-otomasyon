@@ -1276,6 +1276,11 @@ class OperationCenterPage:
             payload = {"message_info": msg, "shipments": [shipment]}
             ok = await self.data_service.save_approved(payload)
             if ok:
+                # Add to background submission queue
+                if self.submission_queue:
+                    self.submission_queue.add_task(shipment)
+                
+                # Remove from message object
                 del msg["shipments"][idx]
                 confirmed_count += 1
             else:
@@ -1446,12 +1451,17 @@ class OperationCenterPage:
             return False
 
     def check_duplicate_shipment(self, shipment_dict):
+        # NOTE: is_shipment_duplicate in DataService now checks both approved and unapproved
+        # Since the GUI might be in an async flow, we use a sync-friendly wrapper if needed
+        # but here we can keep the local cache check for speed and call the service for depth
+        
+        # 1. Local Cache Check (Fast)
         try:
             phone = shipment_dict.get('telefon', [])
             if isinstance(phone, str):
                 phone = [phone]
-            # Normalizasyon
-            phone = [normalize_phone(p) for p in phone]
+            from src.utils.phone_utils import normalize_phone
+            phones = [normalize_phone(p) for p in phone]
                 
             nereden_il = self._normalize_il_name(str(shipment_dict.get('nereden_il', '')).strip())
             nereye_il = self._normalize_il_name(str(shipment_dict.get('nereye_il', '')).strip())
@@ -1460,21 +1470,23 @@ class OperationCenterPage:
                 existing_phone = existing.get('telefon', [])
                 if isinstance(existing_phone, str):
                     existing_phone = [existing_phone]
-                existing_phone = [normalize_phone(p) for p in existing_phone]
+                existing_phones = [normalize_phone(p) for p in existing_phone]
                     
                 existing_nereden = self._normalize_il_name(str(existing.get('nereden_il', '')).strip())
                 existing_nereye = self._normalize_il_name(str(existing.get('nereye_il', '')).strip())
 
-                if (phone and existing_phone and set(phone) & set(existing_phone) and 
+                if (phones and existing_phones and set(phones) & set(existing_phones) and 
                     nereden_il == existing_nereden and nereye_il == existing_nereye):
                     return True, {
-                        'phone': existing_phone,
+                        'phone': existing_phones,
                         'route': f"{existing_nereden} → {existing_nereye}",
                         'company': existing.get('isim', 'Bilinmeyen')
                     }
+            
+            # 2. Deep Check via Service (This will be done in the confirm flow)
             return False, None
         except Exception as e:
-            print(f"DEBUG: Error checking duplicates: {e}")
+            logger.error(f"Error in check_duplicate_shipment: {e}")
             return False, None
 
     def _normalize_il_name(self, il_name):

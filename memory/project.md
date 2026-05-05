@@ -6,9 +6,11 @@ WhatsApp gruplarından gelen lojistik yük ilanlarını otomatik olarak çeken, 
 ## Teknoloji Yığını
 - **Dil**: Python 3.10+
 - **Arayüz**: Flet (Flutter tabanlı Python framework)
-- **Yapay Zeka**: Google Gemini API
+- **Yapay Zeka**: Google Gemini API (Ana Ayrıştırıcı) & Ollama / Llama 3.1 (Gözlemci Ajan)
+- **Güvenlik**: Quality Gate (Puanlama sistemi ile hallüsinasyon koruması)
 - **WhatsApp Entegrasyonu**: Whapi.cloud
-- **Veri Saklama**: JSON dosyaları (Atomik yazma prensibi ile)
+- **Veri Saklama**: MongoDB (Merkezi senkronizasyon için) & JSON (Yerel yedekleme)
+- **Dinamik Ayarlar**: MongoDB üzerinden sunucu-istemci arası canlı ayar senkronizasyonu.
 
 ## Klasör Yapısı
 - `src/gui/`: Flet tabanlı kullanıcı arayüzü sayfaları ve bileşenleri.
@@ -17,7 +19,8 @@ WhatsApp gruplarından gelen lojistik yük ilanlarını otomatik olarak çeken, 
 - `src/services/`: Veri yönetimi ve dosya işlemleri servisleri.
 - `src/utils/`: Doğrulama, eşleştirme ve sunucu yönetimi gibi yardımcı araçlar.
 - `data/`: Şehir/ilçe listeleri, yük tipleri gibi statik veri dosyaları.
-- `memory/`: Projenin geçmişini ve yapısını tutan bellek dosyaları.
+- **memory/**: Projenin geçmişini ve yapısını tutan bellek dosyaları (L1/L2/L3).
+- **Sub-Agents**: Lokasyon araştırması ve kalite denetimi yapan bağımsız modüller.
 
 ## Kritik Dosyalar
 - `src/gui/flet_app.py`: Uygulamanın ana giriş noktası (Flet).

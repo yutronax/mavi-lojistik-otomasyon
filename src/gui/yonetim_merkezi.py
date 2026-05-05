@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 import json
@@ -42,6 +43,8 @@ from src.gui.components.tag_selector import TagSelector
 from src.utils.text_utils import generate_keyword_variants
 from src.fetchers.whapi_fetcher import setup_webhook
 from src.gui.components.managers import BlacklistManager, GroupManager
+from src.utils.server_manager import ServerManager
+import threading
 
 class YonetimMerkeziApp:
     def __init__(self, parent_gui=None, start_tab=None):
@@ -113,12 +116,15 @@ class YonetimMerkeziApp:
         self.mahalle_frame = tk.Frame(self.container, bg=self.COLORS['bg'])
         self.group_frame = tk.Frame(self.container, bg=self.COLORS['bg'])
         self.blacklist_frame = tk.Frame(self.container, bg=self.COLORS['bg'])
+        self.vps_frame = tk.Frame(self.container, bg=self.COLORS['bg'])
         self.settings_frame = tk.Frame(self.container, bg=self.COLORS['bg'])
         
         self.setup_yuk_panel()
         self.setup_mahalle_panel()
         self.setup_group_panel()
         self.setup_blacklist_panel()
+        self.vps_auto_onay_var = tk.BooleanVar(value=False)
+        self.setup_vps_panel()
         self.setup_settings_panel()
         
         # Default view
@@ -161,6 +167,12 @@ class YonetimMerkeziApp:
             command=self.show_blacklist_panel, **btn_style
         )
         self.btn_blacklist.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
+        
+        self.btn_vps = tk.Button(
+            nav_frame, text="🖥️ VPS KONTROL", 
+            command=self.show_vps_panel, **btn_style
+        )
+        self.btn_vps.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
 
         self.btn_settings = tk.Button(
             nav_frame, text="⚙️ SİSTEM AYARLARI", 
@@ -178,11 +190,13 @@ class YonetimMerkeziApp:
         self.group_frame.pack_forget()
         self.blacklist_frame.pack_forget()
         self.settings_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.yuk_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_yuk.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     def show_mahalle_panel(self):
@@ -190,11 +204,13 @@ class YonetimMerkeziApp:
         self.group_frame.pack_forget()
         self.blacklist_frame.pack_forget()
         self.settings_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.mahalle_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_mahalle.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     def show_group_panel(self):
@@ -202,11 +218,13 @@ class YonetimMerkeziApp:
         self.mahalle_frame.pack_forget()
         self.blacklist_frame.pack_forget()
         self.settings_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.group_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_group.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     def show_blacklist_panel(self):
@@ -214,11 +232,13 @@ class YonetimMerkeziApp:
         self.mahalle_frame.pack_forget()
         self.group_frame.pack_forget()
         self.settings_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.blacklist_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_blacklist.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     def show_groups(self):
@@ -229,13 +249,38 @@ class YonetimMerkeziApp:
         """Alias for show_blacklist_panel"""
         self.show_blacklist_panel()
 
+    def show_vps_panel(self):
+        self.yuk_frame.pack_forget()
+        self.mahalle_frame.pack_forget()
+        self.group_frame.pack_forget()
+        self.blacklist_frame.pack_forget()
+        self.settings_frame.pack_forget()
+        self.vps_frame.pack(fill=tk.BOTH, expand=True)
+        self.btn_vps.config(bg=self.COLORS['active_nav'], fg='white')
+        self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_settings.config(bg=self.COLORS['inactive_nav'], fg='#666')
+
     def show_settings_panel(self):
         self.yuk_frame.pack_forget()
         self.mahalle_frame.pack_forget()
+        self.group_frame.pack_forget()
+        self.blacklist_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.settings_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_settings.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     # --- YÜK TANIMLAMA PANELİ ---
     def setup_yuk_panel(self):
@@ -805,12 +850,14 @@ class YonetimMerkeziApp:
         self.mahalle_frame.pack_forget()
         self.group_frame.pack_forget()
         self.blacklist_frame.pack_forget()
+        self.vps_frame.pack_forget()
         self.settings_frame.pack(fill=tk.BOTH, expand=True)
         self.btn_settings.config(bg=self.COLORS['active_nav'], fg='white')
         self.btn_yuk.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_mahalle.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_group.config(bg=self.COLORS['inactive_nav'], fg='#666')
         self.btn_blacklist.config(bg=self.COLORS['inactive_nav'], fg='#666')
+        self.btn_vps.config(bg=self.COLORS['inactive_nav'], fg='#666')
 
     def trigger_webhook_setup(self):
         url = self.webhook_url_entry.get().strip()
@@ -840,6 +887,277 @@ class YonetimMerkeziApp:
             messagebox.showinfo("Başarılı", summary)
         except Exception as e:
             messagebox.showerror("Hata", f"Sıfırlama sırasında bir hata oluştu: {str(e)}")
+
+    # --- VPS KONTROL PANELİ ---
+    def setup_vps_panel(self):
+        self._load_ssh_config()
+        self.server_manager = ServerManager(ssh_config=self.ssh_config)
+        
+        main_f = tk.Frame(self.vps_frame, bg=self.COLORS['bg'], padx=40, pady=20)
+        main_f.pack(fill=tk.BOTH, expand=True)
+        
+        # Header
+        header_f = tk.Frame(main_f, bg=self.COLORS['bg'])
+        header_f.pack(fill=tk.X, pady=(0, 20))
+        
+        tk.Label(header_f, text="🖥️ VPS Kontrol Merkezi", font=("Segoe UI", 16, "bold"), bg=self.COLORS['bg']).pack(side=tk.LEFT)
+        
+        self.vps_status_label = tk.Label(header_f, text="DURUM: BEKLENİYOR...", font=("Segoe UI", 10, "bold"), bg='#e5e7eb', padx=10, pady=5)
+        self.vps_status_label.pack(side=tk.RIGHT)
+
+        # Sunucu Bilgi Çubuğu (Otonom)
+        info_f = tk.Frame(main_f, bg='white', padx=20, pady=15, highlightbackground="#e5e7eb", highlightthickness=1)
+        info_f.pack(fill=tk.X, pady=(0, 20))
+        
+        tk.Label(info_f, text="🌐 Sunucu IP:", font=("Segoe UI", 9, "bold"), bg='white', fg='#666').pack(side=tk.LEFT, padx=(0, 5))
+        self.vps_ip_label = tk.Label(info_f, text=self.ssh_config.get('host', 'Tanımsız'), font=("Segoe UI", 10), bg='white')
+        self.vps_ip_label.pack(side=tk.LEFT, padx=(0, 20))
+        
+        tk.Label(info_f, text="👤 Kullanıcı:", font=("Segoe UI", 9, "bold"), bg='white', fg='#666').pack(side=tk.LEFT, padx=(0, 5))
+        self.vps_user_label = tk.Label(info_f, text=self.ssh_config.get('user', 'root'), font=("Segoe UI", 10), bg='white')
+        self.vps_user_label.pack(side=tk.LEFT, padx=(0, 20))
+        
+        tk.Label(info_f, text="🔑 Bağlantı:", font=("Segoe UI", 9, "bold"), bg='white', fg='#666').pack(side=tk.LEFT, padx=(0, 5))
+        tk.Label(info_f, text="SSH Anahtarı (Otonom)", font=("Segoe UI", 10, "italic"), bg='white', fg='#16a34a').pack(side=tk.LEFT)
+        
+        # Ayarları düzenleme butonu (Küçük ve sağda)
+        tk.Button(info_f, text="⚙️ Düzenle", bg='#f3f4f6', relief='flat', font=("Segoe UI", 8), command=self._edit_vps_settings_dialog).pack(side=tk.RIGHT)
+        
+        # Stats Frame
+        stats_f = tk.Frame(main_f, bg=self.COLORS['bg'])
+        stats_f.pack(fill=tk.X, pady=(0, 20))
+        
+        self.cpu_label = self._create_stat_widget(stats_f, "CPU", "0%")
+        self.ram_label = self._create_stat_widget(stats_f, "RAM", "0 MB")
+        self.uptime_label = self._create_stat_widget(stats_f, "DURUM", "Bilinmiyor")
+        
+        # Controls Frame
+        ctrl_f = tk.LabelFrame(main_f, text="🚀 Sunucu Operasyonları", font=("Segoe UI", 11, "bold"), bg='white', padx=20, pady=20)
+        ctrl_f.pack(fill=tk.X, pady=(0, 20))
+        
+        self.vps_start_btn = tk.Button(ctrl_f, text="▶ BAŞLAT", bg=self.COLORS['success'], fg='white', font=("Segoe UI", 10, "bold"), 
+                  width=20, height=2, command=lambda: self._run_vps_command("start"))
+        self.vps_start_btn.pack(side=tk.LEFT, padx=10)
+        
+        self.vps_stop_btn = tk.Button(ctrl_f, text="⏹ DURDUR", bg=self.COLORS['danger'], fg='white', font=("Segoe UI", 10, "bold"), 
+                  width=20, height=2, command=lambda: self._run_vps_command("stop"))
+        self.vps_stop_btn.pack(side=tk.LEFT, padx=10)
+        
+        self.vps_deploy_btn = tk.Button(ctrl_f, text="📤 SUNUCUYA YÜKLE", bg='#6366f1', fg='white', font=("Segoe UI", 10, "bold"), 
+                  width=20, height=2, command=self._trigger_deployment)
+        self.vps_deploy_btn.pack(side=tk.LEFT, padx=10)
+
+        # Auto-Onay Toggle
+        auto_f = tk.Frame(ctrl_f, bg='white')
+        auto_f.pack(side=tk.RIGHT, padx=20)
+        
+        tk.Label(auto_f, text="OTOMATİK SEVKİYAT ONAYI", font=("Segoe UI", 8, "bold"), bg='white', fg='#666').pack()
+        self.auto_onay_toggle = tk.Checkbutton(auto_f, text="PASİF", variable=self.vps_auto_onay_var, 
+                                            onvalue=True, offvalue=False, font=("Segoe UI", 10, "bold"),
+                                            bg='white', activebackground='white', command=self._toggle_vps_auto_onay)
+        self.auto_onay_toggle.pack()
+        
+        # Terminal Frame
+        term_f = tk.LabelFrame(main_f, text="📄 Terminal & Sistem Logları (Otonom Takip)", font=("Segoe UI", 11, "bold"), bg='white', padx=10, pady=10)
+        term_f.pack(fill=tk.BOTH, expand=True)
+        
+        self.vps_terminal = scrolledtext.ScrolledText(term_f, bg='#050a18', fg='#00ff00', font=("Consolas", 10), height=15)
+        self.vps_terminal.pack(fill=tk.BOTH, expand=True)
+        
+        # Start periodic update
+        self._update_vps_status_loop()
+
+    def _create_stat_widget(self, parent, title, initial_val):
+        frame = tk.Frame(parent, bg='white', padx=15, pady=10, highlightbackground="#e5e7eb", highlightthickness=1)
+        frame.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        tk.Label(frame, text=title, font=("Segoe UI", 8), bg='white', fg='#666').pack(anchor=tk.W)
+        val_label = tk.Label(frame, text=initial_val, font=("Segoe UI", 12, "bold"), bg='white')
+        val_label.pack(anchor=tk.W)
+        return val_label
+
+    def _update_vps_status_loop(self):
+        def _task():
+            # Sadece geçerli bir host varsa sorgula
+            if not self.ssh_config or not self.ssh_config.get('host'):
+                self.root.after(0, lambda: self.vps_status_label.config(text="DURUM: AYAR BEKLENİYOR", bg='#e5e7eb', fg='#666'))
+                return
+
+            try:
+                # Durum özeti ve Logları aynı anda çek (Otonom)
+                stats = self.server_manager.get_status_summary()
+                logs = self.server_manager.get_logs(lines=50)
+                
+                # Auto-Onay ayarını MongoDB'den oku (Senkronizasyon için)
+                auto_onay = self.data_service.load_config('vps_auto_onay', False)
+                
+                self.root.after(0, lambda: self._apply_vps_stats(stats, auto_onay))
+                self.root.after(0, lambda: self._show_logs_in_terminal(logs))
+            except:
+                pass
+        
+        threading.Thread(target=_task, daemon=True).start()
+        self.root.after(10000, self._update_vps_status_loop) # 10 seconds
+
+    def _edit_vps_settings_dialog(self):
+        """Sunucu ayarlarını düzenlemek için basit bir dialog açar"""
+        dialog = tk.Toplevel(self.root)
+        dialog.title("VPS Ayarlarını Düzenle")
+        dialog.geometry("300x250")
+        dialog.padx = 20
+        dialog.pady = 20
+        
+        tk.Label(dialog, text="Sunucu IP:").pack(pady=(10, 0))
+        host_e = tk.Entry(dialog)
+        host_e.pack(pady=5)
+        host_e.insert(0, self.ssh_config.get('host', ''))
+        
+        tk.Label(dialog, text="Kullanıcı:").pack(pady=(10, 0))
+        user_e = tk.Entry(dialog)
+        user_e.pack(pady=5)
+        user_e.insert(0, self.ssh_config.get('user', 'root'))
+        
+        def save():
+            self.ssh_config['host'] = host_e.get().strip()
+            self.ssh_config['user'] = user_e.get().strip()
+            
+            config_path = os.path.join(get_root_path(), "data", "ssh_config.json")
+            try:
+                with open(config_path, "w", encoding="utf-8") as f:
+                    json.dump(self.ssh_config, f)
+                
+                self.vps_ip_label.config(text=self.ssh_config['host'])
+                self.vps_user_label.config(text=self.ssh_config['user'])
+                self.server_manager = ServerManager(ssh_config=self.ssh_config)
+                dialog.destroy()
+                messagebox.showinfo("Başarılı", "Ayarlar güncellendi.")
+            except Exception as e:
+                messagebox.showerror("Hata", str(e))
+                
+        tk.Button(dialog, text="KAYDET", bg=self.COLORS['success'], fg='white', command=save).pack(pady=20)
+
+    def _load_ssh_config(self):
+        config_path = os.path.join(get_root_path(), "data", "ssh_config.json")
+        if os.path.exists(config_path):
+            try:
+                with open(config_path, "r", encoding="utf-8") as f:
+                    self.ssh_config = json.load(f)
+            except:
+                self.ssh_config = {}
+        else:
+            self.ssh_config = {}
+
+    def _apply_vps_stats(self, stats, auto_onay=False):
+        try:
+            status = stats.get('status', 'BİLİNMİYOR')
+            color = self.COLORS['success'] if status == 'ONLINE' else self.COLORS['danger']
+            self.vps_status_label.config(text=f"DURUM: {status}", bg=color, fg='white')
+            self.cpu_label.config(text=f"{stats.get('cpu', 0)}%")
+            self.ram_label.config(text=f"{int(stats.get('memory', 0))} MB")
+            self.uptime_label.config(text="Çalışıyor" if status == 'ONLINE' else "Kapalı")
+            
+            # Auto-Onay UI Güncelle
+            self.vps_auto_onay_var.set(auto_onay)
+            if auto_onay:
+                self.auto_onay_toggle.config(text="✅ AKTİF", fg=self.COLORS['success'])
+            else:
+                self.auto_onay_toggle.config(text="❌ PASİF", fg=self.COLORS['danger'])
+
+            # Buton durumlarını güncelle
+            if status == 'ONLINE':
+                self.vps_start_btn.config(state=tk.DISABLED, bg='#e5e7eb')
+                self.vps_stop_btn.config(state=tk.NORMAL, bg=self.COLORS['danger'])
+            else:
+                self.vps_start_btn.config(state=tk.NORMAL, bg=self.COLORS['success'])
+                self.vps_stop_btn.config(state=tk.DISABLED, bg='#e5e7eb')
+        except:
+            pass
+
+    def _toggle_vps_auto_onay(self):
+        """Otomatik onay ayarını MongoDB'ye kaydeder"""
+        new_state = self.vps_auto_onay_var.get()
+        success = self.data_service.save_config('vps_auto_onay', new_state)
+        if success:
+            if new_state:
+                self.auto_onay_toggle.config(text="✅ AKTİF", fg=self.COLORS['success'])
+            else:
+                self.auto_onay_toggle.config(text="❌ PASİF", fg=self.COLORS['danger'])
+        else:
+            messagebox.showerror("Hata", "Ayar kaydedilemedi!")
+            self.vps_auto_onay_var.set(not new_state) # Geri al
+
+    def _run_vps_command(self, cmd):
+        def _task():
+            # Butonları geçici olarak devre dışı bırak
+            self.root.after(0, lambda: self.vps_start_btn.config(state=tk.DISABLED))
+            self.root.after(0, lambda: self.vps_stop_btn.config(state=tk.DISABLED))
+            
+            if cmd == "start": success, out = self.server_manager.start()
+            elif cmd == "stop": success, out = self.server_manager.stop()
+            else: return
+            
+            if not success:
+                self.root.after(0, lambda: messagebox.showerror("Hata", out))
+            
+            # Logları anında güncelle
+            logs = self.server_manager.get_logs(lines=50)
+            self.root.after(0, lambda: self._show_logs_in_terminal(logs))
+        
+        threading.Thread(target=_task, daemon=True).start()
+
+    def _refresh_vps_logs(self):
+        def _task():
+            try:
+                logs = self.server_manager.get_logs(lines=50)
+                self.root.after(0, lambda: self._show_logs_in_terminal(logs))
+            except Exception as e:
+                self.root.after(0, lambda: self._show_logs_in_terminal(f"Log okuma hatası: {e}"))
+            
+        threading.Thread(target=_task, daemon=True).start()
+
+    def _trigger_deployment(self):
+        """Yereldeki dosyaları sunucuya yükleyen scripti çalıştırır"""
+        if not messagebox.askyesno("Sunucuya Yükle", "Yereldeki güncel kodlar sunucuya yüklenecek ve servisler yeniden başlatılacak.\n\nEmin misiniz?"):
+            return
+            
+        def _task():
+            try:
+                self.root.after(0, lambda: self._show_logs_in_terminal(">>> Deployment başlatıldı. Lütfen bekleyin...\n"))
+                
+                # PowerShell scriptini çalıştır
+                script_path = os.path.join(get_root_path(), "deploy_vps.ps1")
+                process = subprocess.Popen(
+                    ["powershell", "-ExecutionPolicy", "Bypass", "-File", script_path],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    encoding='utf-8',
+                    errors='replace',
+                    cwd=get_root_path()
+                )
+                
+                for line in process.stdout:
+                    self.root.after(0, lambda l=line: self.vps_terminal.insert(tk.END, l))
+                    self.root.after(0, lambda: self.vps_terminal.see(tk.END))
+                
+                process.wait()
+                if process.returncode == 0:
+                    self.root.after(0, lambda: messagebox.showinfo("Başarılı", "Proje sunucuya başarıyla yüklendi!"))
+                else:
+                    self.root.after(0, lambda: messagebox.showerror("Hata", "Yükleme sırasında bir sorun oluştu. Terminal loglarını kontrol edin."))
+                    
+                self._refresh_vps_logs()
+            except Exception as e:
+                err_msg = str(e)
+                self.root.after(0, lambda: messagebox.showerror("Hata", f"Deployment hatası: {err_msg}"))
+        
+        threading.Thread(target=_task, daemon=True).start()
+
+    def _show_logs_in_terminal(self, logs):
+        try:
+            self.vps_terminal.delete('1.0', tk.END)
+            self.vps_terminal.insert(tk.END, logs)
+            self.vps_terminal.see(tk.END)
+        except:
+            pass
 
     def on_close(self):
         self.root.destroy()

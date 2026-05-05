@@ -17,6 +17,10 @@ class AsyncDataService:
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(self.executor, self.ds.save_approved_records, new_records)
 
+    async def save_approved(self, payload):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(self.executor, self.ds.save_approved, payload)
+
     async def load_arac_kasa_tipleri(self):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(self.executor, self.ds.load_arac_kasa_tipleri)
@@ -72,3 +76,7 @@ class AsyncDataService:
     async def load_config(self, key):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(self.executor, self.ds.load_config, key)
+
+    async def is_shipment_duplicate(self, shipment):
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(self.executor, self.ds.is_shipment_duplicate, shipment)

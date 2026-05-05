@@ -1,5 +1,6 @@
 openai
 python-dotenv
+paramiko
 pyinstaller
 pydantic
 google-genai

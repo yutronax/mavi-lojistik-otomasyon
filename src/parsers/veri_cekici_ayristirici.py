@@ -71,6 +71,7 @@ from src.services.data_service import DataService
 from src.services.mongo_service import MongoDataService
 from src.utils.location_validator import LocationValidator
 from src.utils.reporter import Reporter
+from src.utils.quality_gate import QualityGate
 
 # Whapi Fetcher (Opsiyonel)
 try:
@@ -148,29 +149,41 @@ class OrchestratorSDK:
         # SADECE Production Parser (Text Generation with Per-Route Type Matching)
         self.base_parser = ProductionParser()
         self.location_validator = LocationValidator()
-        logger.info(f"[START] Orchestrator başlatıldı - Production Parser AKTIF")
+        self.quality_gate = QualityGate()
+        logger.info(f"[START] Orchestrator başlatıldı - Production Parser & Quality Gate AKTIF")
         logger.info(f"[STATS] {len(self.api_keys)} API anahtarı yüklendi")
         
-        # AUTO-SUBMIT Initialization
+        # AUTO-SUBMIT Initialization & MongoDB Sync
         self.auto_submit_active = AUTO_SUBMIT
+        self.mongo_service = None
+        try:
+            from src.services.mongo_service import MongoDataService
+            self.mongo_service = MongoDataService()
+            # Read initial state from Mongo
+            self.auto_submit_active = self.mongo_service.load_config('vps_auto_onay', self.auto_submit_active)
+            logger.info(f"[BOT] MongoDB Ayarları Yüklendi: Otomatik Onay = {self.auto_submit_active}")
+        except Exception as e:
+            logger.warning(f"Orchestrator: MongoDB settings sync failed: {e}")
+
         self.submitter = None
-        if self.auto_submit_active:
-            if SUBMITTER_AVAILABLE:
-                try:
-                    self.submitter = YukBuradaSubmitter()
-                    logger.info("[BOT] OTOMATİK ONAY AKTİF: YukBurada Submitter hazır.")
-                except Exception as e:
-                    logger.error(f"YukBurada Submitter başlatılamadı: {e}")
-                    self.auto_submit_active = False
-            else:
-                logger.warning("[!] AUTO_SUBMIT aktif ancak 'tools/submit_approved_loads.py' bulunamadı.")
-                self.auto_submit_active = False
+        if SUBMITTER_AVAILABLE:
+            try:
+                self.submitter = YukBuradaSubmitter()
+                logger.info("[BOT] YukBurada Submitter hazır.")
+            except Exception as e:
+                logger.error(f"YukBurada Submitter başlatılamadı: {e}")
+        
+        if self.auto_submit_active and not self.submitter:
+            logger.warning("[!] Otomatik onay aktif ancak submitter başlatılamadı!")
+            self.auto_submit_active = False
 
         # REFACTORED: Persistent ThreadPool for continuous processing
         self.max_parallel_workers = MAX_WORKERS_DEFAULT
         self.executor = ThreadPoolExecutor(max_workers=self.max_parallel_workers)
         self.processing_queue = queue.Queue()
         self.active_ids = set() # Track messages currently in queue or processing
+        self.active_body_hashes = set() # Track body hashes currently in process
+        self.active_lock = threading.Lock() # Lock for both ID and Body hash sets
         self.stop_event = threading.Event()
         self.worker_thread = None
         self.save_lock = threading.Lock() # Dosya yazma kilidi
@@ -229,8 +242,19 @@ class OrchestratorSDK:
         except Exception as e:
             logger.error(f"[ERR] [TASK HATASI] ({msg_id}): {e}")
         finally:
-            if msg_id in self.active_ids:
-                self.active_ids.remove(msg_id)
+            with self.active_lock:
+                if msg_id in self.active_ids:
+                    self.active_ids.remove(msg_id)
+                
+                # Body hash temizleme
+                body = msg.get('body', '')
+                if body:
+                    try:
+                        b_hash = self.data_service._normalize_and_hash(body)
+                        if b_hash in self.active_body_hashes:
+                            self.active_body_hashes.remove(b_hash)
+                    except: pass
+                    
             self.processing_queue.task_done()
 
     def check_blocking_risk(self, force=False):
@@ -451,12 +475,21 @@ class OrchestratorSDK:
                     self.data_service.mark_id_handled(mid) # Kalıcı mark
                     continue
             
-            # D. Check if already in memory queue (active_ids)
-            if mid in self.active_ids:
-                continue
+            # D. Check if already in memory queue (active_ids or active_body_hashes)
+            with self.active_lock:
+                if mid in self.active_ids:
+                    continue
+                
+                # Check body hash in memory (Race condition protection)
+                body_hash = self.data_service._normalize_and_hash(body)
+                if body_hash in self.active_body_hashes:
+                    logger.info(f"[SKIP] Mesaj icerigi su an isleniyor (Atlandi): {mid}")
+                    continue
 
-            # Tüm kontrollerden geçtiyse kuyruğa at
-            self.active_ids.add(mid)
+                # Tüm kontrollerden geçtiyse kuyruğa at
+                self.active_ids.add(mid)
+                self.active_body_hashes.add(body_hash)
+            
             self.data_service.mark_id_handled(mid) # USER REQUEST: Mark ID immediately upon fetch/queue
             self.processing_queue.put(msg)
             added_count += 1
@@ -715,13 +748,18 @@ class OrchestratorSDK:
                 logger.info(f"[WARN] No valid shipments left after filtering: {msg_id}")
                 return {'status': 'error', 'msg_id': msg_id, 'error': 'All shipments filtered (International or Empty)', 'original_msg': msg}
 
-            logger.info(f"[OK] Islem BITTI: {msg_id} -> {len(valid_shipments)} geçerli ilan")
+            # --- PHASE 4: QUALITY GATE (OBSERVER AGENT) ---
+            confidence_score, confidence_issues = self.quality_gate.evaluate(corrected_body, valid_shipments)
+            
+            logger.info(f"[OK] Islem BITTI: {msg_id} -> {len(valid_shipments)} geçerli ilan | Güven: {confidence_score}")
             return {
                 'status': 'success',
                 'msg_id': msg_id,
                 'original_msg': msg,
                 'shipments': valid_shipments,
-                'invalid_location': has_invalid_location, # NEW: Message-level flag
+                'invalid_location': has_invalid_location,
+                'confidence_score': confidence_score,
+                'confidence_issues': confidence_issues,
                 'timestamp': datetime.now().isoformat()
             }
             
@@ -819,6 +857,8 @@ class OrchestratorSDK:
                                 'chat_name': res['original_msg'].get('chat_name')
                             },
                             'parse_timestamp': res['timestamp'],
+                            'confidence_score': res.get('confidence_score', 1.0),
+                            'confidence_issues': res.get('confidence_issues', []),
                             'total_shipments': len(res['shipments']),
                             'shipments': res['shipments']
                         }
@@ -867,23 +907,39 @@ class OrchestratorSDK:
                             if message_id in self.active_ids:
                                 self.active_ids.remove(message_id)
                         
-                        # --- AUTO SUBMIT LOGIC ---
+                        # --- AUTO SUBMIT LOGIC (DYNAMIC SYNC) ---
+                        if self.mongo_service:
+                            try:
+                                self.auto_submit_active = self.mongo_service.load_config('vps_auto_onay', self.auto_submit_active)
+                            except: pass
+
                         if self.auto_submit_active and self.submitter:
                             triggered_count = 0
                             for m_id, entry in save_payload.items():
-                                # Sadece hata içermeyen ve lokasyonu geçerli olan yeni ilanları gönder
-                                if 'error' not in entry and entry.get('status') != 'duplicate' and not entry.get('invalid_location'):
+                                # Sadece hata içermeyen, lokasyonu geçerli olan VE güven puanı yüksek ilanları gönder
+                                is_high_confidence = self.quality_gate.is_safe_to_submit(entry.get('confidence_score', 0))
+                                
+                                if 'error' not in entry and entry.get('status') != 'duplicate' and not entry.get('invalid_location') and is_high_confidence:
                                     shipments = entry.get('shipments', [])
                                     if shipments:
                                         logger.info(f"[OUT] [OTO-ONAY] {m_id} için {len(shipments)} ilan gönderiliyor...")
                                         for shipment in shipments:
                                             try:
+                                                # Check duplicate again before auto-submit
+                                                if self.data_service.is_shipment_duplicate(shipment):
+                                                    logger.info(f"[SKIP] [OTO-ONAY] Mükerrer sevkiyat atlanıyor.")
+                                                    continue
+
                                                 payload = self.submitter.transform_record_to_payload(shipment)
+                                                # Auto-submit handles auth internally if _phone is in payload
                                                 submit_res = self.submitter.submit_single_load(payload)
+                                                
                                                 if submit_res and submit_res.get('success'):
                                                     triggered_count += 1
-                                                    # Başarılı gönderilenleri ayrıca approved listesine ekle
-                                                    self.data_service.save_approved_records([shipment])
+                                                    # Başarılı gönderilenleri approved listesine ekle (save_approved alias'ı payload bekler)
+                                                    self.data_service.save_approved(payload)
+                                                else:
+                                                    logger.warning(f"[AUTO] Gönderim başarısız: {submit_res.get('error')}")
                                             except Exception as se:
                                                 logger.error(f"Oto-gönderim hatası ({m_id}): {se}")
                             

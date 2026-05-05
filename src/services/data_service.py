@@ -713,6 +713,19 @@ class DataService:
             logger.error(f"Error loading approved records: {e}", exc_info=True)
             return []
     
+    def save_approved(self, payload: Dict) -> bool:
+        """
+        Alias for save_approved_records to match Operation Center expectations.
+        Extracts shipments from payload and saves them.
+        """
+        if not payload:
+            return False
+        shipments = payload.get('shipments', [])
+        if not shipments and 'pickupCity' in payload:
+            # Fallback if single shipment passed instead of payload
+            shipments = [payload]
+        return self.save_approved_records(shipments)
+
     def save_approved_record(self, record: Dict) -> bool:
         """
         Append a new approved record atomically.
@@ -975,14 +988,15 @@ class DataService:
             # 100% matching (only strip surrounding whitespace)
             normalized = text.strip()
         else:
-            # 1. Normalize spacing and lowercase
-            text = ' '.join(text.strip().lower().split())
-            # 2. Advanced: Strip common noise characters (punctuation, symbols) to catch "!!" vs "!!!"
+            # SUPER NORMALIZATION for cross-group duplicate detection
+            # 1. Lowercase and strip
+            text = text.lower().strip()
+            # 2. Remove all non-alphanumeric characters (including emojis and punctuation)
             import re
-            noise_pattern = re.compile(r'[\.\!\?\,\+\-\*\=\_\;\:\#\$\%\(\)\[\]\{\}\>\<]+')
-            text = noise_pattern.sub('', text)
-            # 3. Final collapse of whitespace
-            normalized = ' '.join(text.split())
+            # Keep letters and numbers only
+            text = re.sub(r'[^a-z0-9]', '', text)
+            # 3. Final string for hashing
+            normalized = text
             
         return hashlib.sha256(normalized.encode('utf-8')).hexdigest()
 
@@ -1293,36 +1307,54 @@ class DataService:
     def is_shipment_duplicate(self, shipment: Dict) -> bool:
         """
         Aynı gün içinde birebir aynı sevkiyatın yapılıp yapılmadığını kontrol eder.
-        
-        İşlev: Parmak izi ve 24 saatlik pencere kullanarak mükerrer ilanları tespit eder.
-        Bağlantılar: _get_shipment_fingerprint, self.onaylanmamis_file.
-        Gereklilik: Kullanıcı ekranında aynı ilanların tekrar etmesini önleyerek veri kirliliğini engeller.
-        Kritik Kurallar: Kontrol penceresi tam olarak son 24 saati kapsamalıdır.
+        Hem onaylanmamış (inbox) hem de onaylanmış (approved) kayıtları kontrol eder.
         """
         try:
             fingerprint = self._get_shipment_fingerprint(shipment)
             if not fingerprint or len(fingerprint.replace('|', '')) < 5:
                 return False
                 
-            data = load_json_safe(self.onaylanmamis_file, default=[])
-            if not isinstance(data, list):
-                return False
-                
             from datetime import datetime, timedelta
-            # Strict 24-hour window
-            cutoff = datetime.now() - timedelta(hours=24)
+            window_hours = max(1.0, float(DUPLICATE_CHECK_HOURS))
+            cutoff = datetime.now() - timedelta(hours=window_hours)
             
-            for msg_entry in data:
-                ts = msg_entry.get('message_timestamp')
-                try:
-                    if datetime.fromtimestamp(float(ts)) < cutoff:
+            # 1. Check Unapproved (Inbox)
+            unapproved = load_json_safe(self.onaylanmamis_file, default=[])
+            if isinstance(unapproved, list):
+                for msg_entry in unapproved:
+                    ts = msg_entry.get('message_timestamp')
+                    try:
+                        if datetime.fromtimestamp(float(ts)) < cutoff:
+                            continue
+                    except:
                         continue
+                    
+                    for s in msg_entry.get('shipments', []):
+                        if self._get_shipment_fingerprint(s) == fingerprint:
+                            return True
+
+            # 2. Check Approved (History)
+            approved = self.load_approved_records()
+            for rec in approved:
+                ts = rec.get('approved_at') or rec.get('createdAt')
+                try:
+                    # Parse timestamp if string
+                    if isinstance(ts, str):
+                        try:
+                            rec_dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
+                        except:
+                            rec_dt = datetime.fromtimestamp(float(ts))
+                    else:
+                        rec_dt = datetime.fromtimestamp(float(ts))
+                    
+                    if rec_dt < cutoff:
+                        continue
+                        
+                    if self._get_shipment_fingerprint(rec) == fingerprint:
+                        return True
                 except:
                     continue
-                
-                for s in msg_entry.get('shipments', []):
-                    if self._get_shipment_fingerprint(s) == fingerprint:
-                        return True
+
             return False
         except Exception as e:
             logger.error(f"Error checking shipment duplicate: {e}")
