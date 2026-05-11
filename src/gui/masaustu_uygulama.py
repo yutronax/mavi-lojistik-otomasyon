@@ -1568,7 +1568,7 @@ class LojistikYonetimGUI:
             return
         
         if not parsed_data:
-            tk.Label(panel, text=f"Bugün ({today.strftime('%d.%m.%Y')}) için ayrıştırılmış mesaj bulunamadı.", 
+            tk.Label(panel, text=f"Bugün ({date.today().strftime('%d.%m.%Y')}) için ayrıştırılmış mesaj bulunamadı.", 
                     bg=self.COLORS['panel_bg']).pack(pady=20)
             return
         
