@@ -53,14 +53,19 @@ class DataService:
         os.makedirs(self.data_dir, exist_ok=True)
         os.makedirs(self.user_data_dir, exist_ok=True)
         
-        # MongoDB Sync Support (Optional)
-        self.mongo_service = None
-
-        self.onaylananlar_file = str(user_data_dir / 'onaylanan_kayitlar.json')
-        self.onaylanmamis_file = str(user_data_dir / 'onaylanmamis_ayristirilmis.json')
-        self.onaylanmamis_log_file = str(user_data_dir / 'onaylanmamis_ayristirilmis_log.json')
         self.blacklist_file = str(user_data_dir / 'blacklist.json')
         self.handled_ids_file = str(user_data_dir / 'handled_ids.json')
+
+        # MongoDB Sync Support
+        self.mongo_service = None
+        mongodb_uri = os.getenv('MONGODB_URI')
+        if mongodb_uri:
+            try:
+                from src.services.mongo_service import MongoDataService
+                self.mongo_service = MongoDataService(mongodb_uri)
+                logger.info("DataService: MongoDB sync enabled.")
+            except Exception as e:
+                logger.warning(f"DataService: MongoDB initialization failed (sync disabled): {e}")
 
         # --- CACHING FOR PERFORMANCE ---
         self._blacklist_cache: Optional[List[str]] = None
@@ -117,12 +122,20 @@ class DataService:
         """
         config_file = os.path.join(str(self.user_data_dir), 'app_config.json')
         try:
+            # 1. Local Save
             existing = load_json_safe(config_file) or {}
             existing[key] = value
             save_json_safe(config_file, existing)
-            logger.info(f"Config saved: {key}")
+            
+            # 2. MongoDB Sync
+            if self.mongo_service:
+                self.mongo_service.save_config(key, value)
+                
+            logger.info(f"Config saved & synced: {key}")
+            return True
         except Exception as e:
             logger.error(f"Failed to save config '{key}': {e}")
+            return False
 
     def load_config(self, key: str) -> Optional[Dict]:
         """
@@ -132,6 +145,13 @@ class DataService:
         Dependencies: file_operations.load_json_safe
         Usage:        Settings page loads Ollama/Whapi config
         """
+        # 1. Try MongoDB first (Source of Truth for VPS/Cloud)
+        if self.mongo_service:
+            mongo_val = self.mongo_service.load_config(key)
+            if mongo_val is not None:
+                return mongo_val
+
+        # 2. Fallback to Local File
         config_file = os.path.join(str(self.user_data_dir), 'app_config.json')
         try:
             data = load_json_safe(config_file) or {}

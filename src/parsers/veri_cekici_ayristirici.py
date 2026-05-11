@@ -551,6 +551,16 @@ class OrchestratorSDK:
         """WhatsApp'tan belirli bir grup paketinin mesajlarını çeker ve anında kuyruğa iletir."""
         # Periyodik risk kontrolü
         self.check_blocking_risk()
+        
+        # Otonom Onay Ayarını MongoDB'den Güncelle (Senkronizasyon)
+        if self.mongo_service:
+            try:
+                new_state = self.mongo_service.load_config('vps_auto_onay', self.auto_submit_active)
+                if new_state != self.auto_submit_active:
+                    self.auto_submit_active = new_state
+                    logger.info(f"[SYNC] Otonom Onay Ayarı Güncellendi: {self.auto_submit_active}")
+            except Exception as e:
+                logger.warning(f"Config sync error: {e}")
 
         if not WHAPI_AVAILABLE:
             return 0

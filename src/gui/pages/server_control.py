@@ -2,8 +2,11 @@
 import flet as ft
 import asyncio
 import datetime
+import os
 from src.gui.styles import AppColors, AppStyles
 from src.utils.server_manager_async import AsyncServerManager
+from src.services.data_service import DataService
+from src.services.data_service_async import AsyncDataService
 
 
 class ServerControlPage:
@@ -17,6 +20,11 @@ class ServerControlPage:
     def __init__(self, page: ft.Page):
         self.page = page
         self.manager = AsyncServerManager()
+        
+        # Data Service for config sync
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        root_dir = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
+        self.data_service = AsyncDataService(DataService(root_dir))
 
         
         # UI Components
@@ -46,6 +54,20 @@ class ServerControlPage:
             border=ft.Border.all(width=1, color="white10"),
             expand=True,
             height=300
+        )
+        
+        # Autonomous Settings
+        self.auto_onay_switch = ft.Switch(
+            label="Otomatik Onay (AUTO_SUBMIT)",
+            value=False,
+            active_color=AppColors.SUCCESS,
+            on_change=lambda e: asyncio.create_task(self._toggle_auto_onay(e))
+        )
+        
+        self.auto_onay_status = ft.Text(
+            "Yükleri otomatik olarak YukBurada'ya gönderir",
+            size=12,
+            color=AppColors.TEXT_MUTED
         )
         
         # Performance/Safe Threading
@@ -84,6 +106,48 @@ class ServerControlPage:
                 print(f"Status update error: {e}")
             
             await asyncio.sleep(5)
+
+    async def _load_settings(self):
+        """MongoDB'den güncel otonom ayarlarını yükler"""
+        try:
+            auto_onay = await self.data_service.load_config('vps_auto_onay')
+            # Eğer config yoksa None dönebilir, varsayılan False
+            if auto_onay is None: auto_onay = False
+            
+            self.auto_onay_switch.value = bool(auto_onay)
+            self._update_auto_onay_text(bool(auto_onay))
+            self.page.update()
+        except Exception as e:
+            print(f"Error loading VPS settings: {e}")
+
+    def _update_auto_onay_text(self, is_active):
+        if is_active:
+            self.auto_onay_status.value = "AKTİF: Puanı yüksek yükler otomatik onaylanır."
+            self.auto_onay_status.color = AppColors.SUCCESS
+        else:
+            self.auto_onay_status.value = "PASİF: Yükler sadece manuel onay ile gönderilir."
+            self.auto_onay_status.color = AppColors.TEXT_MUTED
+
+    async def _toggle_auto_onay(self, e):
+        new_state = e.control.value
+        self._update_auto_onay_text(new_state)
+        self.page.update()
+        
+        success = await self.data_service.save_config('vps_auto_onay', new_state)
+        
+        if success:
+            self.page.snack_bar = ft.SnackBar(
+                ft.Text(f"Otomatik Onay {'Açıldı' if new_state else 'Kapatıldı'} (Bulut Senkronize Edildi)"),
+                bgcolor=AppColors.SUCCESS if new_state else AppColors.PRIMARY
+            )
+        else:
+            self.page.snack_bar = ft.SnackBar(ft.Text("Ayarlar senkronize edilemedi!"), bgcolor=AppColors.DANGER)
+            # Geri al
+            e.control.value = not new_state
+            self._update_auto_onay_text(not new_state)
+            
+        self.page.snack_bar.open = True
+        self.page.update()
 
     async def _refresh_logs(self, e=None):
         self.log_display.value = "Yükleniyor..."
@@ -163,6 +227,32 @@ class ServerControlPage:
             shadow=[AppStyles.CARD_SHADOW]
         )
 
+        # Autonomous Settings Container
+        auto_settings = ft.Container(
+            content=ft.Column([
+                ft.Row([
+                    ft.Icon(ft.Icons.AUTO_AWESOME_ROUNDED, color=AppColors.PRIMARY, size=18),
+                    ft.Text("Otonom Modu Ayarları", size=16, weight="bold", color=AppColors.TEXT),
+                ]),
+                ft.Divider(color="white10"),
+                ft.Row([
+                    ft.Column([
+                        self.auto_onay_switch,
+                        self.auto_onay_status,
+                    ], expand=True),
+                    ft.Icon(
+                        ft.Icons.BOLT_ROUNDED, 
+                        color=AppColors.SUCCESS if self.auto_onay_switch.value else AppColors.TEXT_MUTED,
+                        size=30
+                    )
+                ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+            ], spacing=10),
+            padding=20,
+            bgcolor=AppColors.SURFACE,
+            border_radius=15,
+            shadow=[AppStyles.CARD_SHADOW]
+        )
+
         content = ft.Column([
             ft.Row([
                 ft.Column([
@@ -185,7 +275,12 @@ class ServerControlPage:
             # Controls
             controls,
             
-            ft.Container(height=10),
+            ft.Container(height=5),
+            
+            # Auto Settings
+            auto_settings,
+            
+            ft.Container(height=5),
             
             # Terminal
             ft.Container(
@@ -220,6 +315,7 @@ class ServerControlPage:
             self.status_update_active = True
             asyncio.create_task(self._update_status())
             asyncio.create_task(self._refresh_logs())
+            asyncio.create_task(self._load_settings())
 
         
         return content
