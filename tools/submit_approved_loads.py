@@ -970,6 +970,9 @@ class YukBuradaSubmitter:
     def _mark_as_submitted(self, payload):
         """Gönderilen kayıtları işaretle"""
         submitted_file = 'gonderilmis_kayitlar.json'
+        if not os.path.exists(submitted_file) and os.path.exists(os.path.join('src', 'gonderilmis_kayitlar.json')):
+            submitted_file = os.path.join('src', 'gonderilmis_kayitlar.json')
+            
         try:
             if os.path.exists(submitted_file):
                 with open(submitted_file, 'r', encoding='utf-8') as f:
@@ -978,7 +981,15 @@ class YukBuradaSubmitter:
                 submitted = []
             
             # Kayıt ID'sini oluştur (pickupCity + deliveryCity + timestamp)
-            record_id = f"{payload.get('pickupCity')}_{payload.get('destinations', [{}])[0].get('deliveryCity')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            pickup = payload.get('pickupCity', '')
+            delivery = payload.get('deliveryCity')
+            if not delivery and 'destinations' in payload:
+                dest = payload.get('destinations', [])
+                if dest and isinstance(dest, list):
+                    delivery = dest[0].get('deliveryCity')
+            delivery = delivery or ''
+            
+            record_id = f"{pickup}_{delivery}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             submitted.append({
                 'id': record_id,
                 'payload': payload,
@@ -1129,7 +1140,9 @@ class YukBuradaSubmitter:
     def _filter_already_submitted(self, records):
         """Daha önce gönderilen kayıtları filtrele"""
         submitted_file = 'gonderilmis_kayitlar.json'
-        
+        if not os.path.exists(submitted_file) and os.path.exists(os.path.join('src', 'gonderilmis_kayitlar.json')):
+            submitted_file = os.path.join('src', 'gonderilmis_kayitlar.json')
+            
         # Gönderilenleri yükle
         submitted_ids = set()
         if os.path.exists(submitted_file):
@@ -1140,7 +1153,15 @@ class YukBuradaSubmitter:
                 for item in submitted:
                     payload = item.get('payload', {})
                     # ID: pickupCity + deliveryCity (timestamp olmadan, çünkü aynı rota tekrar gönderilebilir)
-                    record_signature = f"{payload.get('pickupCity')}_{payload.get('destinations', [{}])[0].get('deliveryCity')}"
+                    pickup = payload.get('pickupCity', '')
+                    delivery = payload.get('deliveryCity')
+                    if not delivery and 'destinations' in payload:
+                        dest = payload.get('destinations', [])
+                        if dest and isinstance(dest, list):
+                            delivery = dest[0].get('deliveryCity')
+                    delivery = delivery or ''
+                    
+                    record_signature = f"{pickup}_{delivery}"
                     submitted_ids.add(record_signature)
             except Exception as e:
                 self.logger.warning(f"Failed to load submitted records: {e}")

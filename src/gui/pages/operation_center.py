@@ -1265,8 +1265,8 @@ class OperationCenterPage:
                 error_count += 1
                 continue
                 
-            is_duplicate = self.check_duplicate_shipment(shipment)
-            if is_duplicate:
+            is_dup, info = self.check_duplicate_shipment(shipment)
+            if is_dup:
                 # Toplu onayda mükerrer çıkanı atla, uyarı yığınını önlemek için (veya sayısına göre uyar)
                 error_count += 1
                 continue

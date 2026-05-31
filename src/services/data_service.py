@@ -55,6 +55,9 @@ class DataService:
         
         self.blacklist_file = str(user_data_dir / 'blacklist.json')
         self.handled_ids_file = str(user_data_dir / 'handled_ids.json')
+        self.onaylananlar_file = str(user_data_dir / 'onaylanan_kayitlar.json')
+        self.onaylanmamis_file = str(user_data_dir / 'onaylanmamis_ayristirilmis.json')
+        self.onaylanmamis_log_file = str(user_data_dir / 'onaylanmamis_ayristirilmis_log.json')
 
         # MongoDB Sync Support
         self.mongo_service = None
@@ -1039,7 +1042,7 @@ class DataService:
             return False
         
         try:
-            content_hash = self._normalize_and_hash(body_text)
+            content_hash = self._normalize_and_hash(body_text, strict=True)
             if not content_hash:
                 return False
 
@@ -1080,24 +1083,21 @@ class DataService:
             
         # USER REQUEST: Strict 100% matching check
         strict_hash = self._normalize_and_hash(body_text, strict=True)
-        # Fallback/Fuzzy check (still useful for similar messages)
-        fuzzy_hash = self._normalize_and_hash(body_text, strict=False)
         
         from datetime import datetime, timedelta
         now = datetime.now()
         
         # 1. Check Historical Processed
         hashes = self.load_processed_content_hashes()
-        for h in [strict_hash, fuzzy_hash]:
-            if h in hashes:
-                try:
-                    processed_time = datetime.fromisoformat(hashes[h])
-                    # Ensure at least 2 hours window if config is lower, but follow config if higher
-                    window_hours = max(2.0, float(DUPLICATE_CHECK_HOURS))
-                    if now - processed_time < timedelta(hours=window_hours):
-                        return True
-                except:
-                    pass
+        if strict_hash in hashes:
+            try:
+                processed_time = datetime.fromisoformat(hashes[strict_hash])
+                # Ensure at least 2 hours window if config is lower, but follow config if higher
+                window_hours = max(2.0, float(DUPLICATE_CHECK_HOURS))
+                if now - processed_time < timedelta(hours=window_hours):
+                    return True
+            except:
+                pass
             
         # 2. Check Active (Current Queue/Unprocessed file) - CACHED
         try:
@@ -1113,16 +1113,14 @@ class DataService:
                     for msg in active_list:
                         msg_body = msg.get('body') or msg.get('message_info', {}).get('body')
                         if msg_body:
-                            # Cache both strict and fuzzy for active items
+                            # Cache strict for active items
                             s_h = self._normalize_and_hash(msg_body, strict=True)
-                            f_h = self._normalize_and_hash(msg_body, strict=False)
                             if self._unprocessed_hashes_cache is not None:
                                 self._unprocessed_hashes_cache.add(s_h)
-                                self._unprocessed_hashes_cache.add(f_h)
                 self._unprocessed_hashes_mtime = float(mtime)
             
             if self._unprocessed_hashes_cache is not None:
-                if strict_hash in self._unprocessed_hashes_cache or fuzzy_hash in self._unprocessed_hashes_cache:
+                if strict_hash in self._unprocessed_hashes_cache:
                     return True
 
         except Exception as e:
@@ -1324,10 +1322,9 @@ class DataService:
         # Remove any whitespace within parts for extreme tolerance
         return "|".join(["".join(f.split()) for f in fp_parts])
 
-    def is_shipment_duplicate(self, shipment: Dict) -> bool:
+    def is_shipment_approved(self, shipment: Dict) -> bool:
         """
-        Aynı gün içinde birebir aynı sevkiyatın yapılıp yapılmadığını kontrol eder.
-        Hem onaylanmamış (inbox) hem de onaylanmış (approved) kayıtları kontrol eder.
+        Check if the shipment exists in the approved records within the duplicate check window.
         """
         try:
             fingerprint = self._get_shipment_fingerprint(shipment)
@@ -1338,27 +1335,10 @@ class DataService:
             window_hours = max(1.0, float(DUPLICATE_CHECK_HOURS))
             cutoff = datetime.now() - timedelta(hours=window_hours)
             
-            # 1. Check Unapproved (Inbox)
-            unapproved = load_json_safe(self.onaylanmamis_file, default=[])
-            if isinstance(unapproved, list):
-                for msg_entry in unapproved:
-                    ts = msg_entry.get('message_timestamp')
-                    try:
-                        if datetime.fromtimestamp(float(ts)) < cutoff:
-                            continue
-                    except:
-                        continue
-                    
-                    for s in msg_entry.get('shipments', []):
-                        if self._get_shipment_fingerprint(s) == fingerprint:
-                            return True
-
-            # 2. Check Approved (History)
             approved = self.load_approved_records()
             for rec in approved:
                 ts = rec.get('approved_at') or rec.get('createdAt')
                 try:
-                    # Parse timestamp if string
                     if isinstance(ts, str):
                         try:
                             rec_dt = datetime.fromisoformat(ts.replace('Z', '+00:00'))
@@ -1374,11 +1354,48 @@ class DataService:
                         return True
                 except:
                     continue
-
             return False
         except Exception as e:
-            logger.error(f"Error checking shipment duplicate: {e}")
+            logger.error(f"Error checking is_shipment_approved: {e}")
             return False
+
+    def is_shipment_unapproved(self, shipment: Dict) -> bool:
+        """
+        Check if the shipment exists in the unapproved records within the duplicate check window.
+        """
+        try:
+            fingerprint = self._get_shipment_fingerprint(shipment)
+            if not fingerprint or len(fingerprint.replace('|', '')) < 5:
+                return False
+                
+            from datetime import datetime, timedelta
+            window_hours = max(1.0, float(DUPLICATE_CHECK_HOURS))
+            cutoff = datetime.now() - timedelta(hours=window_hours)
+            
+            unapproved = load_json_safe(self.onaylanmamis_file, default=[])
+            if isinstance(unapproved, list):
+                for msg_entry in unapproved:
+                    ts = msg_entry.get('message_timestamp')
+                    try:
+                        if datetime.fromtimestamp(float(ts)) < cutoff:
+                            continue
+                    except:
+                        continue
+                    
+                    for s in msg_entry.get('shipments', []):
+                        if self._get_shipment_fingerprint(s) == fingerprint:
+                            return True
+            return False
+        except Exception as e:
+            logger.error(f"Error checking is_shipment_unapproved: {e}")
+            return False
+
+    def is_shipment_duplicate(self, shipment: Dict) -> bool:
+        """
+        Aynı gün içinde birebir aynı sevkiyatın yapılıp yapılmadığını kontrol eder.
+        Hem onaylanmamış (inbox) hem de onaylanmış (approved) kayıtları kontrol eder.
+        """
+        return self.is_shipment_unapproved(shipment) or self.is_shipment_approved(shipment)
 
     def remove_shipment_duplicates(self, shipment: Dict) -> int:
         """

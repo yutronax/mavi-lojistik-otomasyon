@@ -812,18 +812,22 @@ class OrchestratorSDK:
                         # --- SHIPMENT DEDUPLICATION ---
                         unique_shipments = []
                         for s in res['shipments']:
-                            if not self.data_service.is_shipment_duplicate(s):
-                                unique_shipments.append(s)
-                            else:
-                                logger.info(f"[UPDATE] Mükerrer ilan tespit edildi (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
-                                # AGGRESSIVE: Remove existing copies too
+                            if self.data_service.is_shipment_approved(s):
+                                logger.info(f"[SKIP] İlan zaten onaylanmışlar listesinde var (Atlanıyor): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
+                                continue
+                                
+                            if self.data_service.is_shipment_unapproved(s):
+                                logger.info(f"[UPDATE] Onaylanmamış mükerrer ilan tespit edildi (Rota/Tel): {s.get('nereden_il')}->{s.get('nereye_il')} ({s.get('telefon')})")
+                                # AGGRESSIVE: Remove existing unapproved copies
                                 removed_count = self.data_service.remove_shipment_duplicates(s)
                                 if removed_count > 0:
-                                    logger.info(f"[CLEAN] Aggressive: {removed_count} adet eski kopya silindi.")
+                                    logger.info(f"[CLEAN] Aggressive: {removed_count} adet eski onaylanmamış kopya silindi.")
                                 
-                                # FIX: Add the new shipment anyway so it replaces the old one!
+                                # Add the new shipment to replace/update the unapproved copy
                                 unique_shipments.append(s)
-                                logger.info("[UPDATE] Eski ilan silinerek yenisi ile güncellendi.")
+                                logger.info("[UPDATE] Eski onaylanmamış ilan yenisi ile güncellendi.")
+                            else:
+                                unique_shipments.append(s)
                         
                         if not unique_shipments:
                             logger.info(f"[SKIP] Mesaj içindeki tüm ilanlar mükerrer, mesaj yine de 'islenmis' işaretleniyor: {res['msg_id']}")
@@ -946,8 +950,12 @@ class OrchestratorSDK:
                                                 
                                                 if submit_res and submit_res.get('success'):
                                                     triggered_count += 1
-                                                    # Başarılı gönderilenleri approved listesine ekle (save_approved alias'ı payload bekler)
+                                                    # Başarılı gönderilenleri approved listesine ekle
                                                     self.data_service.save_approved(payload)
+                                                    
+                                                    # MongoDB Sayacını Artır (Canlı İzleme için)
+                                                    if self.mongo_service:
+                                                        self.mongo_service.increment_config('vps_total_success', 1)
                                                 else:
                                                     logger.warning(f"[AUTO] Gönderim başarısız: {submit_res.get('error')}")
                                             except Exception as se:
