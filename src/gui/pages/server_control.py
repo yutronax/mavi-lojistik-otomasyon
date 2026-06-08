@@ -11,6 +11,7 @@ from src.utils.command_rate_limiter import get_rate_limiter
 from src.utils.health_monitor import get_health_monitor
 from src.utils.access_control import get_access_control, Permission
 from src.gui.components.vps_monitoring_dashboard import VPSMonitoringDashboard
+from src.utils.auto_restart_manager import get_auto_restart_manager
 
 
 class ServerControlPage:
@@ -84,6 +85,14 @@ class ServerControlPage:
         # VPS Monitoring Dashboard
         self.monitoring_dashboard = VPSMonitoringDashboard(page)
 
+        # Auto-Restart Manager
+        self.auto_restart = get_auto_restart_manager(
+            check_interval=30,  # Check every 30 seconds
+            down_threshold=300,  # Restart if down for 5 minutes
+            max_attempts=3
+        )
+        self.auto_restart.register_callback(self._show_auto_restart_notification)
+
 
     async def _update_status(self):
         while True:
@@ -137,6 +146,20 @@ class ServerControlPage:
             ft.Text(message),
             bgcolor=AppColors.DANGER if "🔴" in message else AppColors.DANGER,
             duration=5000
+        )
+        self.page.snack_bar.open = True
+        try:
+            self.page.update()
+        except:
+            pass
+
+    def _show_auto_restart_notification(self, message: str):
+        """Show auto-restart notification"""
+        color = AppColors.SUCCESS if "✅" in message else (AppColors.DANGER if "❌" in message else AppColors.PRIMARY)
+        self.page.snack_bar = ft.SnackBar(
+            ft.Text(message),
+            bgcolor=color,
+            duration=4000
         )
         self.page.snack_bar.open = True
         try:
@@ -378,5 +401,9 @@ class ServerControlPage:
             asyncio.create_task(self._load_settings())
             asyncio.create_task(self.health_monitor.monitor_health(self.manager.get_status_summary))
             asyncio.create_task(self.monitoring_dashboard.start_monitoring())
+            asyncio.create_task(self.auto_restart.start_monitoring(
+                self.manager.get_status_summary,
+                self.manager.restart
+            ))
 
         return content
