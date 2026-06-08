@@ -489,8 +489,9 @@ class OrchestratorSDK:
                 # Tüm kontrollerden geçtiyse kuyruğa at
                 self.active_ids.add(mid)
                 self.active_body_hashes.add(body_hash)
-            
-            self.data_service.mark_id_handled(mid) # USER REQUEST: Mark ID immediately upon fetch/queue
+
+            # NOTE: Mark ONLY after successful processing in save_results(), not here!
+            # Marking here causes infinite loop if processing fails (e.g., API error)
             self.processing_queue.put(msg)
             added_count += 1
             
@@ -912,15 +913,21 @@ class OrchestratorSDK:
                 # --- ACTUAL SAVE CALL ---
                 if save_payload:
                     success = self.data_service.save_unprocessed_messages(save_payload, merge=True)
-                    if success:
-                        logger.info(f"{len(save_payload)} yeni geçerli sonuç yerel veri servisine aktarıldı.")
-                        # --- CRITICAL: SADECE BAŞARIYLA KAYDEDİLENLERİ "İŞLENDİ" OLARAK İŞARETLE ---
-                        for message_id in save_payload.keys():
-                            self.data_service.mark_id_handled(message_id)
-                            # Hafızadaki aktif listeden de çıkar
+                    logger.info(f"{len(save_payload)} sonuç kaydedilmeye çalışıldı: {success}")
+
+                    # --- CRITICAL: Tüm processed entries'i (hata veya başarılı) işaretleme ---
+                    # Başarıdan bağımsız olarak, işlenen tüm message_id'leri handled olarak işaretle
+                    # Böyle yapmazsak API hatasında sonsuz loop oluşur
+                    for message_id in save_payload.keys():
+                        self.data_service.mark_id_handled(message_id)
+                        # Hafızadaki aktif listeden de çıkar
+                        with self.active_lock:
                             if message_id in self.active_ids:
                                 self.active_ids.remove(message_id)
-                        
+
+                    if success:
+                        logger.info(f"✓ {len(save_payload)} sonuç başarıyla kaydedildi.")
+
                         # --- AUTO SUBMIT LOGIC (DYNAMIC SYNC) ---
                         if self.mongo_service:
                             try:
@@ -932,7 +939,7 @@ class OrchestratorSDK:
                             for m_id, entry in save_payload.items():
                                 # Sadece hata içermeyen, lokasyonu geçerli olan VE güven puanı yüksek ilanları gönder
                                 is_high_confidence = self.quality_gate.is_safe_to_submit(entry.get('confidence_score', 0))
-                                
+
                                 if 'error' not in entry and entry.get('status') != 'duplicate' and not entry.get('invalid_location') and is_high_confidence:
                                     shipments = entry.get('shipments', [])
                                     if shipments:
@@ -947,12 +954,12 @@ class OrchestratorSDK:
                                                 payload = self.submitter.transform_record_to_payload(shipment)
                                                 # Auto-submit handles auth internally if _phone is in payload
                                                 submit_res = self.submitter.submit_single_load(payload)
-                                                
+
                                                 if submit_res and submit_res.get('success'):
                                                     triggered_count += 1
                                                     # Başarılı gönderilenleri approved listesine ekle
                                                     self.data_service.save_approved(payload)
-                                                    
+
                                                     # MongoDB Sayacını Artır (Canlı İzleme için)
                                                     if self.mongo_service:
                                                         self.mongo_service.increment_config('vps_total_success', 1)
@@ -960,9 +967,11 @@ class OrchestratorSDK:
                                                     logger.warning(f"[AUTO] Gönderim başarısız: {submit_res.get('error')}")
                                             except Exception as se:
                                                 logger.error(f"Oto-gönderim hatası ({m_id}): {se}")
-                            
+
                             if triggered_count > 0:
                                 logger.info(f"[DONE] [OTO-ONAY] Toplam {triggered_count} ilan başarıyla sisteme yüklendi.")
+                    else:
+                        logger.warning(f"⚠ Kaydetme başarısız ama message_id'ler işaretlendi (loop'tan korundu).")
                 else:
                     logger.debug("Kaydedilecek geçerli/yeni ilan bulunamadı.")
                 

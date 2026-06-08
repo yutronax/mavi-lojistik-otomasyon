@@ -439,6 +439,7 @@ Return ONLY a JSON object in this format:
         models_to_try = [target_model, self.model_robust] + self.fallback_models
         models_to_try = list(dict.fromkeys(models_to_try))
 
+        last_error = None
         with self.semaphore:
             for model_name in models_to_try:
                 for attempt in range(3):
@@ -472,9 +473,9 @@ Return ONLY a JSON object in this format:
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        
+
                         text = text.strip()
-                        print(f"\n[DEBUG] AI RESPONSE:\n{text}\n") 
+                        print(f"\n[DEBUG] AI RESPONSE:\n{text}\n")
                         return await self._process_raw_json_async(text, message)
                     except RuntimeError as e:
                         if "interpreter shutdown" in str(e):
@@ -482,8 +483,10 @@ Return ONLY a JSON object in this format:
                         raise
                     except Exception as e:
                         error_str = str(e)
-                        print(f"⚠️ STAGE 2 ERROR [{model_name}]: {error_str[:150]}")
-                        
+                        last_error = error_str
+                        print(f"⚠️ STAGE 2 ERROR [{model_name}] (Attempt {attempt+1}/3): {error_str[:150]}")
+                        logger.warning(f"PARSER ERROR: {error_str[:200]}")
+
                         if "429" in error_str:
                             # --- SMART WAIT LOGIC ---
                             wait_sec = 5 # Default
@@ -492,7 +495,7 @@ Return ONLY a JSON object in this format:
                             if match:
                                 wait_sec = float(match.group(1)) + 0.5
                                 logger.info(f"⏳ Groq requested explicit wait: {wait_sec}s")
-                            
+
                             if "gemini" in model_name:
                                 if await self.key_manager.switch_to_next_async(key_type='google', reason=f"Rate Limit {model_name}"):
                                     logger.warning(f"🔄 Gemini Limit. Switching key and waiting {wait_sec}s...")
@@ -500,7 +503,7 @@ Return ONLY a JSON object in this format:
                                     continue
                                 else:
                                     break
-                            
+
                             # Rotate Groq keys
                             if await self.key_manager.switch_to_next_async(key_type='groq', reason=f"Rate Limit {model_name}"):
                                 logger.warning(f"🔄 Groq Limit on {model_name}. Switching key and waiting {wait_sec}s...")
@@ -511,16 +514,22 @@ Return ONLY a JSON object in this format:
                                 logger.error(f"🚨 ALL KEYS EXHAUSTED! Cooling down for {wait_sec*2}s...")
                                 await asyncio.sleep(wait_sec * 2)
                                 break
+                        elif "402" in error_str or "payment" in error_str.lower():
+                            logger.error(f"💳 PAYMENT ERROR on {model_name}: {error_str}")
+                            break
                         elif "401" in error_str or "400" in error_str:
                             logger.error(f"AUTH/CONFIG ERROR on {model_name}: {error_str}")
                             if not "gemini" in model_name:
                                 await self.key_manager.switch_to_next_async(reason=f"Error {model_name}")
                             break
-                        
+
                         await asyncio.sleep(1)
                 # If 3 attempts failed for this model, try next model
                 continue
-            
+
+        # Return empty list with error context - orchestrator will handle it
+        if last_error:
+            logger.error(f"🚨 PARSE FAILED: All models exhausted. Last error: {last_error[:200]}")
         return []
 
     async def parse_batch(self, messages: List[str]) -> List[List[Dict[str, Any]]]:
