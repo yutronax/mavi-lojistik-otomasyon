@@ -9,6 +9,7 @@ from src.services.data_service import DataService
 from src.services.data_service_async import AsyncDataService
 from src.utils.command_rate_limiter import get_rate_limiter
 from src.utils.health_monitor import get_health_monitor
+from src.utils.access_control import get_access_control, Permission
 
 
 class ServerControlPage:
@@ -177,6 +178,25 @@ class ServerControlPage:
 
 
     async def _run_command(self, cmd_type):
+        # Permission check
+        access_ctrl = get_access_control()
+        permission_map = {
+            "restart": Permission.RESTART_SERVICE,
+            "stop": Permission.STOP_SERVICE,
+            "start": Permission.START_SERVICE,
+            "pull": Permission.GIT_PULL
+        }
+
+        required_permission = permission_map.get(cmd_type)
+        if required_permission and not access_ctrl.has_permission(required_permission):
+            self.page.snack_bar = ft.SnackBar(
+                ft.Text(f"Yetkiniz yok: {required_permission.value}"),
+                bgcolor=AppColors.DANGER
+            )
+            self.page.snack_bar.open = True
+            self.page.update()
+            return
+
         # Rate limiting check
         limiter = get_rate_limiter()
         allowed, message = limiter.is_allowed(cmd_type)
