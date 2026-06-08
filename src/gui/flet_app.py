@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 from src.gui.styles import AppColors, AppStyles, apply_app_theme
 from src.gui.pages.operation_center import OperationCenterPage
-from src.gui.pages.management_center import ManagementCenterPage
+from src.gui.pages.management_center_refactored import ManagementCenterPage
 from src.gui.pages.server_control import ServerControlPage
 from src.gui.components.log_viewer import LogPage
 from src.gui.pages.settings_page import SettingsPage
