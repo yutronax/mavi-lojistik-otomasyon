@@ -4,11 +4,31 @@ import os
 import json
 import logging
 import paramiko
+import base64
+from cryptography.fernet import Fernet
+from src.utils.operation_logger import get_operation_logger
 
 logger = logging.getLogger("ServerManager")
 
 # Silence paramiko transport logs to keep terminal clean
 logging.getLogger("paramiko").setLevel(logging.WARNING)
+
+# Encryption key - derived from environment or machine ID
+def _get_encryption_key():
+    """Get or create encryption key for SSH credentials"""
+    key_file = os.path.join(os.path.expanduser("~"), ".mavi_lojistik_ssh_key")
+    if os.path.exists(key_file):
+        with open(key_file, "rb") as f:
+            return f.read()
+    else:
+        key = Fernet.generate_key()
+        os.makedirs(os.path.dirname(key_file), exist_ok=True)
+        with open(key_file, "wb") as f:
+            f.write(key)
+        os.chmod(key_file, 0o600)  # Restrict permissions
+        return key
+
+_ENCRYPTION_KEY = _get_encryption_key()
 
 class ServerManager:
     """
@@ -24,15 +44,41 @@ class ServerManager:
         self.ssh_config = ssh_config or self._load_ssh_config() # Otomatik yükle
 
     def _load_ssh_config(self):
-        """Loads SSH config from data/ssh_config.json if exists"""
+        """Loads and decrypts SSH config from data/ssh_config.json if exists"""
         config_path = os.path.join(self.root_dir, "data", "ssh_config.json")
         if os.path.exists(config_path):
             try:
                 with open(config_path, "r", encoding="utf-8") as f:
-                    return json.load(f)
+                    data = json.load(f)
+
+                # Decrypt password if encrypted
+                if data.get('pwd') and data.get('pwd').startswith('encrypted:'):
+                    try:
+                        cipher = Fernet(_ENCRYPTION_KEY)
+                        encrypted_pwd = data['pwd'].replace('encrypted:', '')
+                        data['pwd'] = cipher.decrypt(encrypted_pwd.encode()).decode()
+                    except Exception as e:
+                        logger.warning(f"Password decryption failed: {e}")
+                        del data['pwd']  # Remove invalid password
+
+                return data
             except Exception as e:
                 logger.error(f"SSH config load error: {e}")
         return None
+
+    def save_ssh_config(self, config):
+        """Saves SSH config with encrypted password"""
+        config = config.copy()  # Don't modify original
+        if config.get('pwd'):
+            cipher = Fernet(_ENCRYPTION_KEY)
+            encrypted = cipher.encrypt(config['pwd'].encode()).decode()
+            config['pwd'] = f"encrypted:{encrypted}"
+
+        config_path = os.path.join(self.root_dir, "data", "ssh_config.json")
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
+        with open(config_path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=2)
+        logger.info("SSH config saved (password encrypted)")
 
     def _execute(self, cmd_list):
         if self.ssh_config and self.ssh_config.get('host'):
@@ -133,13 +179,31 @@ class ServerManager:
         return {"status": output if not success else "offline", "cpu": 0, "memory": 0, "uptime": 0, "restarts": 0}
 
     def restart(self):
-        return self._execute(["pm2", "restart", self.service_name])
+        success, output = self._execute(["pm2", "restart", self.service_name])
+        get_operation_logger().log_operation(
+            "restart",
+            "success" if success else "failure",
+            {"output": output[:200], "service": self.service_name}
+        )
+        return success, output
 
     def stop(self):
-        return self._execute(["pm2", "stop", self.service_name])
+        success, output = self._execute(["pm2", "stop", self.service_name])
+        get_operation_logger().log_operation(
+            "stop",
+            "success" if success else "failure",
+            {"output": output[:200], "service": self.service_name}
+        )
+        return success, output
 
     def start(self):
-        return self._execute(["pm2", "start", "ecosystem.config.js", "--only", self.service_name])
+        success, output = self._execute(["pm2", "start", "ecosystem.config.js", "--only", self.service_name])
+        get_operation_logger().log_operation(
+            "start",
+            "success" if success else "failure",
+            {"output": output[:200], "service": self.service_name}
+        )
+        return success, output
 
     def get_logs(self, lines=50):
         """Reads log files from local or remote"""
@@ -173,4 +237,10 @@ class ServerManager:
         return "\n".join(combined_logs) if combined_logs else "Log bulunamadı."
 
     def git_pull(self):
-        return self._execute(["git", "pull"])
+        success, output = self._execute(["git", "pull"])
+        get_operation_logger().log_operation(
+            "git_pull",
+            "success" if success else "failure",
+            {"output": output[:200]}
+        )
+        return success, output
