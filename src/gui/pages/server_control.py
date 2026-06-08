@@ -10,6 +10,7 @@ from src.services.data_service_async import AsyncDataService
 from src.utils.command_rate_limiter import get_rate_limiter
 from src.utils.health_monitor import get_health_monitor
 from src.utils.access_control import get_access_control, Permission
+from src.gui.components.vps_monitoring_dashboard import VPSMonitoringDashboard
 
 
 class ServerControlPage:
@@ -79,6 +80,9 @@ class ServerControlPage:
         # Health monitoring
         self.health_monitor = get_health_monitor()
         self.health_monitor.register_alert_callback(self._show_health_alert)
+
+        # VPS Monitoring Dashboard
+        self.monitoring_dashboard = VPSMonitoringDashboard(page)
 
 
     async def _update_status(self):
@@ -305,6 +309,11 @@ class ServerControlPage:
         )
 
         content = ft.Column([
+            # VPS Monitoring Dashboard
+            self.monitoring_dashboard.build(),
+
+            ft.Container(height=15),
+
             ft.Row([
                 ft.Column([
                     ft.Text("VPS Kontrol Merkezi", size=24, weight="bold", color=AppColors.TEXT),
@@ -313,7 +322,7 @@ class ServerControlPage:
                 self.status_chip
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             ft.Divider(color="white10", height=30),
-            
+
             # Metrics
             ft.Row([
                 self._create_stat_card("CPU", ft.Icons.MEMORY, self.cpu_text),
@@ -368,5 +377,6 @@ class ServerControlPage:
             asyncio.create_task(self._refresh_logs())
             asyncio.create_task(self._load_settings())
             asyncio.create_task(self.health_monitor.monitor_health(self.manager.get_status_summary))
+            asyncio.create_task(self.monitoring_dashboard.start_monitoring())
 
         return content
