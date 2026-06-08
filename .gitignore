@@ -46,54 +46,6 @@ numaralara_göre_sevkiyatlar.json
 onaylanmamış_ayrıştırılmış.json
 wa_session.json
 data/wa_session.json
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Environment variables
-.env
-
-# Logs
-logs/
-*.log
-
-# Data backups
-*.bak
-*.tmp
-.atomic_*
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Project specific
-onaylanmamış_ayrıştırılmış_bak*.json
-config/user_preferences.yaml
-
-# Sensitive Data & Logs
-islenmemis_mesajlar.json
-mesajlar.json
-gonderilmis_kayitlar.json
-yukburada_users.json
-onaylanan_kayitlar.json
-numaralara_göre_sevkiyatlar.json
-onaylanmamış_ayrıştırılmış.json
-wa_session.json
-data/wa_session.json
 data/temp_groups_cache.json
 matcher_debug.txt
 build_log*.txt
@@ -108,4 +60,5 @@ submission_results*.json
 dist/
 build/
 _arsiv/
+archive/
 mavi_project.tar.gz
