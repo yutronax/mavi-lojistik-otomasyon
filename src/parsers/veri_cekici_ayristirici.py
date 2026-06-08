@@ -87,6 +87,13 @@ try:
 except ImportError:
     SUBMITTER_AVAILABLE = False
 
+# Backup Scheduler
+try:
+    from src.utils.backup_scheduler import get_backup_scheduler
+    BACKUP_SCHEDULER_AVAILABLE = True
+except ImportError:
+    BACKUP_SCHEDULER_AVAILABLE = False
+
 # Logging Yapılandırması
 LOG_FILE = os.path.join(PROJECT_ROOT, 'tools', 'orchestrator.log')
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -176,6 +183,15 @@ class OrchestratorSDK:
         if self.auto_submit_active and not self.submitter:
             logger.warning("[!] Otomatik onay aktif ancak submitter başlatılamadı!")
             self.auto_submit_active = False
+
+        # Backup Scheduler
+        self.backup_scheduler = None
+        if BACKUP_SCHEDULER_AVAILABLE:
+            try:
+                self.backup_scheduler = get_backup_scheduler(PROJECT_ROOT)
+                logger.info("[BACKUP] Scheduled backup sistemi hazır")
+            except Exception as e:
+                logger.warning(f"Backup scheduler initialization failed: {e}")
 
         # REFACTORED: Persistent ThreadPool for continuous processing
         self.max_parallel_workers = MAX_WORKERS_DEFAULT
