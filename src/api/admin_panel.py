@@ -40,6 +40,8 @@ SERVICE_NAME = "mavi-lojistik-server"
 BLACKLIST_PATH = os.path.join(PROJECT_ROOT, "data", "blacklist.json")
 GROUPS_PATH = os.path.join(PROJECT_ROOT, "data", "chat_groups.json")
 MESSAGES_PATH = os.path.join(PROJECT_ROOT, "data", "live_messages.json")
+UNPROCESSED_PATH = os.path.join(PROJECT_ROOT, "data", "onaylanmamis_ayristirilmis.json")
+APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.json")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
     os.path.join(PROJECT_ROOT, "logs", "pm2_out.log"),
@@ -247,6 +249,86 @@ def messages_get():
             pass
     items = sorted(items, key=lambda m: m.get("timestamp", 0), reverse=True)
     return jsonify({"messages": items[:limit]})
+
+
+# ---------------- API: Ayrıştırılmış Mesajlar (Operasyon Merkezi) ----------------
+
+def _load_unprocessed():
+    try:
+        with open(UNPROCESSED_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+def _save_unprocessed(items):
+    _atomic_write(UNPROCESSED_PATH, json.dumps(items, ensure_ascii=False, indent=2))
+
+@app.route("/api/unprocessed", methods=["GET"])
+@require_auth
+def unprocessed_get():
+    """Ayrıştırılmış ama onaylanmamış mesajları (sevkiyatlarıyla birlikte) döner."""
+    minutes = request.args.get("minutes", "all")
+    items = _load_unprocessed()
+    if minutes != "all":
+        try:
+            cutoff = time.time() - int(minutes) * 60
+            items = [m for m in items if (m.get("createdAt") or 0) >= cutoff]
+        except ValueError:
+            pass
+    items = sorted(items, key=lambda m: m.get("createdAt", 0), reverse=True)
+    return jsonify({"messages": items[:100]})
+
+@app.route("/api/unprocessed/<msg_id>/approve/<int:ship_idx>", methods=["POST"])
+@require_auth
+def unprocessed_approve(msg_id, ship_idx):
+    """Belirtilen sevkiyatı onaylar: Onaylananlar.json'a ekler, listeden çıkarır."""
+    items = _load_unprocessed()
+    msg = next((m for m in items if m.get("message_id") == msg_id), None)
+    if not msg:
+        return jsonify({"error": "Mesaj bulunamadı"}), 404
+    shipments = msg.get("shipments", [])
+    if ship_idx >= len(shipments):
+        return jsonify({"error": "Sevkiyat bulunamadı"}), 404
+    shipment = shipments.pop(ship_idx)
+    shipment["onay_tarihi"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    # Onaylananlar'a ekle
+    try:
+        with open(APPROVED_PATH, "r", encoding="utf-8") as f:
+            approved = json.load(f)
+    except Exception:
+        approved = []
+    approved.append(shipment)
+    _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
+    # Mesajda sevkiyat kalmadıysa listeden çıkar
+    if not shipments:
+        items = [m for m in items if m.get("message_id") != msg_id]
+    _save_unprocessed(items)
+    return jsonify({"ok": True})
+
+@app.route("/api/unprocessed/<msg_id>/shipment/<int:ship_idx>", methods=["DELETE"])
+@require_auth
+def unprocessed_delete_shipment(msg_id, ship_idx):
+    """Sevkiyatı siler (mesajı değil)."""
+    items = _load_unprocessed()
+    msg = next((m for m in items if m.get("message_id") == msg_id), None)
+    if not msg:
+        return jsonify({"error": "Mesaj bulunamadı"}), 404
+    shipments = msg.get("shipments", [])
+    if ship_idx >= len(shipments):
+        return jsonify({"error": "Sevkiyat bulunamadı"}), 404
+    shipments.pop(ship_idx)
+    if not shipments:
+        items = [m for m in items if m.get("message_id") != msg_id]
+    _save_unprocessed(items)
+    return jsonify({"ok": True})
+
+@app.route("/api/unprocessed/<msg_id>", methods=["DELETE"])
+@require_auth
+def unprocessed_delete_msg(msg_id):
+    """Tüm mesajı siler."""
+    items = [m for m in _load_unprocessed() if m.get("message_id") != msg_id]
+    _save_unprocessed(items)
+    return jsonify({"ok": True})
 
 
 # ---------------- API: Grup Yönetimi ----------------
@@ -470,6 +552,17 @@ input,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--b
 select{width:auto}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px}
 .split .card{margin:0}
+.msg-layout{display:flex;gap:16px;margin:16px;align-items:flex-start}
+.msg-left{flex-shrink:0;width:280px;max-height:80vh;overflow-y:auto}
+.msg-right{flex:1;min-width:0}
+.msg-item{padding:10px 12px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;cursor:pointer;transition:background .15s}
+.msg-item:hover{background:var(--acc-soft)}
+.msg-item.selected{background:var(--acc-soft);border-color:var(--acc)}
+.ship-card{border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.ship-route{font-weight:700;font-size:14px;color:var(--tx);margin-bottom:4px}
+.ship-tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.ship-tag{background:var(--acc-soft);color:var(--acc-dark);border-radius:12px;padding:2px 10px;font-size:11px}
+.ship-actions{display:flex;gap:8px;margin-top:8px}
 pre{background:#0f172a;color:#d1d5db;padding:10px;border-radius:10px;font-size:11px;overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all}
 .bl-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
 .bl-item button{width:auto;padding:6px 12px;font-size:12px}
@@ -481,6 +574,8 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:15}
   .sidebar.collapsed{width:0;border-right:0}
   .split{grid-template-columns:1fr}
+  .msg-layout{flex-direction:column}
+  .msg-left{width:100%;max-height:40vh}
   .grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
@@ -528,17 +623,38 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 </div>
 
 <div id="tab-msg" class="hide">
-  <div class="card">
-    <div class="row" style="margin:0 0 10px">
-      <button class="b-acc" onclick="loadMessages()">⟳ Yenile</button>
-      <select id="msg-filter" onchange="loadMessages()">
-        <option value="10">Son 10 Dakika</option>
-        <option value="60">Son 1 Saat</option>
-        <option value="1440">Bugün</option>
-        <option value="all" selected>Tümü</option>
-      </select>
+  <div class="msg-layout">
+    <div class="card msg-left">
+      <div class="row" style="margin:0 0 10px;flex-wrap:wrap;gap:8px">
+        <b style="color:var(--tx);font-size:13px">📥 Bekleyen Mesajlar</b>
+        <div style="display:flex;gap:6px;align-items:center">
+          <select id="msg-filter" onchange="loadMessages()" style="width:auto;font-size:12px;padding:6px 8px">
+            <option value="10">Son 10 Dakika</option>
+            <option value="60">Son 1 Saat</option>
+            <option value="1440">Bugün</option>
+            <option value="all" selected>Tümü</option>
+          </select>
+          <button class="b-acc" onclick="loadMessages()" style="padding:6px 10px;font-size:12px">⟳</button>
+        </div>
+      </div>
+      <div id="msg-list"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
     </div>
-    <div id="msg-list"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
+    <div class="msg-right">
+      <div class="card" style="margin:0 0 12px">
+        <b style="color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Orijinal Mesaj</b>
+        <div id="msg-original" style="margin-top:8px;font-size:13px;white-space:pre-wrap;color:var(--tx);min-height:60px">
+          <span style="color:var(--mut)">Soldaki listeden bir mesaj seçin.</span>
+        </div>
+        <div id="msg-meta" style="margin-top:8px;font-size:11px;color:var(--mut)"></div>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="row" style="margin:0 0 10px">
+          <b style="color:var(--tx);font-size:13px">🚛 Sevkiyatlar</b>
+          <span id="ship-count" style="font-size:12px;color:var(--mut)"></span>
+        </div>
+        <div id="ship-list"><p style="color:var(--mut);font-size:13px">Mesaj seçilmedi.</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -658,19 +774,114 @@ function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+let _unprocessedMsgs = [];
+let _selectedMsgId = null;
+
 async function loadMessages(){
   $('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Yükleniyor...</p>';
   const minutes = $('msg-filter').value;
-  const d = await api('/api/messages?limit=50&minutes='+minutes); if(!d) return;
-  if(!d.messages.length){$('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Mesaj bulunamadı.</p>'; return;}
-  $('msg-list').innerHTML = d.messages.map(m => `
-    <div class="bl-item" style="display:block">
-      <div style="display:flex;justify-content:space-between;color:var(--mut);font-size:12px">
-        <span>${escapeHtml(m.group)}</span><span>${escapeHtml(m.time)}</span>
+  const d = await api('/api/unprocessed?minutes='+minutes); if(!d) return;
+  _unprocessedMsgs = d.messages || [];
+  renderMsgList();
+  if(_unprocessedMsgs.length && !_selectedMsgId){
+    selectMsg(_unprocessedMsgs[0].message_id);
+  } else if(_selectedMsgId){
+    const still = _unprocessedMsgs.find(m=>m.message_id===_selectedMsgId);
+    if(still) renderShipments(still); else {_selectedMsgId=null;clearMsgDetail();}
+  } else {
+    clearMsgDetail();
+  }
+}
+
+function renderMsgList(){
+  if(!_unprocessedMsgs.length){
+    $('msg-list').innerHTML='<p style="color:var(--mut);font-size:13px">Bekleyen mesaj yok.</p>';
+    return;
+  }
+  $('msg-list').innerHTML = _unprocessedMsgs.map(m=>{
+    const info = m.message_info||{};
+    const body = info.body||m.body||'';
+    const preview = body.length>60?body.slice(0,60)+'…':body;
+    const grp = info.chat_name||info.group_name||'';
+    const cnt = (m.shipments||[]).length;
+    const sel = m.message_id===_selectedMsgId;
+    const ts = m.createdAt||info.timestamp||0;
+    let tstr='';
+    if(ts){const dt=new Date(ts<1e10?ts*1000:ts);tstr=dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});}
+    return `<div class="msg-item${sel?' selected':''}" onclick="selectMsg('${m.message_id}')">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mut)">
+        <span>${escapeHtml(grp)}</span><span>${tstr}</span>
       </div>
-      <div style="font-weight:600;font-size:13px;margin:2px 0">${escapeHtml(m.sender)}</div>
-      <div style="font-size:13px;white-space:pre-wrap">${escapeHtml(m.body)}</div>
-    </div>`).join('');
+      <div style="font-size:12px;margin:3px 0;color:var(--tx)">${escapeHtml(preview)}</div>
+      <span style="background:${cnt?'var(--acc)':'#ccc'};color:white;border-radius:10px;padding:1px 8px;font-size:11px">${cnt} sevk.</span>
+    </div>`;
+  }).join('');
+}
+
+function selectMsg(id){
+  _selectedMsgId = id;
+  renderMsgList();
+  const msg = _unprocessedMsgs.find(m=>m.message_id===id);
+  if(!msg){clearMsgDetail();return;}
+  const info = msg.message_info||{};
+  const body = info.body||msg.body||'İçerik yok';
+  $('msg-original').textContent = body;
+  const parts=[];
+  if(info.chat_name) parts.push('📱 '+info.chat_name);
+  if(info.sender) parts.push('👤 '+info.sender);
+  if(info.timestamp){const dt=new Date(info.timestamp*1000);parts.push('🕐 '+dt.toLocaleString('tr-TR'));}
+  $('msg-meta').textContent = parts.join('  |  ');
+  renderShipments(msg);
+}
+
+function clearMsgDetail(){
+  $('msg-original').innerHTML='<span style="color:var(--mut)">Soldaki listeden bir mesaj seçin.</span>';
+  $('msg-meta').textContent='';
+  $('ship-count').textContent='';
+  $('ship-list').innerHTML='<p style="color:var(--mut);font-size:13px">Mesaj seçilmedi.</p>';
+}
+
+function renderShipments(msg){
+  const ships = msg.shipments||[];
+  $('ship-count').textContent = ships.length+' sevkiyat';
+  if(!ships.length){
+    $('ship-list').innerHTML='<p style="color:var(--mut);font-size:13px">Bu mesajda sevkiyat yok.</p>';
+    return;
+  }
+  $('ship-list').innerHTML = ships.map((s,i)=>{
+    const from=(s.nereden_il||s.nerden_il||'?')+(s.nereden_ilce||s.nerden_ilce?'/'+(s.nereden_ilce||s.nerden_ilce):'');
+    const to=(s.nereye_il||'?')+(s.nereye_ilce?'/'+s.nereye_ilce:'');
+    const tags=[];
+    const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
+    arr(s.arac_tipi).forEach(v=>v&&tags.push('🚛 '+v));
+    arr(s.kasa_tipi).forEach(v=>v&&tags.push('📦 '+v));
+    arr(s.yuk_tipi).forEach(v=>v&&tags.push('⚡ '+v));
+    if(s.fiyat&&s.fiyat!=='SORUNUZ') tags.push('💰 '+s.fiyat);
+    const phone = arr(s.telefon).filter(Boolean);
+    return `<div class="ship-card">
+      <div class="ship-route">${escapeHtml(from)} → ${escapeHtml(to)}</div>
+      ${s.isim&&s.isim!=='SORUNUZ'?`<div style="font-size:12px;color:var(--mut)">${escapeHtml(s.isim)}</div>`:''}
+      <div class="ship-tags">${tags.map(t=>`<span class="ship-tag">${escapeHtml(t)}</span>`).join('')}</div>
+      ${phone.length?`<div style="font-size:12px;color:var(--mut)">📞 ${escapeHtml(phone.join(', '))}</div>`:''}
+      ${s.aciklama?`<div style="font-size:12px;color:var(--mut);margin-top:4px;font-style:italic">${escapeHtml(s.aciklama)}</div>`:''}
+      <div class="ship-actions">
+        <button class="b-ok" onclick="approveShip('${msg.message_id}',${i})">✓ Onayla</button>
+        <button class="b-err" onclick="deleteShip('${msg.message_id}',${i})">✕ Sil</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function approveShip(msgId, idx){
+  if(!confirm('Bu sevkiyat onaylansın mı?')) return;
+  const d = await api('/api/unprocessed/'+encodeURIComponent(msgId)+'/approve/'+idx,{method:'POST'});
+  if(d&&d.ok){toast('Onaylandı ✓');loadMessages();} else if(d) toast(d.error||'Hata',true);
+}
+
+async function deleteShip(msgId, idx){
+  if(!confirm('Bu sevkiyat silinsin mi?')) return;
+  const d = await api('/api/unprocessed/'+encodeURIComponent(msgId)+'/shipment/'+idx,{method:'DELETE'});
+  if(d&&d.ok){toast('Silindi');loadMessages();} else if(d) toast(d.error||'Hata',true);
 }
 
 async function loadGroups(){
