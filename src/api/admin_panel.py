@@ -657,7 +657,7 @@ async function loadGroups(){
 
 async function loadAvailableGroups(){
   $('grp-available').classList.remove('hide');
-  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Whapi\'dan çekiliyor...</p>';
+  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Sunucudan çekiliyor...</p>';
   const d = await api('/api/groups/available'); if(!d) return;
   if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
   $('grp-available-list').innerHTML = d.groups.map(g => `
