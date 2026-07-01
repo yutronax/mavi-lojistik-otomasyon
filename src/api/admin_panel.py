@@ -227,13 +227,24 @@ def logs():
 @app.route("/api/messages", methods=["GET"])
 @require_auth
 def messages_get():
-    """Son WhatsApp mesajlarını (data/live_messages.json) en yeniden eskiye döner."""
+    """Son WhatsApp mesajlarını (data/live_messages.json) en yeniden eskiye döner.
+
+    ?minutes= : Operasyon Merkezi'ndeki (Flet) zaman filtresiyle aynı seçenekler
+    (10 / 60 / 1440 / all) — sadece o pencere içindeki mesajları döner.
+    """
     limit = min(int(request.args.get("limit", 50)), 200)
+    minutes = request.args.get("minutes", "all")
     try:
         with open(MESSAGES_PATH, "r", encoding="utf-8") as f:
             items = json.load(f)
     except Exception:
         items = []
+    if minutes != "all":
+        try:
+            cutoff = time.time() - int(minutes) * 60
+            items = [m for m in items if m.get("timestamp", 0) >= cutoff]
+        except ValueError:
+            pass
     items = sorted(items, key=lambda m: m.get("timestamp", 0), reverse=True)
     return jsonify({"messages": items[:limit]})
 
@@ -455,7 +466,10 @@ header h1{font-size:16px;font-weight:700}
 button{border:0;border-radius:10px;padding:13px;font-size:15px;font-weight:600;color:#fff;width:100%;cursor:pointer}
 .b-ok{background:var(--ok)}.b-err{background:var(--err)}.b-warn{background:var(--warn)}.b-acc{background:var(--acc)}
 .row{display:flex;gap:8px;margin-top:10px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--tx);font-size:15px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--tx);font-size:15px}
+select{width:auto}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px}
+.split .card{margin:0}
 pre{background:#0f172a;color:#d1d5db;padding:10px;border-radius:10px;font-size:11px;overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all}
 .bl-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
 .bl-item button{width:auto;padding:6px 12px;font-size:12px}
@@ -466,6 +480,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 @media (max-width:768px){
   .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:15}
   .sidebar.collapsed{width:0;border-right:0}
+  .split{grid-template-columns:1fr}
   .grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
@@ -516,22 +531,32 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   <div class="card">
     <div class="row" style="margin:0 0 10px">
       <button class="b-acc" onclick="loadMessages()">⟳ Yenile</button>
+      <select id="msg-filter" onchange="loadMessages()">
+        <option value="10">Son 10 Dakika</option>
+        <option value="60">Son 1 Saat</option>
+        <option value="1440">Bugün</option>
+        <option value="all" selected>Tümü</option>
+      </select>
     </div>
     <div id="msg-list"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
   </div>
 </div>
 
 <div id="tab-grp" class="hide">
-  <div class="card">
-    <div class="row" style="margin:0 0 10px">
-      <button class="b-acc" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
-      <button class="b-warn" onclick="loadAvailableGroups()">🔍 Whapi'dan Getir</button>
+  <div class="split">
+    <div class="card">
+      <div class="row" style="margin:0 0 10px">
+        <button class="b-acc" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
+      </div>
+      <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
+      <div id="grp-list"></div>
     </div>
-    <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
-    <div id="grp-list"></div>
-    <div id="grp-available" class="hide" style="margin-top:14px">
-      <label>Whapi Grupları (kayıtlı olmayanlar önce)</label>
-      <div id="grp-available-list"></div>
+    <div class="card">
+      <div class="row" style="margin:0 0 10px">
+        <button class="b-warn" onclick="loadAvailableGroups()">🔍 Whapi'dan Getir</button>
+      </div>
+      <label>Mevcut Gruplar (kayıtlı olmayanlar önce)</label>
+      <div id="grp-available-list"><p style="color:var(--mut);font-size:13px">"Whapi'dan Getir"e basın.</p></div>
     </div>
   </div>
 </div>
@@ -635,7 +660,8 @@ function escapeHtml(s){
 
 async function loadMessages(){
   $('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Yükleniyor...</p>';
-  const d = await api('/api/messages?limit=50'); if(!d) return;
+  const minutes = $('msg-filter').value;
+  const d = await api('/api/messages?limit=50&minutes='+minutes); if(!d) return;
   if(!d.messages.length){$('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Mesaj bulunamadı.</p>'; return;}
   $('msg-list').innerHTML = d.messages.map(m => `
     <div class="bl-item" style="display:block">
@@ -648,7 +674,6 @@ async function loadMessages(){
 }
 
 async function loadGroups(){
-  $('grp-available').classList.add('hide');
   const d = await api('/api/groups'); if(!d) return;
   $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
   $('grp-list').innerHTML = d.groups.map(g =>
@@ -656,7 +681,6 @@ async function loadGroups(){
 }
 
 async function loadAvailableGroups(){
-  $('grp-available').classList.remove('hide');
   $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Sunucudan çekiliyor...</p>';
   const d = await api('/api/groups/available'); if(!d) return;
   if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
