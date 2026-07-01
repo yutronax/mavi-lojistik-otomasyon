@@ -39,6 +39,7 @@ load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 SERVICE_NAME = "mavi-lojistik-server"
 BLACKLIST_PATH = os.path.join(PROJECT_ROOT, "data", "blacklist.json")
 GROUPS_PATH = os.path.join(PROJECT_ROOT, "data", "chat_groups.json")
+MESSAGES_PATH = os.path.join(PROJECT_ROOT, "data", "live_messages.json")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
     os.path.join(PROJECT_ROOT, "logs", "pm2_out.log"),
@@ -219,6 +220,22 @@ def logs():
                 chunks.append(f"{path} okunamadı: {e}")
     return jsonify({"logs": "\n".join(chunks) or "Log bulunamadı."})
 
+
+
+# ---------------- API: Mesajlar ----------------
+
+@app.route("/api/messages", methods=["GET"])
+@require_auth
+def messages_get():
+    """Son WhatsApp mesajlarını (data/live_messages.json) en yeniden eskiye döner."""
+    limit = min(int(request.args.get("limit", 50)), 200)
+    try:
+        with open(MESSAGES_PATH, "r", encoding="utf-8") as f:
+            items = json.load(f)
+    except Exception:
+        items = []
+    items = sorted(items, key=lambda m: m.get("timestamp", 0), reverse=True)
+    return jsonify({"messages": items[:limit]})
 
 
 # ---------------- API: Grup Yönetimi ----------------
@@ -468,6 +485,8 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   <button class="collapse-btn" onclick="toggleSidebar()" title="Daralt/Genişlet">☰</button>
   <nav>
     <button class="act" onclick="tab('status',this)"><span class="ic">📊</span><span class="label">Durum</span></button>
+    <button onclick="tab('msg',this);loadMessages()"><span class="ic">💬</span><span class="label">Mesajlar</span></button>
+    <button onclick="tab('grp',this);loadGroups()"><span class="ic">👥</span><span class="label">Gruplar</span></button>
     <button onclick="tab('logs',this);loadLogs()"><span class="ic">📜</span><span class="label">Loglar</span></button>
     <button onclick="tab('bl',this);loadBl()"><span class="ic">🚫</span><span class="label">Kara Liste</span></button>
     <button onclick="tab('set',this);loadSet()"><span class="ic">⚙️</span><span class="label">Ayarlar</span></button>
@@ -490,6 +509,30 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
       <button class="b-err" onclick="if(confirm('Servis durdurulsun mu?'))svc('stop')">■ Durdur</button>
     </div>
     <p id="s-extra" style="color:var(--mut);font-size:12px;margin-top:10px"></p>
+  </div>
+</div>
+
+<div id="tab-msg" class="hide">
+  <div class="card">
+    <div class="row" style="margin:0 0 10px">
+      <button class="b-acc" onclick="loadMessages()">⟳ Yenile</button>
+    </div>
+    <div id="msg-list"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
+  </div>
+</div>
+
+<div id="tab-grp" class="hide">
+  <div class="card">
+    <div class="row" style="margin:0 0 10px">
+      <button class="b-acc" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
+      <button class="b-warn" onclick="loadAvailableGroups()">🔍 Whapi'dan Getir</button>
+    </div>
+    <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
+    <div id="grp-list"></div>
+    <div id="grp-available" class="hide" style="margin-top:14px">
+      <label>Whapi Grupları (kayıtlı olmayanlar önce)</label>
+      <div id="grp-available-list"></div>
+    </div>
   </div>
 </div>
 
@@ -563,7 +606,7 @@ async function doLogin(){
 }
 
 function tab(name, btn){
-  ['status','logs','bl','set'].forEach(t=>$('tab-'+t).classList.add('hide'));
+  ['status','msg','grp','logs','bl','set'].forEach(t=>$('tab-'+t).classList.add('hide'));
   $('tab-'+name).classList.remove('hide');
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('act'));
   if(btn)btn.classList.add('act');
@@ -584,6 +627,55 @@ async function svc(a){
   const d = await api('/api/service/'+a,{method:'POST'});
   if(d) toast(d.ok?'Tamamlandı ✓':('Hata: '+d.output), !d.ok);
   setTimeout(refresh, 2500);
+}
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function loadMessages(){
+  $('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Yükleniyor...</p>';
+  const d = await api('/api/messages?limit=50'); if(!d) return;
+  if(!d.messages.length){$('msg-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Mesaj bulunamadı.</p>'; return;}
+  $('msg-list').innerHTML = d.messages.map(m => `
+    <div class="bl-item" style="display:block">
+      <div style="display:flex;justify-content:space-between;color:var(--mut);font-size:12px">
+        <span>${escapeHtml(m.group)}</span><span>${escapeHtml(m.time)}</span>
+      </div>
+      <div style="font-weight:600;font-size:13px;margin:2px 0">${escapeHtml(m.sender)}</div>
+      <div style="font-size:13px;white-space:pre-wrap">${escapeHtml(m.body)}</div>
+    </div>`).join('');
+}
+
+async function loadGroups(){
+  $('grp-available').classList.add('hide');
+  const d = await api('/api/groups'); if(!d) return;
+  $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
+  $('grp-list').innerHTML = d.groups.map(g =>
+    `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
+}
+
+async function loadAvailableGroups(){
+  $('grp-available').classList.remove('hide');
+  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Whapi\'dan çekiliyor...</p>';
+  const d = await api('/api/groups/available'); if(!d) return;
+  if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
+  $('grp-available-list').innerHTML = d.groups.map(g => `
+    <div class="bl-item">
+      <span>${escapeHtml(g.name)}${g.saved ? ' <span style="color:var(--ok)">(kayıtlı)</span>' : ''}</span>
+      ${g.saved ? '' : `<button class="b-ok" onclick="grpAdd('${g.id}','${escapeHtml(g.name).replace(/'/g,"\\'")}')">Ekle</button>`}
+    </div>`).join('');
+}
+
+async function grpAdd(id, name){
+  const d = await api('/api/groups',{method:'POST',body:JSON.stringify({id,name})});
+  if(d&&d.ok){toast('Eklendi ✓');loadGroups();loadAvailableGroups();} else if(d) toast(d.error,true);
+}
+
+async function grpDel(id){
+  if(!confirm('Bu grup silinsin mi?'))return;
+  const d = await api('/api/groups/'+encodeURIComponent(id),{method:'DELETE'});
+  if(d&&d.ok){toast('Silindi ✓');loadGroups();} else if(d) toast(d.error,true);
 }
 
 async function loadLogs(){
