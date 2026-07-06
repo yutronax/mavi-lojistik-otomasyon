@@ -1421,7 +1421,7 @@ async function loadGroups(){
 }
 
 async function loadAvailableGroups(force=false){
-  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Whapi\'dan çekiliyor...</p>';
+  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Sunucudan cekiliyor...</p>';
   const d = await api('/api/groups/available'+(force?'?force=1':'')); if(!d) return;
   if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
   const unsaved = d.groups.filter(g=>!g.saved).length;
