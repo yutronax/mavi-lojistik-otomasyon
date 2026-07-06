@@ -482,8 +482,15 @@ def _approve_message(msg_id):
         except Exception:
             approved = []
 
+        count = 0
+        skipped = 0
         for shipment in shipments:
             shipment = shipment.copy()
+            # Lokasyon kontrolü — boş il ile YükBurada'ya gitmesin
+            if not (shipment.get("nereden_il") or "").strip() or not (shipment.get("nereye_il") or "").strip():
+                logger.warning(f"[APPROVE_ALL] {msg_id}: lokasyon eksik sevkiyat atlandı — nereden='{shipment.get('nereden_il')}' nereye='{shipment.get('nereye_il')}'")
+                skipped += 1
+                continue
             shipment["onay_tarihi"] = time.strftime("%Y-%m-%d %H:%M:%S")
             shipment["message_id"] = msg_id
             at = _parse_list(shipment.get("arac_tipi", []))
@@ -493,12 +500,13 @@ def _approve_message(msg_id):
             if _submission_queue is not None:
                 _submission_queue.add_task(shipment)
             approved.append(shipment)
+            count += 1
 
         _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
         items = [m for m in items if m.get("message_id") != msg_id]
         _save_unprocessed(items)
-        logger.info(f"[APPROVE_ALL] {msg_id}: {len(shipments)} sevkiyat onaylandı.")
-        return len(shipments), None
+        logger.info(f"[APPROVE_ALL] {msg_id}: {count} onaylandı, {skipped} lokasyon eksik atlandı.")
+        return count, None
 
 
 @app.route("/api/unprocessed/<msg_id>/approve_all", methods=["POST"])
