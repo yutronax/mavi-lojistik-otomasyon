@@ -699,15 +699,19 @@ class ManagementCenterPage:
         except Exception as e:
             self._show_error(f"Silme hatası: {e}")
 
-    async def _fetch_whatsapp_groups(self):
+async def _fetch_whatsapp_groups(self):
         try:
-            self.fetch_status_text.value = "⏳ API'den gruplar çekiliyor..."
+            from src.fetchers.whapi_fetcher import fetch_groups, _GROUPS_CACHE, _GROUPS_CACHE_TIME
+            
+            if len(_GROUPS_CACHE) > 0 and time.time() - _GROUPS_CACHE_TIME < 1800:  # 30 minutes TTL
+                self.fetch_status_text.value = "Gruplar bellekten yükleniyor..."
+            else:
+                self.fetch_status_text.value = "⏳ API'den gruplar çekiliyor..."
+                
             self.fetch_status_text.color = AppColors.WARNING
             self.whatsapp_groups_list_view.controls = []
             self._safe_update(self.fetch_status_text)
             self._safe_update(self.whatsapp_groups_list_view)
-
-            from src.fetchers.whapi_fetcher import fetch_groups
 
             loop = asyncio.get_event_loop()
             all_groups = await loop.run_in_executor(None, fetch_groups)
@@ -718,13 +722,18 @@ class ManagementCenterPage:
                 self._safe_update(self.fetch_status_text)
                 return
 
+            if len(_GROUPS_CACHE) > 0 and all_groups and _GROUPS_CACHE[0] == all_groups[0]:
+                self.fetch_status_text.value = "Gruplar bellekten yüklendi (cache, 30dk geçerli)"
+                self.fetch_status_text.color = AppColors.SUCCESS
+
             saved_ids = {g.get('id') for g in self.groups}
 
             await self._fetch_whatsapp_groups_refresh_list(all_groups, saved_ids)
 
-            self.fetch_status_text.value = f"✅ {len(all_groups)} grup bulundu. Kaydetmek için ➕ butonuna basın."
-            self.fetch_status_text.color = AppColors.SUCCESS
-            self._safe_update(self.fetch_status_text)
+            if not (len(_GROUPS_CACHE) > 0 and all_groups and _GROUPS_CACHE[0] == all_groups[0]):
+                self.fetch_status_text.value = f"✅ {len(all_groups)} grup bulundu. Kaydetmek için ➕ butonuna basın."
+                self.fetch_status_text.color = AppColors.SUCCESS
+                self._safe_update(self.fetch_status_text)
 
         except Exception as e:
             self.fetch_status_text.value = f"❌ Hata: {e}"

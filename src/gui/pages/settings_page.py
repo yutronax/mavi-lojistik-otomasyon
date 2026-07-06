@@ -16,20 +16,20 @@ class SettingsPage:
         
         # UI Bileşenleri
         self.llm_url_field = ft.TextField(
-            label="LLM Sunucu URL (Groq/Ollama)",
-            value="https://api.groq.com/openai/v1",
+            label="LLM Sunucu URL (DeepSeek/Ollama)",
+            value="https://api.deepseek.com/v1",
             border_radius=10,
             expand=True
         )
         self.llm_model_field = ft.TextField(
             label="LLM Model Adı",
-            value="llama-3.1-8b-instant",
+            value="deepseek-chat",
             border_radius=10,
             expand=True
         )
         self.llm_keys_field = ft.TextField(
             label="LLM API Anahtarları (Virgülle ayırın)",
-            placeholder="gsk_..., gsk_...",
+            placeholder="sk_..., sk_...",
             border_radius=10,
             expand=True,
             multiline=True,
@@ -61,8 +61,8 @@ class SettingsPage:
         try:
             config = await self.data_service.load_config("app_settings") or {}
             
-            self.llm_url_field.value = config.get("llm_url", "https://api.groq.com/openai/v1")
-            self.llm_model_field.value = config.get("llm_model", "llama-3.1-8b-instant")
+            self.llm_url_field.value = config.get("llm_url", "https://api.deepseek.com/v1")
+            self.llm_model_field.value = config.get("llm_model", "deepseek-chat")
             self.llm_keys_field.value = config.get("llm_keys", "")
             self.whapi_token_field.value = config.get("whapi_token", "")
             self.whapi_url_field.value = config.get("whapi_url", "https://gate.whapi.cloud")

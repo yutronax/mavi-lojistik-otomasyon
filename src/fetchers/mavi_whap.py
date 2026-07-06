@@ -517,21 +517,26 @@ def extract_shipments_with_openai(message_dict: Dict, model_name: str = "gpt-4o-
         
         # Groq API Yapılandırması (Ücretsiz, key rotasyonu ile 120 RPM)
         from src.utils.api_key_manager import get_default_manager
-        key_mgr = get_default_manager(root_dir)
-        if not key_mgr.get_active_key():
-            key_mgr.load_keys(reason='groq_init')
-        
-        active_key = key_mgr.get_active_key()
-        if not active_key:
-            logger.error("[Groq] API key bulunamadı. GROQ_API_KEYS env değişkenini kontrol edin.")
+        # DeepSeek API key (primary) or Groq fallback
+        api_key = os.getenv("DEEPSEEK_API_KEY") or os.getenv("GROQ_API_KEY")
+
+        if not api_key:
+            # Try loading from api_key_manager as fallback
+            key_mgr = get_default_manager(root_dir)
+            if not key_mgr.get_active_key():
+                key_mgr.load_keys(reason='llm_init')
+            api_key = key_mgr.get_active_key()
+
+        if not api_key:
+            logger.error("[LLM] API key bulunamadı. DEEPSEEK_API_KEY veya GROQ_API_KEY env değişkenini kontrol edin.")
             return []
-        
-        base_url = os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1")
-        client = OpenAI(base_url=base_url, api_key=active_key, max_retries=0)
+
+        base_url = os.getenv("LLM_BASE_URL", "https://api.deepseek.com/v1")
+        client = OpenAI(base_url=base_url, api_key=api_key, max_retries=0)
         
         # Model: Groq üzerinde Llama 3.1 8B
         if model_name in ["gpt-4o-mini", "gpt-3.5-turbo"]:
-            model_name = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
+            model_name = os.getenv("LLM_MODEL", "deepseek-chat")
         
         logger.debug(f"[Groq] Key #{key_mgr.get_active_index()+1} ile bağlanılıyor model: {model_name}")
         

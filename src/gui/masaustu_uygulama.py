@@ -33,9 +33,19 @@ ROOT_DIR = get_root_path()
 sys.path.insert(0, ROOT_DIR)
 sys.path.insert(0, os.path.join(ROOT_DIR, 'src'))
 sys.path.insert(0, os.path.join(ROOT_DIR, 'src', 'fetchers'))
+sys.path.insert(0, os.path.join(ROOT_DIR, 'tools'))
 
 # Import modüller
-from tools.submit_approved_loads import YukBuradaSubmitter
+try:
+    from submit_approved_loads import YukBuradaSubmitter
+except ImportError:
+    # Fallback: tools is in sys.path now
+    try:
+        from tools.submit_approved_loads import YukBuradaSubmitter
+    except ImportError as e:
+        logger.warning(f"YukBuradaSubmitter import failed: {e}")
+        YukBuradaSubmitter = None
+
 from src.fetchers import mavi_whap
 
 # Import new architecture components
@@ -361,7 +371,7 @@ class LojistikYonetimGUI:
         try:
             minutes = int(self.minutes_filter_var.get())
         except:
-            minutes = 60
+            minutes = 1440  # Default to 24 hours instead of 60 minutes
             
         current_msg_id = None
         if hasattr(self, 'current_message') and self.current_message:
@@ -1799,10 +1809,10 @@ class LojistikYonetimGUI:
                 except Exception:
                     minutes = 60
             
-            # STRICT RULE: Maximum 60 minutes for UI visibility
-            if minutes > 60:
-                self.logger.warning(f"⚠️ Filter {minutes}m requested, but capping at strict 60m rule.")
-                minutes = 60
+            # Allow up to 24 hours (1440 minutes) for UI visibility
+            if minutes > 1440:
+                self.logger.warning(f"⚠️ Filter {minutes}m requested, but capping at 24h (1440m) rule.")
+                minutes = 1440
 
             now_dt = datetime.now()
             self.logger.info(f"🔍 Filtering {len(self.all_messages_original)} messages with {minutes} minute window")

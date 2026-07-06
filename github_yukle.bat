@@ -22,7 +22,7 @@ set /p git_name="Isim: yusufcinar"
 
 echo.
 echo [BILGI] Git ayarlari yapiliyor...
-git config user.email "kuyusuuzyusuf123@gmail.com"
+git config user.email "kuyusuzyusuf123@gmail.com"
 git config user.name "yutronax"
 
 echo.
