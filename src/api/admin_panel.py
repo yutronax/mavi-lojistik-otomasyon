@@ -806,13 +806,13 @@ def blacklist_get():
 @app.route("/api/blacklist", methods=["POST"])
 @require_auth
 def blacklist_add():
-    """Numara ekler; sadece rakam, 10-11 hane doğrulaması yapar."""
+    """Numara ekler; Türk (05XX, 11 hane) veya uluslararası (7-15 hane) formatını kabul eder."""
     body = request.get_json(silent=True) or {}
     num = "".join(c for c in str(body.get("number", "")) if c.isdigit())
     if len(num) == 10:
         num = "0" + num
-    if len(num) != 11 or not num.startswith("0"):
-        return jsonify({"error": "Geçersiz numara (05XXXXXXXXX bekleniyor)"}), 400
+    if len(num) < 7 or len(num) > 15:
+        return jsonify({"error": "Geçersiz numara (7-15 hane olmalı)"}), 400
     items = _load_blacklist()
     if num in items:
         return jsonify({"error": "Zaten listede"}), 409
