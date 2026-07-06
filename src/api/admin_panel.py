@@ -1419,13 +1419,17 @@ async function loadGroups(){
     `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
 }
 
-async function loadAvailableGroups(){
-  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Sunucudan çekiliyor...</p>';
-  const d = await api('/api/groups/available'); if(!d) return;
+async function loadAvailableGroups(force=false){
+  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Whapi\'dan çekiliyor...</p>';
+  const d = await api('/api/groups/available'+(force?'?force=1':'')); if(!d) return;
   if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
+  const unsaved = d.groups.filter(g=>!g.saved).length;
+  const saved   = d.groups.filter(g=>g.saved).length;
+  const cacheNote = d.cached ? ' <span style="color:var(--mut);font-weight:400">(önbellek)</span>' : '';
+  $('grp-available-count').innerHTML = `${d.groups.length} grup — <span style="color:var(--err)">${unsaved} kayıtsız</span> / <span style="color:var(--ok)">${saved} kayıtlı</span>${cacheNote}`;
   $('grp-available-list').innerHTML = d.groups.map(g => `
     <div class="bl-item">
-      <span>${escapeHtml(g.name)}${g.saved ? ' <span style="color:var(--ok)">(kayıtlı)</span>' : ''}</span>
+      <span>${escapeHtml(g.name)}${g.saved ? ' <span style="color:var(--ok);font-size:11px">(kayıtlı)</span>' : ''}</span>
       ${g.saved ? '' : `<button class="b-ok" onclick="grpAdd('${g.id}','${escapeHtml(g.name).replace(/'/g,"\\'")}')">Ekle</button>`}
     </div>`).join('');
 }
