@@ -1107,8 +1107,8 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
       <div class="row" style="margin:0 0 10px">
         <button class="b-warn btn-full" onclick="loadAvailableGroups()">🔍 Whapi Gruplarini Getir</button>
       </div>
-      <label style="font-size:12px;color:var(--mut)">Mevcut Gruplar (kayıtlı olmayanlar önce)</label>
-      <div id="grp-available-list" style="margin-top:8px"><p style="color:var(--mut);font-size:13px">Yuklenmiyor...</p></div>
+      <label style="font-size:12px;color:var(--mut)">Mevcut Gruplar — kayıtlı olmayanlar önce</label>
+      <div id="grp-available-list" style="margin-top:8px"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
     </div>
   </div>
 </div>
