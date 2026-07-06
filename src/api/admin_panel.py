@@ -708,39 +708,49 @@ def whatsapp_health():
         return jsonify({"status": "error", "detail": str(e)})
 
 
+_grp_cache: dict = {"ts": 0, "groups": []}  # Whapi yanıtı 30s önbelleklenir
+
 @app.route("/api/groups/available", methods=["GET"])
 @require_auth
 def groups_available():
-    """Whapi'dan tüm grupları çekip kayıtlı olanları işaretler."""
-    import urllib.request, urllib.error
-    token = os.getenv("WHATSAPP_TOKEN", "").strip()
-    if not token:
-        env_path = os.path.join(PROJECT_ROOT, ".env")
-        env_exists = os.path.exists(env_path)
-        return jsonify({"error": f"WHATSAPP_TOKEN okunamadi. .env yolu: {env_path} (mevcut: {env_exists})"}), 500
-    try:
-        req = urllib.request.Request(
-            "https://gate.whapi.cloud/groups?count=100",
-            headers={
-                "Authorization": f"Bearer {token}",
-                "User-Agent": "curl/7.88.1",
-                "Accept": "application/json",
-            }
-        )
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-        all_groups = data.get("groups", [])
-        saved_ids = {g["id"] for g in _load_groups()}
-        result = [{"id": g["id"], "name": g.get("name",""), "saved": g["id"] in saved_ids}
-                  for g in all_groups if g.get("type") == "group"]
-        result.sort(key=lambda x: (x["saved"], x["name"]))  # kayıtlı olmayanlar önce
-        return jsonify({"groups": result})
-    except urllib.error.HTTPError as e:
-        if e.code == 403:
-            return jsonify({"error": f"Whapi token geçersiz veya süresi dolmuş (403). app.whapi.cloud panelinden token'ı kontrol edin ve VPS .env dosyasını güncelleyin."}), 500
-        return jsonify({"error": f"Whapi HTTP hatası: {e.code} {e.reason}"}), 500
-    except Exception as e:
-        return jsonify({"error": f"Whapi bağlantı hatası: {e}"}), 500
+    """Whapi'dan tüm grupları çekip kayıtlı olanları işaretler. Sonuç 30s önbelleklenir."""
+    import urllib.request, urllib.error, time
+    force = request.args.get("force") == "1"
+    now = time.time()
+    if not force and now - _grp_cache["ts"] < 30 and _grp_cache["groups"]:
+        all_groups = _grp_cache["groups"]
+    else:
+        token = os.getenv("WHATSAPP_TOKEN", "").strip()
+        if not token:
+            env_path = os.path.join(PROJECT_ROOT, ".env")
+            env_exists = os.path.exists(env_path)
+            return jsonify({"error": f"WHATSAPP_TOKEN okunamadi. .env yolu: {env_path} (mevcut: {env_exists})"}), 500
+        try:
+            req = urllib.request.Request(
+                "https://gate.whapi.cloud/groups?count=100",
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "User-Agent": "curl/7.88.1",
+                    "Accept": "application/json",
+                }
+            )
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode())
+            all_groups = data.get("groups", [])
+            _grp_cache["groups"] = all_groups
+            _grp_cache["ts"] = now
+        except urllib.error.HTTPError as e:
+            if e.code == 403:
+                return jsonify({"error": f"Whapi token geçersiz veya süresi dolmuş (403). app.whapi.cloud panelinden token'ı kontrol edin ve VPS .env dosyasını güncelleyin."}), 500
+            return jsonify({"error": f"Whapi HTTP hatası: {e.code} {e.reason}"}), 500
+        except Exception as e:
+            return jsonify({"error": f"Whapi bağlantı hatası: {e}"}), 500
+    saved_ids = {g["id"] for g in _load_groups()}
+    result = [{"id": g["id"], "name": g.get("name",""), "saved": g["id"] in saved_ids}
+              for g in all_groups if g.get("type") == "group"]
+    result.sort(key=lambda x: (x["saved"], x["name"]))  # kayıtlı olmayanlar önce
+    cached = not force and now - _grp_cache["ts"] < 30
+    return jsonify({"groups": result, "cached": cached})
 
 @app.route("/api/groups", methods=["POST"])
 @require_auth
