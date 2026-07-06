@@ -1422,13 +1422,33 @@ async function loadAvailableGroups(){
 
 async function grpAdd(id, name){
   const d = await api('/api/groups',{method:'POST',body:JSON.stringify({id,name})});
-  if(d&&d.ok){toast('Eklendi ✓');loadGroups();loadAvailableGroups();} else if(d) toast(d.error,true);
+  if(d&&d.ok){
+    const ts = new Date().toLocaleTimeString('tr-TR');
+    toast(`Eklendi ✓ — ${name} (${ts})`);
+    await Promise.all([loadGroups(), loadAvailableGroups()]);
+    _grpFlash('grp-count');
+  } else if(d) toast(d.error,true);
 }
 
 async function grpDel(id){
-  if(!confirm('Bu grup silinsin mi?'))return;
+  const card = event.target.closest('.bl-item');
+  const name = card ? card.querySelector('span').textContent.trim() : id;
+  if(!confirm(`"${name}" silinsin mi?`))return;
   const d = await api('/api/groups/'+encodeURIComponent(id),{method:'DELETE'});
-  if(d&&d.ok){toast('Silindi ✓');loadGroups();} else if(d) toast(d.error,true);
+  if(d&&d.ok){
+    const ts = new Date().toLocaleTimeString('tr-TR');
+    toast(`Silindi ✓ — ${name} (${ts})`);
+    await Promise.all([loadGroups(), loadAvailableGroups()]);
+    _grpFlash('grp-count');
+  } else if(d) toast(d.error,true);
+}
+
+function _grpFlash(elId){
+  const el = $(elId); if(!el) return;
+  el.style.transition='none';
+  el.style.color='#16a34a';
+  el.style.fontWeight='700';
+  setTimeout(()=>{ el.style.transition='color 1s'; el.style.color=''; el.style.fontWeight=''; }, 1500);
 }
 
 let _logInterval = null;
