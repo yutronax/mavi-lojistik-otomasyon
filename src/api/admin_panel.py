@@ -1114,11 +1114,12 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
       <div id="grp-list"></div>
     </div>
     <div class="card">
-      <div class="row" style="margin:0 0 10px">
-        <button class="b-warn btn-full" onclick="loadAvailableGroups()">🔍 Whapi Gruplarini Getir</button>
+      <div class="row" style="margin:0 0 6px">
+        <button class="b-warn btn-full" onclick="loadAvailableGroups(true)">🔄 Whapi'dan Yeniden Çek</button>
       </div>
-      <label style="font-size:12px;color:var(--mut)">Mevcut Gruplar — kayıtlı olmayanlar önce</label>
-      <div id="grp-available-list" style="margin-top:8px"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
+      <p id="grp-available-count" style="color:var(--mut);font-size:12px;margin:0 0 6px"></p>
+      <label style="font-size:11px;color:var(--mut)">Kayıtsız gruplar önce listelenir</label>
+      <div id="grp-available-list" style="margin-top:6px"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
     </div>
   </div>
 </div>
