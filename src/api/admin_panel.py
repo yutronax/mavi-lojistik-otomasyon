@@ -733,7 +733,7 @@ def groups_available():
         saved_ids = {g["id"] for g in _load_groups()}
         result = [{"id": g["id"], "name": g.get("name",""), "saved": g["id"] in saved_ids}
                   for g in all_groups if g.get("type") == "group"]
-        result.sort(key=lambda x: (not x["saved"], x["name"]))
+        result.sort(key=lambda x: (x["saved"], x["name"]))  # kayıtlı olmayanlar önce
         return jsonify({"groups": result})
     except urllib.error.HTTPError as e:
         if e.code == 403:
