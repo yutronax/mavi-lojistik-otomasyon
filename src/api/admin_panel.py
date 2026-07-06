@@ -1137,7 +1137,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 <div id="tab-bl" class="hide">
   <div class="card">
     <div class="row" style="margin:0">
-      <input id="bl-new" placeholder="05XXXXXXXXX" inputmode="numeric">
+      <input id="bl-new" placeholder="05XXXXXXXXX veya uluslararasi" inputmode="numeric">
       <button class="b-ok" style="width:90px" onclick="blAdd()">Ekle</button>
     </div>
     <div class="row" style="margin-top:8px">
