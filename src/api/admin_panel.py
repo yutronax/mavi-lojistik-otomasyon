@@ -1556,8 +1556,24 @@ async function blDel(n){
 
 async function loadSet(){
   const d = await api('/api/settings'); if(!d) return;
-  $('set-fields').innerHTML = d.editable.map(k=>
-    `<label>${k}</label><input data-k="${k}" value="${d.settings[k]??''}">`).join('');
+  const API_KEYS = ['DEEPSEEK_API_KEY','GROQ_API_KEY','GEMINI_API_KEY'];
+  const sysKeys = d.editable.filter(k=>!API_KEYS.includes(k));
+  const apiKeys = d.editable.filter(k=>API_KEYS.includes(k));
+
+  let html = '';
+  if(sysKeys.length){
+    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:0 0 8px">SİSTEM AYARLARI</p>';
+    html += sysKeys.map(k=>`<label>${k}</label><input data-k="${k}" value="${escapeHtml(d.settings[k]??'')}">`).join('');
+  }
+  if(apiKeys.length){
+    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:14px 0 8px">AI API ANAHTARLARI</p>';
+    html += apiKeys.map(k=>{
+      const val = escapeHtml(d.settings[k]??'');
+      const id = 'ak-'+k;
+      return `<label>${k}</label><div style="display:flex;gap:6px"><input id="${id}" data-k="${k}" type="password" value="${val}" style="flex:1"><button type="button" onclick="(function(b,i){i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'👁':'🙈'})(this,$('${id}'))" style="width:auto;padding:6px 10px;background:var(--mut);font-size:13px">👁</button></div>`;
+    }).join('');
+  }
+  $('set-fields').innerHTML = html;
 }
 
 async function saveSet(restart){
