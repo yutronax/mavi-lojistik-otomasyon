@@ -53,7 +53,7 @@ LOG_PATHS = [
     os.path.join(PROJECT_ROOT, "logs", "vps_runtime.log"),
 ]
 
-# Panelden düzenlenebilen .env anahtarları (güvenlik: API key'ler dahil DEĞİL)
+# Panelden düzenlenebilen .env anahtarları
 EDITABLE_ENV_KEYS = [
     "FETCH_HOURS_BACK",
     "DUPLICATE_CHECK_HOURS",
@@ -64,6 +64,9 @@ EDITABLE_ENV_KEYS = [
     "AUTO_SUBMIT",
     "BATCH_SLEEP_TIME",
     "LOOP_WAIT_TIME",
+    "DEEPSEEK_API_KEY",
+    "GROQ_API_KEY",
+    "GEMINI_API_KEY",
 ]
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
