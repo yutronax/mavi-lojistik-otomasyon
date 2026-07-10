@@ -54,6 +54,13 @@ LOG_PATHS = [
 ]
 
 # Panelden düzenlenebilen .env anahtarları
+_INVALID_CITIES = {"BİLİNMEYEN", "BILINMEYEN", "UNKNOWN", "N/A", "NA", "-", "?"}
+
+def _is_valid_city(city):
+    """Boş veya 'BİLİNMEYEN' gibi geçersiz şehir adlarını reddeder."""
+    c = (city or "").strip().upper()
+    return bool(c) and c not in _INVALID_CITIES
+
 EDITABLE_ENV_KEYS = [
     "FETCH_HOURS_BACK",
     "DUPLICATE_CHECK_HOURS",
