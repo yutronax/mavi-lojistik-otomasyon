@@ -421,11 +421,11 @@ def unprocessed_approve(msg_id, ship_idx):
     if ship_idx >= len(shipments):
         return jsonify({"error": "Sevkiyat bulunamadı"}), 404
     shipment = shipments[ship_idx]
-    # Lokasyon kontrolü — boş il ile YükBurada'ya gitmesin
+    # Lokasyon kontrolü — boş veya BİLİNMEYEN il ile YükBurada'ya gitmesin
     nereden = (shipment.get("nereden_il") or "").strip()
     nereye  = (shipment.get("nereye_il")  or "").strip()
-    if not nereden or not nereye:
-        return jsonify({"error": f"Lokasyon eksik: nereden='{nereden}' nereye='{nereye}' — önce düzenle"}), 400
+    if not _is_valid_city(nereden) or not _is_valid_city(nereye):
+        return jsonify({"error": f"Geçersiz lokasyon: nereden='{nereden}' nereye='{nereye}' — önce düzenle"}), 400
     shipments.pop(ship_idx)
     shipment["onay_tarihi"] = time.strftime("%Y-%m-%d %H:%M:%S")
     shipment["message_id"] = msg_id
