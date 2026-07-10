@@ -496,9 +496,9 @@ def _approve_message(msg_id):
         skipped = 0
         for shipment in shipments:
             shipment = shipment.copy()
-            # Lokasyon kontrolü — boş il ile YükBurada'ya gitmesin
-            if not (shipment.get("nereden_il") or "").strip() or not (shipment.get("nereye_il") or "").strip():
-                logger.warning(f"[APPROVE_ALL] {msg_id}: lokasyon eksik sevkiyat atlandı — nereden='{shipment.get('nereden_il')}' nereye='{shipment.get('nereye_il')}'")
+            # Lokasyon kontrolü — boş veya BİLİNMEYEN il ile YükBurada'ya gitmesin
+            if not _is_valid_city(shipment.get("nereden_il")) or not _is_valid_city(shipment.get("nereye_il")):
+                logger.warning(f"[APPROVE_ALL] {msg_id}: geçersiz lokasyon atlandı — nereden='{shipment.get('nereden_il')}' nereye='{shipment.get('nereye_il')}'")
                 skipped += 1
                 continue
             shipment["onay_tarihi"] = time.strftime("%Y-%m-%d %H:%M:%S")
