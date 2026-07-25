@@ -63,11 +63,11 @@ class TextGenParser:
         self.semaphore = threading.Semaphore(max_concurrent)
         
         # Models
-        self.model_fast = 'deepseek-chat'
-        self.model_robust = 'deepseek-chat'
-        self.model_deepseek = 'deepseek-chat'
-        self.model_gemini = 'deepseek-chat'
-        self.fallback_models = ['llama-3.1-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
+        self.model_fast = 'deepseek-v4-flash'
+        self.model_robust = 'deepseek-v4-pro'
+        self.model_deepseek = 'deepseek-v4-flash'
+        self.model_gemini = 'deepseek-v4-flash'
+        self.fallback_models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
