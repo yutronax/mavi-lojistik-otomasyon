@@ -32,7 +32,12 @@ class MongoDataService:
         self.blacklist_file = str(user_data_dir / 'blacklist.json')
 
         try:
-            self.client = MongoClient(self.uri, serverSelectionTimeoutMS=5000)
+            self.client = MongoClient(
+                self.uri,
+                serverSelectionTimeoutMS=5000,
+                connectTimeoutMS=5000,
+                socketTimeoutMS=10000,
+            )
             # Check connection
             self.client.admin.command('ping')
             self.db = self.client.get_database('mavi_lojistik')
