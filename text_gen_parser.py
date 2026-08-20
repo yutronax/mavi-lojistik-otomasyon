@@ -67,7 +67,7 @@ class TextGenParser:
         self.model_robust = 'deepseek-v4-pro'
         self.model_deepseek = 'deepseek-v4-flash'
         self.model_gemini = 'deepseek-v4-flash'
-        self.fallback_models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']
+        self.fallback_models = []  # Groq removed: key invalid/unused, DeepSeek is primary+fallback
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
