@@ -48,8 +48,8 @@ IL_ILCE_PATH = os.path.join(PROJECT_ROOT, "data", "il_ilçe_mahalle.json")
 ARAC_KASA_PATH = os.path.join(PROJECT_ROOT, "data", "arac_yuk_kasa_tipleri.json")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
-    "/root/.pm2/logs/mavi-lojistik-server-out.log",
-    "/root/.pm2/logs/mavi-admin-panel-out.log",
+    os.path.join(PROJECT_ROOT, "logs", "pm2_out.log"),
+    os.path.join(PROJECT_ROOT, "logs", "panel_out.log"),
     os.path.join(PROJECT_ROOT, "logs", "vps_runtime.log"),
 ]
 
