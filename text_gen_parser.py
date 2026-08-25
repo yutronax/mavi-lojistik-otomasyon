@@ -62,12 +62,12 @@ class TextGenParser:
         # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
         self.semaphore = threading.Semaphore(max_concurrent)
         
-        # Models
-        self.model_fast = 'deepseek-v4-flash'
-        self.model_robust = 'deepseek-v4-pro'
-        self.model_deepseek = 'deepseek-v4-flash'
-        self.model_gemini = 'deepseek-v4-flash'
-        self.fallback_models = []  # Groq removed: key invalid/unused, DeepSeek is primary+fallback
+        # Models: Groq primary, DeepSeek fallback
+        self.model_fast = 'llama-3.1-8b-instant'  # Groq primary model
+        self.model_robust = 'deepseek-v4-pro'  # DeepSeek fallback
+        self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
+        self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
+        self.fallback_models = ['deepseek-v4-flash']  # DeepSeek fallback models
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
@@ -104,24 +104,34 @@ class TextGenParser:
     def _track_spend(self, model_name: str, input_tokens: int, output_tokens: int):
         """Estimates, logs and persists spending based on model prices."""
         cost = 0.0
-        if "flash" in model_name:
-            # $0.075 / 1M input, $0.30 / 1M output
-            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
-        elif "deepseek" in model_name:
+        if "deepseek" in model_name:
             cost = (input_tokens * 0.27 / 1_000_000) + (output_tokens * 1.10 / 1_000_000)
-        elif "llama-3.3-70b" in model_name:
-            # Groq 70b approx: $0.59 / 1M input, $0.79 / 1M output
-            cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
-        
+        elif "flash" in model_name:
+            # $0.075 / 1M input, $0.30 / 1M output (Gemini Flash)
+            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+        elif "llama-3.1-8b-instant" in model_name or "llama-3.3-70b" in model_name:
+            # Groq Llama 3.1 8B Instant: $0.05/$0.08 per 1M (70b) or $0.59/$0.79 (70b)
+            if "8b" in model_name or "3.1" in model_name:
+                cost = (input_tokens * 0.05 / 1_000_000) + (output_tokens * 0.08 / 1_000_000)
+            else:
+                cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
+
         if cost > 0:
             cost_try = cost * 33 # Approx 33 TL per USD
-            
+
+            # Detect provider from model name
+            if "deepseek" in model_name:
+                provider = "deepseek"
+            else:
+                provider = "groq"
+
             # Persist spend data
             spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
             history = load_json_safe(spend_file, default=[])
             entry = {
                 "timestamp": datetime.now().isoformat(),
                 "model": model_name,
+                "provider": provider,
                 "input": input_tokens,
                 "output": output_tokens,
                 "cost_usd": cost,
@@ -129,9 +139,9 @@ class TextGenParser:
             }
             history.append(entry)
             save_json_safe(spend_file, history)
-            
-            logger.info(f"💰 SPEND TRACKER [{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
-            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Total Entries: {len(history)}")
+
+            logger.info(f"💰 SPEND TRACKER [{provider}][{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
+            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Provider: {provider} | Total Entries: {len(history)}")
 
     def _get_client(self):
         """Synchronous client for legacy methods."""
@@ -147,8 +157,8 @@ class TextGenParser:
         persistence_manager.queue_write(cache_path, self.neighborhood_cache)
 
     def _get_model_for_message(self, message: str) -> str:
-        """Determines which model to use. Prioritize Gemini if requested."""
-        return self.model_gemini
+        """Determines which model to use. Primary: Groq (Llama)."""
+        return 'llama-3.1-8b-instant'  # Groq primary model
 
     def _tag_cities(self, text: str) -> str:
         """Finds all Turkish cities and tags them like [CITY] using safe regex replace."""
@@ -239,16 +249,16 @@ class TextGenParser:
         return self._tag_cities(text)
 
     async def _extract_locations_stage1_async(self, message: str) -> str:
-        """Stage 1: Fast extraction of just origins and destinations (Async)."""
+        """Stage 1: Fast extraction of just origins and destinations (Async). Groq -> DeepSeek fallback."""
         clean_msg = self._clean_message(message)
-        
+
         # --- REGEX DISCOVERY ---
         # Find all Turkish cities tagged in the message to give AI a hint
         # The message is already tagged by parse_async -> _clean_message
         found_tags = re.findall(r'\[(.*?)\]', clean_msg)
         hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
 
-        system_prompt = """You are a logistics location extractor. 
+        system_prompt = """You are a logistics location extractor.
 RULES:
 1. If a line contains 'LOCATION YÜKLER', 'LOCATION YÜKLEMELİ' or 'LOCATION ÇIKIŞLI', that LOCATION is the ORIGIN for ALL subsequent destinations until a '---' separator or new header.
 2. '---' separators mark SECTION BOUNDARIES. Each section has its own ORIGIN header. NEVER carry an origin across a '---' boundary.
@@ -256,56 +266,50 @@ RULES:
 4. NEVER create routes between two list items (chaining). Only HEADER -> list_item routes.
 5. Output ONLY the routes in 'ORIGIN -> DESTINATION' format. No explanations."""
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
-        model_to_use = self.model_gemini
-        
+
+        # Stage 1: Try Groq first, then DeepSeek
+        models_to_try = ['llama-3.1-8b-instant', 'deepseek-v4-flash']
+
         with self.semaphore:
-            for attempt in range(3):
-                try:
-                    if "gemini" in model_to_use:
-                        client = self._get_gemini_client()
-                        response = await asyncio.to_thread(
-                            client.models.generate_content,
-                            model=model_to_use,
-                            contents=f"{system_prompt}\n\n{user_prompt}"
-                        )
-                        text = response.text
-                        self._track_spend(model_to_use, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
-                        return text.strip()
-                    elif "deepseek" in model_to_use:
-                        client = self._get_deepseek_client()
-                        response = await client.chat.completions.create(
-                            model=model_to_use,
-                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                            temperature=0.0
-                        )
-                        text = response.choices[0].message.content
-                        self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        return text.strip()
-                    else:
-                        # Fallback for Stage 1 if needed
-                        client = self._get_async_client()
-                        response = await client.chat.completions.create(
-                            model=self.model_fast,
-                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                            temperature=0.0
-                        )
-                        text = response.choices[0].message.content
-                        self._track_spend(self.model_fast, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        return text.strip()
-                except RuntimeError as e:
-                    if "interpreter shutdown" in str(e):
-                        return ""
-                    raise
-                except Exception as e:
-                    error_str = str(e)
-                    if "429" in error_str and "gemini" in model_to_use:
-                        logger.warning(f"Stage 1 Gemini Rate Limit. Rotating key...")
-                        if await self.key_manager.switch_to_next_async(key_type='google', reason="Stage 1 Limit"):
-                            continue
-                    
-                    print(f"STAGE 1 ERROR: {e}")
-                    logger.warning(f"Stage 1 Async failed: {str(e)[:100]}")
-                    return ""
+            for model_to_use in models_to_try:
+                for attempt in range(3):
+                    try:
+                        if "deepseek" in model_to_use:
+                            client = self._get_deepseek_client()
+                            response = await client.chat.completions.create(
+                                model=model_to_use,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            return text.strip()
+                        else:
+                            # Groq client (llama model)
+                            client = self._get_async_client()
+                            response = await client.chat.completions.create(
+                                model=model_to_use,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            return text.strip()
+                    except RuntimeError as e:
+                        if "interpreter shutdown" in str(e):
+                            return ""
+                        raise
+                    except Exception as e:
+                        error_str = str(e)
+                        if "429" in error_str:
+                            logger.warning(f"Stage 1 {model_to_use} Rate Limit. Trying next model...")
+                            # Move to next model
+                            break
+
+                        print(f"STAGE 1 ERROR [{model_to_use}]: {e}")
+                        logger.warning(f"Stage 1 {model_to_use} failed: {str(e)[:100]}")
+                        # Move to next model
+                        break
         return ""
 
     async def parse_async(self, message: str) -> list:
@@ -436,12 +440,14 @@ Return ONLY a JSON object in this format:
         if len(message) > 8000:
             message = message[:8000] + "... [TRUNCATED]"
 
-        models_to_try = [target_model, self.model_robust] + self.fallback_models
+        # Primary model: Groq (llama-3.1-8b-instant), Fallback: DeepSeek models
+        models_to_try = ['llama-3.1-8b-instant', self.model_robust] + self.fallback_models
         models_to_try = list(dict.fromkeys(models_to_try))
 
         last_error = None
         with self.semaphore:
-            for model_name in models_to_try:
+            for model_idx, model_name in enumerate(models_to_try):
+                is_last_model = (model_idx == len(models_to_try) - 1)
                 for attempt in range(3):
                     try:
                         if "gemini" in model_name:
@@ -464,6 +470,7 @@ Return ONLY a JSON object in this format:
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
                         else:
+                            # Groq client (llama model)
                             client = self._get_async_client()
                             response = await client.chat.completions.create(
                                 model=model_name,
@@ -475,7 +482,21 @@ Return ONLY a JSON object in this format:
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
 
                         text = text.strip()
-                        print(f"\n[DEBUG] AI RESPONSE:\n{text}\n")
+                        print(f"\n[DEBUG] AI RESPONSE [{model_name}]:\n{text}\n")
+
+                        # Parse JSON and check for empty routes (AC-3: fallback on empty)
+                        try:
+                            data = json.loads(text)
+                            routes = data.get('routes', [])
+                            if not routes and not is_last_model:
+                                # Empty routes but not last model: try next model
+                                logger.warning(f"[AC-3] {model_name} returned empty routes. Trying next model...")
+                                break  # Break inner attempt loop, continue to next model
+                            # Otherwise process (either has routes, or is last model with empty)
+                        except:
+                            # JSON parse error: let _process_raw_json_async handle it
+                            pass
+
                         return await self._process_raw_json_async(text, message)
                     except RuntimeError as e:
                         if "interpreter shutdown" in str(e):
@@ -504,15 +525,14 @@ Return ONLY a JSON object in this format:
                                 else:
                                     break
 
-                            # Rotate Groq keys
+                            # Rotate Groq/DeepSeek keys
                             if await self.key_manager.switch_to_next_async(key_type='groq', reason=f"Rate Limit {model_name}"):
-                                logger.warning(f"🔄 Groq Limit on {model_name}. Switching key and waiting {wait_sec}s...")
+                                logger.warning(f"🔄 {model_name} Limit. Switching key and waiting {wait_sec}s...")
                                 await asyncio.sleep(wait_sec)
                                 continue
                             else:
-                                # All exhausted, wait longer before failing
-                                logger.error(f"🚨 ALL KEYS EXHAUSTED! Cooling down for {wait_sec*2}s...")
-                                await asyncio.sleep(wait_sec * 2)
+                                # All exhausted, try next model instead
+                                logger.warning(f"⚠️ {model_name} keys exhausted, trying next model...")
                                 break
                         elif "402" in error_str or "payment" in error_str.lower():
                             logger.error(f"💳 PAYMENT ERROR on {model_name}: {error_str}")
