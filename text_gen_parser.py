@@ -63,7 +63,7 @@ class TextGenParser:
         self.semaphore = threading.Semaphore(max_concurrent)
         
         # Models: Groq primary, DeepSeek fallback
-        self.model_fast = 'llama-3.1-8b-instant'  # Groq primary model
+        self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
         self.model_robust = 'deepseek-v4-pro'  # DeepSeek fallback
         self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
         self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
@@ -109,12 +109,11 @@ class TextGenParser:
         elif "flash" in model_name:
             # $0.075 / 1M input, $0.30 / 1M output (Gemini Flash)
             cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
-        elif "llama-3.1-8b-instant" in model_name or "llama-3.3-70b" in model_name:
-            # Groq Llama 3.1 8B Instant: $0.05/$0.08 per 1M (70b) or $0.59/$0.79 (70b)
-            if "8b" in model_name or "3.1" in model_name:
-                cost = (input_tokens * 0.05 / 1_000_000) + (output_tokens * 0.08 / 1_000_000)
-            else:
-                cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
+        elif "gpt-oss-20b" in model_name:
+            # Groq OpenAI GPT-OSS 20B: $0.075/$0.30 per 1M (estimated cost tracking)
+            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+        elif "llama-3.3-70b" in model_name:
+            cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
 
         if cost > 0:
             cost_try = cost * 33 # Approx 33 TL per USD
@@ -158,7 +157,7 @@ class TextGenParser:
 
     def _get_model_for_message(self, message: str) -> str:
         """Determines which model to use. Primary: Groq (Llama)."""
-        return 'llama-3.1-8b-instant'  # Groq primary model
+        return 'openai/gpt-oss-20b'  # Groq primary model
 
     def _tag_cities(self, text: str) -> str:
         """Finds all Turkish cities and tags them like [CITY] using safe regex replace."""
@@ -268,7 +267,7 @@ RULES:
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
 
         # Stage 1: Try Groq first, then DeepSeek
-        models_to_try = ['llama-3.1-8b-instant', 'deepseek-v4-flash']
+        models_to_try = ['openai/gpt-oss-20b', 'deepseek-v4-flash']
 
         with self.semaphore:
             for model_to_use in models_to_try:
@@ -290,7 +289,8 @@ RULES:
                             response = await client.chat.completions.create(
                                 model=model_to_use,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0
+                                temperature=0.0,
+                                reasoning_effort="low"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -440,8 +440,8 @@ Return ONLY a JSON object in this format:
         if len(message) > 8000:
             message = message[:8000] + "... [TRUNCATED]"
 
-        # Primary model: Groq (llama-3.1-8b-instant), Fallback: DeepSeek models
-        models_to_try = ['llama-3.1-8b-instant', self.model_robust] + self.fallback_models
+        # Primary model: Groq (openai/gpt-oss-20b), Fallback: DeepSeek models
+        models_to_try = ['openai/gpt-oss-20b', self.model_robust] + self.fallback_models
         models_to_try = list(dict.fromkeys(models_to_try))
 
         last_error = None
@@ -476,7 +476,8 @@ Return ONLY a JSON object in this format:
                                 model=model_name,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                response_format={"type": "json_object"}
+                                response_format={"type": "json_object"},
+                                reasoning_effort="low"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
