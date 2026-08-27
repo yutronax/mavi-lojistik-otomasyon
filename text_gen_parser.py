@@ -290,7 +290,7 @@ RULES:
                                 model=model_to_use,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                reasoning_effort="low"
+                                reasoning_effort="medium"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -477,7 +477,7 @@ Return ONLY a JSON object in this format:
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
                                 response_format={"type": "json_object"},
-                                reasoning_effort="low"
+                                reasoning_effort="medium"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
