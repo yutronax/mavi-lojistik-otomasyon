@@ -290,7 +290,7 @@ RULES:
                                 model=model_to_use,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                reasoning_effort="medium"
+                                reasoning_effort="low"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -477,7 +477,7 @@ Return ONLY a JSON object in this format:
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
                                 response_format={"type": "json_object"},
-                                reasoning_effort="medium"
+                                reasoning_effort="low"
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -485,15 +485,25 @@ Return ONLY a JSON object in this format:
                         text = text.strip()
                         print(f"\n[DEBUG] AI RESPONSE [{model_name}]:\n{text}\n")
 
-                        # Parse JSON and check for empty routes (AC-3: fallback on empty)
+                        # Parse JSON and check for empty routes or non-Latin characters (AC-3: fallback on empty/non-Latin)
                         try:
                             data = json.loads(text)
                             routes = data.get('routes', [])
-                            if not routes and not is_last_model:
-                                # Empty routes but not last model: try next model
-                                logger.warning(f"[AC-3] {model_name} returned empty routes. Trying next model...")
+
+                            # Check for Cyrillic characters in city names (non-Latin script detection)
+                            has_non_latin = False
+                            if routes:
+                                cyrillic_pattern = re.compile(r'[Ѐ-ӿ]')
+                                for r in routes:
+                                    if cyrillic_pattern.search(str(r.get('nereden_il', ''))) or cyrillic_pattern.search(str(r.get('nereye_il', ''))):
+                                        has_non_latin = True
+                                        break
+
+                            if (not routes or has_non_latin) and not is_last_model:
+                                reason = "empty routes" if not routes else "non-Latin script detected in city name"
+                                logger.warning(f"[AC-3] {model_name} returned invalid result ({reason}). Trying next model...")
                                 break  # Break inner attempt loop, continue to next model
-                            # Otherwise process (either has routes, or is last model with empty)
+                            # Otherwise process (either has routes, or is last model with empty/non-Latin)
                         except:
                             # JSON parse error: let _process_raw_json_async handle it
                             pass
