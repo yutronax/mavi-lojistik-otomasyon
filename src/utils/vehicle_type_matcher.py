@@ -18,9 +18,10 @@ class VehicleTypeMatcher:
             # Default to data/yuk_tipi.json relative to project root
             base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             data_path = os.path.join(base_dir, 'data', 'yuk_tipi.json')
-        
+
         self.data_path = data_path
         self.rules = []
+        self.known_kasa_keywords = set()  # Extracted from rules during load
         self._load_rules()
 
     def _load_rules(self):
@@ -31,12 +32,20 @@ class VehicleTypeMatcher:
 
             with open(self.data_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            
+
             # Sort rules by priority (high to low)
             # Ensure priority exists, default to 0 if not
             self.rules = sorted(data, key=lambda x: x.get('priority', 0), reverse=True)
             logger.info(f"Loaded {len(self.rules)} vehicle type rules.")
-            
+
+            # Extract all known kasa-tipi keywords from rule patterns (orjinal mesajdaki field)
+            # This set is used to detect if a message has a kasa-tipi hint
+            for rule in self.rules:
+                pattern = rule.get('orjinal mesajdaki', '')
+                if pattern:
+                    tokens = self._tokenize(pattern)
+                    self.known_kasa_keywords.update(tokens)
+
         except Exception as e:
             logger.error(f"Failed to load vehicle type rules: {e}")
 
@@ -492,6 +501,16 @@ class VehicleTypeMatcher:
 
     def find_match(self, message: str, per_route: bool = False) -> Optional[Dict]:
         return self.find_all_matches(message)
+
+    def has_kasa_hint(self, text: str) -> bool:
+        """
+        Checks if the given text contains any known kasa-tipi keywords.
+        Returns True if at least one keyword from known_kasa_keywords is found.
+        """
+        if not text or not self.known_kasa_keywords:
+            return False
+        text_tokens = self._tokenize(text)
+        return bool(text_tokens and self.known_kasa_keywords.intersection(text_tokens))
 
     def apply_to_shipment(self, shipment: Dict, original_message: str) -> Dict:
         text_to_scan = original_message or shipment.get('orijinal_mesaj') or shipment.get('aciklama') or ""

@@ -15,6 +15,7 @@ import asyncio
 import threading
 import time
 import random
+import hashlib
 from typing import List, Dict, Any
 from datetime import datetime
 
@@ -650,7 +651,10 @@ Return ONLY a JSON object in this format:
         except:
             json_match = re.search(r'\{.*\}|\[.*\]', text, re.DOTALL)
             data = json.loads(json_match.group()) if json_match else {"routes": []}
-        
+
+        # Compute message hash for unique message identification (AC-1: Replace route_idx with stable hash)
+        msg_hash = hashlib.md5(message.encode('utf-8'), usedforsecurity=False).hexdigest()[:12]
+
         raw_routes = data.get('routes', [])
         final_routes = []
         
@@ -659,12 +663,11 @@ Return ONLY a JSON object in this format:
         msg_up = message.upper().replace('İ', 'İ').replace('I', 'I')
         phone_match = re.search(r"(0\s*5\d{2}[\s\.\-\(\)]*\d{3}[\s\.\-\(\)]*\d{2}[\s\.\-\(\)]*\d{2})", message)
         default_phone = re.sub(r'\D', '', phone_match.group(1)) if phone_match else ""
-        global_type_match = self.vehicle_matcher.find_match(message, per_route=False)
-        
+
         # --- GLOBAL PRICE DETECTION (DISABLED BY USER REQUEST) ---
         global_price = "SORUNUZ"
 
-        for r in raw_routes:
+        for route_idx, r in enumerate(raw_routes):
             # 1. Contextual Corrections
             n_il   = r.get('nereden_il', '') or ''
             n_dist = r.get('nereden_ilce', '') or ''
@@ -677,7 +680,7 @@ Return ONLY a JSON object in this format:
                 logger.info(f"[FILTER] Skipping invalid route: nereye_il='{ny_il}' (hallucination)")
                 continue
 
-            # GUARD: Clean slash-formatted values like "SİVAS/GEMEREK" in district fields  
+            # GUARD: Clean slash-formatted values like "SİVAS/GEMEREK" in district fields
             if '/' in n_dist:
                 parts = n_dist.split('/')
                 if len(parts) == 2:
@@ -707,10 +710,10 @@ Return ONLY a JSON object in this format:
             search_terms = [r.get('nereye_il', ''), r.get('nereye_ilce', ''), ny_il, ny_dist]
             if ny_dist == 'KAHRAMANKAZAN': search_terms.append('KAZAN')
             if ny_dist == 'MUSTAFAKEMALPAŞA': search_terms.append('KEMALPAŞA')
-            
+
             found_line = ""
             search_terms = [s for s in search_terms if s and len(s) > 2]
-            
+
             # Use a normalized search to find the correct line regardless of Turkish chars
             def quick_norm(t):
                 return t.upper().replace('İ', 'I').replace('ı', 'I').replace('Ğ', 'G').replace('Ü', 'U').replace('Ş', 'S').replace('Ö', 'O').replace('Ç', 'C')
@@ -720,13 +723,15 @@ Return ONLY a JSON object in this format:
                 if any(quick_norm(term) in norm_line for term in search_terms):
                     found_line = line
                     break
-            
+
             # Match using the specific line context + AI type suggestion
             route_context = f"{found_line} {r.get('type', '')}" if found_line else f"{n_il} {ny_il} {r.get('type', '')}"
             type_match = self.vehicle_matcher.find_match(route_context, per_route=True)
-            
-            if not type_match and global_type_match:
-                type_match = global_type_match
+
+            # Hint detection uses ONLY the real message text (NOT the AI's generic 'type' field,
+            # which is almost always present and would make "no hint" nearly unreachable)
+            hint_context = found_line if found_line else f"{n_il} {ny_il}"
+            has_hint = self.vehicle_matcher.has_kasa_hint(hint_context)
 
             if type_match:
                 arac_tipi = [type_match.get('ARAÇ TİPİ', '1360')]
@@ -736,6 +741,40 @@ Return ONLY a JSON object in this format:
                 arac_tipi = ['1360']
                 kasa_tipi = ['AÇIK', 'KAPALI']
                 yuk_tipi = ['KOMPLE']
+
+            # Uncertainty is judged purely on whether the REAL message text carries a
+            # kasa-tipi hint (has_hint) and whether a rule fired for it (type_match) —
+            # NOT on comparing the matched rule's output value to a hardcoded default.
+            # (A rule can legitimately output the same value as our fallback default,
+            # e.g. an explicit "kapalı açık farketmez" statement — that is a confident,
+            # correct match and must NOT be flagged as uncertain.)
+            kasa_tipi_belirsiz = False
+            kasa_tipi_belirsiz_sebep = None
+
+            if not has_hint:
+                # AC-2: No hint found in the real message text at all
+                kasa_tipi_belirsiz = True
+                kasa_tipi_belirsiz_sebep = "ipucu_yok"
+            elif not type_match:
+                # AC-3: Hint exists but no rule matched
+                kasa_tipi_belirsiz = True
+                kasa_tipi_belirsiz_sebep = "kural_eslesmedi"
+
+                # Extract the hint from hint_context for logging
+                hint_tokens = self.vehicle_matcher._tokenize(hint_context)
+                hint_text = " ".join(hint_tokens) if hint_tokens else hint_context
+
+                # Log unmatched hint to file
+                log_file = os.path.join(os.getcwd(), 'data', 'eslesmeyen_kasa_ifadeleri.json')
+                existing_logs = load_json_safe(log_file, default=[])
+
+                new_entry = {
+                    "timestamp": datetime.now().isoformat(),
+                    "msg_id": msg_hash,
+                    "ham_metin": hint_text
+                }
+                existing_logs.append(new_entry)
+                persistence_manager.queue_write(log_file, existing_logs)
 
             # --- PRICE EXTRACTION (DISABLED BY USER REQUEST) ---
             fiyat = "SORUNUZ"
@@ -755,6 +794,12 @@ Return ONLY a JSON object in this format:
                 "createdAt": datetime.now().isoformat(),
                 "body": message
             }
+
+            # Add uncertainty flags if kasa_tipi is uncertain
+            if kasa_tipi_belirsiz:
+                route["kasa_tipi_belirsiz"] = kasa_tipi_belirsiz
+                route["kasa_tipi_belirsiz_sebep"] = kasa_tipi_belirsiz_sebep
+
             final_routes.append(route)
             
         return final_routes
