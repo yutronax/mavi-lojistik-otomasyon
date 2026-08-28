@@ -43,7 +43,7 @@ BLACKLIST_PATH = os.path.join(PROJECT_ROOT, "data", "blacklist.json")
 GROUPS_PATH = os.path.join(PROJECT_ROOT, "data", "chat_groups.json")
 MESSAGES_PATH = os.path.join(PROJECT_ROOT, "data", "live_messages.json")
 UNPROCESSED_PATH = os.path.join(PROJECT_ROOT, "data", "onaylanmamis_ayristirilmis.json")
-APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.json")
+APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.jsonl")
 IL_ILCE_PATH = os.path.join(PROJECT_ROOT, "data", "il_ilçe_mahalle.json")
 ARAC_KASA_PATH = os.path.join(PROJECT_ROOT, "data", "arac_yuk_kasa_tipleri.json")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
@@ -412,7 +412,7 @@ def unprocessed_get():
 @app.route("/api/unprocessed/<msg_id>/approve/<int:ship_idx>", methods=["POST"])
 @require_auth
 def unprocessed_approve(msg_id, ship_idx):
-    """Sevkiyatı onaylar: YukBurada'ya gönderir + Onaylananlar.json'a ekler + listeden çıkarır."""
+    """Sevkiyatı onaylar: YukBurada'ya gönderir + Onaylananlar.jsonl'a ekler + listeden çıkarır."""
     items = _load_unprocessed()
     msg = next((m for m in items if m.get("message_id") == msg_id), None)
     if not msg:
@@ -449,16 +449,12 @@ def unprocessed_approve(msg_id, ship_idx):
         _submission_queue.add_task(shipment)
         logger.info(f"[APPROVE] {msg_id}[{ship_idx}] YukBurada kuyruğuna eklendi.")
     else:
-        logger.warning(f"[APPROVE] YukBurada entegrasyonu yok — sadece Onaylananlar.json'a kaydedildi.")
+        logger.warning(f"[APPROVE] YukBurada entegrasyonu yok — sadece Onaylananlar.jsonl'a kaydedildi.")
 
-    # Onaylananlar.json'a ekle
-    try:
-        with open(APPROVED_PATH, "r", encoding="utf-8") as f:
-            approved = json.load(f)
-    except Exception:
-        approved = []
-    approved.append(shipment)
-    _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
+    # Onaylananlar.jsonl'a ekle (saf append — mevcut içerik HİÇ okunmaz)
+    with _approve_lock:
+        with open(APPROVED_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(shipment, ensure_ascii=False) + "\n")
 
     # Mesajda sevkiyat kalmadıysa listeden çıkar
     if not shipments:
@@ -486,12 +482,7 @@ def _approve_message(msg_id):
         def _parse_list(v):
             return v if isinstance(v, list) else ([v] if v else [])
 
-        try:
-            with open(APPROVED_PATH, "r", encoding="utf-8") as f:
-                approved = json.load(f)
-        except Exception:
-            approved = []
-
+        new_items = []
         count = 0
         skipped = 0
         for shipment in shipments:
@@ -509,10 +500,13 @@ def _approve_message(msg_id):
             shipment["arac_kasa_kombinasyon_listesi"] = combos
             if _submission_queue is not None:
                 _submission_queue.add_task(shipment)
-            approved.append(shipment)
+            new_items.append(shipment)
             count += 1
 
-        _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
+        if new_items:
+            with open(APPROVED_PATH, "a", encoding="utf-8") as f:
+                for item in new_items:
+                    f.write(json.dumps(item, ensure_ascii=False) + "\n")
         items = [m for m in items if m.get("message_id") != msg_id]
         _save_unprocessed(items)
         logger.info(f"[APPROVE_ALL] {msg_id}: {count} onaylandı, {skipped} lokasyon eksik atlandı.")

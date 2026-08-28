@@ -1,0 +1,45 @@
+{
+  "task": "onaylananlar-jsonl-append",
+  "reviewed_at": "2026-08-28T00:00:00Z",
+  "summary": "Implementasyon spesifikasyona uyuyor: append yolu (unprocessed_approve, _approve_message) Onaylananlar.jsonl'u hiçbir yerde json.load ile okumuyor (grep ile doğrulandı), gerçek ölçekte (95.5MB/150K kayıt) 0.1MB RSS farkıyla kanıtlandı — önceki incident'ın (1.2GB OOM-crash) kök nedenini kapatıyor. 1 medium (pre-existing, kapsam dışı lock-asimetrisi) ve 2 low bulgu (stale .json referansları — düzeltildi; test eşiğinin mutlak değer olması — bağımsız gerçek-ölçek testiyle zaten güçlü şekilde telafi edildi) bulundu, hiçbiri commit'i engellemiyor.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "src/api/admin_panel.py",
+      "issue": "_approve_lock, unprocessed_approve'da sadece Onaylananlar.jsonl yazımını sarıyor; _load_unprocessed()/_save_unprocessed() çağrıları kilit dışında. _approve_message ise TÜM gövdesini (unprocessed.json read-modify-write dahil) kilitliyor. Bu asimetri, unprocessed.json üzerinde teorik bir lost-update riski taşıyor.",
+      "better_approach": "unprocessed.json'un read-modify-write'ını da kilit altına almak (ayrı bir lock veya aynı _approve_lock'un tüm unprocessed_approve gövdesini sarması).",
+      "reason": "Bu race BU GÖREVDEN ÖNCE de vardı (eski kod da unprocessed_approve'u kilitsiz çağırıyordu) — bu görev tarafından yeni introduce edilmedi, Onaylananlar.jsonl'un kendi append-atomikliğini etkilemiyor, kapsam dışı."
+    },
+    {
+      "severity": "low",
+      "category": "readability",
+      "file": "src/api/admin_panel.py",
+      "issue": "Docstring (satır 415) ve log mesajı (satır 452) hâlâ 'Onaylananlar.json' diyordu, gerçek dosya artık .jsonl.",
+      "better_approach": "N/A",
+      "reason": "Düzeltildi ve bağımsız doğrulandı (27/27 test PASS, syntax OK)."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "tests/test_onaylananlar_jsonl_append.py",
+      "issue": "test_large_jsonl_append_memory_bounded sabit 100MB mutlak eşik kullanıyor, dosya boyutuyla orantılı bir eşik değil.",
+      "better_approach": "Eşiği dosya boyutunun bir fonksiyonu olarak ifade etmek (ör. file_size_mb * 0.1).",
+      "reason": "Asıl güvence, code_diff.md'de bağımsız olarak yapılan 95.5MB/150K kayıt üzerindeki 0.1MB fark ölçümünden geliyor — bu, testin zayıf eşiğini pratikte telafi ediyor. Düzeltilmedi, düşük öncelikli, gelecekte iyileştirilebilir."
+    }
+  ],
+  "strengths": [
+    "AC-1/AC-2'nin kritik gereksinimi (tam içerik hiç okunmaz) hem yapısal test tekniğiyle (json.load AssertionError yasağı) hem bağımsız grep taramasıyla hem de gerçek-ölçek (95.5MB/150K kayıt, 0.1MB RSS farkı) ölçümüyle üç kat doğrulandı.",
+    "Migration script CAVEMAN'a uygun, hata durumlarını (kaynak yok/hedef var/format yanlış) ele alıyor, orijinal dosyayı silmiyor, bellek maliyetini dokümante ediyor.",
+    "Kapsam dışı hiçbir dosyaya dokunulmadı (data_service.py, mongo_service.py vb.).",
+    "27/27 test bağımsız olarak birden fazla kez PASS."
+  ],
+  "risks": [
+    "unprocessed.json üzerindeki pre-existing lock-asimetrisi (yukarıda), yüksek eşzamanlılıkta nadir bir veri tutarsızlığına yol açabilir — bu PR'ı bloklamıyor, ayrı bir takip görevi olarak bırakılabilir.",
+    "Migration script'i production'da çalıştırılırken (149MB → ~970MB bellek) VPS'in toplam RAM'i (~1.9GB) dikkate alınmalı — atdd.md'de zaten not düşüldü, kullanıcıya deploy sırasında hatırlatılacak."
+  ],
+  "caveman_review": {"complexity": "low", "unnecessary_files": 0, "unnecessary_helpers": 0, "unnecessary_abstractions": 0},
+  "scope_review": {"matches_atdd": true, "scope_expansion": false},
+  "ready_to_commit": {"atdd_satisfied": true, "tests_passed": true, "no_critical_findings": true, "scope_respected": true, "caveman_satisfied": true, "security_acceptable": true, "maintainability_acceptable": true, "no_blocking_risks": true},
+  "verdict": "approve"
+}
