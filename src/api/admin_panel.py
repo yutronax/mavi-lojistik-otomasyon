@@ -338,41 +338,6 @@ def _start_bg_loader():
     t.start()
 
 
-# Onaylananlar.json cache (lazy-load: ilk _load_approved() çağrısında yüklenir)
-_approved_cache = []
-_approved_cache_loaded = False
-_approved_lock = threading.Lock()
-
-def _load_approved():
-    """Cache'ten liste döner. İlk çağrıda cache'i diskten bir kez yükler (lazy)."""
-    global _approved_cache, _approved_cache_loaded
-    with _approved_lock:
-        if not _approved_cache_loaded:
-            try:
-                with open(APPROVED_PATH, "r", encoding="utf-8") as f:
-                    _approved_cache = json.load(f)
-            except Exception:
-                _approved_cache = []
-            _approved_cache_loaded = True
-        return list(_approved_cache)
-
-def _append_approved(new_items):
-    """Yeni sevkiyat(lar)ı cache'e ekler ve TEK bir atomik disk yazımıyla kaydeder.
-    Load+append+write AYNI lock altında yapılır — eşzamanlı çağrılar arasında
-    kayıp güncelleme (lost update) riskini önler."""
-    global _approved_cache, _approved_cache_loaded
-    with _approved_lock:
-        if not _approved_cache_loaded:
-            try:
-                with open(APPROVED_PATH, "r", encoding="utf-8") as f:
-                    _approved_cache = json.load(f)
-            except Exception:
-                _approved_cache = []
-            _approved_cache_loaded = True
-        _approved_cache = _approved_cache + new_items
-        _atomic_write(APPROVED_PATH, json.dumps(_approved_cache, ensure_ascii=False, indent=2))
-
-
 CLEANUP_DAYS = 2  # Bu kadar günden eski kayıtlar silinir
 
 def _cleanup_old_unprocessed():
@@ -486,8 +451,14 @@ def unprocessed_approve(msg_id, ship_idx):
     else:
         logger.warning(f"[APPROVE] YukBurada entegrasyonu yok — sadece Onaylananlar.json'a kaydedildi.")
 
-    # Onaylananlar.json'a ekle (atomic — load+append+write AYNI lock altında)
-    _append_approved([shipment])
+    # Onaylananlar.json'a ekle
+    try:
+        with open(APPROVED_PATH, "r", encoding="utf-8") as f:
+            approved = json.load(f)
+    except Exception:
+        approved = []
+    approved.append(shipment)
+    _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
 
     # Mesajda sevkiyat kalmadıysa listeden çıkar
     if not shipments:
@@ -515,7 +486,11 @@ def _approve_message(msg_id):
         def _parse_list(v):
             return v if isinstance(v, list) else ([v] if v else [])
 
-        new_items = []
+        try:
+            with open(APPROVED_PATH, "r", encoding="utf-8") as f:
+                approved = json.load(f)
+        except Exception:
+            approved = []
 
         count = 0
         skipped = 0
@@ -534,11 +509,10 @@ def _approve_message(msg_id):
             shipment["arac_kasa_kombinasyon_listesi"] = combos
             if _submission_queue is not None:
                 _submission_queue.add_task(shipment)
-            new_items.append(shipment)
+            approved.append(shipment)
             count += 1
 
-        if new_items:
-            _append_approved(new_items)
+        _atomic_write(APPROVED_PATH, json.dumps(approved, ensure_ascii=False, indent=2))
         items = [m for m in items if m.get("message_id") != msg_id]
         _save_unprocessed(items)
         logger.info(f"[APPROVE_ALL] {msg_id}: {count} onaylandı, {skipped} lokasyon eksik atlandı.")
