@@ -34,24 +34,24 @@ sys.modules['google'] = MagicMock()
 from text_gen_parser import TextGenParser
 
 
-class TestGroqPrimaryModel:
-    """AC#1: Groq (Llama) is tried first, not DeepSeek."""
+class TestDeepSeekPrimaryModel:
+    """AC#1: DeepSeek (now primary) is tried first, not Groq."""
 
     @pytest.mark.asyncio
-    async def test_parse_async_tries_groq_first(self):
+    async def test_parse_async_tries_deepseek_first(self):
         """
-        Integration test: Mock Groq client to succeed, verify it's called first
-        and DeepSeek is NOT called.
+        Integration test: Mock DeepSeek client to succeed, verify it's called first
+        and Groq is NOT called.
 
         Given: A message to parse
-        When: parse_async is called with Groq returning valid data
-        Then: Only Groq is called, DeepSeek is never invoked
+        When: parse_async is called with DeepSeek returning valid data
+        Then: Only DeepSeek is called, Groq is never invoked
         """
         parser = TextGenParser()
 
-        # Mock response from Groq (success case)
-        groq_response = MagicMock()
-        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        # Mock response from DeepSeek (success case)
+        deepseek_response = MagicMock()
+        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Test route extraction",
             "routes": [
                 {
@@ -63,10 +63,10 @@ class TestGroqPrimaryModel:
                 }
             ]
         })))]
-        groq_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
+        deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
 
-        deepseek_mock = AsyncMock()
-        groq_mock = AsyncMock(return_value=groq_response)
+        groq_mock = AsyncMock()
+        deepseek_mock = AsyncMock(return_value=deepseek_response)
 
         with patch.object(parser, '_get_async_client') as get_groq, \
              patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -82,28 +82,28 @@ class TestGroqPrimaryModel:
 
             result = await parser.parse_async("ANKARA -> İSTANBUL TIR")
 
-            # Verify Groq was called
-            assert groq_mock.called, "Groq API should be called"
+            # Verify DeepSeek was called
+            assert deepseek_mock.called, "DeepSeek API should be called (now primary)"
 
-            # Verify DeepSeek was NOT called (no fallback on success)
-            assert not deepseek_mock.called, "DeepSeek should not be called on Groq success"
+            # Verify Groq was NOT called (no fallback on success)
+            assert not groq_mock.called, "Groq should not be called on DeepSeek success"
 
 
-class TestGroqAPIFailure:
-    """AC#2: On Groq API failure, DeepSeek fallback is triggered."""
+class TestDeepSeekAPIFailure:
+    """AC#2: On DeepSeek API failure, Groq fallback is triggered."""
 
     @pytest.mark.asyncio
-    async def test_groq_api_error_triggers_deepseek_fallback(self):
+    async def test_deepseek_api_error_triggers_groq_fallback(self):
         """
-        Given: Groq API returns an error (exception)
+        Given: DeepSeek API returns an error (exception)
         When: parse_async is called
-        Then: DeepSeek API is called as fallback
+        Then: Groq API is called as fallback
         """
         parser = TextGenParser()
 
-        # Mock response from DeepSeek (fallback success)
-        deepseek_response = MagicMock()
-        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        # Mock response from Groq (fallback success)
+        groq_response = MagicMock()
+        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Fallback extraction",
             "routes": [
                 {
@@ -115,10 +115,10 @@ class TestGroqAPIFailure:
                 }
             ]
         })))]
-        deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
+        groq_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
 
-        groq_mock = AsyncMock(side_effect=Exception("API Timeout"))
-        deepseek_mock = AsyncMock(return_value=deepseek_response)
+        deepseek_mock = AsyncMock(side_effect=Exception("API Timeout"))
+        groq_mock = AsyncMock(return_value=groq_response)
 
         with patch.object(parser, '_get_async_client') as get_groq, \
              patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -134,39 +134,39 @@ class TestGroqAPIFailure:
 
             result = await parser.parse_async("ANKARA -> İSTANBUL TIR")
 
-            # Verify Groq was called first
-            assert groq_mock.called, "Groq should be tried first"
+            # Verify DeepSeek was called first
+            assert deepseek_mock.called, "DeepSeek should be tried first (now primary)"
 
-            # Verify DeepSeek was called (fallback triggered)
-            assert deepseek_mock.called, "DeepSeek should be called after Groq failure"
+            # Verify Groq was called (fallback triggered)
+            assert groq_mock.called, "Groq should be called after DeepSeek failure"
 
 
-class TestGroqEmptyResultFallback:
-    """AC#3: On Groq success but empty routes, DeepSeek is retried."""
+class TestDeepSeekEmptyResultFallback:
+    """AC#3: On DeepSeek success but empty routes, Groq is retried."""
 
     @pytest.mark.asyncio
-    async def test_groq_empty_routes_triggers_deepseek(self):
+    async def test_deepseek_empty_routes_triggers_groq(self):
         """
-        Given: Groq API succeeds but returns empty routes list
+        Given: DeepSeek API succeeds but returns empty routes list
         When: parse_async detects empty result
-        Then: DeepSeek is called to retry
+        Then: Groq is called to retry
 
         Note: This test assumes implementation will check for empty routes
         and retry the next model instead of immediately returning [].
         """
         parser = TextGenParser()
 
-        # Groq returns empty routes (insufficient parsing)
-        groq_response = MagicMock()
-        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        # DeepSeek returns empty routes (insufficient parsing)
+        deepseek_response = MagicMock()
+        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Could not parse",
             "routes": []  # Empty!
         })))]
-        groq_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
+        deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
 
-        # DeepSeek returns valid routes (fallback success)
-        deepseek_response = MagicMock()
-        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        # Groq returns valid routes (fallback success)
+        groq_response = MagicMock()
+        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Successful parsing",
             "routes": [
                 {
@@ -178,10 +178,10 @@ class TestGroqEmptyResultFallback:
                 }
             ]
         })))]
-        deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
+        groq_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
 
-        groq_mock = AsyncMock(return_value=groq_response)
         deepseek_mock = AsyncMock(return_value=deepseek_response)
+        groq_mock = AsyncMock(return_value=groq_response)
 
         with patch.object(parser, '_get_async_client') as get_groq, \
              patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -197,13 +197,13 @@ class TestGroqEmptyResultFallback:
 
             result = await parser.parse_async("ANKARA YÜKLER: İSTANBUL")
 
-            # After implementation: empty result should trigger fallback to DeepSeek
+            # After implementation: empty result should trigger fallback to Groq
             # Currently, the code returns immediately, so this test is EXPECTED TO FAIL (red)
             # until the empty-routes-retry logic is implemented.
 
             # Verify both were called (after implementation)
-            assert groq_mock.called, "Groq should be tried first"
-            assert deepseek_mock.called, "DeepSeek should retry on empty routes"
+            assert deepseek_mock.called, "DeepSeek should be tried first (now primary)"
+            assert groq_mock.called, "Groq should retry on empty routes from DeepSeek"
 
 
 class TestAllModelsFail:
@@ -243,26 +243,26 @@ class TestAllModelsFail:
             assert result == [], "Should return empty list on all-models failure"
 
 
-class TestGroqRateLimit:
-    """AC#5: On Groq rate-limit (429), DeepSeek fallback occurs."""
+class TestDeepSeekRateLimit:
+    """AC#5: On DeepSeek rate-limit (429), Groq fallback occurs."""
 
     @pytest.mark.asyncio
-    async def test_groq_429_rate_limit_fallback(self):
+    async def test_deepseek_429_rate_limit_fallback(self):
         """
-        Given: Groq API returns 429 (rate limit)
+        Given: DeepSeek API returns 429 (rate limit)
         When: parse_async handles the rate-limit error
-        Then: DeepSeek is called as fallback
+        Then: Groq is called as fallback
         """
         parser = TextGenParser()
 
-        # Groq returns 429 error (rate limit)
-        groq_mock = AsyncMock(
+        # DeepSeek returns 429 error (rate limit)
+        deepseek_mock = AsyncMock(
             side_effect=Exception("429 - Rate limit exceeded. Try again in 12.5s")
         )
 
-        # DeepSeek succeeds
-        deepseek_response = MagicMock()
-        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        # Groq succeeds
+        groq_response = MagicMock()
+        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Parsed via fallback",
             "routes": [
                 {
@@ -274,9 +274,9 @@ class TestGroqRateLimit:
                 }
             ]
         })))]
-        deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
+        groq_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
 
-        deepseek_mock = AsyncMock(return_value=deepseek_response)
+        groq_mock = AsyncMock(return_value=groq_response)
 
         with patch.object(parser, '_get_async_client') as get_groq, \
              patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -293,12 +293,12 @@ class TestGroqRateLimit:
 
             result = await parser.parse_async("ANKARA -> İZMİR TIR")
 
-            # Verify Groq was called first (even though it will fail with 429)
-            assert groq_mock.called, "Groq should be tried first"
+            # Verify DeepSeek was called first (even though it will fail with 429)
+            assert deepseek_mock.called, "DeepSeek should be tried first (now primary)"
 
-            # Verify DeepSeek was called as fallback after 429
+            # Verify Groq was called as fallback after 429
             # Note: This may require implementation to handle 429 specifically
-            assert deepseek_mock.called, "DeepSeek should fallback on Groq 429"
+            assert groq_mock.called, "Groq should fallback on DeepSeek 429"
 
 
 class TestTrackSpendProvider:
@@ -395,23 +395,23 @@ class TestTrackSpendProvider:
                     assert not mock_save.called, "Zero-cost entries should not be persisted"
 
 
-class TestHappyPath:
-    """Integration test: Groq success → no DeepSeek call → cost recorded with provider."""
+class TestHappyPathDeepSeek:
+    """Integration test: DeepSeek success → no Groq call → cost recorded with provider."""
 
     @pytest.mark.asyncio
-    async def test_happy_path_groq_success(self):
+    async def test_happy_path_deepseek_success(self):
         """
         Given: Message arrives for parsing
-        When: Groq API returns valid, non-empty routes
+        When: DeepSeek API returns valid, non-empty routes
         Then:
-          - Groq is called once
-          - DeepSeek is never called
-          - Cost is recorded with provider='groq'
+          - DeepSeek is called once
+          - Groq is never called
+          - Cost is recorded with provider='deepseek'
         """
         parser = TextGenParser()
 
-        groq_response = MagicMock()
-        groq_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
+        deepseek_response = MagicMock()
+        deepseek_response.choices = [MagicMock(message=MagicMock(content=json.dumps({
             "akil_yurutme": "Parsed successfully",
             "routes": [
                 {
@@ -423,10 +423,10 @@ class TestHappyPath:
                 }
             ]
         })))]
-        groq_response.usage = MagicMock(prompt_tokens=200, completion_tokens=100)
+        deepseek_response.usage = MagicMock(prompt_tokens=200, completion_tokens=100)
 
-        groq_mock = AsyncMock(return_value=groq_response)
-        deepseek_mock = AsyncMock()  # Should not be called
+        deepseek_mock = AsyncMock(return_value=deepseek_response)
+        groq_mock = AsyncMock()  # Should not be called
 
         tracked_calls = []
 
@@ -451,17 +451,17 @@ class TestHappyPath:
 
             result = await parser.parse_async("ANKARA YÜKLER: İSTANBUL TUZLA TIR")
 
-            # Verify Groq was called
-            assert groq_mock.called, "Groq should be called in happy path"
-            assert groq_mock.call_count == 1, "Groq should be called exactly once"
+            # Verify DeepSeek was called
+            assert deepseek_mock.called, "DeepSeek should be called in happy path (now primary)"
+            assert deepseek_mock.call_count == 1, "DeepSeek should be called exactly once"
 
-            # Verify DeepSeek was NOT called
-            assert not deepseek_mock.called, "DeepSeek should not be called on Groq success"
+            # Verify Groq was NOT called
+            assert not groq_mock.called, "Groq should not be called on DeepSeek success"
 
             # Verify cost was tracked (with the model name that will later have provider extracted)
             assert len(tracked_calls) > 0, "Cost tracking should be called"
-            # After implementation, model name should be 'llama-3.1-8b-instant' or Groq identifier
-            # tracked_calls[0]['model'] should indicate Groq
+            # After implementation, model name should be 'deepseek-v4-flash' or DeepSeek identifier
+            # tracked_calls[0]['model'] should indicate DeepSeek
 
 
 if __name__ == '__main__':

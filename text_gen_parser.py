@@ -63,11 +63,11 @@ class TextGenParser:
         # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
         self.semaphore = threading.Semaphore(max_concurrent)
         
-        # Models: Groq primary, DeepSeek fallback
-        self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
+        # Models: DeepSeek primary, Groq fallback
         self.model_robust = 'deepseek-v4-pro'  # DeepSeek fallback
         self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
         self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
+        self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
         self.fallback_models = ['deepseek-v4-flash']  # DeepSeek fallback models
         
         # NEIGHBORHOOD CACHE
@@ -267,8 +267,8 @@ RULES:
 5. Output ONLY the routes in 'ORIGIN -> DESTINATION' format. No explanations."""
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
 
-        # Stage 1: Try Groq first, then DeepSeek
-        models_to_try = ['openai/gpt-oss-20b', 'deepseek-v4-flash']
+        # Stage 1: Try DeepSeek first (primary), then Groq
+        models_to_try = ['deepseek-v4-flash', 'openai/gpt-oss-20b']
 
         with self.semaphore:
             for model_to_use in models_to_try:
@@ -441,8 +441,8 @@ Return ONLY a JSON object in this format:
         if len(message) > 8000:
             message = message[:8000] + "... [TRUNCATED]"
 
-        # Primary model: Groq (openai/gpt-oss-20b), Fallback: DeepSeek models
-        models_to_try = ['openai/gpt-oss-20b', self.model_robust] + self.fallback_models
+        # Primary model: DeepSeek (model_robust + fallback_models), Fallback: Groq
+        models_to_try = [self.model_robust] + self.fallback_models + ['openai/gpt-oss-20b']
         models_to_try = list(dict.fromkeys(models_to_try))
 
         last_error = None

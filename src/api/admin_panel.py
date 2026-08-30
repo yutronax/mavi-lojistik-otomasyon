@@ -218,9 +218,55 @@ def _refresh_status_cache():
 @require_auth
 def status():
     """Cache'lenmiş PM2 durumunu döner — disk/subprocess yok."""
-    return jsonify(_status_cache)
+    result = dict(_status_cache)
+    result["deepseek_balance"] = _deepseek_balance_cache
+    return jsonify(result)
 
 
+# -------- DeepSeek Balance Monitoring --------
+
+_deepseek_balance_cache = {"available": None, "balance_usd": None, "low": False}
+
+def _check_deepseek_balance_once(api_key, threshold_usd=5.0):
+    """DeepSeek /user/balance uç noktasını bir kez kontrol eder.
+    Ağ hatası durumunda 'unknown' döner — asla yanlışlıkla 'yeterli' demez."""
+    if not api_key:
+        return {"available": None, "balance_usd": None, "low": False}
+    try:
+        import urllib.request, urllib.error
+        req = urllib.request.Request(
+            "https://api.deepseek.com/user/balance",
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+        r = urllib.request.urlopen(req, timeout=10)
+        response_data = r.read()
+        if hasattr(r, 'close'):
+            r.close()
+        data = json.loads(response_data)
+        is_available = data.get("is_available", False)
+        balance_infos = data.get("balance_infos", [])
+        total_balance = float(balance_infos[0].get("total_balance", 0)) if balance_infos else 0.0
+        return {
+            "available": is_available,
+            "balance_usd": total_balance,
+            "low": (not is_available) or (total_balance < threshold_usd),
+        }
+    except Exception as e:
+        logger.error(f"DeepSeek bakiye kontrolü başarısız: {e}")
+        return {"available": "unknown", "balance_usd": None, "low": False}
+
+def _refresh_deepseek_balance():
+    """DeepSeek bakiyesini arka planda 15 dakikada bir kontrol edip cache'ler."""
+    def _loop():
+        global _deepseek_balance_cache
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            return
+        while True:
+            _deepseek_balance_cache = _check_deepseek_balance_once(api_key)
+            time.sleep(900)
+    t = threading.Thread(target=_loop, daemon=True, name="deepseek-balance-poller")
+    t.start()
 
 
 # ---------------- API: Servis Kontrol ----------------
@@ -1784,6 +1830,7 @@ if __name__ == "__main__":
     _cleanup_old_unprocessed()  # Başlangıçta eski kayıtları temizle
     _start_bg_loader()          # Dosyayı arka planda belleğe yükle
     _refresh_status_cache()     # PM2 durumunu arka planda cache'le
+    _refresh_deepseek_balance()  # DeepSeek bakiyesini arka planda izle
     _schedule_daily_cleanup()
     _start_auto_approve()       # Sunucu tarafı oto onay (son 1 saat, 3 sn'de bir)
     port = int(os.getenv("ADMIN_PANEL_PORT", "8080"))
