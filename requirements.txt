@@ -1,5 +1,5 @@
 openai
-python-dotenv
+python-dotenv>=1.2.2
 paramiko
 pyinstaller
 pydantic
