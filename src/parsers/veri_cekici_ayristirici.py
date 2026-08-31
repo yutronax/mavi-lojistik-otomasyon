@@ -257,6 +257,10 @@ class OrchestratorSDK:
                 logger.info(f"[OK] [İŞLEM TAMAMLANDI] ID: {msg_id}")
         except Exception as e:
             logger.error(f"[ERR] [TASK HATASI] ({msg_id}): {e}")
+            try:
+                self.data_service.mark_id_handled(msg_id)
+            except Exception as mark_err:
+                logger.error(f"[ERR] mark_id_handled hatası ({msg_id}): {mark_err}")
         finally:
             with self.active_lock:
                 if msg_id in self.active_ids:
@@ -919,7 +923,7 @@ class OrchestratorSDK:
                         has_valid_shipment = True
                     else:
                         for s in entry.get('shipments', []):
-                            if s.get('nereden_il') or s.get('nereye_il'):
+                            if s.get('nereden_il') or s.get('nereden_ilce') or s.get('nereye_il') or s.get('nereye_ilce'):
                                 has_valid_shipment = True
                                 break
                     
