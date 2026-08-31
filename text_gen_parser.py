@@ -279,7 +279,8 @@ RULES:
                             response = await client.chat.completions.create(
                                 model=model_to_use,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0
+                                temperature=0.0,
+                                max_tokens=1500
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -291,7 +292,8 @@ RULES:
                                 model=model_to_use,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                reasoning_effort="low"
+                                reasoning_effort="low",
+                                max_tokens=1500
                             )
                             text = response.choices[0].message.content
                             self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
@@ -450,6 +452,7 @@ Return ONLY a JSON object in this format:
             for model_idx, model_name in enumerate(models_to_try):
                 is_last_model = (model_idx == len(models_to_try) - 1)
                 for attempt in range(3):
+                    is_truncated = False  # Initialize before any model call
                     try:
                         if "gemini" in model_name:
                             client = self._get_gemini_client()
@@ -466,8 +469,12 @@ Return ONLY a JSON object in this format:
                                 model=model_name,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                response_format={"type": "json_object"}
+                                response_format={"type": "json_object"},
+                                max_tokens=1500
                             )
+                            is_truncated = response.choices[0].finish_reason == 'length'
+                            if is_truncated:
+                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
                         else:
@@ -478,13 +485,27 @@ Return ONLY a JSON object in this format:
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
                                 response_format={"type": "json_object"},
-                                reasoning_effort="low"
+                                reasoning_effort="low",
+                                max_tokens=1500
                             )
+                            is_truncated = response.choices[0].finish_reason == 'length'
+                            if is_truncated:
+                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
 
                         text = text.strip()
                         print(f"\n[DEBUG] AI RESPONSE [{model_name}]:\n{text}\n")
+
+                        # Truncated response: skip the fragile regex-repair path in
+                        # _process_raw_json_async (can silently drop routes or raise
+                        # an uncaught JSONDecodeError on malformed partial JSON) — treat
+                        # like an invalid result and retry with the next model, unless
+                        # this is already the last model (then fall through and let
+                        # _process_raw_json_async do its best-effort recovery).
+                        if is_truncated and not is_last_model:
+                            logger.warning(f"[AC-4] {model_name} response truncated at max_tokens. Trying next model...")
+                            break  # Break inner attempt loop, continue to next model
 
                         # Parse JSON and check for empty routes or non-Latin characters (AC-3: fallback on empty/non-Latin)
                         try:
