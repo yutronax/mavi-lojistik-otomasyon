@@ -542,7 +542,20 @@ def _approve_message(msg_id):
             shipment["message_id"] = msg_id
             at = _parse_list(shipment.get("arac_tipi", []))
             kt = _parse_list(shipment.get("kasa_tipi", []))
-            combos = at or kt or [""]
+            # DÜZELTME (2026-09-01): "combos = at or kt or ['']" kısayolu
+            # arac_tipi hemen hemen HER ZAMAN dolu olduğu için kasa_tipi'yi
+            # tamamen görmezden alıyordu (kullanıcı bildirdi: "kasa tipi
+            # çıkarmıyor yada iletmiyor"). unprocessed_approve() (tekli onay,
+            # bu dosyada) ve masaustu_uygulama.py'deki (2 yer) doğru çapraz-
+            # çarpım mantığıyla eşleştirildi.
+            if not at and not kt:
+                combos = [""]
+            elif not at:
+                combos = kt
+            elif not kt:
+                combos = at
+            else:
+                combos = [f"{a}-{k}" for a in at for k in kt]
             shipment["arac_kasa_kombinasyon_listesi"] = combos
             if _submission_queue is not None:
                 _submission_queue.add_task(shipment)
