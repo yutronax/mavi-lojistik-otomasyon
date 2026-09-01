@@ -80,16 +80,26 @@ class TestBaileysWebhookHandler(WhapiWebhookHandler):
                 pass
 
 
-print(f"[TEST RECEIVER] :{PORT} adresinde dinliyor (SADECE /baileys-webhook test icin, ngrok/Whapi polling YOK)")
-if TEST_ALLOW_CHAT_ID:
-    print(f"[TEST RECEIVER] TEST_ALLOW_CHAT_ID bypass aktif: {TEST_ALLOW_CHAT_ID}")
-else:
-    print("[TEST RECEIVER] TEST_ALLOW_CHAT_ID set EDILMEDI - hicbir mesaj bypass edilmeyecek.")
-    print("[TEST RECEIVER]   Ornek: TEST_ALLOW_CHAT_ID=\"905xxxxxxxxx@s.whatsapp.net\" python sidecar/test_receiver.py")
-print("[TEST RECEIVER] Durdurmak icin Ctrl+C")
+# DUZELTME (2026-09-01): serve_forever() modul seviyesinde (dosya import
+# edilirken) calisiyordu - bu, dosya "test_*.py" adiyla pytest'in otomatik
+# toplama desenine uyunca (eski adi: test_receiver.py, testpaths bos
+# pytest.ini'de) pytest collection'inin bu dosyayi import edip SONSUZA
+# KADAR bloke olmasina yol acti (CI ve yerel "pytest -q" hep buradan takildi,
+# 20+ dk askida kaldi). Dosya artik pytest deseniyle eslesmeyecek sekilde
+# yeniden adlandirildi (manual_webhook_test_server.py) VE savunma amacli
+# olarak calistirma kodu __main__ bloguna alindi - artik ne isim eslesirse
+# eslessin, salt import (baska bir modulden/pytest'ten) asla bloke olmaz.
+if __name__ == "__main__":
+    print(f"[TEST RECEIVER] :{PORT} adresinde dinliyor (SADECE /baileys-webhook test icin, ngrok/Whapi polling YOK)")
+    if TEST_ALLOW_CHAT_ID:
+        print(f"[TEST RECEIVER] TEST_ALLOW_CHAT_ID bypass aktif: {TEST_ALLOW_CHAT_ID}")
+    else:
+        print("[TEST RECEIVER] TEST_ALLOW_CHAT_ID set EDILMEDI - hicbir mesaj bypass edilmeyecek.")
+        print("[TEST RECEIVER]   Ornek: TEST_ALLOW_CHAT_ID=\"905xxxxxxxxx@s.whatsapp.net\" python sidecar/manual_webhook_test_server.py")
+    print("[TEST RECEIVER] Durdurmak icin Ctrl+C")
 
-server = HTTPServer(('127.0.0.1', PORT), TestBaileysWebhookHandler)
-try:
-    server.serve_forever()
-except KeyboardInterrupt:
-    print("\n[TEST RECEIVER] Durduruldu.")
+    server = HTTPServer(('127.0.0.1', PORT), TestBaileysWebhookHandler)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\n[TEST RECEIVER] Durduruldu.")

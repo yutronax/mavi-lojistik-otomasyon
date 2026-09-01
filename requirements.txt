@@ -10,3 +10,4 @@ watchdog
 numpy
 groq
 nest-asyncio
+flask
