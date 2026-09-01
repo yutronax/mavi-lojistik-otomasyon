@@ -64,11 +64,17 @@ class TextGenParser:
         self.semaphore = threading.Semaphore(max_concurrent)
         
         # Models: DeepSeek primary, Groq fallback
-        self.model_robust = 'deepseek-v4-pro'  # DeepSeek fallback
+        # DÜZELTME (2026-09-01): atdd.md/deepseek-primary-balance-alert AC-1
+        # açıkça "deepseek-v4-flash İLK denenen model olur" diyordu ama
+        # uygulama yanlışlıkla pahalı 'deepseek-v4-pro'yu birincil yapmıştı
+        # (spesifikasyon sapması, gerçek maliyete yol açtı — kullanıcı fark
+        # etti). flash da DeepSeek gibi günlük limitsiz, çok daha ucuz;
+        # pro artık ekstra bir fallback olarak duruyor, birincil değil.
+        self.model_robust = 'deepseek-v4-flash'  # DeepSeek birincil (ucuz, günlük limitsiz)
         self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
         self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
         self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
-        self.fallback_models = ['deepseek-v4-flash']  # DeepSeek fallback models
+        self.fallback_models = ['deepseek-v4-pro']  # DeepSeek fallback (flash başarısız olursa)
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}

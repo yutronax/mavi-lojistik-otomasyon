@@ -97,9 +97,14 @@ class TestDeepSeekModelOrder:
 
         parser = text_gen_parser.TextGenParser()
 
-        # Verify that model_robust is set to a deepseek model
-        assert parser.model_robust == 'deepseek-v4-pro', (
-            f"model_robust should be 'deepseek-v4-pro', got {parser.model_robust}"
+        # Verify that model_robust is set to a deepseek model.
+        # DÜZELTME (2026-09-01): atdd.md AC-1 açıkça "deepseek-v4-flash İLK
+        # denenen model olur" diyordu — bu test önceden yanlışlıkla pahalı
+        # 'deepseek-v4-pro'yu birincil olarak doğruluyordu (spesifikasyon
+        # sapmasını test ediyordu, spesifikasyonun kendisini değil).
+        assert parser.model_robust == 'deepseek-v4-flash', (
+            f"model_robust should be 'deepseek-v4-flash' (atdd.md AC-1: ucuz, günlük limitsiz "
+            f"model birincil olmalı), got {parser.model_robust}"
         )
 
         # Verify that fallback_models contain deepseek models
