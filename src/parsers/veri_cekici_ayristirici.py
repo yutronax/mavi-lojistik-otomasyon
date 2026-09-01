@@ -80,6 +80,15 @@ try:
 except ImportError:
     WHAPI_AVAILABLE = False
 
+# Saga epic #46 (baileys-uretim-gecisi): Whapi'nin aktif POLLING'ini (REST
+# üzerinden mesaj çekme + health-check) kapatmak için ayrı bir flag.
+# WHAPI_AVAILABLE'dan BİLEREK ayrı tutuluyor — import'u (get_channel_risk,
+# check_health gibi ikincil çağrılar) bozmadan, sadece run_loop'un aktif
+# fetch/health-check davranışını devre dışı bırakmak için. Varsayılan "1"
+# (mevcut davranışla geriye dönük uyumlu) — üretimde .env'e
+# WHAPI_POLLING_ENABLED=0 eklenerek kapatılır.
+WHAPI_POLLING_ENABLED = os.getenv('WHAPI_POLLING_ENABLED', '1').strip() in ('1', 'true', 'True')
+
 # YukBurada Submitter Entegrasyonu
 try:
     from tools.submit_approved_loads import YukBuradaSubmitter
@@ -583,9 +592,9 @@ class OrchestratorSDK:
             except Exception as e:
                 logger.warning(f"Config sync error: {e}")
 
-        if not WHAPI_AVAILABLE:
+        if not WHAPI_AVAILABLE or not WHAPI_POLLING_ENABLED:
             return 0
-        
+
         try:
             # STREAMING: Mesaj çekilir çekilmez callback ile kuyruğa at
             def stream_callback(msg):
@@ -1068,7 +1077,7 @@ class OrchestratorSDK:
                 self.check_periodic_cleanup()
                 
                 # --- BAN PREVENTION: HEALTH CHECK ---
-                if WHAPI_AVAILABLE:
+                if WHAPI_AVAILABLE and WHAPI_POLLING_ENABLED:
                     health = check_health()
                     status_data = health.get('status', {})
                     status = status_data.get('text', 'unknown').lower() if isinstance(status_data, dict) else str(status_data).lower()
@@ -1082,6 +1091,15 @@ class OrchestratorSDK:
                             time.sleep(15)
                         continue
                 
+                # Saga epic #46: Whapi polling kapalıysa (bridge.js/Baileys
+                # birincil mesaj kaynağı) grupları paketleyip tek tek
+                # dolaşmanın bir anlamı yok — her paket zaten no-op dönecek
+                # (fetch_new_messages_batch WHAPI_POLLING_ENABLED'a bakıyor).
+                # Boşuna insani gecikmeler biriktirmemek için erken atla.
+                if not WHAPI_POLLING_ENABLED:
+                    time.sleep(WHATSAPP_POLL_INTERVAL)
+                    continue
+
                 # 1. Kayıtlı grupları yükle
                 chat_ids = list(get_saved_chat_ids())
                 if not chat_ids:

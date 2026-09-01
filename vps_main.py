@@ -25,6 +25,8 @@ if PROJECT_ROOT not in sys.path:
 # Reporter ve Orkestratör Importları
 from src.utils.reporter import Reporter
 from src.parsers.veri_cekici_ayristirici import OrchestratorSDK
+from http.server import HTTPServer
+import threading
 
 # Logging Yapılandırması
 LOG_DIR = os.path.join(PROJECT_ROOT, 'logs')
@@ -50,37 +52,71 @@ def is_working_hours():
     working = 7 <= now.hour <= 23
     return working
 
+
+def _start_baileys_webhook_server(orchestrator, port=8080):
+    """
+    Saga epic #46 (baileys-uretim-gecisi): sidecar/bridge.js'in POST ettiği
+    /baileys-webhook'u VPS'te de dinleyecek bir HTTP server thread'i.
+
+    Kasıtlı olarak is_working_hours() gate'inden BAĞIMSIZ — kullanıcı kararı
+    (AskUserQuestion ile onaylandı): mesai dışında da mesajlar kuyruğa
+    alınmaya devam etsin, işleme (parser/Gemini) mesai saatine bağlı kalabilir,
+    ama hiçbir mesaj Baileys tarafında kaçırılmasın.
+
+    src/api/webhook_server.py'nin run_server()'ı BİLEREK burada çağrılmıyor
+    (o kendi ayrı OrchestratorSDK() singleton'ını kullanır ve ngrok/Whapi
+    webhook kaydı + kendi periyodik döngüsünü de başlatır — VPS'te bunu ayrı
+    bir process olarak çalıştırmak iki farklı orchestrator instance'ının aynı
+    JSON dosyalarına yazması riskini doğurur, bkz. plan.md). Bunun yerine
+    sadece handler'ı, BU dosyanın tek orchestrator instance'ına bağlayarak
+    kullanıyoruz.
+    """
+    from src.api.webhook_server import make_webhook_handler_class
+
+    handler_class = make_webhook_handler_class(orchestrator)
+    server = HTTPServer(('0.0.0.0', port), handler_class)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    logger.info(f"[BAILEYS-WEBHOOK] :{port} adresinde dinliyor (mesai saatinden bağımsız, sürekli aktif).")
+    return server
+
+
 def run_vps_service():
     """
     Sistemi otonom döngüde çalıştırır.
     Hata durumunda WhatsApp üzerinden bildirim gönderir.
     """
     reporter = Reporter()
-    
+
     logger.info("🚀 Mavi Lojistik Otonom Servis Başlatılıyor...")
-    
+
     # Başlangıç bildirimi (Opsiyonel)
     try:
         reporter.add_error("🚀 *Sistem Başlatıldı*\nVPS üzerinde otonom döngü aktif.", level="INFO")
     except:
         pass
 
+    # Orkestratör ve Baileys webhook sunucusu TEK SEFER, döngü DIŞINDA
+    # oluşturulur — önceki sürümde her mesai-başlangıcında yeniden
+    # OrchestratorSDK() yaratılıyordu, bu da webhook thread'inin kalıcı bir
+    # instance'a bağlanmasını imkansız kılardı ve dedup önbelleğini
+    # (active_ids/active_body_hashes) her seferinde sıfırlıyordu.
+    orchestrator = OrchestratorSDK()
+    _start_baileys_webhook_server(orchestrator, port=8080)
+
     while True:
         try:
             if not is_working_hours():
                 now_str = datetime.now().strftime('%H:%M')
-                logger.info(f"😴 Mesai dışı saat ({now_str}). Sistem uyku modunda. Sabit 07:00'ye kadar bekleniyor...")
+                logger.info(f"😴 Mesai dışı saat ({now_str}). Whapi döngüsü uykuda (Baileys webhook dinlemeye devam ediyor). Sabit 07:00'ye kadar bekleniyor...")
                 # 10 dakika bekle ve tekrar kontrol et
                 time.sleep(600)
                 continue
 
-            # Orkestratörü başlat
-            orchestrator = OrchestratorSDK()
-            
             logger.info("🟢 Çalışma saatleri içinde. Orkestratör döngüsü başlatılıyor...")
             # Ana döngüyü çalıştır (Bu fonksiyon sonsuz döngü içerir)
             orchestrator.run_loop()
-            
+
         except Exception as e:
             error_details = traceback.format_exc()
             logger.error(f"❌ KRİTİK HATA: {e}\n{error_details}")

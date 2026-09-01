@@ -1,0 +1,18 @@
+{
+  "name": "mavilojistik-baileys-sidecar",
+  "version": "0.1.0",
+  "description": "Whapi.cloud'dan Baileys'e gecis POC sidecar servisi (asama 1) - Saga epic #42",
+  "main": "connect.js",
+  "scripts": {
+    "poc": "node connect.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc14",
+    "pino": "^10.3.1",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

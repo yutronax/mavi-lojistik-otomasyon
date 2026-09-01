@@ -1,0 +1,7 @@
+node_modules/
+auth_info_baileys/
+poc_messages.log
+poc_groups.json
+poc_unhandled_messages.log
+bridge_unhandled_messages.log
+risk_events.log
