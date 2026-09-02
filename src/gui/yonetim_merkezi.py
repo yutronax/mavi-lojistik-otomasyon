@@ -1063,7 +1063,7 @@ class YonetimMerkeziApp:
                 self.auto_onay_toggle.config(text="❌ PASİF", fg=self.COLORS['danger'])
 
             # Buton durumlarını güncelle
-            if status == 'ONLINE':
+            if status.upper() == 'ONLINE':
                 self.vps_start_btn.config(state=tk.DISABLED, bg='#e5e7eb')
                 self.vps_stop_btn.config(state=tk.NORMAL, bg=self.COLORS['danger'])
             else:

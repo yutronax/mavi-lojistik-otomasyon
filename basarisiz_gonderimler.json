@@ -454,5 +454,277 @@
     },
     "error": "'05434147250'",
     "timestamp": "2026-05-02 12:41:11"
+  },
+  {
+    "record": {
+      "isim": "KAYIR LOJİSTİK",
+      "nereden_il": "İSTANBUL",
+      "nereden_ilce": "ADALAR",
+      "nereye_il": "İSTANBUL",
+      "nereye_ilce": "MALTEPE",
+      "arac_tipi": [
+        "KAMYONET"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "PARÇA"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05302915102",
+      "aciklama": "Yeni Sevkiyat \n🌋🌋🌋🗻🗻🗻🗻⛰️⛰️\n🗻MATEL Maden🌋\n  ⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n        70 Lt veya150TL/Ton\n            KAYIR LOJİSTİK\nOnder  ☎️05302915102\nOfis     0533 2865841",
+      "createdAt": "2026-05-11T22:36:16.984808",
+      "body": "Yeni Sevkiyat\n\n---\n\n---\n⛰️⛰️\n🗻MATEL Maden🌋\n⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n70 Lt veya150TL / Ton\nKAYIR LOJİSTİK\nOnder ☎️05302915102\nOfis 0533 2865841",
+      "original_message": "Yeni Sevkiyat \n🌋🌋🌋🗻🗻🗻🗻⛰️⛰️\n🗻MATEL Maden🌋\n  ⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n        70 Lt veya150TL/Ton\n            KAYIR LOJİSTİK\nOnder  ☎️05302915102\nOfis     0533 2865841",
+      "message_id": "rAwJPaIfwAPSpQsdVNFUCQ-opTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "KAMYONET-AÇIK",
+        "KAMYONET-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:51"
+    },
+    "error": "'05302915102'",
+    "timestamp": "2026-05-11 22:54:14"
+  },
+  {
+    "record": {
+      "isim": "KAYIR LOJİSTİK",
+      "nereden_il": "İSTANBUL",
+      "nereden_ilce": "ADALAR",
+      "nereye_il": "İSTANBUL",
+      "nereye_ilce": "ADALAR",
+      "arac_tipi": [
+        "KAMYONET"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "PARÇA"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05302915102",
+      "aciklama": "Yeni Sevkiyat \n🌋🌋🌋🗻🗻🗻🗻⛰️⛰️\n🗻MATEL Maden🌋\n  ⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n        70 Lt veya150TL/Ton\n            KAYIR LOJİSTİK\nOnder  ☎️05302915102\nOfis     0533 2865841",
+      "createdAt": "2026-05-11T22:36:17.044018",
+      "body": "Yeni Sevkiyat\n\n---\n\n---\n⛰️⛰️\n🗻MATEL Maden🌋\n⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n70 Lt veya150TL / Ton\nKAYIR LOJİSTİK\nOnder ☎️05302915102\nOfis 0533 2865841",
+      "original_message": "Yeni Sevkiyat \n🌋🌋🌋🗻🗻🗻🗻⛰️⛰️\n🗻MATEL Maden🌋\n  ⚓Maltepe Ido Liman🛟\n⛰️DÖKM MADEN NAKL⛰️\n⛔DEVAM EDİYOR⛔\n🕦 07 30 / 17 00\n        70 Lt veya150TL/Ton\n            KAYIR LOJİSTİK\nOnder  ☎️05302915102\nOfis     0533 2865841",
+      "message_id": "rAwJPaIfwAPSpQsdVNFUCQ-opTS1dfJtg-W51RkA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "KAMYONET-AÇIK",
+        "KAMYONET-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:51"
+    },
+    "error": "'05302915102'",
+    "timestamp": "2026-05-11 22:54:15"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "BURSA",
+      "nereden_ilce": "MUSTAFAKEMALPAŞA",
+      "nereye_il": "İSTANBUL",
+      "nereye_ilce": "ÇEKMEKÖY",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05336877442",
+      "aciklama": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "createdAt": "2026-05-11T22:29:08.242465",
+      "body": "[BURSA] [MUSTAFAKEMALPAŞA] hemen yükler\n\nÇekmeköy tek nokta a101\n15+KDV\n[TUZLA] tek nokta a101\n15+KDV\n\n[TUZLA] a101+ [SAKARYA] a101 toplam 2 nokta\n17+KDV\n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "original_message": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "message_id": "rMThANgjD0c.AhzhkSFY9g-gjcBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05336877442'",
+    "timestamp": "2026-05-11 22:54:47"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "BURSA",
+      "nereden_ilce": "MUSTAFAKEMALPAŞA",
+      "nereye_il": "İSTANBUL",
+      "nereye_ilce": "TUZLA",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05336877442",
+      "aciklama": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "createdAt": "2026-05-11T22:29:08.315054",
+      "body": "[BURSA] [MUSTAFAKEMALPAŞA] hemen yükler\n\nÇekmeköy tek nokta a101\n15+KDV\n[TUZLA] tek nokta a101\n15+KDV\n\n[TUZLA] a101+ [SAKARYA] a101 toplam 2 nokta\n17+KDV\n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "original_message": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "message_id": "rMThANgjD0c.AhzhkSFY9g-gjcBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05336877442'",
+    "timestamp": "2026-05-11 22:54:48"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "BURSA",
+      "nereden_ilce": "MUSTAFAKEMALPAŞA",
+      "nereye_il": "İSTANBUL",
+      "nereye_ilce": "TUZLA",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05336877442",
+      "aciklama": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "createdAt": "2026-05-11T22:29:08.387688",
+      "body": "[BURSA] [MUSTAFAKEMALPAŞA] hemen yükler\n\nÇekmeköy tek nokta a101\n15+KDV\n[TUZLA] tek nokta a101\n15+KDV\n\n[TUZLA] a101+ [SAKARYA] a101 toplam 2 nokta\n17+KDV\n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "original_message": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "message_id": "rMThANgjD0c.AhzhkSFY9g-gjcBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05336877442'",
+    "timestamp": "2026-05-11 22:54:49"
+  },
+  {
+    "record": {
+      "isim": "",
+      "nereden_il": "BURSA",
+      "nereden_ilce": "MUSTAFAKEMALPAŞA",
+      "nereye_il": "SAKARYA",
+      "nereye_ilce": "ADAPAZARI",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05336877442",
+      "aciklama": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "createdAt": "2026-05-11T22:29:08.511602",
+      "body": "[BURSA] [MUSTAFAKEMALPAŞA] hemen yükler\n\nÇekmeköy tek nokta a101\n15+KDV\n[TUZLA] tek nokta a101\n15+KDV\n\n[TUZLA] a101+ [SAKARYA] a101 toplam 2 nokta\n17+KDV\n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "original_message": "Bursa Mustafakemalpaşa hemen yükler \n\nÇekmeköy tek nokta a101 \n15+KDV \nTuzla tek nokta a101\n15+KDV \n\nTuzla a101+ Sakarya a101 toplam 2 nokta \n17+KDV \n\n0-15 ton paletli ıslak mendil açık kapalı Frigo farketmez tır lazım",
+      "message_id": "rMThANgjD0c.AhzhkSFY9g-gjcBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05336877442'",
+    "timestamp": "2026-05-11 22:54:51"
+  },
+  {
+    "record": {
+      "isim": "05355909825",
+      "nereden_il": "İZMİR",
+      "nereden_ilce": "BORNOVA",
+      "nereye_il": "MUĞLA",
+      "nereye_ilce": "DATÇA",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05355909825",
+      "aciklama": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "createdAt": "2026-05-11T22:28:49.404776",
+      "body": "[İZMIR] Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "original_message": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "message_id": "rJ8dY.fe158ogOzfiCgGJA-gicBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05355909825'",
+    "timestamp": "2026-05-11 22:55:07"
+  },
+  {
+    "record": {
+      "isim": "05355909825",
+      "nereden_il": "İZMİR",
+      "nereden_ilce": "BORNOVA",
+      "nereye_il": "MUĞLA",
+      "nereye_ilce": "MARMARİS",
+      "arac_tipi": [
+        "1360"
+      ],
+      "kasa_tipi": [
+        "AÇIK",
+        "KAPALI"
+      ],
+      "yuk_tipi": [
+        "KOMPLE"
+      ],
+      "fiyat": "SORUNUZ",
+      "telefon": "05355909825",
+      "aciklama": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "createdAt": "2026-05-11T22:28:49.601720",
+      "body": "[İZMIR] Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "original_message": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
+      "message_id": "rJ8dY.fe158ogOzfiCgGJA-gicBq53hkiajaA",
+      "invalid_location": false,
+      "arac_kasa_kombinasyon_listesi": [
+        "1360-AÇIK",
+        "1360-KAPALI"
+      ],
+      "onay_tarihi": "2026-05-11 22:39:52"
+    },
+    "error": "'05355909825'",
+    "timestamp": "2026-05-11 22:55:08"
   }
 ]

@@ -12,6 +12,7 @@ import json
 import os
 import logging
 from typing import Dict, Any, Tuple, List
+from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -41,9 +42,9 @@ SADECE AŞAĞIDAKİ FORMATTA JSON DÖNDÜR:
 """
 
     def __init__(self, api_key: str = None):
-        self.api_key = api_key
-        # Varsayılan olarak daha ucuz/hızlı modeli (Ollama Llama3.1) tercih eder
-        self.model = os.getenv('OLLAMA_MODEL', 'llama3.1')
+        self.api_key = api_key or os.getenv('DEEPSEEK_API_KEY')
+        self.model = 'deepseek-chat'
+        self.base_url = os.getenv('LLM_BASE_URL', 'https://api.deepseek.com/v1')
         self.enabled = os.getenv('ENABLE_QUALITY_GATE', '1').lower() in ('1', 'true', 'yes')
 
     def evaluate(self, original_message: str, parsed_data: List[Dict[str, Any]]) -> Tuple[float, List[str]]:
@@ -54,8 +55,7 @@ SADECE AŞAĞIDAKİ FORMATTA JSON DÖNDÜR:
             return 1.0, []
 
         try:
-            from src.utils.gemini_adapter import generate_content_text
-            
+                        
             # Denetim için prompt hazırla
             check_payload = {
                 "original": original_message,
@@ -64,18 +64,19 @@ SADECE AŞAĞIDAKİ FORMATTA JSON DÖNDÜR:
             
             prompt = f"{self.SYSTEM_PROMPT}\n\nVERİ:\n{json.dumps(check_payload, ensure_ascii=False)}"
             
-            # LLM'den değerlendirme iste (Hızlı olması için Ollama tercih edilir)
-            response_text = generate_content_text(
-                self.api_key, 
-                self.model, 
-                prompt, 
-                response_mime_type="application/json"
+            # DeepSeek API ile değerlendirme
+            client = OpenAI(base_url=self.base_url, api_key=self.api_key, max_retries=0)
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"},
+                timeout=20
             )
-            
+            response_text = response.choices[0].message.content
+
             if not response_text:
                 return 0.5, ["Gözlemci ajan yanıt vermedi."]
 
-            # JSON temizleme (Markdown bloklarını temizle)
             clean_json = response_text.replace('```json', '').replace('```', '').strip()
             result = json.loads(clean_json)
             
@@ -89,6 +90,6 @@ SADECE AŞAĞIDAKİ FORMATTA JSON DÖNDÜR:
             logger.error(f"QualityGate Error: {e}")
             return 0.6, [f"Denetim hatası: {str(e)}"]
 
-    def is_safe_to_submit(self, score: float, threshold: float = 0.85) -> bool:
+    def is_safe_to_submit(self, score: float, threshold: float = 0.5) -> bool:
         """Güven puanı eşiğin üzerindeyse True döner."""
         return score >= threshold

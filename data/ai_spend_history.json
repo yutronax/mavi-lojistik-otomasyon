@@ -15102,5 +15102,1261 @@
     "output": 551,
     "cost_usd": 0.0015346300000000002,
     "cost_try": 0.05064279000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:12:21.603028",
+    "model": "deepseek-chat",
+    "input": 801,
+    "output": 156,
+    "cost_usd": 0.00038787,
+    "cost_try": 0.01279971
+  },
+  {
+    "timestamp": "2026-05-11T22:12:31.120862",
+    "model": "deepseek-chat",
+    "input": 4090,
+    "output": 1258,
+    "cost_usd": 0.0024881,
+    "cost_try": 0.0821073
+  },
+  {
+    "timestamp": "2026-05-11T22:12:38.632816",
+    "model": "deepseek-chat",
+    "input": 3061,
+    "output": 537,
+    "cost_usd": 0.0014171700000000001,
+    "cost_try": 0.04676661000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:12:42.589158",
+    "model": "deepseek-chat",
+    "input": 2940,
+    "output": 250,
+    "cost_usd": 0.0010688000000000002,
+    "cost_try": 0.03527040000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:12:46.384626",
+    "model": "deepseek-chat",
+    "input": 2717,
+    "output": 224,
+    "cost_usd": 0.00097999,
+    "cost_try": 0.03233967
+  },
+  {
+    "timestamp": "2026-05-11T22:12:49.204770",
+    "model": "deepseek-chat",
+    "input": 2837,
+    "output": 167,
+    "cost_usd": 0.00094969,
+    "cost_try": 0.03133977
+  },
+  {
+    "timestamp": "2026-05-11T22:12:52.851537",
+    "model": "deepseek-chat",
+    "input": 2779,
+    "output": 273,
+    "cost_usd": 0.00105063,
+    "cost_try": 0.03467079
+  },
+  {
+    "timestamp": "2026-05-11T22:12:54.702991",
+    "model": "deepseek-chat",
+    "input": 593,
+    "output": 39,
+    "cost_usd": 0.00020301000000000002,
+    "cost_try": 0.006699330000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:12:59.477052",
+    "model": "deepseek-chat",
+    "input": 4474,
+    "output": 476,
+    "cost_usd": 0.00173158,
+    "cost_try": 0.057142139999999994
+  },
+  {
+    "timestamp": "2026-05-11T22:13:03.909532",
+    "model": "deepseek-chat",
+    "input": 2572,
+    "output": 227,
+    "cost_usd": 0.00094414,
+    "cost_try": 0.03115662
+  },
+  {
+    "timestamp": "2026-05-11T22:13:06.364689",
+    "model": "deepseek-chat",
+    "input": 361,
+    "output": 33,
+    "cost_usd": 0.00013377000000000002,
+    "cost_try": 0.0044144100000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:13:10.302757",
+    "model": "deepseek-chat",
+    "input": 2866,
+    "output": 344,
+    "cost_usd": 0.00115222,
+    "cost_try": 0.03802326
+  },
+  {
+    "timestamp": "2026-05-11T22:13:14.011377",
+    "model": "deepseek-chat",
+    "input": 2752,
+    "output": 250,
+    "cost_usd": 0.00101804,
+    "cost_try": 0.03359532
+  },
+  {
+    "timestamp": "2026-05-11T22:13:17.107920",
+    "model": "deepseek-chat",
+    "input": 3443,
+    "output": 200,
+    "cost_usd": 0.0011496100000000001,
+    "cost_try": 0.037937130000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:13:19.228018",
+    "model": "deepseek-chat",
+    "input": 498,
+    "output": 70,
+    "cost_usd": 0.00021146,
+    "cost_try": 0.0069781800000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:13:25.393873",
+    "model": "deepseek-chat",
+    "input": 3258,
+    "output": 765,
+    "cost_usd": 0.0017211600000000002,
+    "cost_try": 0.05679828000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:13:27.490651",
+    "model": "deepseek-chat",
+    "input": 571,
+    "output": 32,
+    "cost_usd": 0.00018937,
+    "cost_try": 0.006249210000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:13:31.845853",
+    "model": "deepseek-chat",
+    "input": 3232,
+    "output": 462,
+    "cost_usd": 0.00138084,
+    "cost_try": 0.04556772
+  },
+  {
+    "timestamp": "2026-05-11T22:13:34.208338",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 30,
+    "cost_usd": 0.00014127,
+    "cost_try": 0.00466191
+  },
+  {
+    "timestamp": "2026-05-11T22:13:38.780247",
+    "model": "deepseek-chat",
+    "input": 4424,
+    "output": 364,
+    "cost_usd": 0.00159488,
+    "cost_try": 0.05263104
+  },
+  {
+    "timestamp": "2026-05-11T22:13:41.476620",
+    "model": "deepseek-chat",
+    "input": 364,
+    "output": 44,
+    "cost_usd": 0.00014668,
+    "cost_try": 0.00484044
+  },
+  {
+    "timestamp": "2026-05-11T22:13:45.482135",
+    "model": "deepseek-chat",
+    "input": 4295,
+    "output": 404,
+    "cost_usd": 0.00160405,
+    "cost_try": 0.052933650000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:13:49.960564",
+    "model": "deepseek-chat",
+    "input": 2704,
+    "output": 237,
+    "cost_usd": 0.0009907800000000001,
+    "cost_try": 0.03269574
+  },
+  {
+    "timestamp": "2026-05-11T22:13:51.615054",
+    "model": "deepseek-chat",
+    "input": 496,
+    "output": 49,
+    "cost_usd": 0.00018782000000000003,
+    "cost_try": 0.006198060000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:13:57.349703",
+    "model": "deepseek-chat",
+    "input": 3951,
+    "output": 717,
+    "cost_usd": 0.0018554700000000001,
+    "cost_try": 0.06123051
+  },
+  {
+    "timestamp": "2026-05-11T22:14:00.908386",
+    "model": "deepseek-chat",
+    "input": 625,
+    "output": 244,
+    "cost_usd": 0.00043715000000000003,
+    "cost_try": 0.014425950000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:14:14.260284",
+    "model": "deepseek-chat",
+    "input": 5092,
+    "output": 1904,
+    "cost_usd": 0.00346924,
+    "cost_try": 0.11448492
+  },
+  {
+    "timestamp": "2026-05-11T22:14:19.858924",
+    "model": "deepseek-chat",
+    "input": 2656,
+    "output": 302,
+    "cost_usd": 0.00104932,
+    "cost_try": 0.03462756
+  },
+  {
+    "timestamp": "2026-05-11T22:14:21.218766",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 4,
+    "cost_usd": 0.00011267,
+    "cost_try": 0.00371811
+  },
+  {
+    "timestamp": "2026-05-11T22:14:23.361481",
+    "model": "deepseek-chat",
+    "input": 2691,
+    "output": 60,
+    "cost_usd": 0.00079257,
+    "cost_try": 0.02615481
+  },
+  {
+    "timestamp": "2026-05-11T22:14:26.533966",
+    "model": "deepseek-chat",
+    "input": 3378,
+    "output": 141,
+    "cost_usd": 0.0010671600000000002,
+    "cost_try": 0.03521628
+  },
+  {
+    "timestamp": "2026-05-11T22:14:27.967890",
+    "model": "deepseek-chat",
+    "input": 343,
+    "output": 20,
+    "cost_usd": 0.00011460999999999999,
+    "cost_try": 0.0037821299999999994
+  },
+  {
+    "timestamp": "2026-05-11T22:14:30.697260",
+    "model": "deepseek-chat",
+    "input": 2919,
+    "output": 110,
+    "cost_usd": 0.00090913,
+    "cost_try": 0.03000129
+  },
+  {
+    "timestamp": "2026-05-11T22:14:33.090224",
+    "model": "deepseek-chat",
+    "input": 2521,
+    "output": 76,
+    "cost_usd": 0.00076427,
+    "cost_try": 0.025220910000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:14:34.932330",
+    "model": "deepseek-chat",
+    "input": 358,
+    "output": 37,
+    "cost_usd": 0.00013736,
+    "cost_try": 0.0045328799999999995
+  },
+  {
+    "timestamp": "2026-05-11T22:14:36.670387",
+    "model": "deepseek-chat",
+    "input": 2632,
+    "output": 52,
+    "cost_usd": 0.0007678400000000001,
+    "cost_try": 0.025338720000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:14:50.991724",
+    "model": "deepseek-chat",
+    "input": 404,
+    "output": 78,
+    "cost_usd": 0.00019488000000000003,
+    "cost_try": 0.006431040000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:14:55.840537",
+    "model": "deepseek-chat",
+    "input": 4253,
+    "output": 508,
+    "cost_usd": 0.0017071100000000004,
+    "cost_try": 0.05633463000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:15:03.818029",
+    "model": "deepseek-chat",
+    "input": 2098,
+    "output": 244,
+    "cost_usd": 0.0008348600000000001,
+    "cost_try": 0.027550380000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:15:19.895996",
+    "model": "deepseek-chat",
+    "input": 7121,
+    "output": 2472,
+    "cost_usd": 0.00464187,
+    "cost_try": 0.15318171
+  },
+  {
+    "timestamp": "2026-05-11T22:15:28.100345",
+    "model": "deepseek-chat",
+    "input": 431,
+    "output": 44,
+    "cost_usd": 0.00016477,
+    "cost_try": 0.00543741
+  },
+  {
+    "timestamp": "2026-05-11T22:15:32.378938",
+    "model": "deepseek-chat",
+    "input": 5212,
+    "output": 392,
+    "cost_usd": 0.00183844,
+    "cost_try": 0.06066852
+  },
+  {
+    "timestamp": "2026-05-11T22:15:34.432936",
+    "model": "deepseek-chat",
+    "input": 430,
+    "output": 38,
+    "cost_usd": 0.00015790000000000002,
+    "cost_try": 0.0052107
+  },
+  {
+    "timestamp": "2026-05-11T22:15:38.706764",
+    "model": "deepseek-chat",
+    "input": 3144,
+    "output": 361,
+    "cost_usd": 0.00124598,
+    "cost_try": 0.04111734
+  },
+  {
+    "timestamp": "2026-05-11T22:15:43.342485",
+    "model": "deepseek-chat",
+    "input": 3365,
+    "output": 381,
+    "cost_usd": 0.00132765,
+    "cost_try": 0.04381245
+  },
+  {
+    "timestamp": "2026-05-11T22:15:47.237149",
+    "model": "deepseek-chat",
+    "input": 2674,
+    "output": 241,
+    "cost_usd": 0.00098708,
+    "cost_try": 0.03257364
+  },
+  {
+    "timestamp": "2026-05-11T22:15:50.817713",
+    "model": "deepseek-chat",
+    "input": 2768,
+    "output": 250,
+    "cost_usd": 0.00102236,
+    "cost_try": 0.03373788
+  },
+  {
+    "timestamp": "2026-05-11T22:15:54.614349",
+    "model": "deepseek-chat",
+    "input": 2768,
+    "output": 239,
+    "cost_usd": 0.00101026,
+    "cost_try": 0.03333858
+  },
+  {
+    "timestamp": "2026-05-11T22:15:57.787384",
+    "model": "deepseek-chat",
+    "input": 3253,
+    "output": 190,
+    "cost_usd": 0.0010873100000000002,
+    "cost_try": 0.03588123000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:16:35.697649",
+    "model": "deepseek-chat",
+    "input": 2672,
+    "output": 260,
+    "cost_usd": 0.00100744,
+    "cost_try": 0.03324552
+  },
+  {
+    "timestamp": "2026-05-11T22:16:38.412375",
+    "model": "deepseek-chat",
+    "input": 2944,
+    "output": 149,
+    "cost_usd": 0.0009587800000000001,
+    "cost_try": 0.031639740000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:16:40.124578",
+    "model": "deepseek-chat",
+    "input": 358,
+    "output": 63,
+    "cost_usd": 0.00016596000000000004,
+    "cost_try": 0.005476680000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:16:45.593432",
+    "model": "deepseek-chat",
+    "input": 3177,
+    "output": 595,
+    "cost_usd": 0.0015122900000000001,
+    "cost_try": 0.04990557
+  },
+  {
+    "timestamp": "2026-05-11T22:16:49.187480",
+    "model": "deepseek-chat",
+    "input": 2670,
+    "output": 163,
+    "cost_usd": 0.0009002000000000001,
+    "cost_try": 0.029706600000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:16:51.029645",
+    "model": "deepseek-chat",
+    "input": 303,
+    "output": 20,
+    "cost_usd": 0.00010381,
+    "cost_try": 0.00342573
+  },
+  {
+    "timestamp": "2026-05-11T22:16:55.584984",
+    "model": "deepseek-chat",
+    "input": 3459,
+    "output": 384,
+    "cost_usd": 0.00135633,
+    "cost_try": 0.04475889
+  },
+  {
+    "timestamp": "2026-05-11T22:16:58.403561",
+    "model": "deepseek-chat",
+    "input": 2521,
+    "output": 86,
+    "cost_usd": 0.0007752700000000001,
+    "cost_try": 0.025583910000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:17:05.951975",
+    "model": "deepseek-chat",
+    "input": 302,
+    "output": 34,
+    "cost_usd": 0.00011894000000000002,
+    "cost_try": 0.00392502
+  },
+  {
+    "timestamp": "2026-05-11T22:17:10.343488",
+    "model": "deepseek-chat",
+    "input": 3472,
+    "output": 431,
+    "cost_usd": 0.0014115400000000002,
+    "cost_try": 0.04658082000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:17:12.421102",
+    "model": "deepseek-chat",
+    "input": 308,
+    "output": 11,
+    "cost_usd": 9.526e-05,
+    "cost_try": 0.00314358
+  },
+  {
+    "timestamp": "2026-05-11T22:17:15.616241",
+    "model": "deepseek-chat",
+    "input": 2760,
+    "output": 226,
+    "cost_usd": 0.0009938,
+    "cost_try": 0.0327954
+  },
+  {
+    "timestamp": "2026-05-11T22:17:23.359854",
+    "model": "deepseek-chat",
+    "input": 3435,
+    "output": 198,
+    "cost_usd": 0.00114525,
+    "cost_try": 0.03779325
+  },
+  {
+    "timestamp": "2026-05-11T22:17:33.233801",
+    "model": "deepseek-chat",
+    "input": 2810,
+    "output": 297,
+    "cost_usd": 0.0010854,
+    "cost_try": 0.0358182
+  },
+  {
+    "timestamp": "2026-05-11T22:17:35.555705",
+    "model": "deepseek-chat",
+    "input": 484,
+    "output": 91,
+    "cost_usd": 0.00023078000000000004,
+    "cost_try": 0.007615740000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:17:43.633415",
+    "model": "deepseek-chat",
+    "input": 3420,
+    "output": 927,
+    "cost_usd": 0.0019431000000000001,
+    "cost_try": 0.06412230000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:17:47.854406",
+    "model": "deepseek-chat",
+    "input": 2897,
+    "output": 211,
+    "cost_usd": 0.0010142900000000002,
+    "cost_try": 0.033471570000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:17:53.915373",
+    "model": "deepseek-chat",
+    "input": 338,
+    "output": 9,
+    "cost_usd": 0.00010116,
+    "cost_try": 0.00333828
+  },
+  {
+    "timestamp": "2026-05-11T22:17:57.479143",
+    "model": "deepseek-chat",
+    "input": 3612,
+    "output": 231,
+    "cost_usd": 0.00122934,
+    "cost_try": 0.04056822
+  },
+  {
+    "timestamp": "2026-05-11T22:17:59.626287",
+    "model": "deepseek-chat",
+    "input": 372,
+    "output": 15,
+    "cost_usd": 0.00011694,
+    "cost_try": 0.00385902
+  },
+  {
+    "timestamp": "2026-05-11T22:18:04.505389",
+    "model": "deepseek-chat",
+    "input": 2807,
+    "output": 398,
+    "cost_usd": 0.0011956900000000001,
+    "cost_try": 0.03945777
+  },
+  {
+    "timestamp": "2026-05-11T22:18:16.733800",
+    "model": "deepseek-chat",
+    "input": 2715,
+    "output": 142,
+    "cost_usd": 0.0008892500000000001,
+    "cost_try": 0.029345250000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:18:18.542445",
+    "model": "deepseek-chat",
+    "input": 309,
+    "output": 11,
+    "cost_usd": 9.553e-05,
+    "cost_try": 0.00315249
+  },
+  {
+    "timestamp": "2026-05-11T22:18:21.379802",
+    "model": "deepseek-chat",
+    "input": 3521,
+    "output": 177,
+    "cost_usd": 0.0011453700000000002,
+    "cost_try": 0.037797210000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:18:54.810497",
+    "model": "deepseek-chat",
+    "input": 2948,
+    "output": 182,
+    "cost_usd": 0.00099616,
+    "cost_try": 0.032873280000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:18:58.298634",
+    "model": "deepseek-chat",
+    "input": 2594,
+    "output": 217,
+    "cost_usd": 0.00093908,
+    "cost_try": 0.03098964
+  },
+  {
+    "timestamp": "2026-05-11T22:19:19.897178",
+    "model": "deepseek-chat",
+    "input": 2960,
+    "output": 225,
+    "cost_usd": 0.0010467,
+    "cost_try": 0.0345411
+  },
+  {
+    "timestamp": "2026-05-11T22:19:23.428225",
+    "model": "deepseek-chat",
+    "input": 2852,
+    "output": 159,
+    "cost_usd": 0.00094494,
+    "cost_try": 0.03118302
+  },
+  {
+    "timestamp": "2026-05-11T22:19:27.168853",
+    "model": "deepseek-chat",
+    "input": 2586,
+    "output": 167,
+    "cost_usd": 0.00088192,
+    "cost_try": 0.02910336
+  },
+  {
+    "timestamp": "2026-05-11T22:19:38.116294",
+    "model": "deepseek-chat",
+    "input": 3291,
+    "output": 398,
+    "cost_usd": 0.0013263700000000001,
+    "cost_try": 0.043770210000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:19:51.978734",
+    "model": "deepseek-chat",
+    "input": 3171,
+    "output": 230,
+    "cost_usd": 0.00110917,
+    "cost_try": 0.03660261
+  },
+  {
+    "timestamp": "2026-05-11T22:21:07.024001",
+    "model": "deepseek-chat",
+    "input": 2775,
+    "output": 297,
+    "cost_usd": 0.00107595,
+    "cost_try": 0.03550635
+  },
+  {
+    "timestamp": "2026-05-11T22:21:11.455740",
+    "model": "deepseek-chat",
+    "input": 2953,
+    "output": 215,
+    "cost_usd": 0.00103381,
+    "cost_try": 0.034115730000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:21:15.419336",
+    "model": "deepseek-chat",
+    "input": 2974,
+    "output": 165,
+    "cost_usd": 0.00098448,
+    "cost_try": 0.032487840000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:21:19.062728",
+    "model": "deepseek-chat",
+    "input": 2716,
+    "output": 193,
+    "cost_usd": 0.0009456200000000001,
+    "cost_try": 0.031205460000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:21:22.445007",
+    "model": "deepseek-chat",
+    "input": 442,
+    "output": 131,
+    "cost_usd": 0.00026344000000000004,
+    "cost_try": 0.008693520000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:21:33.068124",
+    "model": "deepseek-chat",
+    "input": 3491,
+    "output": 1340,
+    "cost_usd": 0.0024165700000000003,
+    "cost_try": 0.07974681000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:21:38.180187",
+    "model": "deepseek-chat",
+    "input": 2988,
+    "output": 178,
+    "cost_usd": 0.0010025600000000002,
+    "cost_try": 0.033084480000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:21:44.459128",
+    "model": "deepseek-chat",
+    "input": 5025,
+    "output": 335,
+    "cost_usd": 0.0017252500000000002,
+    "cost_try": 0.056933250000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:21:49.210311",
+    "model": "deepseek-chat",
+    "input": 2571,
+    "output": 269,
+    "cost_usd": 0.00099007,
+    "cost_try": 0.03267231
+  },
+  {
+    "timestamp": "2026-05-11T22:22:13.686468",
+    "model": "deepseek-chat",
+    "input": 3971,
+    "output": 374,
+    "cost_usd": 0.00148357,
+    "cost_try": 0.048957810000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:22:16.041326",
+    "model": "deepseek-chat",
+    "input": 370,
+    "output": 40,
+    "cost_usd": 0.0001439,
+    "cost_try": 0.0047487
+  },
+  {
+    "timestamp": "2026-05-11T22:22:21.603905",
+    "model": "deepseek-chat",
+    "input": 3494,
+    "output": 473,
+    "cost_usd": 0.0014636800000000002,
+    "cost_try": 0.04830144000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:22:25.581168",
+    "model": "deepseek-chat",
+    "input": 3367,
+    "output": 154,
+    "cost_usd": 0.00107849,
+    "cost_try": 0.035590170000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:22:29.152749",
+    "model": "deepseek-chat",
+    "input": 3335,
+    "output": 149,
+    "cost_usd": 0.00106435,
+    "cost_try": 0.035123549999999996
+  },
+  {
+    "timestamp": "2026-05-11T22:22:32.742891",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 4,
+    "cost_usd": 0.00011267,
+    "cost_try": 0.00371811
+  },
+  {
+    "timestamp": "2026-05-11T22:22:34.718044",
+    "model": "deepseek-chat",
+    "input": 2691,
+    "output": 60,
+    "cost_usd": 0.00079257,
+    "cost_try": 0.02615481
+  },
+  {
+    "timestamp": "2026-05-11T22:22:42.355419",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 4,
+    "cost_usd": 0.00011267,
+    "cost_try": 0.00371811
+  },
+  {
+    "timestamp": "2026-05-11T22:22:44.405410",
+    "model": "deepseek-chat",
+    "input": 2691,
+    "output": 60,
+    "cost_usd": 0.00079257,
+    "cost_try": 0.02615481
+  },
+  {
+    "timestamp": "2026-05-11T22:22:49.949049",
+    "model": "deepseek-chat",
+    "input": 3564,
+    "output": 316,
+    "cost_usd": 0.00130988,
+    "cost_try": 0.04322604
+  },
+  {
+    "timestamp": "2026-05-11T22:23:07.756269",
+    "model": "deepseek-chat",
+    "input": 2614,
+    "output": 157,
+    "cost_usd": 0.0008784800000000001,
+    "cost_try": 0.028989840000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:23:10.907655",
+    "model": "deepseek-chat",
+    "input": 2897,
+    "output": 155,
+    "cost_usd": 0.0009526900000000001,
+    "cost_try": 0.031438770000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:25:11.452160",
+    "model": "deepseek-chat",
+    "input": 508,
+    "output": 130,
+    "cost_usd": 0.00028016,
+    "cost_try": 0.00924528
+  },
+  {
+    "timestamp": "2026-05-11T22:25:18.930870",
+    "model": "deepseek-chat",
+    "input": 4162,
+    "output": 933,
+    "cost_usd": 0.00215004,
+    "cost_try": 0.07095132000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:26:39.280821",
+    "model": "deepseek-chat",
+    "input": 3719,
+    "output": 1076,
+    "cost_usd": 0.0021877300000000006,
+    "cost_try": 0.07219509000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:27:31.920500",
+    "model": "deepseek-chat",
+    "input": 9277,
+    "output": 8192,
+    "cost_usd": 0.01151599,
+    "cost_try": 0.38002767
+  },
+  {
+    "timestamp": "2026-05-11T22:28:24.329032",
+    "model": "deepseek-chat",
+    "input": 9277,
+    "output": 8001,
+    "cost_usd": 0.01130589,
+    "cost_try": 0.37309437
+  },
+  {
+    "timestamp": "2026-05-11T22:28:41.708136",
+    "model": "deepseek-chat",
+    "input": 401,
+    "output": 4,
+    "cost_usd": 0.00011267,
+    "cost_try": 0.00371811
+  },
+  {
+    "timestamp": "2026-05-11T22:28:44.160808",
+    "model": "deepseek-chat",
+    "input": 2691,
+    "output": 60,
+    "cost_usd": 0.00079257,
+    "cost_try": 0.02615481
+  },
+  {
+    "timestamp": "2026-05-11T22:28:48.953083",
+    "model": "deepseek-chat",
+    "input": 2541,
+    "output": 267,
+    "cost_usd": 0.00097977,
+    "cost_try": 0.03233241
+  },
+  {
+    "timestamp": "2026-05-11T22:28:52.371746",
+    "model": "deepseek-chat",
+    "input": 2671,
+    "output": 166,
+    "cost_usd": 0.00090377,
+    "cost_try": 0.029824410000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:28:56.210541",
+    "model": "deepseek-chat",
+    "input": 3953,
+    "output": 234,
+    "cost_usd": 0.0013247100000000002,
+    "cost_try": 0.043715430000000007
+  },
+  {
+    "timestamp": "2026-05-11T22:28:59.790813",
+    "model": "deepseek-chat",
+    "input": 2701,
+    "output": 177,
+    "cost_usd": 0.0009239700000000001,
+    "cost_try": 0.030491010000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:29:02.469871",
+    "model": "deepseek-chat",
+    "input": 351,
+    "output": 49,
+    "cost_usd": 0.00014867000000000003,
+    "cost_try": 0.004906110000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:29:07.728802",
+    "model": "deepseek-chat",
+    "input": 4170,
+    "output": 464,
+    "cost_usd": 0.0016363,
+    "cost_try": 0.0539979
+  },
+  {
+    "timestamp": "2026-05-11T22:30:45.595183",
+    "model": "deepseek-chat",
+    "input": 3212,
+    "output": 207,
+    "cost_usd": 0.00109494,
+    "cost_try": 0.03613302
+  },
+  {
+    "timestamp": "2026-05-11T22:32:29.326845",
+    "model": "deepseek-chat",
+    "input": 2696,
+    "output": 274,
+    "cost_usd": 0.00102932,
+    "cost_try": 0.03396756
+  },
+  {
+    "timestamp": "2026-05-11T22:32:56.983913",
+    "model": "deepseek-chat",
+    "input": 451,
+    "output": 38,
+    "cost_usd": 0.00016357,
+    "cost_try": 0.00539781
+  },
+  {
+    "timestamp": "2026-05-11T22:33:02.506729",
+    "model": "deepseek-chat",
+    "input": 2815,
+    "output": 524,
+    "cost_usd": 0.0013364500000000003,
+    "cost_try": 0.04410285000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:33:05.868598",
+    "model": "deepseek-chat",
+    "input": 304,
+    "output": 19,
+    "cost_usd": 0.00010298000000000002,
+    "cost_try": 0.0033983400000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:33:09.036673",
+    "model": "deepseek-chat",
+    "input": 2561,
+    "output": 200,
+    "cost_usd": 0.00091147,
+    "cost_try": 0.030078510000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:33:12.635495",
+    "model": "deepseek-chat",
+    "input": 2714,
+    "output": 195,
+    "cost_usd": 0.0009472800000000001,
+    "cost_try": 0.03126024
+  },
+  {
+    "timestamp": "2026-05-11T22:35:05.852276",
+    "model": "deepseek-chat",
+    "input": 2677,
+    "output": 142,
+    "cost_usd": 0.0008789900000000001,
+    "cost_try": 0.029006670000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:35:09.165004",
+    "model": "deepseek-chat",
+    "input": 2854,
+    "output": 183,
+    "cost_usd": 0.00097188,
+    "cost_try": 0.03207204
+  },
+  {
+    "timestamp": "2026-05-11T22:35:12.879192",
+    "model": "deepseek-chat",
+    "input": 2751,
+    "output": 199,
+    "cost_usd": 0.0009616700000000002,
+    "cost_try": 0.031735110000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:35:16.867745",
+    "model": "deepseek-chat",
+    "input": 2928,
+    "output": 243,
+    "cost_usd": 0.00105786,
+    "cost_try": 0.034909380000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:35:20.434129",
+    "model": "deepseek-chat",
+    "input": 2877,
+    "output": 182,
+    "cost_usd": 0.00097699,
+    "cost_try": 0.03224067
+  },
+  {
+    "timestamp": "2026-05-11T22:35:24.190023",
+    "model": "deepseek-chat",
+    "input": 2884,
+    "output": 229,
+    "cost_usd": 0.0010305800000000001,
+    "cost_try": 0.03400914000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:35:28.520394",
+    "model": "deepseek-chat",
+    "input": 2781,
+    "output": 288,
+    "cost_usd": 0.0010676700000000002,
+    "cost_try": 0.035233110000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:36:03.817894",
+    "model": "deepseek-chat",
+    "input": 3996,
+    "output": 356,
+    "cost_usd": 0.0014705200000000001,
+    "cost_try": 0.04852716000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:36:06.508770",
+    "model": "deepseek-chat",
+    "input": 361,
+    "output": 27,
+    "cost_usd": 0.00012717000000000002,
+    "cost_try": 0.004196610000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:36:09.944392",
+    "model": "deepseek-chat",
+    "input": 3046,
+    "output": 267,
+    "cost_usd": 0.00111612,
+    "cost_try": 0.03683196
+  },
+  {
+    "timestamp": "2026-05-11T22:36:12.423664",
+    "model": "deepseek-chat",
+    "input": 316,
+    "output": 26,
+    "cost_usd": 0.00011392000000000001,
+    "cost_try": 0.0037593600000000002
+  },
+  {
+    "timestamp": "2026-05-11T22:36:16.502533",
+    "model": "deepseek-chat",
+    "input": 4202,
+    "output": 304,
+    "cost_usd": 0.0014689400000000002,
+    "cost_try": 0.04847502000000001
+  },
+  {
+    "timestamp": "2026-05-11T22:39:33.857342",
+    "model": "deepseek-chat",
+    "input": 3474,
+    "output": 233,
+    "cost_usd": 0.00119428,
+    "cost_try": 0.03941124
+  },
+  {
+    "timestamp": "2026-05-11T22:41:07.894679",
+    "model": "deepseek-chat",
+    "input": 4983,
+    "output": 211,
+    "cost_usd": 0.00157751,
+    "cost_try": 0.05205783
+  },
+  {
+    "timestamp": "2026-05-11T22:41:58.771310",
+    "model": "deepseek-chat",
+    "input": 2865,
+    "output": 280,
+    "cost_usd": 0.0010815500000000001,
+    "cost_try": 0.035691150000000005
+  },
+  {
+    "timestamp": "2026-05-11T22:42:54.353779",
+    "model": "deepseek-chat",
+    "input": 2730,
+    "output": 252,
+    "cost_usd": 0.0010143,
+    "cost_try": 0.033471900000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:44:38.883073",
+    "model": "deepseek-chat",
+    "input": 2610,
+    "output": 162,
+    "cost_usd": 0.0008829,
+    "cost_try": 0.0291357
+  },
+  {
+    "timestamp": "2026-05-11T22:45:51.801504",
+    "model": "deepseek-chat",
+    "input": 3557,
+    "output": 167,
+    "cost_usd": 0.0011440900000000002,
+    "cost_try": 0.037754970000000006
+  },
+  {
+    "timestamp": "2026-05-11T22:45:55.359688",
+    "model": "deepseek-chat",
+    "input": 3437,
+    "output": 208,
+    "cost_usd": 0.00115679,
+    "cost_try": 0.03817407
+  },
+  {
+    "timestamp": "2026-05-11T22:45:58.496323",
+    "model": "deepseek-chat",
+    "input": 3410,
+    "output": 138,
+    "cost_usd": 0.0010725,
+    "cost_try": 0.0353925
+  },
+  {
+    "timestamp": "2026-05-11T22:46:02.891341",
+    "model": "deepseek-chat",
+    "input": 2594,
+    "output": 345,
+    "cost_usd": 0.00107988,
+    "cost_try": 0.03563604
+  },
+  {
+    "timestamp": "2026-05-11T22:46:06.661412",
+    "model": "deepseek-chat",
+    "input": 2899,
+    "output": 228,
+    "cost_usd": 0.00103353,
+    "cost_try": 0.034106489999999996
+  },
+  {
+    "timestamp": "2026-05-11T22:46:09.713633",
+    "model": "deepseek-chat",
+    "input": 2613,
+    "output": 146,
+    "cost_usd": 0.00086611,
+    "cost_try": 0.02858163
+  },
+  {
+    "timestamp": "2026-05-11T22:46:12.369609",
+    "model": "deepseek-chat",
+    "input": 2725,
+    "output": 119,
+    "cost_usd": 0.00086665,
+    "cost_try": 0.02859945
+  },
+  {
+    "timestamp": "2026-05-11T22:46:15.597265",
+    "model": "deepseek-chat",
+    "input": 2855,
+    "output": 151,
+    "cost_usd": 0.00093695,
+    "cost_try": 0.030919349999999998
+  },
+  {
+    "timestamp": "2026-05-11T22:46:18.635171",
+    "model": "deepseek-chat",
+    "input": 2856,
+    "output": 135,
+    "cost_usd": 0.00091962,
+    "cost_try": 0.03034746
+  },
+  {
+    "timestamp": "2026-05-11T22:46:21.255529",
+    "model": "deepseek-chat",
+    "input": 2858,
+    "output": 117,
+    "cost_usd": 0.0009003600000000001,
+    "cost_try": 0.029711880000000003
+  },
+  {
+    "timestamp": "2026-05-11T22:46:35.247432",
+    "model": "deepseek-chat",
+    "input": 411,
+    "output": 46,
+    "cost_usd": 0.00016157,
+    "cost_try": 0.00533181
+  },
+  {
+    "timestamp": "2026-05-11T22:46:40.679813",
+    "model": "deepseek-chat",
+    "input": 3460,
+    "output": 522,
+    "cost_usd": 0.0015084,
+    "cost_try": 0.0497772
+  },
+  {
+    "timestamp": "2026-05-11T22:50:57.602166",
+    "model": "deepseek-chat",
+    "input": 2625,
+    "output": 191,
+    "cost_usd": 0.0009188499999999999,
+    "cost_try": 0.030322049999999996
+  },
+  {
+    "timestamp": "2026-05-11T22:51:00.370502",
+    "model": "deepseek-chat",
+    "input": 3130,
+    "output": 133,
+    "cost_usd": 0.0009914,
+    "cost_try": 0.0327162
+  },
+  {
+    "timestamp": "2026-05-11T22:52:51.672906",
+    "model": "deepseek-chat",
+    "input": 2788,
+    "output": 245,
+    "cost_usd": 0.00102226,
+    "cost_try": 0.03373458
+  },
+  {
+    "timestamp": "2026-05-11T22:52:55.230496",
+    "model": "deepseek-chat",
+    "input": 2766,
+    "output": 218,
+    "cost_usd": 0.0009866200000000001,
+    "cost_try": 0.032558460000000004
+  },
+  {
+    "timestamp": "2026-05-11T22:54:23.296942",
+    "model": "deepseek-chat",
+    "input": 3410,
+    "output": 147,
+    "cost_usd": 0.0010824,
+    "cost_try": 0.0357192
+  },
+  {
+    "timestamp": "2026-05-11T22:54:42.271031",
+    "model": "deepseek-chat",
+    "input": 1096,
+    "output": 121,
+    "cost_usd": 0.00042902,
+    "cost_try": 0.01415766
+  },
+  {
+    "timestamp": "2026-05-11T22:54:49.153337",
+    "model": "deepseek-chat",
+    "input": 5118,
+    "output": 847,
+    "cost_usd": 0.00231356,
+    "cost_try": 0.07634748000000001
   }
 ]
