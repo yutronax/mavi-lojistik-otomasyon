@@ -47,6 +47,13 @@ pm2 startOrReload ecosystem.config.js
 git stash pop || echo 'UYARI: stash pop cakisti - canli veri stash tada guvende, elle "git stash list" ile kontrol edin.'
 "@
 
+# KRITIK: PowerShell here-string CRLF kullanir, ama uzak taraf bash --
+# CRLF'li gonderilirse her satirin sonundaki \r, komutlarin (ozellikle
+# "set -e") sessizce bozulmasina yol acar ve script gercekte HICBIR ADIMI
+# calistirmadan/basarisiz olsa bile "BASARIYLA TAMAMLANDI" yazdirir
+# (canlida tespit edildi, 2026-09-02). LF'ye cevrilmeden ASLA gonderilmez.
+$remoteScript = $remoteScript -replace "`r`n", "`n"
+
 ssh -p $PORT "${USER}@${IP}" $remoteScript
 if ($LASTEXITCODE -ne 0) {
     Write-Host "--- HATA: Uzak sunucuda deploy adimlari basarisiz oldu (yukaridaki cikti) ---" -ForegroundColor Red
