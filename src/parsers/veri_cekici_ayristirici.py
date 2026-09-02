@@ -367,6 +367,11 @@ class OrchestratorSDK:
         Extracts the chat_id and triggers a targeted fetch for the last 10 messages of that group.
         This prevents WhatsApp bans by avoiding aggressive polling of all groups.
         """
+        # AC-3 (düzeltilmiş): Whapi polling kapalıyken ağ isteği yapma
+        if not WHAPI_POLLING_ENABLED:
+            logger.debug("[GATE] Whapi polling kapalı (WHAPI_POLLING_ENABLED=0), webhook işlenmedi.")
+            return
+
         if not event_data:
             return
             
