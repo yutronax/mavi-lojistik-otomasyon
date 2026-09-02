@@ -53,7 +53,7 @@ def is_working_hours():
     return working
 
 
-def _start_baileys_webhook_server(orchestrator, port=8080):
+def _start_baileys_webhook_server(orchestrator, port=None):
     """
     Saga epic #46 (baileys-uretim-gecisi): sidecar/bridge.js'in POST ettiği
     /baileys-webhook'u VPS'te de dinleyecek bir HTTP server thread'i.
@@ -73,6 +73,12 @@ def _start_baileys_webhook_server(orchestrator, port=8080):
     """
     from src.api.webhook_server import make_webhook_handler_class
 
+    # ADMIN_PANEL_PORT (varsayılan 8080) ile çakışmaması için ayrı bir port
+    # (varsayılan 8090) — VPS'te mavi-admin-panel ve mavi-lojistik-server
+    # PM2'de AYNI ANDA çalışıyor, ikisi de 8080 kullanırsa "Address already
+    # in use" ile crash-loop'a girer (canlıda tespit edildi, 2026-09-02).
+    if port is None:
+        port = int(os.getenv('BAILEYS_WEBHOOK_PORT', '8090'))
     handler_class = make_webhook_handler_class(orchestrator)
     server = HTTPServer(('0.0.0.0', port), handler_class)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -102,7 +108,7 @@ def run_vps_service():
     # instance'a bağlanmasını imkansız kılardı ve dedup önbelleğini
     # (active_ids/active_body_hashes) her seferinde sıfırlıyordu.
     orchestrator = OrchestratorSDK()
-    _start_baileys_webhook_server(orchestrator, port=8080)
+    _start_baileys_webhook_server(orchestrator)
 
     while True:
         try:
