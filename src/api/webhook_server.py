@@ -58,10 +58,14 @@ def _handle_baileys_event(event_data, target_orchestrator=None):
         with open(CHAT_GROUPS_FILE, 'r', encoding='utf-8') as f:
             _groups_raw = json.load(f)
         if isinstance(_groups_raw, list):
-            chat_id_to_name = {
-                str(g.get('id') or g.get('chat_id', '')): g.get('name') or g.get('subject', '')
-                for g in _groups_raw if g.get('id') or g.get('chat_id')
-            }
+            chat_id_to_name = {}
+            for g in _groups_raw:
+                # Handle list of dicts (normal case from bridge.js)
+                if isinstance(g, dict):
+                    chat_id = g.get('id') or g.get('chat_id', '')
+                    chat_name = g.get('name') or g.get('subject', '')
+                    if chat_id:
+                        chat_id_to_name[str(chat_id)] = chat_name
         elif isinstance(_groups_raw, dict):
             chat_id_to_name = {k: (v.get('name') if isinstance(v, dict) else str(v)) for k, v in _groups_raw.items()}
         else:
@@ -74,16 +78,22 @@ def _handle_baileys_event(event_data, target_orchestrator=None):
     if saved_chat_ids:
         before = len(messages)
         filtered = []
+        example_skipped_chat_id = None
         for m in messages:
             cid = m.get('chat_id')
             if cid in saved_chat_ids:
                 if not m.get('chat_name'):
                     m['chat_name'] = chat_id_to_name.get(cid, '')
                 filtered.append(m)
+            else:
+                # AC-4: Track an example of skipped message's chat_id
+                if example_skipped_chat_id is None:
+                    example_skipped_chat_id = cid
         messages = filtered
         skipped = before - len(messages)
         if skipped:
-            logger.debug(f"Baileys webhook: {skipped} mesaj kayıtlı olmayan gruptan geldiği için atlandı.")
+            # AC-4: Log skipped messages at WARNING level (production-visible, not DEBUG)
+            logger.warning(f"Baileys webhook: {skipped} mesaj kayıtlı olmayan gruptan geldiği için atlandı. Örnek: {example_skipped_chat_id}")
 
     if not messages:
         return

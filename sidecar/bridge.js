@@ -11,7 +11,7 @@
 // Ortam değişkenleri:
 //   WEBHOOK_URL  (varsayılan: http://localhost:8080/baileys-webhook)
 
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, proto } = require('@whiskeysockets/baileys');
 const qrcode = require('qrcode-terminal');
 const QRCode = require('qrcode');
 const pino = require('pino');
@@ -163,13 +163,37 @@ function writeGroupsState(groupsObject, filePath = path.join(__dirname, '..', 'd
   }
 }
 
+// AC-1: Builds a getMessage callback for Baileys retry support.
+// Returns a synchronous function that retrieves messages from the provided Map by msg.key.id.
+// The Map holds ~200 recent messages (LRU: when size > 200, oldest entry is deleted).
+function buildGetMessage(messageHistoryMap) {
+  return (key) => {
+    if (!key) return undefined;
+    // Handle both string IDs (for testing) and key objects (for Baileys)
+    const msgId = typeof key === 'string' ? key : (key.id || null);
+    if (!msgId) return undefined;
+    return messageHistoryMap.get(msgId);
+  };
+}
+
+// AC-5: Detects decrypt failure (CIPHERTEXT stub type).
+// Returns true if the message represents a failed decryption attempt.
+function isDecryptFailedMessage(msg) {
+  if (!msg || !msg.messageStubType) return false;
+  return msg.messageStubType === proto.WebMessageInfo.StubType.CIPHERTEXT;
+}
+
 async function bridge() {
   const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, 'auth_info_baileys'));
+
+  // AC-1: In-memory message history Map for Baileys retry support (~200 messages)
+  const messageHistory = new Map();
 
   const sock = makeWASocket({
     auth: state,
     logger: pino({ level: 'warn' }),
     printQRInTerminal: false,
+    getMessage: buildGetMessage(messageHistory), // AC-1: Add getMessage callback for retry support
   });
 
   sock.ev.on('creds.update', saveCreds);
@@ -232,7 +256,24 @@ async function bridge() {
 
     const converted = [];
     for (const msg of messages) {
+      // AC-5: Detect and log decrypt failed messages before processing
+      if (isDecryptFailedMessage(msg)) {
+        logRiskEvent({ type: 'decrypt_failed', chatId: msg.key ? msg.key.remoteJid : null });
+        continue;
+      }
+
       if (!msg.message) continue;
+
+      // AC-1: Add message to history Map with LRU eviction (keep ~200 messages)
+      if (msg.key && msg.key.id) {
+        messageHistory.set(msg.key.id, msg);
+        // Evict oldest entry if Map exceeds 200 entries
+        if (messageHistory.size > 200) {
+          const firstKey = messageHistory.keys().next().value;
+          messageHistory.delete(firstKey);
+        }
+      }
+
       const shaped = toWhapiShape(msg);
       if (shaped) {
         converted.push(shaped);
@@ -255,7 +296,9 @@ async function bridge() {
 module.exports = {
   writeQrState,
   writeAuthenticatedState,
-  writeGroupsState
+  writeGroupsState,
+  buildGetMessage,  // AC-1: Export getMessage callback builder
+  isDecryptFailedMessage  // AC-5: Export decrypt failure detector
 };
 
 if (require.main === module) {

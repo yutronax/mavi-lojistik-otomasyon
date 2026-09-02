@@ -1,0 +1,68 @@
+{
+  "task": "baileys-mesaj-guvenilirligi",
+  "reviewed_at": "2026-09-02T00:00:00Z",
+  "summary": "Uygulama atdd.md'deki AC-1..AC-5'i doğru karşılıyor, code_diff.md'nin iddia ettiği kapsam-ihlali geri almaları (hallucination eşiği 100, tuple/ikinci logger yok) git diff ile bağımsız doğrulandı. Testler gerçekten geçiyor (9/9 JS, 12/12 Python). İki orta seviyeli bulgu var: bridge.js'te msg.key null-check eksikliği ve test koşumunun üretim veri dosyalarını (ai_spend_history.json, live_messages.json, basarisiz_gonderimler.json) kirletmesi.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "sidecar/bridge.js",
+      "issue": "isDecryptFailedMessage(msg) true döndüğünde `logRiskEvent({type:'decrypt_failed', chatId: msg.key.remoteJid})` çağrılıyor, ama msg.key'in var olduğu doğrulanmadan doğrudan erişiliyor. Aynı fonksiyonun birkaç satır altında normal mesajlar için `if (msg.key && msg.key.id)` şeklinde defansif kontrol VAR — CIPHERTEXT dalında bu tutarlılık yok.",
+      "better_approach": "`logRiskEvent({ type: 'decrypt_failed', chatId: msg.key && msg.key.remoteJid })` veya optional chaining (`msg.key?.remoteJid`) kullan.",
+      "reason": "Bu görevin bütün amacı 'sessizce kaybolan/loglanmayan hataları' gidermek — eğer bir CIPHERTEXT mesajının key'i eksikse, bu satır messages.upsert handler'ında yakalanmamış bir TypeError fırlatıp TÜM batch'i sessizce durdurabilir, tam olarak görevin çözmeye çalıştığı 'sessiz kayıp' sorununu tekrar üretebilir."
+    },
+    {
+      "severity": "low",
+      "category": "risk",
+      "file": "data/ai_spend_history.json",
+      "issue": "Test çalıştırmaları sırasında görev kapsamı dışındaki üç veri dosyası (basarisiz_gonderimler.json, data/ai_spend_history.json, data/live_messages.json) da değişmiş görünüyor — muhtemelen mock'lanmamış side-effect kod yollarının test sırasında gerçek dosyalara yazması.",
+      "better_approach": "Commit öncesi bu üç dosya `git checkout -- <dosya>` ile eski haline döndürülmeli.",
+      "reason": "atdd.md/plan.md hiçbir veri dosyası değişikliği öngörmüyor ('Migration Required? Hayır'); bu dosyaların commit'e girmesi kapsam ihlali ve üretim verisi bozulması riski taşır."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "4 yerde bare `except:` kullanılıyor, hepsi hemen `await client.close(); raise` ile devam ediyor. Fonksiyonel olarak zararsız ama proje genelinde konvansiyon `except Exception as e:`.",
+      "better_approach": "`except Exception:` kullanılabilirdi, ama mevcut hâli zaten doğru davranışı veriyor.",
+      "reason": "code_diff.md'de zaten şeffafça 'stil notu, düzeltme gerektirmiyor' olarak işaretlenmiş; bağımsız doğrulama aynı sonuca varıyor — blocking değil."
+    }
+  ],
+  "strengths": [
+    "code_diff.md'nin iddia ettiği geri alma bağımsız doğrulandı: text_gen_parser.py satır 352'de `len(message) < 100` (10 değil), webhook_server.py'de tuple-parsing dalı veya ikinci bir logger yok.",
+    "text_gen_parser.py'deki client.close() garantisi tüm çıkış yollarında (happy path + except + else) doğru uygulanmış.",
+    "_get_gemini_client() plan.md'nin kararına uygun şekilde DOKUNULMAMIŞ.",
+    "sidecar/bridge.js'teki messageHistory Map'i test edildi: 200 mesaj sınırı FIFO eviction ile doğru çalışıyor.",
+    "webhook_server.py'deki log seviyesi değişikliği AC-4'ü tam karşılıyor, testler gerçekten çalıştırılıp doğrulandı.",
+    "AC-3 testinin mock-tabanlı sınırlaması atdd.md/test_diff.md/verify_report.md'de tutarlı şekilde belgelenmiş."
+  ],
+  "risks": [
+    "Baileys'in gerçek çalışma zamanında CIPHERTEXT mesajının key alanı eksik gelirse, messages.upsert handler'ı unhandled exception ile çökebilir — bkz. bridge.js finding.",
+    "Test çalıştırmalarının üretim veri dosyalarını mutasyona uğratması, yanlışlıkla commit'e girerse gerçek verinin bozulmasına yol açabilir."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes",
+  "post_review_fix": {
+    "applied": true,
+    "description": "Medium bulgu (bridge.js null-check) düzeltildi: `msg.key.remoteJid` erişimi `msg.key ? msg.key.remoteJid : null` ile güvenli hale getirildi. Bağımsız doğrulandı: node -c + node test_bridge_reliability.js (9/9 geçti). Low bulgu (veri dosyası kirliliği): data/ai_spend_history.json ve data/live_messages.json test yan etkileriyle değişmişti, `git checkout --` ile eski hâline döndürüldü, commit'e girmeyecek."
+  }
+}
