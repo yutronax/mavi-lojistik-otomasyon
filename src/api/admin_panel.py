@@ -47,6 +47,7 @@ APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.jsonl")
 IL_ILCE_PATH = os.path.join(PROJECT_ROOT, "data", "il_ilçe_mahalle.json")
 ARAC_KASA_PATH = os.path.join(PROJECT_ROOT, "data", "arac_yuk_kasa_tipleri.json")
 BAILEYS_QR_PATH = os.path.join(PROJECT_ROOT, "data", "baileys_qr.json")
+BAILEYS_GROUPS_PATH = os.path.join(PROJECT_ROOT, "data", "baileys_groups.json")
 BAILEYS_AUTH_DIR = os.path.join(PROJECT_ROOT, "sidecar", "auth_info_baileys")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
@@ -827,6 +828,42 @@ def whatsapp_qr():
     return jsonify({"status": "need_auth", "qr": qr_value, "generated_at": generated_at}), 200
 
 
+@app.route("/api/whatsapp/groups", methods=["GET"])
+@require_auth
+def whatsapp_groups():
+    """Baileys'ten dönen grupları (bridge.js'in yazıp güncellediği) döner. saved alanı chat_groups.json ile karşılaştırılarak hesaplanır."""
+    # 1. Groups dosyası yoksa -> 202 (AC-4)
+    if not os.path.exists(BAILEYS_GROUPS_PATH):
+        return jsonify({"groups": [], "message": "Gruplar henüz taranmadı, bridge başlıyor olabilir"}), 202
+
+    # 2. Groups dosyasını oku, bozuk JSON -> 200 + empty + cached:false (AC-6)
+    try:
+        with open(BAILEYS_GROUPS_PATH, "r", encoding="utf-8") as f:
+            groups_data = json.load(f)
+    except (json.JSONDecodeError, IOError, OSError):
+        return jsonify({"groups": [], "cached": False}), 200
+
+    # 3. Baileys bağlı mı kontrol et (AC-3)
+    if os.path.exists(BAILEYS_QR_PATH):
+        try:
+            with open(BAILEYS_QR_PATH, "r", encoding="utf-8") as f:
+                qr_data = json.load(f)
+                if qr_data.get("status") != "authenticated":
+                    return jsonify({"groups": [], "message": "WhatsApp henüz bağlı değil"}), 202
+        except (json.JSONDecodeError, IOError, OSError):
+            return jsonify({"groups": [], "message": "WhatsApp henüz bağlı değil"}), 202
+
+    # 4. saved alanını hesapla (chat_groups.json ile karşılaştırma) (AC-2)
+    groups_list = groups_data.get("groups", [])
+    saved_groups = _load_groups()
+    saved_ids = {g.get("id") for g in saved_groups}
+
+    for group in groups_list:
+        group["saved"] = group.get("id") in saved_ids
+
+    return jsonify({"groups": groups_list, "cached": True}), 200
+
+
 @app.route("/api/groups", methods=["POST"])
 @require_auth
 def groups_add():
@@ -1182,9 +1219,16 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   <div class="card">
     <div class="row" style="margin:0 0 10px">
       <button class="b-acc btn-full" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
+      <button class="b-warn btn-full" onclick="loadBaileysGroups()">⟳ Grupları Yenile</button>
     </div>
     <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
     <div id="grp-list"></div>
+  </div>
+
+  <div class="card">
+    <b style="font-size:13px;color:var(--tx)">📥 Baileys Grupları</b>
+    <p id="baileys-groups-msg" style="color:var(--mut);font-size:12px;margin:10px 0 4px">Yükleniyor...</p>
+    <div id="baileys-available-groups-list"></div>
   </div>
 </div>
 
@@ -1497,6 +1541,7 @@ async function disconnectBaileys(){
 
 async function loadGrpTab(){
   loadGroups();
+  loadBaileysGroups();
   checkBaileysQr();
 }
 
@@ -1505,6 +1550,42 @@ async function loadGroups(){
   $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
   $('grp-list').innerHTML = d.groups.map(g =>
     `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
+}
+
+async function loadBaileysGroups(){
+  const d = await api('/api/whatsapp/groups'); if(!d) return;
+  const msgEl = $('baileys-groups-msg');
+  const listEl = $('baileys-available-groups-list');
+
+  // 202 durumu: henüz bağlı değil veya henüz taranmadı
+  if(d.message){
+    msgEl.textContent = d.message;
+    listEl.innerHTML = '';
+    return;
+  }
+
+  const groups = d.groups || [];
+  const unsaved = groups.filter(g => !g.saved);
+
+  if(!unsaved.length){
+    msgEl.textContent = 'Tüm gruplar kayıtlı';
+    listEl.innerHTML = '';
+    return;
+  }
+
+  msgEl.textContent = `${unsaved.length} yeni grup bulundu`;
+  listEl.innerHTML = unsaved.map(g =>
+    `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-ok" onclick="baileysGrpAdd('${g.id}', '${escapeHtml(g.name).replace(/'/g, "\\'")}')">Ekle</button></div>`).join('');
+}
+
+async function baileysGrpAdd(id, name){
+  const d = await api('/api/groups', {method: 'POST', body: JSON.stringify({id, name})});
+  if(d && d.ok){
+    toast(`Eklendi ✓ — ${name}`);
+    loadGroups();
+    loadBaileysGroups();
+    _grpFlash('grp-count');
+  } else if(d) toast(d.error || d.msg, true);
 }
 
 async function grpDel(id){

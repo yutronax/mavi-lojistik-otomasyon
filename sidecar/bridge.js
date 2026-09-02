@@ -22,6 +22,8 @@ const WEBHOOK_URL = process.env.WEBHOOK_URL || 'http://localhost:8080/baileys-we
 const UNHANDLED_LOG = path.join(__dirname, 'bridge_unhandled_messages.log');
 const RISK_EVENTS_LOG = path.join(__dirname, 'risk_events.log');
 
+let groupsIntervalId = null;
+
 // Saga epic #44 (baileys-risk-paritesi): Whapi'nin Safety Meter'ının yerini
 // tutacak sidecar/risk_check.js'in ham veri kaynağı. JSON Lines formatı —
 // her satır tek bir olay. Append-only, pruning bu görevde YOK (bkz. plan.md
@@ -143,6 +145,24 @@ function writeAuthenticatedState(filePath = path.join(__dirname, '..', 'data', '
   atomicWrite(filePath, content);
 }
 
+// Write groups state to shared file: {groups: [{"id": "...", "name": "..."}]}
+// Transforms Baileys groupFetchAllParticipating() response ({jid: GroupMetadata})
+// to stored format by extracting id and subject (→ name)
+function writeGroupsState(groupsObject, filePath = path.join(__dirname, '..', 'data', 'baileys_groups.json')) {
+  try {
+    const groupsArray = Object.values(groupsObject).map(g => ({
+      id: g.id,
+      name: g.subject
+    }));
+    const content = JSON.stringify({
+      groups: groupsArray
+    });
+    atomicWrite(filePath, content);
+  } catch (e) {
+    console.error('[GROUPS-WRITE ERROR]', e.message);
+  }
+}
+
 async function bridge() {
   const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, 'auth_info_baileys'));
 
@@ -193,6 +213,17 @@ async function bridge() {
     } else if (connection === 'open') {
       console.log(`[BAGLANDI] Köprü aktif. Mesajlar -> ${WEBHOOK_URL}`);
       writeAuthenticatedState();
+      // Periyodik grup tarama (60 saniyede bir)
+      if (groupsIntervalId) {
+        clearInterval(groupsIntervalId);
+      }
+      groupsIntervalId = setInterval(() => {
+        sock.groupFetchAllParticipating().then(groups => {
+          writeGroupsState(groups);
+        }).catch(e => {
+          console.error('[GROUPS-FETCH ERROR]', e.message);
+        });
+      }, 60000);
     }
   });
 
@@ -223,7 +254,8 @@ async function bridge() {
 
 module.exports = {
   writeQrState,
-  writeAuthenticatedState
+  writeAuthenticatedState,
+  writeGroupsState
 };
 
 if (require.main === module) {
