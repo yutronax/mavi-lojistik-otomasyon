@@ -47,6 +47,7 @@ APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.jsonl")
 IL_ILCE_PATH = os.path.join(PROJECT_ROOT, "data", "il_ilçe_mahalle.json")
 ARAC_KASA_PATH = os.path.join(PROJECT_ROOT, "data", "arac_yuk_kasa_tipleri.json")
 BAILEYS_QR_PATH = os.path.join(PROJECT_ROOT, "data", "baileys_qr.json")
+BAILEYS_AUTH_DIR = os.path.join(PROJECT_ROOT, "sidecar", "auth_info_baileys")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
     os.path.join(PROJECT_ROOT, "logs", "pm2_out.log"),
@@ -286,6 +287,42 @@ def service_action(action):
         return jsonify({"error": "Geçersiz işlem"}), 400
     logger.info(f"Servis işlemi: {action} → {'OK' if ok else 'HATA'}")
     return jsonify({"ok": ok, "output": out[-500:]})
+
+
+@app.route("/api/whatsapp/disconnect", methods=["POST"])
+@require_auth
+def whatsapp_disconnect():
+    """WhatsApp (Baileys) oturumunu keser: auth_info_baileys/ klasörünü siler ve bridge'i yeniden başlatır."""
+    file_deleted = False
+
+    # Dosya silme denemesi (klasör varsa)
+    if os.path.exists(BAILEYS_AUTH_DIR):
+        try:
+            shutil.rmtree(BAILEYS_AUTH_DIR)
+            file_deleted = True
+        except (OSError, PermissionError) as e:
+            # Dosya silme başarısız → pm2 çağrılmaz
+            logger.error(f"Baileys auth klasörü silinemiyor: {e}")
+            return jsonify({"ok": False, "error": str(e), "step": "file_delete"}), 500
+
+    # PM2 restart denemesi (her zaman çalış, idempotent)
+    ok, out = _pm2(["restart", "mavi-baileys-bridge"])
+    if not ok:
+        # PM2 başarısız ama dosya silinmişse (kısmi başarı)
+        logger.error(f"PM2 restart başarısız: {out}")
+        if file_deleted:
+            return jsonify({"ok": False, "error": out, "step": "pm2_restart", "file_deleted": True}), 500
+        else:
+            # Dosya silinmedi, sadece pm2 başarısız
+            return jsonify({"ok": False, "error": out, "step": "pm2_restart"}), 500
+
+    # Her şey başarılı
+    logger.info("WhatsApp (Baileys) oturumu kesildi, bridge yeniden başlatıldı")
+    if file_deleted:
+        return jsonify({"ok": True, "status": "logged_out"}), 200
+    else:
+        # Klasör zaten yoktu (idempotent)
+        return jsonify({"ok": True, "status": "already_logged_out"}), 200
 
 
 # ---------------- API: Loglar ----------------
@@ -1224,6 +1261,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
     <span id="baileys-qr-status" style="font-size:12px;color:var(--mut);text-align:center;max-width:300px">Yükleniyor...</span>
   </div>
   <div id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</div>
+  <button class="b-err btn-full" style="margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
   <div class="split">
     <div class="card">
       <div class="row" style="margin:0 0 10px">
@@ -1549,6 +1587,18 @@ async function checkBaileysQr(){
     qrImg.style.display = 'none';
     qrStatus.textContent = d.message || 'QR üretiliyor, lütfen bekleyin...';
   }
+}
+
+async function disconnectBaileys(){
+  const d = await api('/api/whatsapp/disconnect', {method: 'POST'});
+  if(!d) return;
+  if(d.ok){
+    toast(`Oturum kapatıldı ✓`);
+  } else {
+    const stepMsg = d.step ? ` (${d.step})` : '';
+    toast(`Hata: ${d.error}${stepMsg}`, true);
+  }
+  await checkBaileysQr();
 }
 
 async function loadGrpTab(){
