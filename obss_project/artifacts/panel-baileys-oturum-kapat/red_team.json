@@ -1,0 +1,55 @@
+{
+  "task": "panel-baileys-oturum-kapat",
+  "reviewed_at": "2026-09-02T00:00:00Z",
+  "summary": "Implementasyon atdd.md'nin Davranış Sözleşmesi tablosunun tüm satırlarını (happy path, idempotent, 401, dosya silme hatası, kısmi başarı) kod okunarak doğrulanmış şekilde karşılıyor; testler mock değil gerçek kod akışını (sıra: dosya sil → pm2 restart, hata durumunda pm2 hiç çağrılmıyor) egzersiz ediyor. Bandit bulgularının bu görevin diff hunk'ları dışında olduğu bağımsız olarak doğrulandı. En önemli eksik: ATDD/plan/risk dokümanlarının hiçbirinde ele alınmamış bir idempotent-restart tasarım riski ve panelin 4sn'lik QR polling'iyle olası bir race condition var; ikisi de blocking değil ama not edilmeli.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "risk",
+      "file": "src/api/admin_panel.py",
+      "issue": "AC-2/idempotent davranışı, klasör zaten yokken bile (satır 308-309) koşulsuz `pm2 restart mavi-baileys-bridge` çağırıyor. Bu, kullanıcı yanlışlıkla veya tekrar tekrar 'Bağlantıyı Kes' butonuna bastığında (backend'de bir throttle/debounce YOK) her seferinde gereksiz bir bridge restart'ına, dolayısıyla kısa süreli WhatsApp bağlantı kesintisine yol açar.",
+      "better_approach": "Idempotent durumda pm2 restart'ı atlamak (sadece dosya varsa restart yapmak) ya da en azından backend'de kısa süreli bir debounce eklemek düşünülebilir.",
+      "reason": "atdd.md AC-2 açıkça 'pm2 restart yine denenir' diyor, yani bu tasarım kararı bilinçli — ancak atdd.md'nin Risks bölümünde bu tekrarlı-restart senaryosu hiç tartışılmamış. Tasarım riski olarak flag edilmeli, engelleyici değil çünkü atdd sözleşmesine sadık kalınmış."
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "src/api/admin_panel.py",
+      "issue": "Panel 4 saniyede bir `checkBaileysQr()` polling yapıyor. Kullanıcı 'Bağlantıyı Kes'e bastığı anda bir polling isteği `BAILEYS_QR_PATH` dosyasını okuyabilir; disconnect endpoint'i ise `BAILEYS_AUTH_DIR` klasörünü siliyor — farklı yollar olduğu için doğrudan dosya-yarışı yok, ama pm2 restart sırasında bridge process'i QR dosyasını eşzamanlı yazabilir, polling bunu okurken eskimiş veri dönebilir.",
+      "better_approach": "Kritik değil; en kötü ihtimalle polling bir sonraki 4sn'lik döngüde kendi kendine düzelir. Dokümante edilmesi yeterli.",
+      "reason": "atdd.md ve plan.md bu eşzamanlılık senaryosunu hiç ele almamış; kod incelemesi gerçek çakışma riskinin düşük olduğunu (farklı dosya yolları) doğruladı, severity low."
+    }
+  ],
+  "strengths": [
+    "AC-4 (dosya silme hatası → pm2 restart hiç çağrılmaz) kodda satır 299-306'da early return ile net şekilde uygulanmış; testler bunu mock assertion ile gerçekten doğruluyor.",
+    "AC-5 kısmi başarı durumunda `file_deleted: True` alanı satır 314'te gerçekten dönüyor, test dosyanın gerçekten silindiğini de assert ediyor.",
+    "@require_auth dekoratörü gerçek 401/'Yetkisiz' davranışını üretiyor; geri dönüşsüz bir işlem login olmadan tetiklenemiyor.",
+    "Bandit güvenlik taraması çapraz kontrolü bağımsız olarak yapıldı: 4 bulgunun hepsi bu görevin diff hunk'larının dışında — verify_report.md'nin iddiası doğrulandı.",
+    "Kapsam Dışı listesindeki hiçbir öğe implementasyona sızmamış."
+  ],
+  "risks": [
+    "Idempotent dalda koşulsuz pm2 restart, tekrarlı buton tıklamalarında gereksiz servis kesintisine yol açabilir — atdd.md'de tartışılmamış bir tasarım riski.",
+    "Confirm dialog sadece frontend'de; API doğrudan çağrılırsa bypass edilebilir — ama bu atdd.md'de bilinçli olarak kabul edilmiş bir risk (tek-operatör, login korumalı panel)."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve"
+}
