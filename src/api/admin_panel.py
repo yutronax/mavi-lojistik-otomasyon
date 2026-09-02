@@ -790,38 +790,6 @@ def groups_get():
     """Kayıtlı WhatsApp gruplarını döner."""
     return jsonify({"groups": _load_groups()})
 
-@app.route("/api/whatsapp-health", methods=["GET"])
-@require_auth
-def whatsapp_health():
-    """Whapi kanal sağlık durumunu döner."""
-    import urllib.request, urllib.error
-    token = os.getenv("WHATSAPP_TOKEN", "").strip()
-    if not token:
-        return jsonify({"status": "error", "detail": "Token yok"})
-    try:
-        req = urllib.request.Request(
-            "https://gate.whapi.cloud/health",
-            headers={"Authorization": f"Bearer {token}", "User-Agent": "curl/7.88.1"},
-        )
-        with urllib.request.urlopen(req, timeout=8) as r:
-            data = json.loads(r.read())
-        # Whapi health: {"status":"ok"/"error", "channel":{"status":"active"/"inactive",...}}
-        # Whapi health: {"status": {"code": 4, "text": "AUTH"}, "user": {...}}
-        st_obj = data.get("status", {})
-        code = st_obj.get("code", 0) if isinstance(st_obj, dict) else 0
-        text = str(st_obj.get("text", st_obj) if isinstance(st_obj, dict) else st_obj)
-        user = data.get("user", {})
-        pushname = user.get("pushname", "") if isinstance(user, dict) else ""
-        phone = user.get("id", "") if isinstance(user, dict) else ""
-        # code 4 = AUTH (aktif bağlı), diğerleri sorunlu
-        healthy = code == 4
-        detail = f"{text} — {pushname} ({phone})" if healthy and pushname else text
-        return jsonify({"status": "ok" if healthy else "error", "detail": detail})
-    except urllib.error.HTTPError as e:
-        return jsonify({"status": "error", "detail": f"HTTP {e.code}"})
-    except Exception as e:
-        return jsonify({"status": "error", "detail": str(e)})
-
 
 @app.route("/api/whatsapp/qr", methods=["GET"])
 @require_auth
@@ -858,50 +826,6 @@ def whatsapp_qr():
     # Fresh QR
     return jsonify({"status": "need_auth", "qr": qr_value, "generated_at": generated_at}), 200
 
-
-_grp_cache: dict = {"ts": 0, "groups": []}  # Whapi yanıtı 30s önbelleklenir
-
-@app.route("/api/groups/available", methods=["GET"])
-@require_auth
-def groups_available():
-    """Whapi'dan tüm grupları çekip kayıtlı olanları işaretler. Sonuç 30s önbelleklenir."""
-    import urllib.request, urllib.error, time
-    force = request.args.get("force") == "1"
-    now = time.time()
-    if not force and now - _grp_cache["ts"] < 30 and _grp_cache["groups"]:
-        all_groups = _grp_cache["groups"]
-    else:
-        token = os.getenv("WHATSAPP_TOKEN", "").strip()
-        if not token:
-            env_path = os.path.join(PROJECT_ROOT, ".env")
-            env_exists = os.path.exists(env_path)
-            return jsonify({"error": f"WHATSAPP_TOKEN okunamadi. .env yolu: {env_path} (mevcut: {env_exists})"}), 500
-        try:
-            req = urllib.request.Request(
-                "https://gate.whapi.cloud/groups?count=100",
-                headers={
-                    "Authorization": f"Bearer {token}",
-                    "User-Agent": "curl/7.88.1",
-                    "Accept": "application/json",
-                }
-            )
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read().decode())
-            all_groups = data.get("groups", [])
-            _grp_cache["groups"] = all_groups
-            _grp_cache["ts"] = now
-        except urllib.error.HTTPError as e:
-            if e.code == 403:
-                return jsonify({"error": f"Whapi token geçersiz veya süresi dolmuş (403). app.whapi.cloud panelinden token'ı kontrol edin ve VPS .env dosyasını güncelleyin."}), 500
-            return jsonify({"error": f"Whapi HTTP hatası: {e.code} {e.reason}"}), 500
-        except Exception as e:
-            return jsonify({"error": f"Whapi bağlantı hatası: {e}"}), 500
-    saved_ids = {g["id"] for g in _load_groups()}
-    result = [{"id": g["id"], "name": g.get("name",""), "saved": g["id"] in saved_ids}
-              for g in all_groups if g.get("type") == "group"]
-    result.sort(key=lambda x: (x["saved"], x["name"]))  # kayıtlı olmayanlar önce
-    cached = not force and now - _grp_cache["ts"] < 30
-    return jsonify({"groups": result, "cached": cached})
 
 @app.route("/api/groups", methods=["POST"])
 @require_auth
@@ -1249,35 +1173,18 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 </div>
 
 <div id="tab-grp" class="hide">
-  <div style="margin:12px 16px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-    <div id="wa-health-badge" style="display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;background:#f3f4f6;font-size:12px;font-weight:700;cursor:pointer" onclick="checkWaHealth()">
-      <span id="wa-health-dot" style="width:8px;height:8px;border-radius:50%;background:#6b7280;display:inline-block"></span>
-      <span id="wa-health-txt">WhatsApp kontrol ediliyor...</span>
-    </div>
-    <a id="wa-health-link" href="https://app.whapi.cloud/" target="_blank" style="display:none;font-size:12px;color:var(--err);font-weight:700;text-decoration:underline">→ Whapi Paneli</a>
-  </div>
   <div id="baileys-qr-section" style="display:none;margin:12px 16px 0;flex-direction:column;align-items:center;gap:12px;padding:16px;background:var(--bg);border-radius:14px">
     <img id="baileys-qr-img" style="min-width:200px;max-width:300px;height:auto;border-radius:10px;border:2px solid var(--border)">
     <span id="baileys-qr-status" style="font-size:12px;color:var(--mut);text-align:center;max-width:300px">Yükleniyor...</span>
   </div>
   <div id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</div>
-  <button class="b-err btn-full" style="margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
-  <div class="split">
-    <div class="card">
-      <div class="row" style="margin:0 0 10px">
-        <button class="b-acc btn-full" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
-      </div>
-      <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
-      <div id="grp-list"></div>
+  <button id="baileys-disconnect-btn" class="b-err btn-full" style="display:none;margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
+  <div class="card">
+    <div class="row" style="margin:0 0 10px">
+      <button class="b-acc btn-full" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
     </div>
-    <div class="card">
-      <div class="row" style="margin:0 0 6px">
-        <button class="b-warn btn-full" onclick="loadAvailableGroups(true)">🔄 Whapi'dan Yeniden Çek</button>
-      </div>
-      <p id="grp-available-count" style="color:var(--mut);font-size:12px;margin:0 0 6px"></p>
-      <label style="font-size:11px;color:var(--mut)">Kayıtsız gruplar önce listelenir</label>
-      <div id="grp-available-list" style="margin-top:6px"><p style="color:var(--mut);font-size:13px">Yükleniyor...</p></div>
-    </div>
+    <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
+    <div id="grp-list"></div>
   </div>
 </div>
 
@@ -1547,23 +1454,6 @@ async function deleteMsg(msgId){
   } else if(d) toast(d.error||'Hata',true);
 }
 
-async function checkWaHealth(){
-  $('wa-health-txt').textContent = 'Kontrol ediliyor...';
-  $('wa-health-dot').style.background = '#6b7280';
-  $('wa-health-link').style.display = 'none';
-  const d = await api('/api/whatsapp-health');
-  if(!d) return;
-  const ok = d.status === 'ok';
-  const dot = $('wa-health-dot');
-  const txt = $('wa-health-txt');
-  const badge = $('wa-health-badge');
-  const link = $('wa-health-link');
-  dot.style.background = ok ? '#16a34a' : '#dc2626';
-  txt.textContent = ok ? 'WhatsApp Bagli (' + (d.detail||'ok') + ')' : 'WhatsApp Baglanti Sorunu: ' + (d.detail||'hata');
-  badge.style.background = ok ? '#dcfce7' : '#fee2e2';
-  link.style.display = ok ? 'none' : 'inline';
-}
-
 async function checkBaileysQr(){
   const d = await api('/api/whatsapp/qr');
   if(!d) return;
@@ -1571,19 +1461,23 @@ async function checkBaileysQr(){
   const qrImg = $('baileys-qr-img');
   const qrStatus = $('baileys-qr-status');
   const connectedMsg = $('baileys-qr-connected-msg');
+  const disconnectBtn = $('baileys-disconnect-btn');
   const status = d.status;
   if(status === 'need_auth'){
     qrSection.style.display = 'flex';
     connectedMsg.style.display = 'none';
+    disconnectBtn.style.display = 'none';
     qrImg.src = d.qr;
     qrImg.style.display = 'block';
     qrStatus.textContent = "Telefonunuzdan WhatsApp > Bağlı Cihazlar'dan tarayın";
   } else if(status === 'authenticated'){
     qrSection.style.display = 'none';
     connectedMsg.style.display = 'block';
+    disconnectBtn.style.display = 'block';
   } else if(status === 'waiting'){
     qrSection.style.display = 'flex';
     connectedMsg.style.display = 'none';
+    disconnectBtn.style.display = 'none';
     qrImg.style.display = 'none';
     qrStatus.textContent = d.message || 'QR üretiliyor, lütfen bekleyin...';
   }
@@ -1603,8 +1497,6 @@ async function disconnectBaileys(){
 
 async function loadGrpTab(){
   loadGroups();
-  loadAvailableGroups();
-  checkWaHealth();
   checkBaileysQr();
 }
 
@@ -1615,31 +1507,6 @@ async function loadGroups(){
     `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
 }
 
-async function loadAvailableGroups(force=false){
-  $('grp-available-list').innerHTML = '<p style="color:var(--mut);font-size:13px">Sunucudan cekiliyor...</p>';
-  const d = await api('/api/groups/available'+(force?'?force=1':'')); if(!d) return;
-  if(d.error){$('grp-available-list').innerHTML = `<p style="color:var(--err);font-size:13px">${escapeHtml(d.error)}</p>`; return;}
-  const unsaved = d.groups.filter(g=>!g.saved).length;
-  const saved   = d.groups.filter(g=>g.saved).length;
-  const cacheNote = d.cached ? ' <span style="color:var(--mut);font-weight:400">(önbellek)</span>' : '';
-  $('grp-available-count').innerHTML = `${d.groups.length} grup — <span style="color:var(--err)">${unsaved} kayıtsız</span> / <span style="color:var(--ok)">${saved} kayıtlı</span>${cacheNote}`;
-  $('grp-available-list').innerHTML = d.groups.map(g => `
-    <div class="bl-item">
-      <span>${escapeHtml(g.name)}${g.saved ? ' <span style="color:var(--ok);font-size:11px">(kayıtlı)</span>' : ''}</span>
-      ${g.saved ? '' : `<button class="b-ok" onclick="grpAdd('${g.id}','${escapeHtml(g.name).replace(/'/g,"\\'")}')">Ekle</button>`}
-    </div>`).join('');
-}
-
-async function grpAdd(id, name){
-  const d = await api('/api/groups',{method:'POST',body:JSON.stringify({id,name})});
-  if(d&&d.ok){
-    const ts = new Date().toLocaleTimeString('tr-TR');
-    toast(`Eklendi ✓ — ${name} (${ts})`);
-    await Promise.all([loadGroups(), loadAvailableGroups()]);
-    _grpFlash('grp-count');
-  } else if(d) toast(d.error,true);
-}
-
 async function grpDel(id){
   const card = event.target.closest('.bl-item');
   const name = card ? card.querySelector('span').textContent.trim() : id;
@@ -1648,7 +1515,7 @@ async function grpDel(id){
   if(d&&d.ok){
     const ts = new Date().toLocaleTimeString('tr-TR');
     toast(`Silindi ✓ — ${name} (${ts})`);
-    await Promise.all([loadGroups(), loadAvailableGroups()]);
+    await loadGroups();
     _grpFlash('grp-count');
   } else if(d) toast(d.error,true);
 }
