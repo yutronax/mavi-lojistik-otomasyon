@@ -46,6 +46,7 @@ UNPROCESSED_PATH = os.path.join(PROJECT_ROOT, "data", "onaylanmamis_ayristirilmi
 APPROVED_PATH = os.path.join(PROJECT_ROOT, "data", "Onaylananlar.jsonl")
 IL_ILCE_PATH = os.path.join(PROJECT_ROOT, "data", "il_ilçe_mahalle.json")
 ARAC_KASA_PATH = os.path.join(PROJECT_ROOT, "data", "arac_yuk_kasa_tipleri.json")
+BAILEYS_QR_PATH = os.path.join(PROJECT_ROOT, "data", "baileys_qr.json")
 ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
 LOG_PATHS = [
     os.path.join(PROJECT_ROOT, "logs", "pm2_out.log"),
@@ -785,6 +786,42 @@ def whatsapp_health():
         return jsonify({"status": "error", "detail": str(e)})
 
 
+@app.route("/api/whatsapp/qr", methods=["GET"])
+@require_auth
+def whatsapp_qr():
+    """Baileys sidecar'ından QR durumu döner (panel tarafından 4sn'de bir çağrılır)."""
+    if not os.path.exists(BAILEYS_QR_PATH):
+        # File hasn't been created yet
+        return jsonify({"status": "waiting", "message": "QR henüz üretilmedi, bridge başlatılıyor olabilir"}), 202
+
+    try:
+        with open(BAILEYS_QR_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, IOError, OSError):
+        # File exists but is corrupted or unreadable
+        return jsonify({"status": "waiting", "message": "QR okunamadı, yeniden üretiliyor"}), 200
+
+    # Check if authenticated
+    if data.get("status") == "authenticated":
+        return jsonify({"status": "authenticated", "qr": None}), 200
+
+    # Check if QR exists and is fresh
+    qr_value = data.get("qr")
+    generated_at = data.get("generated_at")
+
+    if not qr_value or not isinstance(generated_at, (int, float)):
+        # Malformed data
+        return jsonify({"status": "waiting", "message": "QR okunamadı, yeniden üretiliyor"}), 200
+
+    # Check if QR is older than 2 minutes
+    now_ms = int(time.time() * 1000)
+    if now_ms - generated_at > 120000:  # 2 minutes in milliseconds
+        return jsonify({"status": "waiting", "message": "QR süresi dolmuş, bridge yanıt vermiyor olabilir"}), 200
+
+    # Fresh QR
+    return jsonify({"status": "need_auth", "qr": qr_value, "generated_at": generated_at}), 200
+
+
 _grp_cache: dict = {"ts": 0, "groups": []}  # Whapi yanıtı 30s önbelleklenir
 
 @app.route("/api/groups/available", methods=["GET"])
@@ -1182,6 +1219,11 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
     </div>
     <a id="wa-health-link" href="https://app.whapi.cloud/" target="_blank" style="display:none;font-size:12px;color:var(--err);font-weight:700;text-decoration:underline">→ Whapi Paneli</a>
   </div>
+  <div id="baileys-qr-section" style="display:none;margin:12px 16px 0;flex-direction:column;align-items:center;gap:12px;padding:16px;background:var(--bg);border-radius:14px">
+    <img id="baileys-qr-img" style="min-width:200px;max-width:300px;height:auto;border-radius:10px;border:2px solid var(--border)">
+    <span id="baileys-qr-status" style="font-size:12px;color:var(--mut);text-align:center;max-width:300px">Yükleniyor...</span>
+  </div>
+  <div id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</div>
   <div class="split">
     <div class="card">
       <div class="row" style="margin:0 0 10px">
@@ -1484,10 +1526,36 @@ async function checkWaHealth(){
   link.style.display = ok ? 'none' : 'inline';
 }
 
+async function checkBaileysQr(){
+  const d = await api('/api/whatsapp/qr');
+  if(!d) return;
+  const qrSection = $('baileys-qr-section');
+  const qrImg = $('baileys-qr-img');
+  const qrStatus = $('baileys-qr-status');
+  const connectedMsg = $('baileys-qr-connected-msg');
+  const status = d.status;
+  if(status === 'need_auth'){
+    qrSection.style.display = 'flex';
+    connectedMsg.style.display = 'none';
+    qrImg.src = d.qr;
+    qrImg.style.display = 'block';
+    qrStatus.textContent = "Telefonunuzdan WhatsApp > Bağlı Cihazlar'dan tarayın";
+  } else if(status === 'authenticated'){
+    qrSection.style.display = 'none';
+    connectedMsg.style.display = 'block';
+  } else if(status === 'waiting'){
+    qrSection.style.display = 'flex';
+    connectedMsg.style.display = 'none';
+    qrImg.style.display = 'none';
+    qrStatus.textContent = d.message || 'QR üretiliyor, lütfen bekleyin...';
+  }
+}
+
 async function loadGrpTab(){
   loadGroups();
   loadAvailableGroups();
   checkWaHealth();
+  checkBaileysQr();
 }
 
 async function loadGroups(){
@@ -1649,6 +1717,7 @@ function start(){
   refresh(); setInterval(refresh, 10000);
   syncAutoApprove(); // sunucudaki oto onay durumunu goster
   setInterval(syncAutoApprove, 15000);
+  setInterval(checkBaileysQr, 4000); // Baileys QR kodu her 4 saniyede kontrol et
 }
 if(TOK){ api('/api/status').then(d=>{ if(d) start(); }); }
 $('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});

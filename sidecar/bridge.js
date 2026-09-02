@@ -13,6 +13,7 @@
 
 const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
 const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
 const pino = require('pino');
 const path = require('path');
 const fs = require('fs');
@@ -113,6 +114,35 @@ async function postToWebhook(messages) {
   }
 }
 
+// Atomic write helper: temp file + rename to prevent partial writes
+function atomicWrite(filePath, content) {
+  try {
+    const tmpPath = filePath + '.tmp';
+    fs.writeFileSync(tmpPath, content, 'utf-8');
+    fs.renameSync(tmpPath, filePath);
+  } catch (e) {
+    // Error caught and logged but does not crash bridge.js main loop
+    console.error(`[QR-WRITE ERROR] ${e.message}`);
+  }
+}
+
+// Write QR state to shared file: {qr: "data:image/png;base64,...", generated_at: <epoch ms>}
+function writeQrState(qr, filePath = path.join(__dirname, '..', 'data', 'baileys_qr.json')) {
+  const content = JSON.stringify({
+    qr: qr,
+    generated_at: Date.now()
+  });
+  atomicWrite(filePath, content);
+}
+
+// Write authenticated state to shared file: {status: "authenticated"}
+function writeAuthenticatedState(filePath = path.join(__dirname, '..', 'data', 'baileys_qr.json')) {
+  const content = JSON.stringify({
+    status: 'authenticated'
+  });
+  atomicWrite(filePath, content);
+}
+
 async function bridge() {
   const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, 'auth_info_baileys'));
 
@@ -130,6 +160,12 @@ async function bridge() {
     if (qr) {
       console.log('\n=== QR KODU ===\n');
       qrcode.generate(qr, { small: true });
+      // Generate PNG data URI and write to shared file for panel
+      QRCode.toDataURL(qr).then(dataUri => {
+        writeQrState(dataUri);
+      }).catch(e => {
+        console.error('[QR-GENERATE ERROR]', e.message);
+      });
     }
 
     if (connection === 'close') {
@@ -156,6 +192,7 @@ async function bridge() {
       }
     } else if (connection === 'open') {
       console.log(`[BAGLANDI] Köprü aktif. Mesajlar -> ${WEBHOOK_URL}`);
+      writeAuthenticatedState();
     }
   });
 
@@ -184,4 +221,11 @@ async function bridge() {
   });
 }
 
-bridge().catch((e) => console.error('[FATAL]', e));
+module.exports = {
+  writeQrState,
+  writeAuthenticatedState
+};
+
+if (require.main === module) {
+  bridge().catch((e) => console.error('[FATAL]', e));
+}
