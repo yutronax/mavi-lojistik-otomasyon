@@ -1,47 +1,56 @@
 
 # Mavi Lojistik VPS Deployment Script
-# Bu script yereldeki güncel dosyaları VPS'e yükler.
+# VPS'teki /opt/mavi-lojistik zaten bir git reposu (PM2 servisleri buradan
+# çalışıyor) - bu script tar/scp ile dosya KOPYALAMAZ, git pull ile günceller.
+# (2026-09-02: önceki tar/scp sürümü ~/mavi-lojistik'e (root'un ev dizini)
+# yüklüyordu ama PM2 servisleri /opt/mavi-lojistik'ten çalışıyordu - bu
+# yüzden hiçbir deploy gerçek üretime yansımıyordu. Kök neden bulunup
+# git-pull modeline geçirildi, gerçek VPS kurulumuyla artık tutarlı.)
 
 $configPath = "data/ssh_config.json"
 if (-not (Test-Path $configPath)) {
     Write-Host "Hata: ssh_config.json bulunamadı!" -ForegroundColor Red
-    exit
+    exit 1
 }
 
 $config = Get-Content $configPath | ConvertFrom-Json
 $IP = $config.host
 $USER = $config.user
 $PORT = if ($config.port) { $config.port } else { 22 }
-$REMOTE_DIR = "~/mavi-lojistik"
+$REMOTE_DIR = "/opt/mavi-lojistik"
 
-Write-Host "--- VPS YÜKLEME BAŞLATILDI ($IP`:$PORT) ---" -ForegroundColor Cyan
+Write-Host "--- VPS GUNCELLEME BASLATILDI ($IP`:$PORT -> $REMOTE_DIR) ---" -ForegroundColor Cyan
 
-# 1. Projeyi paketle (Hız için)
-# Gereksiz dosyaları hariç tut (data, logs, venv, git, tar.gz)
-# node_modules HARİÇ TUTULUR: Windows'ta derlenmiş native modüller Linux
-# VPS'te çalışmaz - sidecar/node_modules VPS'te ayrıca npm install ile
-# kurulmalı (adım 4'te yapılıyor).
-Write-Host "[1/4] Dosyalar paketleniyor..."
-tar --format=ustar --exclude="data" --exclude="logs" --exclude="venv" --exclude=".venv" --exclude=".git" --exclude="__pycache__" --exclude="*.tar.gz" --exclude="dist" --exclude="build" --exclude="node_modules" -czf project.tar.gz .
+# data/ klasörü git'te tracked (canlı sevkiyat verisi) ve sürekli üretim
+# tarafından yazılıyor - her deploy'da yerel değişiklikleri stash'leyip
+# pull sonrası geri koyuyoruz. Stash pop çakışırsa (aynı dosyaya deploy
+# ile eş zamanlı yazım) script BAŞARISIZ olmaz - canlı veri stash'te
+# güvende kalır, sadece uyarı basılır, elle "git stash list" ile kontrol
+# edilmesi gerekir.
+$remoteScript = @"
+set -e
+cd $REMOTE_DIR
+echo '[1/4] Yerel degisiklikler (canli veri) stash leniyor...'
+git stash push -u -m "auto-deploy-`$(date +%Y%m%d-%H%M%S)" || true
+echo '[2/4] main cekiliyor...'
+git fetch origin main
+git checkout main
+git merge origin/main --ff-only
+echo '[3/4] Bagimliliklar guncelleniyor...'
+[ -d venv ] && [ ! -e .venv ] && ln -sfn venv .venv
+[ -d .venv ] || python3 -m venv .venv
+./.venv/bin/pip install -q --upgrade pip
+./.venv/bin/pip install -q -r requirements.txt
+cd sidecar && npm install --omit=dev --silent && cd ..
+echo '[4/4] Servisler yeniden baslatiliyor...'
+pm2 startOrReload ecosystem.config.js
+git stash pop || echo 'UYARI: stash pop cakisti - canli veri stash tada guvende, elle "git stash list" ile kontrol edin.'
+"@
 
-# 2. Sunucuda klasörü oluştur ve dosyayı gönder
-Write-Host "[2/4] Sunucuya aktarılıyor..."
-ssh -p $PORT "${USER}@${IP}" "mkdir -p ${REMOTE_DIR}/logs"
-if ($LASTEXITCODE -ne 0) { Write-Host "--- HATA: SSH bağlantısı kurulamadı (port $PORT) ---" -ForegroundColor Red; exit 1 }
-scp -P $PORT project.tar.gz "${USER}@${IP}:${REMOTE_DIR}/"
-if ($LASTEXITCODE -ne 0) { Write-Host "--- HATA: Dosya transferi başarısız ---" -ForegroundColor Red; exit 1 }
+ssh -p $PORT "${USER}@${IP}" $remoteScript
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "--- HATA: Uzak sunucuda deploy adimlari basarisiz oldu (yukaridaki cikti) ---" -ForegroundColor Red
+    exit 1
+}
 
-# 3. Sunucuda paketi aç ve temizle
-Write-Host "[3/4] Sunucuda dosyalar güncelleniyor..."
-ssh -p $PORT "${USER}@${IP}" "cd ${REMOTE_DIR} && tar -xzf project.tar.gz && rm project.tar.gz"
-if ($LASTEXITCODE -ne 0) { Write-Host "--- HATA: Sunucuda paket açma başarısız ---" -ForegroundColor Red; exit 1 }
-
-Write-Host "[4/4] Bağımlılıklar güncelleniyor ve servisler başlatılıyor..."
-# Baileys epic #42-46 (2026-09-01): sidecar/ Node.js kodu için npm install
-# eklendi - node.js/npm VPS'te kurulu olmalı.
-ssh -p $PORT "${USER}@${IP}" "cd ${REMOTE_DIR} && python3 -m venv .venv && ./.venv/bin/pip install --upgrade pip && ./.venv/bin/pip install -r requirements.txt && cd sidecar && npm install --omit=dev && cd .. && pm2 restart all || pm2 start ecosystem.config.js"
-if ($LASTEXITCODE -ne 0) { Write-Host "--- HATA: Bağımlılık kurulumu/servis başlatma başarısız ---" -ForegroundColor Red; exit 1 }
-
-# Temizlik
-Remove-Item project.tar.gz
-Write-Host "--- YÜKLEME BAŞARIYLA TAMAMLANDI! ---" -ForegroundColor Green
+Write-Host "--- GUNCELLEME BASARIYLA TAMAMLANDI! ---" -ForegroundColor Green

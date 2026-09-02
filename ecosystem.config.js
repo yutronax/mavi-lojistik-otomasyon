@@ -36,7 +36,7 @@ module.exports = {
     // auth_info_baileys/ klasörü ÜRETIM numarasının oturumunu tutar —
     // bu klasör silinirse/kaybolursa yeniden QR taratmak gerekir.
     name: "mavi-baileys-bridge",
-    script: "sidecar/bridge.js",
+    script: "bridge.js",
     interpreter: "node",
     cwd: "./sidecar",
     instances: 1,
@@ -45,11 +45,11 @@ module.exports = {
     max_memory_restart: '300M',
     env: {
       NODE_ENV: "production",
-      WEBHOOK_URL: "http://127.0.0.1:8080/baileys-webhook"
+      WEBHOOK_URL: "http://127.0.0.1:8090/baileys-webhook"
     },
     log_date_format: "YYYY-MM-DD HH:mm:ss",
-    error_file: "logs/baileys_bridge_error.log",
-    out_file: "logs/baileys_bridge_out.log",
+    error_file: "../logs/baileys_bridge_error.log",
+    out_file: "../logs/baileys_bridge_out.log",
     merge_logs: true
   }]
 }
