@@ -1261,7 +1261,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
     <span id="baileys-qr-status" style="font-size:12px;color:var(--mut);text-align:center;max-width:300px">Yükleniyor...</span>
   </div>
   <div id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</div>
-  <button class="b-err btn-full" style="margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
+  <button id="baileys-disconnect-btn" class="b-err btn-full" style="display:none;margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
   <div class="split">
     <div class="card">
       <div class="row" style="margin:0 0 10px">
@@ -1571,19 +1571,23 @@ async function checkBaileysQr(){
   const qrImg = $('baileys-qr-img');
   const qrStatus = $('baileys-qr-status');
   const connectedMsg = $('baileys-qr-connected-msg');
+  const disconnectBtn = $('baileys-disconnect-btn');
   const status = d.status;
   if(status === 'need_auth'){
     qrSection.style.display = 'flex';
     connectedMsg.style.display = 'none';
+    disconnectBtn.style.display = 'none';
     qrImg.src = d.qr;
     qrImg.style.display = 'block';
     qrStatus.textContent = "Telefonunuzdan WhatsApp > Bağlı Cihazlar'dan tarayın";
   } else if(status === 'authenticated'){
     qrSection.style.display = 'none';
     connectedMsg.style.display = 'block';
+    disconnectBtn.style.display = 'block';
   } else if(status === 'waiting'){
     qrSection.style.display = 'flex';
     connectedMsg.style.display = 'none';
+    disconnectBtn.style.display = 'none';
     qrImg.style.display = 'none';
     qrStatus.textContent = d.message || 'QR üretiliyor, lütfen bekleyin...';
   }
