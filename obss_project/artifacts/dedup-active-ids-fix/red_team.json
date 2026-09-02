@@ -1,0 +1,45 @@
+{
+  "task": "dedup-active-ids-fix",
+  "reviewed_at": "2026-08-31T00:00:00Z",
+  "summary": "has_valid_shipment düzeltmesi, process_message_task'ın filtre kriteriyle pratikte tutarlı (bağımsız doğrulandı). Exception-block mark_id_handled eklemesi AC-3'ün ana boşluğunu kapatıyor. 2 medium bulgu (mark_id_handled'ın kendisinin başarısız olduğu nadir 'double-fault' senaryosu; geçici/kalıcı hata ayrımı yapılmaması) gerçek ama düşük olasılıklı kenar durumları — atdd.md'nin zaten kabul ettiği tavizler kapsamında, bu acil düzeltmenin kapsamını genişletmeden kabul edilip ertelendi.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "src/parsers/veri_cekici_ayristirici.py",
+      "issue": "_task_wrapper'ın except bloğunda mark_id_handled'ın KENDİSİ exception fırlatırsa (ör. disk yazma hatası), iç try/except bunu yutup sadece logluyor, ama dış finally yine de koşulsuz active_ids'ten çıkarıyor — bu, orijinal hatanın (active_ids temizlenip kalıcı işaret olmadan) dar bir 'double-fault' varyantını yeniden üretiyor.",
+      "better_approach": "Sınırlı sayıda retry veya bu spesifik double-fault yolunu daha yüksek önemde (CRITICAL) loglamak.",
+      "reason": "AC-2 'active_ids temizlenip mark_id_handled çağrılmadan bir ara durum olmamalı' diyor — bu TEK, dar bir ara durum hâlâ mevcut. Ama olasılığı çok düşük (mark_id_handled'ın kendisi nadiren başarısız olur) ve asıl kök neden (her ilçe-only mesajın DETERMİNİSTİK olarak sonsuz tekrarlanması) çok daha geniş kapsamlıydı — bu acil düzeltme onu kapatıyor, bu kenar durumu ayrı bir takip görevi olarak bırakılabilir."
+    },
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "src/parsers/veri_cekici_ayristirici.py",
+      "issue": "Herhangi bir exception'da (geçici ağ hatası dahil) mark_id_handled çağrılması, geçici hataların kalıcı hatalarla aynı kaderi paylaşmasına yol açıyor — mesaj bir daha hiç denenmiyor.",
+      "better_approach": "Geçici/kalıcı hata ayrımı yapan sınırlı-retry mantığı.",
+      "reason": "atdd.md'nin Risks bölümü bu tavizi zaten AÇIKÇA kabul etmiş ('mevcut kodun sonsuz loop önleme felsefesiyle tutarlı') — bu görevin kapsamını genişletmeden ayrı bir takip görevi olarak bırakılabilir."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "tests/test_dedup_active_ids_fix.py",
+      "issue": "Double-fault senaryosu (process_message_task VE mark_id_handled ikisi de exception fırlatıyor) için test yok.",
+      "better_approach": "N/A",
+      "reason": "Düşük öncelikli, gelecekte eklenebilir."
+    }
+  ],
+  "strengths": [
+    "has_valid_shipment (satır 926) alan listesi, process_message_task'ın filtre kriteriyle (satır 748-763) doğrudan okunarak doğrulandı — pratikte hiç sapma yok, çünkü process_message_task zaten daha sıkı bir filtre uyguluyor.",
+    "Test suite, test_diff.md'de 2 sahte-yeşil bulgunun (yorum satırına alınmış assertion, yanlış fonksiyon çağıran test) dürüstçe belgelenip düzeltildiğini gösteriyor — gerçek doğrulamanın kanıtı.",
+    "OrchestratorSDK.__new__() + manuel attribute atama tekniği, ağır bağımlılıkları (Mongo, Google GenAI) atlarken GERÇEK _task_wrapper/save_results kod yollarını çalıştırıyor — production davranışını makul ölçüde temsil ediyor.",
+    "Kapsam korundu: add_to_processing_queue/active_ids ve active_body_hashes dedup kontrolleri (AC-4/AC-5) dokunulmadan, sadece regresyon testiyle korundu."
+  ],
+  "risks": [
+    "Nadir double-fault senaryosu (yukarıda) orijinal hatanın dar bir varyantını hâlâ taşıyor — ayrı bir takip görevi olarak izlenmeli.",
+    "AC-6 (canlı log doğrulaması) kod testiyle doğrulanamaz, deploy sonrası en az 24 saatlik manuel log incelemesi gerekiyor — henüz yapılmadı."
+  ],
+  "caveman_review": {"complexity": "low", "unnecessary_files": 0, "unnecessary_helpers": 0, "unnecessary_abstractions": 0},
+  "scope_review": {"matches_atdd": true, "scope_expansion": false},
+  "ready_to_commit": {"atdd_satisfied": true, "tests_passed": true, "no_critical_findings": true, "scope_respected": true, "caveman_satisfied": true, "security_acceptable": true, "maintainability_acceptable": true, "no_blocking_risks": true},
+  "verdict": "approve"
+}

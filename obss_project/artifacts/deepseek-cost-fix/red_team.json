@@ -1,0 +1,74 @@
+{
+  "task": "deepseek-cost-fix",
+  "reviewed_at": "2026-08-25T00:00:00+03:00",
+  "summary": "AC-1/2/3/4/5/6 tam olarak testlerle dogrulanmis ve mantik dogru gorunuyor; ancak _track_spend() icindeki onceden var olan 'flash' vs 'deepseek' string-match sirasi bug'i, DeepSeek fallback cagrilarinin maliyetini gercek DeepSeek fiyati yerine yanlislikla Gemini-Flash fiyatiyla (daha dusuk) hesaplatiyor -- bu tam olarak bu gorevin cozmeye calistigi 'butce asimini gormeden fark etmeme' riskini panelde/loglarda gizliyor. Testler bu deger dogrulugunu kontrol etmedigi icin gecti (sadece 'provider' alanini kontrol ediyorlar), yani false-green riski var. Kalan tasarim (Groq once, DeepSeek fallback, bos-routes fallback, provider alani) ATDD'ye sadik ve CAVEMAN kararlari makul.",
+  "findings": [
+    {
+      "severity": "high",
+      "category": "correctness",
+      "file": "text_gen_parser.py",
+      "issue": "_track_spend() icinde `if \"flash\" in model_name:` kontrolu `elif \"deepseek\" in model_name:` kontrolunden ONCE geliyor (satir 107-111). `model_name='deepseek-v4-flash'` oldugunda string 'flash' iceriyor, dolayisiyla ilk dal (Gemini Flash fiyati: $0.075/$0.30) eslesiyor, gercek DeepSeek fiyati ($0.27/$1.10) hicbir zaman uygulanmiyor -- DeepSeek fallback maliyeti ~%72 dusuk gosteriliyor.",
+      "better_approach": "Kontrol sirasini tersine cevir: once `elif \"deepseek\" in model_name` kontrolunu yap (ya da `elif \"flash\" in model_name and \"deepseek\" not in model_name`), boylece 'deepseek-v4-flash' dogru fiyat dalina dusssun.",
+      "reason": "Bu gorevin asil hedefi (atdd.md Hedef bolumu) haftalik 500 TL butcenin asilmamasi ve provider bazli maliyet izlenebilirligi (AC-6, AC-7); yanlis hesaplanan DeepSeek maliyeti panelde/loglarda gercek harcamayi oldugundan dusuk gosterip kullanicinin butce asimini gec fark etmesine yol acar -- yani cozulmesi istenen sorunu gizliyor. Test dosyasi (`tests/test_deepseek_cost_fix.py::TestTrackSpendProvider::test_track_spend_provider_detection_deepseek`) sadece `provider=='deepseek'` alanini kontrol ediyor, `cost_usd`/`cost_try` degerini dogrulamiyor -- bu yuzden gate'ler PASS gostermis olsa da gercek deger hatasi kacmis (test-gap).",
+      "outcome": "fixed",
+      "outcome_detail": "Kontrol sirasi degistirildi: `deepseek` kontrolu artik `flash` kontrolunden once geliyor. Bagimsiz dogrulandi: deepseek-v4-flash artik $0.27/$1.10 formulunu kullaniyor, gemini-2.0-flash hala $0.075/$0.30 kullaniyor. 9/9 test hala PASS."
+    },
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "text_gen_parser.py",
+      "issue": "parse_async() icinde 429 hatasi Stage 2'de deepseek modeli calisirken de olusabilir; ancak kod kosulsuz olarak `key_manager.switch_to_next_async(key_type='groq', ...)` cagiriyor (satir 529), model_name deepseek olsa bile Groq anahtar havuzunu donduruyor -- gercekte DeepSeek icin ayri bir anahtar rotasyonu yok. Bu davranis diff'te DEGISTIRILMEDI (onceden de boyleydi), ama comment satiri 'Rotate Groq/DeepSeek keys' olarak guncellendi ki bu, davranisin artik iki saglayiciyi da destekledigi izlenimini yaratiyor -- yanlis/yanlis yonlendirici.",
+      "better_approach": "Ya yorum satirini eski haline ('Rotate Groq keys only') geri dondur ya da model_name'e gore `key_type` secimini gercekten dinamik yap (deepseek icin ayri anahtar tipi rotasyonu, veya en azindan deepseek 429'unda dogrudan bir sonraki modele gec).",
+      "reason": "Davranis Sozlesmesi tablosunun 5. satiri (atdd.md) sadece 'Groq kota/rate-limit' senaryosunu tanimliyor, DeepSeek 429 senaryosu icin bir AC yok -- ama kod artik DeepSeek'i de aynı `models_to_try` dongusune sokup 429 aldiginda gercekte hicbir sey yapmayan bir anahtar-rotasyonu deniyor, bu da 3 denemeyi bosa harcayip sonraki modele gecmeden once gereksiz gecikme/loglama yaratir; yanlis yorumla (comment) birlikte gelecekteki bir gelistiriciyi yaniltabilir."
+    },
+    {
+      "severity": "medium",
+      "category": "risk",
+      "file": "text_gen_parser.py",
+      "issue": "`_track_spend()`'deki provider tespiti binary: `if \"deepseek\" in model_name: provider=\"deepseek\" else: provider=\"groq\"` (satir 122-126). `parse_async()` icinde hala canli olan `if \"gemini\" in model_name:` dali (satir 453) bir gun tekrar aktif hale gelirse (`self.model_gemini` gercek bir gemini model adina donerse, ornegin rollback sirasinda), o cagri da _track_spend'e gonderilecek ve model adinda 'deepseek' gecmedigi icin YANLIS SEKILDE provider='groq' olarak kaydedilecek.",
+      "better_approach": "Provider tespitini 3-yollu yap: `\"deepseek\" in model_name -> \"deepseek\"`, `\"gemini\" in model_name -> \"gemini\"`, digerleri -> `\"groq\"` (ya da tum tanimli modelleri bir dict/sabit listede esleyip default'u `\"unknown\"` yap, sessizce 'groq' varsaymak yerine).",
+      "reason": "Kullanicinin sordugu soru tam olarak bunu dogruluyor: model adi ne deepseek ne bilinen bir Groq adi icermiyorsa mevcut kod sessizce 'groq' varsayiyor. Su an pratikte olu kod yolu (models_to_try listesinde gemini yok) ama gemini dali hala parse_async icinde canli oldugu ve rollback beklentisi (atdd.md 'Rollback Beklentisi') config degisikligiyle model degistirmeyi ongordugu icin, bir sonraki config degisikliginde sessizce yanlis etiketlenmis maliyet kayitlari birikebilir."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "`_resolve_neighborhood_async()` (satir 751-776) hala `self.model_fast` kullaniyor ve simdi 'kazara dogru' calisiyor (code_diff.md'de de itiraf edilmis: 'bilincli bir degisiklik degil, sabit yeniden adlandirmasinin pasif sonucu'). `self.model_fast` ileride tekrar degisirse (ornegin rollback'te DeepSeek'e donulurse) bu fonksiyon yine sessizce yanlis/var olmayan bir Groq modeline istek atmaya baslar.",
+      "better_approach": "`_resolve_neighborhood_async` icin acikca `'llama-3.1-8b-instant'` (ya da ayri bir `self.model_neighborhood` sabiti) kullanilmali, `self.model_fast`'e dolayli baglanti kaldirilmali.",
+      "reason": "atdd.md'nin 'Rollback Beklentisi' bolumu, geri donusun 'tek satirlik bir config degisikligi' olmasini bekliyor -- ama model_fast'i degistirmek bu fonksiyonu da (kapsamsiz sekilde) etkiliyor, bu da rollback'i once-degistirilmemis-olan bir fonksiyonu kirma riskiyle karmasik hale getirir."
+    }
+  ],
+  "strengths": [
+    "Stage 1'deki gercek bug (else dalinda `model=self.model_fast` yerine dongu degiskeni `model_to_use` kullanilmasi gerektigi) plan.md'de dogru tespit edilip diff'te dogru duzeltilmis; artik Stage 1 gercekten Groq'a gidiyor.",
+    "AC-3 (bos routes -> DeepSeek retry) mantigi `is_last_model` kontroluyle temiz sekilde ele alinmis, son modelde bos sonuc dahi olsa AC-4'e (mevcut davranis) geri donuyor -- Davranis Sozlesmesi tablosuyla (atdd.md satir 52) birebir uyumlu.",
+    "CAVEMAN karari (Stage1/Stage2 arasinda ortak helper cikarilmamasi) makul: iki kullanim yeri, farkli hata isleme detaylari (Stage1 basit break, Stage2 429/402/401 ozel dallari) var; erken soyutlama gereksiz karmasiklik getirirdi.",
+    "admin_panel.py'nin ai_spend_history.json'u hic okumadigi dogrulandi (grep ile teyit edildi) -- plan.md'de endise edilen 'eski kayitlarda provider yok, panel kirilir mi' riski su an icin gercek degil, code_diff.md'nin 'ayri panel degisikligi gerekmedi' karari dogru."
+  ],
+  "risks": [
+    "Groq gercek key henuz .env'e eklenmedi (kapsam disi, ama plan.md'de karar verildi: placeholder ile kod yazilip mock testlerle dogrulandi) -- gercek 401/429 davranisi VPS'te dogrulanana kadar bilinmiyor, mock testler gercek Groq SDK exception formatini (orn. groq.AuthenticationError sinifi) degil generic Exception simule ediyor; gercek SDK farkli bir exception hiyerarsisi kullaniyorsa 'if \"401\" in error_str' string-match yakalamayabilir.",
+    "_track_spend fiyat hesaplama bug'i (yukaridaki high finding) duzeltilmeden merge edilirse, kullanici 1 haftalik gercek trafik sonunda panelde/loglarda gorunen toplam maliyeti oldugundan dusuk gorup AC-7'yi (500 TL altinda kaldi mi) yanlis dogrulayabilir.",
+    "Stage 2 models_to_try = ['llama-3.1-8b-instant', 'deepseek-v4-pro', 'deepseek-v4-flash'] simdi ucu model deniyor (once bir tekti); tum modeller basarisiz olma senaryosunda toplam gecikme/deneme sayisi arttı (3 model x 3 deneme = 9 cagriya kadar), performans hedefi ('<5ms overhead') sadece secim mantigi icin olculmus, worst-case fallback zincirinin toplam gecikmesi atdd.md'de olculmemis."
+  ],
+  "caveman_review": {
+    "complexity": "medium",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes",
+  "post_fix_note": "Yuksek onemli bulgu (flash/deepseek check-order) commit oncesi duzeltildi ve bagimsiz dogrulandi (9/9 test PASS). Kalan 2 medium + 1 low bulgu (DeepSeek icin yanlis Groq key-rotasyonu tetiklenmesi + yanlis yorum, provider default'unun 3-yollu olmamasi, _resolve_neighborhood_async'in model_fast'e dolayli baglanti) dusuk riskli, pre-existing-adjacent kabul edilip kullaniciya bildirilerek commit'e izin verildi -- bunlar bu gorevin kapsaminda ZORUNLU degil."
+}

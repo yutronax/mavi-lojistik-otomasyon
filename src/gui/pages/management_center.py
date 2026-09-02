@@ -190,7 +190,7 @@ class ManagementCenterPage:
         self.tab_view = ft.TabBarView(
             controls=[
                 self._setup_yuk_tanim(),
-                self._setup_mahalle_sync(),
+                self._setup_mahalle(),
                 self._setup_gruplar(),
                 self._setup_kara_liste(),
                 ft.Container(content=await self.server_control.get_view(), expand=True),
@@ -244,8 +244,8 @@ class ManagementCenterPage:
         asyncio.create_task(self._load_yuk_data())
         return self.layout
 
-    def _setup_mahalle_sync(self):
-        # Mahalle UI Veri (Senkron Başlangıç)
+    def _setup_mahalle(self):
+        # Mahalle & Bölge Yönetimi UI
         self.il_data = [] # il_ilçe_mahalle.json içeriği
         self.il_dropdown = ft.Dropdown(label="İl Seçin", expand=True)
         self.il_dropdown.on_select = self._on_il_change
@@ -356,60 +356,6 @@ class ManagementCenterPage:
             )
         ], expand=True, spacing=20)
 
-    async def _setup_mahalle(self):
-        # Mahalle UI Veri
-        self.il_data = [] # il_ilçe_mahalle.json içeriği
-        self.il_dropdown = ft.Dropdown(label="İl Seçin", expand=True)
-        self.il_dropdown.on_select = self._on_il_change
-        
-        self.ilce_dropdown = ft.Dropdown(label="İlçe Seçin", expand=True)
-        self.ilce_dropdown.on_select = self._on_ilce_change
-        self.mahalle_list_view = ft.ListView(expand=True, spacing=5)
-        self.new_mahalle_field = ft.TextField(label="Yeni Mahalle Adı", expand=True)
-
-        asyncio.create_task(self._load_il_data())
-
-        return ft.Container(
-            content=ft.Column([
-                ft.Row([
-                    ft.Icon(ft.Icons.LOCATION_ON_ROUNDED, color=AppColors.ACCENT, size=18),
-                    ft.Text("Mahalle & Bölge Yönetimi", size=18, weight="bold", color=AppColors.TEXT),
-                ]),
-                ft.Divider(color="white10"),
-                ft.Row([
-                    self.il_dropdown,
-                    self.ilce_dropdown
-                ], spacing=10),
-                ft.Row([
-                    self.new_mahalle_field,
-                    ft.IconButton(
-                        icon=ft.Icons.ADD_LOCATION_ALT_ROUNDED,
-                        icon_color="white",
-                        bgcolor=AppColors.PRIMARY,
-                        on_click=lambda _: asyncio.create_task(self._add_mahalle()),
-                        tooltip="Mahalle Ekle",
-                        style=ft.ButtonStyle(
-                            overlay_color={
-                                ft.ControlState.HOVERED: ft.Colors.with_opacity(0.2, "white"),
-                                ft.ControlState.PRESSED: ft.Colors.with_opacity(0.4, "white"),
-                            }
-                        )
-                    )
-                ], spacing=10),
-                ft.Text("Kayıtlı Mahalleler", size=12, weight="bold", color=AppColors.TEXT_MUTED),
-                ft.Container(
-                    content=self.mahalle_list_view,
-                    expand=True,
-                    bgcolor=AppColors.BG_DEEP,
-                    border_radius=12,
-                    padding=5
-                )
-            ], spacing=15),
-            padding=20,
-            bgcolor=AppColors.SURFACE,
-            border_radius=15,
-            shadow=[AppStyles.CARD_SHADOW],
-        )
 
     # --- Asenkron Metodlar: Mahalle ---
     async def _load_il_data(self):
@@ -753,15 +699,19 @@ class ManagementCenterPage:
         except Exception as e:
             self._show_error(f"Silme hatası: {e}")
 
-    async def _fetch_whatsapp_groups(self):
+async def _fetch_whatsapp_groups(self):
         try:
-            self.fetch_status_text.value = "⏳ API'den gruplar çekiliyor..."
+            from src.fetchers.whapi_fetcher import fetch_groups, _GROUPS_CACHE, _GROUPS_CACHE_TIME
+            
+            if len(_GROUPS_CACHE) > 0 and time.time() - _GROUPS_CACHE_TIME < 1800:  # 30 minutes TTL
+                self.fetch_status_text.value = "Gruplar bellekten yükleniyor..."
+            else:
+                self.fetch_status_text.value = "⏳ API'den gruplar çekiliyor..."
+                
             self.fetch_status_text.color = AppColors.WARNING
             self.whatsapp_groups_list_view.controls = []
             self._safe_update(self.fetch_status_text)
             self._safe_update(self.whatsapp_groups_list_view)
-
-            from src.fetchers.whapi_fetcher import fetch_groups
 
             loop = asyncio.get_event_loop()
             all_groups = await loop.run_in_executor(None, fetch_groups)
@@ -772,13 +722,18 @@ class ManagementCenterPage:
                 self._safe_update(self.fetch_status_text)
                 return
 
+            if len(_GROUPS_CACHE) > 0 and all_groups and _GROUPS_CACHE[0] == all_groups[0]:
+                self.fetch_status_text.value = "Gruplar bellekten yüklendi (cache, 30dk geçerli)"
+                self.fetch_status_text.color = AppColors.SUCCESS
+
             saved_ids = {g.get('id') for g in self.groups}
 
             await self._fetch_whatsapp_groups_refresh_list(all_groups, saved_ids)
 
-            self.fetch_status_text.value = f"✅ {len(all_groups)} grup bulundu. Kaydetmek için ➕ butonuna basın."
-            self.fetch_status_text.color = AppColors.SUCCESS
-            self._safe_update(self.fetch_status_text)
+            if not (len(_GROUPS_CACHE) > 0 and all_groups and _GROUPS_CACHE[0] == all_groups[0]):
+                self.fetch_status_text.value = f"✅ {len(all_groups)} grup bulundu. Kaydetmek için ➕ butonuna basın."
+                self.fetch_status_text.color = AppColors.SUCCESS
+                self._safe_update(self.fetch_status_text)
 
         except Exception as e:
             self.fetch_status_text.value = f"❌ Hata: {e}"

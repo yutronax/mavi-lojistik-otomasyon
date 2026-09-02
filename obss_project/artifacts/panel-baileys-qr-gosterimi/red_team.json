@@ -1,0 +1,67 @@
+{
+  "task": "panel-baileys-qr-gosterimi",
+  "reviewed_at": "2026-09-02T08:01:10Z",
+  "summary": "Uygulama atdd.md'deki 6 AC'nin çoğunu doğru karşılıyor, auth/atomic-write/require.main guard doğru uygulanmış ve bağımsız olarak doğrulandı. Ancak AC-6'nın 'kısmi başarı → asla 500 dönme' sözleşmesinde test edilmemiş bir tip-hatası boşluğu var (generated_at sayısal olmayan bir JSON değeriyse TypeError → 500), ve code_diff.md'deki 'frontend kapsam dışıydı, sonradan onayla eklendi' anlatısı atdd.md/plan.md ile çelişiyor (frontend baştan beri kapsamdaydı).",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "correctness",
+      "file": "src/api/admin_panel.py",
+      "issue": "[DÜZELTİLDİ] `/api/whatsapp/qr` route'unda sadece `json.JSONDecodeError`/`IOError`/`OSError` yakalanıyordu. Dosya sözdizimsel olarak GEÇERLİ JSON ama `generated_at` alanı sayısal değilse, satır 818'deki `now_ms - generated_at` TypeError fırlatıp yakalanmadan 500'e düşüyordu.",
+      "better_approach": "UYGULANDI: satır 812'deki kontrol `not qr_value or not generated_at` → `not qr_value or not isinstance(generated_at, (int, float))` olarak genişletildi. Ayrı bir red-step testi (`test_qr_endpoint_non_numeric_generated_at_not_500`) önce TypeError/500 ile red olarak doğrulandı, sonra düzeltmeyle yeşile döndü. Tam suite (72/72) regresyonsuz geçti.",
+      "reason": "atdd.md Davranış Sözleşmesi satır 7 'Kısmi başarı ... 500 DÖNMEZ' diyor; bu artık test-korumalı bir garanti."
+    },
+    {
+      "severity": "low",
+      "category": "scope",
+      "file": "obss_project/artifacts/panel-baileys-qr-gosterimi/code_diff.md",
+      "issue": "code_diff.md'nin CAVEMAN bölümü 'panel frontend'i bilinçli olarak DOKUNULMADI' diyor, hemen ardından 'Frontend Eklendi (kullanıcı onayıyla, ikinci bir dispatch)' notu geliyor — çelişkili. atdd.md satır 81 ve plan.md frontend değişikliğini BAŞTAN BERİ plana dahil etmişti; bu bir kapsam genişlemesi değil, ilk dispatch'in atladığı bir iş kalemiydi.",
+      "better_approach": "code_diff.md'deki anlatı 'frontend plan.md'de baştan beri vardı, ilk dispatch atladı, ikinci dispatch tamamladı' şeklinde düzeltilmeli.",
+      "reason": "Yanlış 'kapsam dışıydı ama onayla eklendi' anlatısı gelecekte gerçek bir scope-creep ile karıştırılabilir, ATDD izlenebilirliğini zayıflatıyor."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "obss_project/artifacts/panel-baileys-qr-gosterimi/atdd.md",
+      "issue": "atdd.md Davranış Sözleşmesi satır 4 (AC-3) `{\"error\": \"login_required\"}` gövdesi bekliyor, ama gerçek implementasyon mevcut `require_auth` dekoratörünün gerçek metnini (`{\"error\": \"Yetkisiz\"}`) kullanıyor — kod doğru (mevcut deseni takip ediyor) ama atdd.md dokümanı hiç güncellenmedi.",
+      "better_approach": "atdd.md satır 4'ü `Yetkisiz` olarak güncelle veya dipnotla 'gerçek koda uyum sağlandı' notu ekle.",
+      "reason": "Doküman-kod uyumsuzluğu küçük ama gerçek bir bakım riski — gelecekte atdd.md'ye güvenen biri yanlış entegrasyon testi yazabilir."
+    }
+  ],
+  "strengths": [
+    "sidecar/bridge.js: atomicWrite() hem writeQrState hem writeAuthenticatedState için tmp+rename deseni kullanıyor (satır 118-127), try/catch ile sarmalı — yazma hatası bridge.js'in ana WhatsApp bağlantı döngüsünü asla çökertmiyor (atdd.md Rollback Beklentisi ile birebir uyumlu).",
+    "require.main === module guard'ı doğru uygulanmış (bridge.js satır 229-231) ve sidecar/test_baileys_qr_state.js gerçekten require('./bridge.js') çağırarak bunu doğruluyor.",
+    "/api/whatsapp/qr route'u gerçekten @require_auth ile korunuyor, 401/waiting/authenticated/need_auth durumları hiçbir zaman aynı gövdeyi paylaşmıyor.",
+    "git diff --unified=0 ile bağımsız doğrulandı: B310/B104 bulguları gerçekten bu görevin diff hunk'larının DIŞINDA — verify_report.md'nin iddiası doğru.",
+    "CSS display:none tekrarı düzeltmesi kalıcı, tek satırda ikinci bir display: tanımı yok."
+  ],
+  "risks": [
+    "İki ayrı proses arasında dosya tabanlı JSON paylaşımı; Windows'ta fs.renameSync pratik olarak atomik kabul edilir ama %100 garantili değil — atdd.md bunu bilinen bir risk olarak zaten kabul etmiş.",
+    "generated_at tip-hatası boşluğu prod'da bridge.js her zaman Date.now() yazdığı için pratikte tetiklenmesi zor, ama dosya elle/harici bozulursa panel 500 dönebilir — düşük olasılık, orta etki."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve",
+  "post_review_fix": {
+    "applied": true,
+    "description": "Medium bulgu (generated_at tip-hatası → 500) kullanıcı onayıyla commit öncesi düzeltildi: red-step testi eklendi (önce fail ile doğrulandı), sonra admin_panel.py:812 tip kontrolüyle güncellendi. Tam suite 72/72 (71 → 72, yeni test dahil) regresyonsuz geçti. Kalan iki 'low' bulgu (code_diff.md anlatı tutarsızlığı, atdd.md doküman-kod uyumsuzluğu) dokümantasyon düzeyinde, commit'i engellemiyor."
+  }
+}

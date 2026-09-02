@@ -1,0 +1,46 @@
+{
+  "task": "deepseek-primary-balance-alert",
+  "reviewed_at": "2026-08-31T00:00:00Z",
+  "summary": "Implementasyon atdd.md'nin 6 AC'sini doğru karşılıyor; models_to_try sırası gerçekten DeepSeek-birincil, DeepSeek API şeması doğru parse ediliyor (gerçek API ile canlı doğrulandı), /api/status jsonify kullanıyor. 1 medium bulgu (AC-1 testlerinin __init__'teki alakasız atama sırası yüzünden gerçek regresyonu yakalamaması) bulunup düzeltildi ve kırılma-kanıtı deneyiyle doğrulandı; 2 low bulgu (stale yorum, geniş except bloğu) düşük öncelikli, bloklamıyor.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "test-gap",
+      "file": "tests/test_deepseek_primary_balance_alert.py",
+      "issue": "test_stage1/2_model_order_deepseek_first testleri inspect.getsource(TextGenParser) ile TÜM sınıf kaynağını alıp ilk 'deepseek'/'openai/gpt-oss-20b' string konumunu karşılaştırıyordu — __init__'teki değişmeyen attribute atamaları (satır 68-70) her zaman bu sırayı sağladığı için, models_to_try'ın GERÇEK sırası yanlışlıkla eskiye (Groq-birincil) dönse bile bu testler PASS ederdi.",
+      "better_approach": "Testler artık SADECE ilgili stage metodunun (_extract_locations_stage1_async, parse_async) kaynağını alıp içindeki models_to_try = [...] ifadesini regex ile izole ediyor.",
+      "reason": "Doğrudan doğrulandı: models_to_try satır 271 geçici olarak eski sıraya alındığında yeni test GERÇEKTEN FAIL etti (kırılma-kanıtı deneyi), düzeltme sonrası PASS. Bağımsız olarak text_gen_parser.py'nin son halinin (satır 271, 445) doğru kaldığı teyit edildi. Düzeltildi."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model yorumu artık yanlış (Groq artık birincil değil).",
+      "better_approach": "Yorum '# Groq fallback model' olarak güncellenebilir.",
+      "reason": "Kozmetik, fonksiyonel etkisi yok, düzeltilmedi (düşük öncelikli)."
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "src/api/admin_panel.py",
+      "issue": "_check_deepseek_balance_once'ın except Exception bloğu, ağ hatası/HTTP hata kodu/JSON parse hatası gibi farklı hata sınıflarını aynı 'unknown' sonucuna indirgiyor.",
+      "better_approach": "401/403 gibi kalıcı hatalar ile geçici ağ hataları ayrı loglanabilir.",
+      "reason": "atdd.md AC-4 kasıtlı olarak sadece 'unknown' istiyor (basit tasarım) — blocker değil, düzeltilmedi."
+    }
+  ],
+  "strengths": [
+    "DeepSeek /user/balance şema düzeltmesi gerçek API'ye karşı canlı doğrulandı (VPS'teki gerçek anahtarla, is_available: false, balance_usd: -0.02 doğru parse edildi).",
+    "models_to_try sırası her iki stage'de de gerçekten DeepSeek-birincil (git diff ile doğrulandı).",
+    "_deepseek_balance_cache deseni mevcut kabul edilmiş _status_cache deseniyle birebir tutarlı, yeni bir risk sınıfı değil.",
+    "tests/test_deepseek_cost_fix.py'deki 5 test değişikliği git diff ile doğrulandı: mock response içerikleri de (sadece assertion değil) tutarlı şekilde tersine çevrilmiş — gevşetme değil, gerçek mimari tersine çevirme.",
+    "41/41 test bağımsız olarak birden fazla kez PASS."
+  ],
+  "risks": [
+    "DeepSeek'i birincil yapmak aylık maliyeti artırabilir (kullanıcı bilerek onayladı, izlenmeli).",
+    "Gerçek DeepSeek hesabı hâlâ negatif bakiyede (-$0.02) — kod deploy edilse bile DeepSeek doldurulmadan sistem tam kesintiden kurtulmaz, kullanıcıya deploy sonrası hatırlatılacak."
+  ],
+  "caveman_review": {"complexity": "low", "unnecessary_files": 0, "unnecessary_helpers": 0, "unnecessary_abstractions": 0},
+  "scope_review": {"matches_atdd": true, "scope_expansion": false},
+  "ready_to_commit": {"atdd_satisfied": true, "tests_passed": true, "no_critical_findings": true, "scope_respected": true, "caveman_satisfied": true, "security_acceptable": true, "maintainability_acceptable": true, "no_blocking_risks": true},
+  "verdict": "approve"
+}

@@ -1,0 +1,36 @@
+{
+  "task": "deepseek-max-tokens-cap",
+  "reviewed_at": "2026-08-31T00:00:00Z",
+  "summary": "İlk tur incelemede bulunan medium-severity bulgu (finish_reason=='length' durumunda kırılgan _process_raw_json_async onarım yoluna gidilmesi — korumasız ikinci json.loads() ve sessiz kısmi-veri-kaybı riski) düzeltildi: artık kesilme tespit edildiğinde ve son model değilse gerçekten sıradaki modele/Groq'a geçiliyor, atdd.md'nin orijinal 'yarım veri asla sessizce kabul edilmez' ilkesi koda taşındı. 58/58 test PASS, bağımsız doğrulandı.",
+  "findings": [
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "text_gen_parser.py",
+      "issue": "Stage 1'e (satır ~279-300) kasıtlı olarak finish_reason kontrolü/log eklenmedi (atdd.md bunu kasıtlı olarak Stage 2'ye sınırlamıştı). Stage 1 kesilirse, kesik metin sessizce Stage 2'ye 'hint' olarak geçiyor, hiçbir log/uyarı yok.",
+      "better_approach": "Gelecekte, aynı finish_reason kontrolü Stage 1'e de eklenebilir.",
+      "reason": "Gözlemlenebilirlik açısından ucuz bir ek olurdu, ama atdd.md'nin kasıtlı scope kararı olduğu için düşük öncelikli, bu görevde düzeltilmedi."
+    },
+    {
+      "severity": "low",
+      "category": "risk",
+      "file": "obss_project/artifacts/deepseek-max-tokens-cap/atdd.md",
+      "issue": "1500 token cap değeri, production medyanının (Ağustos 2709 token) altında seçilmiş — normal (runaway olmayan ama şişkin) yanıtların bir kısmı da artık sıradaki modele düşürülecek (önceden sessizce kabul ediliyordu, şimdi düzeltmeyle GERÇEKTEN fallback tetikleniyor).",
+      "better_approach": "Deploy sonrası 48 saatlik gözlemde, ne sıklıkla fallback'in gerçek 'runaway' değil 'normal ama uzun mesaj' yüzünden tetiklendiği izlenmeli.",
+      "reason": "atdd.md'nin kendi Benchmark'ı (1500+ token oranı <%2) bunu kısmen kapsıyor ama fallback-tetiklenme oranını ayrıca izlemek faydalı olur — düşük öncelikli, kod değişikliği gerektirmiyor."
+    }
+  ],
+  "strengths": [
+    "İlk turda bulunan gerçek bir kırılganlık (korumasız ikinci json.loads, sessiz kısmi veri kaybı) doğrudan koda düzeltme olarak taşındı — testin beklentisini gevşetmek yerine davranışı atdd.md'nin doğru niyetine uydurma tercih edildi.",
+    "Düzeltme sonrası `test_stage2_json_truncated_triggers_fallback_and_logs`'un 'Groq çağrılmalı' assertion'ı GERÇEKTEN geçiyor (bağımsız doğrulandı).",
+    "Scope hâlâ atdd.md ile eşleşiyor: sadece Stage 2'nin akışına (is_truncated bayrağı + break) dokunuldu, Stage 1'e veya _process_raw_json_async'in kendisine dokunulmadı.",
+    "58/58 test bağımsız olarak birden fazla kez PASS."
+  ],
+  "risks": [
+    "Son model durumunda (is_last_model=True) hâlâ _process_raw_json_async'in kırılgan onarım yoluna düşülüyor — kabul edilebilir (hiçbir model başarılı olamadıysa en iyi çabayla devam etmek mantıklı), ama bu senaryo hâlâ teorik olarak korumasız ikinci json.loads() riskini taşıyor. Bu görevin kapsamı dışında bırakıldı."
+  ],
+  "caveman_review": {"complexity": "low", "unnecessary_files": 0, "unnecessary_helpers": 0, "unnecessary_abstractions": 0},
+  "scope_review": {"matches_atdd": true, "scope_expansion": false},
+  "ready_to_commit": {"atdd_satisfied": true, "tests_passed": true, "no_critical_findings": true, "scope_respected": true, "caveman_satisfied": true, "security_acceptable": true, "maintainability_acceptable": true, "no_blocking_risks": true},
+  "verdict": "approve"
+}

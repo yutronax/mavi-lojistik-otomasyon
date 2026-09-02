@@ -196,7 +196,11 @@ class YukBuradaSubmitter:
         # 2. If Login fails with 404, try Register (Strict Check)
         if login_res.get('status') == 404:
             # Check if we knew this user
-            self.logger.warning(f"[!] User {clean_phone} known locally as {self.known_users[clean_phone]} but 404 on API. Re-registering...")
+            known_id = self.known_users.get(clean_phone)
+            if known_id:
+                self.logger.warning(f"[!] User {clean_phone} known locally as {known_id} but 404 on API. Re-registering...")
+            else:
+                self.logger.info(f"[!] User {clean_phone} not known locally, 404 on API. Registering...")
                 
             self.logger.info(f"User not found (404) for {clean_phone}, attempting registration...")
             reg_res = self.register_phone_number(clean_phone, full_name=full_name, email=email)

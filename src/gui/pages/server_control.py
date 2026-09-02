@@ -7,6 +7,11 @@ from src.gui.styles import AppColors, AppStyles
 from src.utils.server_manager_async import AsyncServerManager
 from src.services.data_service import DataService
 from src.services.data_service_async import AsyncDataService
+from src.utils.command_rate_limiter import get_rate_limiter
+from src.utils.health_monitor import get_health_monitor
+from src.utils.access_control import get_access_control, Permission
+from src.gui.components.vps_monitoring_dashboard import VPSMonitoringDashboard
+from src.utils.auto_restart_manager import get_auto_restart_manager
 
 
 class ServerControlPage:
@@ -73,6 +78,21 @@ class ServerControlPage:
         # Performance/Safe Threading
         self.status_update_active = False
 
+        # Health monitoring
+        self.health_monitor = get_health_monitor()
+        self.health_monitor.register_alert_callback(self._show_health_alert)
+
+        # VPS Monitoring Dashboard
+        self.monitoring_dashboard = VPSMonitoringDashboard(page)
+
+        # Auto-Restart Manager
+        self.auto_restart = get_auto_restart_manager(
+            check_interval=30,  # Check every 30 seconds
+            down_threshold=300,  # Restart if down for 5 minutes
+            max_attempts=3
+        )
+        self.auto_restart.register_callback(self._show_auto_restart_notification)
+
 
     async def _update_status(self):
         while True:
@@ -93,10 +113,10 @@ class ServerControlPage:
                 
                 self.cpu_text.value = f"{stats.get('cpu', 0)}%"
                 self.mem_text.value = f"{int(stats.get('memory', 0))} MB"
-                
+
                 uptime_ms = stats.get('uptime', 0)
                 if uptime_ms > 0:
-                    delta = datetime.timedelta(milliseconds=datetime.datetime.now().timestamp()*1000 - uptime_ms)
+                    delta = datetime.timedelta(milliseconds=uptime_ms)
                     self.uptime_text.value = str(delta).split('.')[0]
                 else:
                     self.uptime_text.value = "0s"
@@ -113,12 +133,39 @@ class ServerControlPage:
             auto_onay = await self.data_service.load_config('vps_auto_onay')
             # Eğer config yoksa None dönebilir, varsayılan False
             if auto_onay is None: auto_onay = False
-            
+
             self.auto_onay_switch.value = bool(auto_onay)
             self._update_auto_onay_text(bool(auto_onay))
             self.page.update()
         except Exception as e:
             print(f"Error loading VPS settings: {e}")
+
+    def _show_health_alert(self, message: str):
+        """Show health alert in UI"""
+        self.page.snack_bar = ft.SnackBar(
+            ft.Text(message),
+            bgcolor=AppColors.DANGER if "🔴" in message else AppColors.DANGER,
+            duration=5000
+        )
+        self.page.snack_bar.open = True
+        try:
+            self.page.update()
+        except:
+            pass
+
+    def _show_auto_restart_notification(self, message: str):
+        """Show auto-restart notification"""
+        color = AppColors.SUCCESS if "✅" in message else (AppColors.DANGER if "❌" in message else AppColors.PRIMARY)
+        self.page.snack_bar = ft.SnackBar(
+            ft.Text(message),
+            bgcolor=color,
+            duration=4000
+        )
+        self.page.snack_bar.open = True
+        try:
+            self.page.update()
+        except:
+            pass
 
     def _update_auto_onay_text(self, is_active):
         if is_active:
@@ -158,10 +205,39 @@ class ServerControlPage:
 
 
     async def _run_command(self, cmd_type):
+        # Permission check
+        access_ctrl = get_access_control()
+        permission_map = {
+            "restart": Permission.RESTART_SERVICE,
+            "stop": Permission.STOP_SERVICE,
+            "start": Permission.START_SERVICE,
+            "pull": Permission.GIT_PULL
+        }
+
+        required_permission = permission_map.get(cmd_type)
+        if required_permission and not access_ctrl.has_permission(required_permission):
+            self.page.snack_bar = ft.SnackBar(
+                ft.Text(f"Yetkiniz yok: {required_permission.value}"),
+                bgcolor=AppColors.DANGER
+            )
+            self.page.snack_bar.open = True
+            self.page.update()
+            return
+
+        # Rate limiting check
+        limiter = get_rate_limiter()
+        allowed, message = limiter.is_allowed(cmd_type)
+
+        if not allowed:
+            self.page.snack_bar = ft.SnackBar(ft.Text(message), bgcolor=AppColors.DANGER)
+            self.page.snack_bar.open = True
+            self.page.update()
+            return
+
         self.page.snack_bar = ft.SnackBar(ft.Text("Komut gönderildi..."), bgcolor=AppColors.PRIMARY)
         self.page.snack_bar.open = True
         self.page.update()
-        
+
         success, output = (False, "Unknown")
         if cmd_type == "restart":
             success, output = await self.manager.restart()
@@ -172,7 +248,9 @@ class ServerControlPage:
         elif cmd_type == "pull":
             success, output = await self.manager.git_pull()
 
-            
+        # Record the operation
+        limiter.record_operation(cmd_type)
+
         self.page.snack_bar = ft.SnackBar(
             ft.Text("Başarılı" if success else f"Hata: {output}"),
             bgcolor=AppColors.SUCCESS if success else AppColors.DANGER,
@@ -254,6 +332,11 @@ class ServerControlPage:
         )
 
         content = ft.Column([
+            # VPS Monitoring Dashboard
+            self.monitoring_dashboard.build(),
+
+            ft.Container(height=15),
+
             ft.Row([
                 ft.Column([
                     ft.Text("VPS Kontrol Merkezi", size=24, weight="bold", color=AppColors.TEXT),
@@ -262,7 +345,7 @@ class ServerControlPage:
                 self.status_chip
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             ft.Divider(color="white10", height=30),
-            
+
             # Metrics
             ft.Row([
                 self._create_stat_card("CPU", ft.Icons.MEMORY, self.cpu_text),
@@ -316,6 +399,11 @@ class ServerControlPage:
             asyncio.create_task(self._update_status())
             asyncio.create_task(self._refresh_logs())
             asyncio.create_task(self._load_settings())
+            asyncio.create_task(self.health_monitor.monitor_health(self.manager.get_status_summary))
+            asyncio.create_task(self.monitoring_dashboard.start_monitoring())
+            asyncio.create_task(self.auto_restart.start_monitoring(
+                self.manager.get_status_summary,
+                self.manager.restart
+            ))
 
-        
         return content

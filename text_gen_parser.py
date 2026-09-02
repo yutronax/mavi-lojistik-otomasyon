@@ -15,6 +15,7 @@ import asyncio
 import threading
 import time
 import random
+import hashlib
 from typing import List, Dict, Any
 from datetime import datetime
 
@@ -62,12 +63,18 @@ class TextGenParser:
         # Using threading.Semaphore because we use ThreadPoolExecutor in Orchestrator
         self.semaphore = threading.Semaphore(max_concurrent)
         
-        # Models
-        self.model_fast = 'deepseek-chat'
-        self.model_robust = 'deepseek-chat'
-        self.model_deepseek = 'deepseek-chat'
-        self.model_gemini = 'deepseek-chat'
-        self.fallback_models = ['llama-3.1-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
+        # Models: DeepSeek primary, Groq fallback
+        # DÜZELTME (2026-09-01): atdd.md/deepseek-primary-balance-alert AC-1
+        # açıkça "deepseek-v4-flash İLK denenen model olur" diyordu ama
+        # uygulama yanlışlıkla pahalı 'deepseek-v4-pro'yu birincil yapmıştı
+        # (spesifikasyon sapması, gerçek maliyete yol açtı — kullanıcı fark
+        # etti). flash da DeepSeek gibi günlük limitsiz, çok daha ucuz;
+        # pro artık ekstra bir fallback olarak duruyor, birincil değil.
+        self.model_robust = 'deepseek-v4-flash'  # DeepSeek birincil (ucuz, günlük limitsiz)
+        self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
+        self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
+        self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
+        self.fallback_models = ['deepseek-v4-pro']  # DeepSeek fallback (flash başarısız olursa)
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
@@ -104,24 +111,33 @@ class TextGenParser:
     def _track_spend(self, model_name: str, input_tokens: int, output_tokens: int):
         """Estimates, logs and persists spending based on model prices."""
         cost = 0.0
-        if "flash" in model_name:
-            # $0.075 / 1M input, $0.30 / 1M output
-            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
-        elif "deepseek" in model_name:
+        if "deepseek" in model_name:
             cost = (input_tokens * 0.27 / 1_000_000) + (output_tokens * 1.10 / 1_000_000)
+        elif "flash" in model_name:
+            # $0.075 / 1M input, $0.30 / 1M output (Gemini Flash)
+            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+        elif "gpt-oss-20b" in model_name:
+            # Groq OpenAI GPT-OSS 20B: $0.075/$0.30 per 1M (estimated cost tracking)
+            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
         elif "llama-3.3-70b" in model_name:
-            # Groq 70b approx: $0.59 / 1M input, $0.79 / 1M output
             cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
-        
+
         if cost > 0:
             cost_try = cost * 33 # Approx 33 TL per USD
-            
+
+            # Detect provider from model name
+            if "deepseek" in model_name:
+                provider = "deepseek"
+            else:
+                provider = "groq"
+
             # Persist spend data
             spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
             history = load_json_safe(spend_file, default=[])
             entry = {
                 "timestamp": datetime.now().isoformat(),
                 "model": model_name,
+                "provider": provider,
                 "input": input_tokens,
                 "output": output_tokens,
                 "cost_usd": cost,
@@ -129,9 +145,9 @@ class TextGenParser:
             }
             history.append(entry)
             save_json_safe(spend_file, history)
-            
-            logger.info(f"💰 SPEND TRACKER [{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
-            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Total Entries: {len(history)}")
+
+            logger.info(f"💰 SPEND TRACKER [{provider}][{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
+            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Provider: {provider} | Total Entries: {len(history)}")
 
     def _get_client(self):
         """Synchronous client for legacy methods."""
@@ -147,8 +163,8 @@ class TextGenParser:
         persistence_manager.queue_write(cache_path, self.neighborhood_cache)
 
     def _get_model_for_message(self, message: str) -> str:
-        """Determines which model to use. Prioritize Gemini if requested."""
-        return self.model_gemini
+        """Determines which model to use. Primary: Groq (Llama)."""
+        return 'openai/gpt-oss-20b'  # Groq primary model
 
     def _tag_cities(self, text: str) -> str:
         """Finds all Turkish cities and tags them like [CITY] using safe regex replace."""
@@ -239,16 +255,16 @@ class TextGenParser:
         return self._tag_cities(text)
 
     async def _extract_locations_stage1_async(self, message: str) -> str:
-        """Stage 1: Fast extraction of just origins and destinations (Async)."""
+        """Stage 1: Fast extraction of just origins and destinations (Async). Groq -> DeepSeek fallback."""
         clean_msg = self._clean_message(message)
-        
+
         # --- REGEX DISCOVERY ---
         # Find all Turkish cities tagged in the message to give AI a hint
         # The message is already tagged by parse_async -> _clean_message
         found_tags = re.findall(r'\[(.*?)\]', clean_msg)
         hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
 
-        system_prompt = """You are a logistics location extractor. 
+        system_prompt = """You are a logistics location extractor.
 RULES:
 1. If a line contains 'LOCATION YÜKLER', 'LOCATION YÜKLEMELİ' or 'LOCATION ÇIKIŞLI', that LOCATION is the ORIGIN for ALL subsequent destinations until a '---' separator or new header.
 2. '---' separators mark SECTION BOUNDARIES. Each section has its own ORIGIN header. NEVER carry an origin across a '---' boundary.
@@ -256,56 +272,53 @@ RULES:
 4. NEVER create routes between two list items (chaining). Only HEADER -> list_item routes.
 5. Output ONLY the routes in 'ORIGIN -> DESTINATION' format. No explanations."""
         user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
-        model_to_use = self.model_gemini
-        
+
+        # Stage 1: Try DeepSeek first (primary), then Groq
+        models_to_try = ['deepseek-v4-flash', 'openai/gpt-oss-20b']
+
         with self.semaphore:
-            for attempt in range(3):
-                try:
-                    if "gemini" in model_to_use:
-                        client = self._get_gemini_client()
-                        response = await asyncio.to_thread(
-                            client.models.generate_content,
-                            model=model_to_use,
-                            contents=f"{system_prompt}\n\n{user_prompt}"
-                        )
-                        text = response.text
-                        self._track_spend(model_to_use, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
-                        return text.strip()
-                    elif "deepseek" in model_to_use:
-                        client = self._get_deepseek_client()
-                        response = await client.chat.completions.create(
-                            model=model_to_use,
-                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                            temperature=0.0
-                        )
-                        text = response.choices[0].message.content
-                        self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        return text.strip()
-                    else:
-                        # Fallback for Stage 1 if needed
-                        client = self._get_async_client()
-                        response = await client.chat.completions.create(
-                            model=self.model_fast,
-                            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                            temperature=0.0
-                        )
-                        text = response.choices[0].message.content
-                        self._track_spend(self.model_fast, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        return text.strip()
-                except RuntimeError as e:
-                    if "interpreter shutdown" in str(e):
-                        return ""
-                    raise
-                except Exception as e:
-                    error_str = str(e)
-                    if "429" in error_str and "gemini" in model_to_use:
-                        logger.warning(f"Stage 1 Gemini Rate Limit. Rotating key...")
-                        if await self.key_manager.switch_to_next_async(key_type='google', reason="Stage 1 Limit"):
-                            continue
-                    
-                    print(f"STAGE 1 ERROR: {e}")
-                    logger.warning(f"Stage 1 Async failed: {str(e)[:100]}")
-                    return ""
+            for model_to_use in models_to_try:
+                for attempt in range(3):
+                    try:
+                        if "deepseek" in model_to_use:
+                            client = self._get_deepseek_client()
+                            response = await client.chat.completions.create(
+                                model=model_to_use,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0,
+                                max_tokens=1500
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            return text.strip()
+                        else:
+                            # Groq client (llama model)
+                            client = self._get_async_client()
+                            response = await client.chat.completions.create(
+                                model=model_to_use,
+                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                temperature=0.0,
+                                reasoning_effort="low",
+                                max_tokens=1500
+                            )
+                            text = response.choices[0].message.content
+                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            return text.strip()
+                    except RuntimeError as e:
+                        if "interpreter shutdown" in str(e):
+                            return ""
+                        raise
+                    except Exception as e:
+                        error_str = str(e)
+                        if "429" in error_str:
+                            logger.warning(f"Stage 1 {model_to_use} Rate Limit. Trying next model...")
+                            # Move to next model
+                            break
+
+                        print(f"STAGE 1 ERROR [{model_to_use}]: {e}")
+                        logger.warning(f"Stage 1 {model_to_use} failed: {str(e)[:100]}")
+                        # Move to next model
+                        break
         return ""
 
     async def parse_async(self, message: str) -> list:
@@ -436,12 +449,16 @@ Return ONLY a JSON object in this format:
         if len(message) > 8000:
             message = message[:8000] + "... [TRUNCATED]"
 
-        models_to_try = [target_model, self.model_robust] + self.fallback_models
+        # Primary model: DeepSeek (model_robust + fallback_models), Fallback: Groq
+        models_to_try = [self.model_robust] + self.fallback_models + ['openai/gpt-oss-20b']
         models_to_try = list(dict.fromkeys(models_to_try))
 
+        last_error = None
         with self.semaphore:
-            for model_name in models_to_try:
+            for model_idx, model_name in enumerate(models_to_try):
+                is_last_model = (model_idx == len(models_to_try) - 1)
                 for attempt in range(3):
+                    is_truncated = False  # Initialize before any model call
                     try:
                         if "gemini" in model_name:
                             client = self._get_gemini_client()
@@ -458,23 +475,67 @@ Return ONLY a JSON object in this format:
                                 model=model_name,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                response_format={"type": "json_object"}
+                                response_format={"type": "json_object"},
+                                max_tokens=1500
                             )
+                            is_truncated = response.choices[0].finish_reason == 'length'
+                            if is_truncated:
+                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
                         else:
+                            # Groq client (llama model)
                             client = self._get_async_client()
                             response = await client.chat.completions.create(
                                 model=model_name,
                                 messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
                                 temperature=0.0,
-                                response_format={"type": "json_object"}
+                                response_format={"type": "json_object"},
+                                reasoning_effort="low",
+                                max_tokens=1500
                             )
+                            is_truncated = response.choices[0].finish_reason == 'length'
+                            if is_truncated:
+                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
                             text = response.choices[0].message.content
                             self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
-                        
+
                         text = text.strip()
-                        print(f"\n[DEBUG] AI RESPONSE:\n{text}\n") 
+                        print(f"\n[DEBUG] AI RESPONSE [{model_name}]:\n{text}\n")
+
+                        # Truncated response: skip the fragile regex-repair path in
+                        # _process_raw_json_async (can silently drop routes or raise
+                        # an uncaught JSONDecodeError on malformed partial JSON) — treat
+                        # like an invalid result and retry with the next model, unless
+                        # this is already the last model (then fall through and let
+                        # _process_raw_json_async do its best-effort recovery).
+                        if is_truncated and not is_last_model:
+                            logger.warning(f"[AC-4] {model_name} response truncated at max_tokens. Trying next model...")
+                            break  # Break inner attempt loop, continue to next model
+
+                        # Parse JSON and check for empty routes or non-Latin characters (AC-3: fallback on empty/non-Latin)
+                        try:
+                            data = json.loads(text)
+                            routes = data.get('routes', [])
+
+                            # Check for Cyrillic characters in city names (non-Latin script detection)
+                            has_non_latin = False
+                            if routes:
+                                cyrillic_pattern = re.compile(r'[Ѐ-ӿ]')
+                                for r in routes:
+                                    if cyrillic_pattern.search(str(r.get('nereden_il', ''))) or cyrillic_pattern.search(str(r.get('nereye_il', ''))):
+                                        has_non_latin = True
+                                        break
+
+                            if (not routes or has_non_latin) and not is_last_model:
+                                reason = "empty routes" if not routes else "non-Latin script detected in city name"
+                                logger.warning(f"[AC-3] {model_name} returned invalid result ({reason}). Trying next model...")
+                                break  # Break inner attempt loop, continue to next model
+                            # Otherwise process (either has routes, or is last model with empty/non-Latin)
+                        except:
+                            # JSON parse error: let _process_raw_json_async handle it
+                            pass
+
                         return await self._process_raw_json_async(text, message)
                     except RuntimeError as e:
                         if "interpreter shutdown" in str(e):
@@ -482,8 +543,10 @@ Return ONLY a JSON object in this format:
                         raise
                     except Exception as e:
                         error_str = str(e)
-                        print(f"⚠️ STAGE 2 ERROR [{model_name}]: {error_str[:150]}")
-                        
+                        last_error = error_str
+                        print(f"⚠️ STAGE 2 ERROR [{model_name}] (Attempt {attempt+1}/3): {error_str[:150]}")
+                        logger.warning(f"PARSER ERROR: {error_str[:200]}")
+
                         if "429" in error_str:
                             # --- SMART WAIT LOGIC ---
                             wait_sec = 5 # Default
@@ -492,7 +555,7 @@ Return ONLY a JSON object in this format:
                             if match:
                                 wait_sec = float(match.group(1)) + 0.5
                                 logger.info(f"⏳ Groq requested explicit wait: {wait_sec}s")
-                            
+
                             if "gemini" in model_name:
                                 if await self.key_manager.switch_to_next_async(key_type='google', reason=f"Rate Limit {model_name}"):
                                     logger.warning(f"🔄 Gemini Limit. Switching key and waiting {wait_sec}s...")
@@ -500,27 +563,32 @@ Return ONLY a JSON object in this format:
                                     continue
                                 else:
                                     break
-                            
-                            # Rotate Groq keys
+
+                            # Rotate Groq/DeepSeek keys
                             if await self.key_manager.switch_to_next_async(key_type='groq', reason=f"Rate Limit {model_name}"):
-                                logger.warning(f"🔄 Groq Limit on {model_name}. Switching key and waiting {wait_sec}s...")
+                                logger.warning(f"🔄 {model_name} Limit. Switching key and waiting {wait_sec}s...")
                                 await asyncio.sleep(wait_sec)
                                 continue
                             else:
-                                # All exhausted, wait longer before failing
-                                logger.error(f"🚨 ALL KEYS EXHAUSTED! Cooling down for {wait_sec*2}s...")
-                                await asyncio.sleep(wait_sec * 2)
+                                # All exhausted, try next model instead
+                                logger.warning(f"⚠️ {model_name} keys exhausted, trying next model...")
                                 break
+                        elif "402" in error_str or "payment" in error_str.lower():
+                            logger.error(f"💳 PAYMENT ERROR on {model_name}: {error_str}")
+                            break
                         elif "401" in error_str or "400" in error_str:
                             logger.error(f"AUTH/CONFIG ERROR on {model_name}: {error_str}")
                             if not "gemini" in model_name:
                                 await self.key_manager.switch_to_next_async(reason=f"Error {model_name}")
                             break
-                        
+
                         await asyncio.sleep(1)
                 # If 3 attempts failed for this model, try next model
                 continue
-            
+
+        # Return empty list with error context - orchestrator will handle it
+        if last_error:
+            logger.error(f"🚨 PARSE FAILED: All models exhausted. Last error: {last_error[:200]}")
         return []
 
     async def parse_batch(self, messages: List[str]) -> List[List[Dict[str, Any]]]:
@@ -610,7 +678,10 @@ Return ONLY a JSON object in this format:
         except:
             json_match = re.search(r'\{.*\}|\[.*\]', text, re.DOTALL)
             data = json.loads(json_match.group()) if json_match else {"routes": []}
-        
+
+        # Compute message hash for unique message identification (AC-1: Replace route_idx with stable hash)
+        msg_hash = hashlib.md5(message.encode('utf-8'), usedforsecurity=False).hexdigest()[:12]
+
         raw_routes = data.get('routes', [])
         final_routes = []
         
@@ -619,12 +690,11 @@ Return ONLY a JSON object in this format:
         msg_up = message.upper().replace('İ', 'İ').replace('I', 'I')
         phone_match = re.search(r"(0\s*5\d{2}[\s\.\-\(\)]*\d{3}[\s\.\-\(\)]*\d{2}[\s\.\-\(\)]*\d{2})", message)
         default_phone = re.sub(r'\D', '', phone_match.group(1)) if phone_match else ""
-        global_type_match = self.vehicle_matcher.find_match(message, per_route=False)
-        
+
         # --- GLOBAL PRICE DETECTION (DISABLED BY USER REQUEST) ---
         global_price = "SORUNUZ"
 
-        for r in raw_routes:
+        for route_idx, r in enumerate(raw_routes):
             # 1. Contextual Corrections
             n_il   = r.get('nereden_il', '') or ''
             n_dist = r.get('nereden_ilce', '') or ''
@@ -637,7 +707,7 @@ Return ONLY a JSON object in this format:
                 logger.info(f"[FILTER] Skipping invalid route: nereye_il='{ny_il}' (hallucination)")
                 continue
 
-            # GUARD: Clean slash-formatted values like "SİVAS/GEMEREK" in district fields  
+            # GUARD: Clean slash-formatted values like "SİVAS/GEMEREK" in district fields
             if '/' in n_dist:
                 parts = n_dist.split('/')
                 if len(parts) == 2:
@@ -667,10 +737,10 @@ Return ONLY a JSON object in this format:
             search_terms = [r.get('nereye_il', ''), r.get('nereye_ilce', ''), ny_il, ny_dist]
             if ny_dist == 'KAHRAMANKAZAN': search_terms.append('KAZAN')
             if ny_dist == 'MUSTAFAKEMALPAŞA': search_terms.append('KEMALPAŞA')
-            
+
             found_line = ""
             search_terms = [s for s in search_terms if s and len(s) > 2]
-            
+
             # Use a normalized search to find the correct line regardless of Turkish chars
             def quick_norm(t):
                 return t.upper().replace('İ', 'I').replace('ı', 'I').replace('Ğ', 'G').replace('Ü', 'U').replace('Ş', 'S').replace('Ö', 'O').replace('Ç', 'C')
@@ -680,13 +750,15 @@ Return ONLY a JSON object in this format:
                 if any(quick_norm(term) in norm_line for term in search_terms):
                     found_line = line
                     break
-            
+
             # Match using the specific line context + AI type suggestion
             route_context = f"{found_line} {r.get('type', '')}" if found_line else f"{n_il} {ny_il} {r.get('type', '')}"
             type_match = self.vehicle_matcher.find_match(route_context, per_route=True)
-            
-            if not type_match and global_type_match:
-                type_match = global_type_match
+
+            # Hint detection uses ONLY the real message text (NOT the AI's generic 'type' field,
+            # which is almost always present and would make "no hint" nearly unreachable)
+            hint_context = found_line if found_line else f"{n_il} {ny_il}"
+            has_hint = self.vehicle_matcher.has_kasa_hint(hint_context)
 
             if type_match:
                 arac_tipi = [type_match.get('ARAÇ TİPİ', '1360')]
@@ -696,6 +768,40 @@ Return ONLY a JSON object in this format:
                 arac_tipi = ['1360']
                 kasa_tipi = ['AÇIK', 'KAPALI']
                 yuk_tipi = ['KOMPLE']
+
+            # Uncertainty is judged purely on whether the REAL message text carries a
+            # kasa-tipi hint (has_hint) and whether a rule fired for it (type_match) —
+            # NOT on comparing the matched rule's output value to a hardcoded default.
+            # (A rule can legitimately output the same value as our fallback default,
+            # e.g. an explicit "kapalı açık farketmez" statement — that is a confident,
+            # correct match and must NOT be flagged as uncertain.)
+            kasa_tipi_belirsiz = False
+            kasa_tipi_belirsiz_sebep = None
+
+            if not has_hint:
+                # AC-2: No hint found in the real message text at all
+                kasa_tipi_belirsiz = True
+                kasa_tipi_belirsiz_sebep = "ipucu_yok"
+            elif not type_match:
+                # AC-3: Hint exists but no rule matched
+                kasa_tipi_belirsiz = True
+                kasa_tipi_belirsiz_sebep = "kural_eslesmedi"
+
+                # Extract the hint from hint_context for logging
+                hint_tokens = self.vehicle_matcher._tokenize(hint_context)
+                hint_text = " ".join(hint_tokens) if hint_tokens else hint_context
+
+                # Log unmatched hint to file
+                log_file = os.path.join(os.getcwd(), 'data', 'eslesmeyen_kasa_ifadeleri.json')
+                existing_logs = load_json_safe(log_file, default=[])
+
+                new_entry = {
+                    "timestamp": datetime.now().isoformat(),
+                    "msg_id": msg_hash,
+                    "ham_metin": hint_text
+                }
+                existing_logs.append(new_entry)
+                persistence_manager.queue_write(log_file, existing_logs)
 
             # --- PRICE EXTRACTION (DISABLED BY USER REQUEST) ---
             fiyat = "SORUNUZ"
@@ -715,6 +821,12 @@ Return ONLY a JSON object in this format:
                 "createdAt": datetime.now().isoformat(),
                 "body": message
             }
+
+            # Add uncertainty flags if kasa_tipi is uncertain
+            if kasa_tipi_belirsiz:
+                route["kasa_tipi_belirsiz"] = kasa_tipi_belirsiz
+                route["kasa_tipi_belirsiz_sebep"] = kasa_tipi_belirsiz_sebep
+
             final_routes.append(route)
             
         return final_routes

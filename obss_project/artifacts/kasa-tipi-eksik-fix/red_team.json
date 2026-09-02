@@ -1,0 +1,57 @@
+{
+  "task_slug": "kasa-tipi-eksik-fix",
+  "rounds": [
+    {
+      "round": 1,
+      "findings": [
+        {
+          "severity": "HIGH",
+          "summary": "data/eslesmeyen_kasa_ifadeleri.json race condition via raw save_json_safe instead of persistence_manager.queue_write",
+          "status": "fixed",
+          "verified": "independent pytest + Read"
+        },
+        {
+          "severity": "HIGH",
+          "summary": "route_context lost AI's r.get('type','') hint, risking a matching-quality regression vs prior behavior",
+          "status": "fixed",
+          "verified": "independent pytest + Read"
+        }
+      ]
+    },
+    {
+      "round": "1-fix-side-effect",
+      "findings": [
+        {
+          "severity": "HIGH",
+          "summary": "Restoring 'type' into route_context made bare tonnage codes (e.g. '1360') match a generic rule, making type_match truthy and completely skipping kasa_tipi_belirsiz flag logic for nearly all routes",
+          "status": "fixed",
+          "fix": "has_hint computed from a separate hint_context that excludes the AI's 'type' field; uncertainty gated on is_generic_kasa (output value equals {AÇIK,KAPALI})",
+          "verified": "direct Python reproduction + independent pytest (18/18)"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "agent": "obss-red-team",
+      "findings": [
+        {
+          "severity": "HIGH",
+          "summary": "is_generic_kasa (comparing matched output value to hardcoded {AÇIK,KAPALI}) false-flags legitimate rules whose correct, intentional output is exactly AÇIK+KAPALI (e.g. explicit customer statement 'kapalı açık farketmez'), violating AC-1's no-regression guarantee",
+          "status": "fixed",
+          "fix": "Removed is_generic_kasa entirely. Uncertainty now gated purely on has_hint (real message text) crossed with type_match truthiness: has_hint=False -> ipucu_yok; has_hint=True and no type_match -> kural_eslesmedi; has_hint=True and type_match exists -> confident match, no flag (verified matcher correctly reflects real hints like FRİGO into specific output rather than discarding them into the generic default)",
+          "verified": "direct Python reproduction ('kapalı açık farketmez' -> no flag) + independent pytest (18/18) + syntax check"
+        },
+        {
+          "severity": "MEDIUM",
+          "summary": "data/eslesmeyen_kasa_ifadeleri.json write path (load_json_safe -> append -> persistence_manager.queue_write) is not atomic; queue_write only enqueues a full-list snapshot without re-reading at flush time, so concurrent routes/messages processed via asyncio.gather can race and silently drop log entries",
+          "status": "accepted_limitation",
+          "reason": "Fixing properly requires changing persistence_manager.py's shared queue_write contract (used by other call sites) to support an atomic worker-side read+append primitive — out of proportion to this task's CAVEMAN scope. Affected data is best-effort diagnostic/log data for future rule-table tuning, not business-critical output; does not affect the shipment data sent to YukBurada.",
+          "communicated_to_user": true
+        }
+      ]
+    }
+  ],
+  "final_verdict": "PASS with 1 accepted MEDIUM limitation",
+  "test_suite": "18/18 passed (tests/test_kasa_tipi_eksik_fix.py + tests/test_deepseek_cost_fix.py, regression-checked together)",
+  "security_scan": "PASS (secrets, python_sast, python_deps)"
+}
