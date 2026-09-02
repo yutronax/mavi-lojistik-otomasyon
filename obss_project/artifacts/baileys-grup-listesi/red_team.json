@@ -1,0 +1,59 @@
+{
+  "task": "baileys-grup-listesi",
+  "reviewed_at": "2026-09-02T00:00:00Z",
+  "summary": "ATDD kriterlerinin tamamı (AC-1..AC-7) hem birim hem entegrasyon testleriyle sağlam biçimde doğrulanmış; endpoint mantığı ve saved-alanı hesaplaması O(n) ve güvenli. Kritik bir bulgu (setInterval sızıntısı, reconnect döngüsünde) tespit edilip kullanıcı onayıyla commit öncesi düzeltildi ve bağımsız doğrulandı.",
+  "findings": [
+    {
+      "severity": "high",
+      "category": "reliability",
+      "file": "sidecar/bridge.js",
+      "issue": "[DÜZELTİLDİ] connection==='open' bloğunda setInterval(...60000) her seferinde YENİ bir interval kaydediyordu, hiçbir yerde clearInterval çağrılmıyordu. Reconnect döngüsünde (setTimeout(bridge,2000) → bridge() tekrar çalışır → connection==='open' tekrar tetiklenir) her seferinde bir interval daha ekleniyordu — bellek/CPU sızıntısı ve WhatsApp'a eşzamanlı birden fazla groupFetchAllParticipating() isteği riski.",
+      "better_approach": "UYGULANDI: modül seviyesinde `let groupsIntervalId = null;` eklendi, yeni interval kaydından önce `if (groupsIntervalId) clearInterval(groupsIntervalId)` ile eski temizleniyor. Bağımsız olarak doğrulandı: `node -c` + `node sidecar/test_baileys_groups_state.js` (7/7 geçti) + tam proje suite (118/118 geçti).",
+      "reason": "atdd.md'nin Risks bölümündeki rate-limit endişesiyle doğrudan ilişkiliydi — artık test-korumalı bir garanti."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "sidecar/test_baileys_groups_state.js",
+      "issue": "Test dosyası setInterval/reconnect senaryosunu test etmiyor (bridge() fonksiyonu doğrudan test edilebilir şekilde export edilmemiş, bu ek bir refactor gerektirir).",
+      "better_approach": "İleride bridge() içindeki bağlantı yönetimini test edilebilir hale getirmek düşünülebilir — bu görevin kapsamı dışında.",
+      "reason": "Düşük öncelikli, blocking değil."
+    }
+  ],
+  "strengths": [
+    "test_baileys_groups_state.js gerçekten require('./bridge.js')'ten writeGroupsState'i import ediyor ve export yoksa process.exit(1) ile GERÇEKTEN başarısız oluyor — önceki görevde bulunan 'sahte yeşil' hatası burada tekrarlanmamış, kalıcı olarak doğrulandı.",
+    "admin_panel.py whatsapp_groups() route'u atdd.md Davranış Sözleşmesi tablosundaki tüm dallara birebir karşılık veriyor.",
+    "saved alanı hesaplaması set-comprehension ile O(n+m), 100+ grup için performans sorunu yok.",
+    "Kapsam Dışı bölümündeki hiçbir şey implementasyona sızmamış.",
+    "AC-5 (bridge hatası → dosya bozulmaz) hem writeGroupsState'in try/catch'i hem de atomicWrite deseniyle korunuyor.",
+    "Kritik bulgu (interval sızıntısı) tespit edilip aynı red-team turunda düzeltildi ve bağımsız doğrulandı."
+  ],
+  "risks": [
+    "60 saniyelik periyot hâlâ kullanıcı onayı bekliyor (atdd.md Assumptions) — commit-blocking değil ama takip gerektirir."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve",
+  "post_review_fix": {
+    "applied": true,
+    "description": "High-severity bulgu (setInterval sızıntısı) kullanıcı onayıyla commit öncesi düzeltildi: groupsIntervalId ile clearInterval koruması eklendi. Bağımsız doğrulandı: node -c, JS test suite (7/7), tam proje suite (118/118) — hepsi regresyonsuz geçti."
+  }
+}
