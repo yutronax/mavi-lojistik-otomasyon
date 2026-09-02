@@ -79,7 +79,7 @@ function toWhapiShape(msg) {
   const body = extractText(msg.message);
   if (!body) return null; // Metin çıkarılamayan mesajları (reaction, protokol vb.) gönderme
 
-  const senderJid = msg.key.participant || (isGroup ? null : from);
+  const senderJid = msg.key.participantAlt || msg.key.participant || (isGroup ? null : from);
   const senderName = msg.pushName || senderJid?.split('@')[0] || 'Bilinmeyen';
   const timestampSec = typeof msg.messageTimestamp === 'number'
     ? msg.messageTimestamp
@@ -298,7 +298,8 @@ module.exports = {
   writeAuthenticatedState,
   writeGroupsState,
   buildGetMessage,  // AC-1: Export getMessage callback builder
-  isDecryptFailedMessage  // AC-5: Export decrypt failure detector
+  isDecryptFailedMessage,  // AC-5: Export decrypt failure detector
+  toWhapiShape
 };
 
 if (require.main === module) {

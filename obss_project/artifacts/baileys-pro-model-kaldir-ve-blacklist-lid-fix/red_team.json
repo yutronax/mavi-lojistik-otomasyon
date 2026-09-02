@@ -1,0 +1,53 @@
+{
+  "task": "baileys-pro-model-kaldir-ve-blacklist-lid-fix",
+  "reviewed_at": "2026-09-02T00:00:00Z",
+  "summary": "İki dosyalık minimal değişiklik (fallback_models=[] ve senderJid participantAlt||participant||from önceliği) plan.md ve atdd.md ile birebir örtüşüyor; tüm AC'ler bağımsız git diff incelemesiyle doğrulandı ve yeni testler AC'leri doğru kapsıyor. Kapsam dışı hiçbir değişiklik yok, tek regresyon riski (eski assertion güncellemesi) meşru ve doğru.",
+  "findings": [
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "sidecar/bridge.js",
+      "issue": "participantAlt boş string ('') geldiğinde falsy olduğu için participant'a düşülüyor; bu davranış test edilmiş ve doğru, ancak Baileys'in participantAlt'ı whitespace-only bir string olarak döndürme ihtimali hiç test edilmemiş — teorik bir edge case.",
+      "better_approach": "İsteğe bağlı: .trim() kontrolü eklenebilir.",
+      "reason": "Çok düşük olasılıklı senaryo, atdd.md'nin kapsamı dışında (Baileys garantisi araştırması kapsam dışı bırakılmış), bu yüzden blocking değil."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "sidecar/test_bridge_participant_alt.js",
+      "issue": "Test dosyasının CI'ya (package.json test script veya ci.yml) eklenip eklenmediği bu review kapsamında doğrulanmadı.",
+      "better_approach": "CI yaml'ının yeni test dosyasını çalıştırdığını teyit etmek.",
+      "reason": "Test yazılmış olması yeterli değil, sürekli entegrasyona dahil olmazsa gelecekte sessizce bozulabilir — ama bu görevin AC'leri bunu talep etmiyor, düşük öncelik."
+    }
+  ],
+  "strengths": [
+    "text_gen_parser.py diff'i satır satır plan.md'deki tanımla eşleşiyor: fallback_models=[] ve yorum güncellemesi, models_to_try satırına dokunulmamış — AC-1/AC-2 doğrulandı.",
+    "sidecar/bridge.js'te senderJid = participantAlt || participant || (isGroup ? null : from) sırası doğru, senderName hesaplaması değiştirilmeden yeni senderJid'i otomatik kullanıyor — AC-3/AC-4/AC-5 için ekstra kod değişikliği gerekmediği doğru tespit edilmiş.",
+    "tests/test_deepseek_primary_balance_alert.py diff'i SADECE eski assertion'ları güncelliyor, başka hiçbir satıra dokunulmamış — plan sınırına tam uyuyor.",
+    "toWhapiShape'in module.exports'a eklenmesi salt-additive bir değişiklik, üretim davranışını etkilemiyor.",
+    "grep 'deepseek-v4-pro' sıfır sonuç verdi, AC-2'nin somut ölçütü doğrulandı.",
+    "AC-4/AC-6 için atdd.md'nin açıkça kabul ettiği LID sınırlaması kodda ekstra bir 'garanti' iddiası yapılmadan dürüst şekilde belgelenmiş."
+  ],
+  "risks": [],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve"
+}
