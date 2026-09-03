@@ -344,6 +344,212 @@ function testSpecialCharactersInGroupNames() {
 }
 
 /**
+ * Test: AC-1 Fallback isim mantığı — subject boş string
+ *
+ * Given: Bir grup objesi subject alanı BOŞ STRİNG ('') olan bir grup içerdiğinde
+ * When: writeGroupsState() çağrılır
+ * Then: yazılan JSON'daki o grubun name alanı "İsimsiz Grup (…<id'nin @'den önceki son 6 hane>)" formatında fallback isim olmalı
+ *
+ * AC-1 (Critical): isimsiz gruplar filtrelenmez, fallback isimle gösterilir
+ */
+function testFallbackNameForEmptySubject() {
+  console.log('\n[Test 8] AC-1: Fallback isim — subject boş string');
+
+  // Cleanup
+  if (fs.existsSync(TEST_GROUPS_PATH)) {
+    fs.unlinkSync(TEST_GROUPS_PATH);
+  }
+
+  // Example ID: "120363024125432@g.us" → son 6 hane: "125432"
+  const baileyGroupsObject = {
+    '120363024125432@g.us': {
+      id: '120363024125432@g.us',
+      subject: '', // Boş subject
+    },
+  };
+
+  writeGroupsState(baileyGroupsObject, TEST_GROUPS_PATH);
+
+  const content = readGroupsFile(TEST_GROUPS_PATH);
+  assert(content !== null, 'Groups file should be created');
+  assert.strictEqual(content.groups.length, 1, 'Should have 1 group');
+
+  const group = content.groups[0];
+  // Expected format: "İsimsiz Grup (…125432)"
+  const expectedName = 'İsimsiz Grup (…125432)';
+  assert.strictEqual(
+    group.name,
+    expectedName,
+    `Group with empty subject should have fallback name "${expectedName}"`
+  );
+
+  console.log('  ✓ Empty subject handled with fallback isim');
+}
+
+/**
+ * Test: AC-1 Fallback isim mantığı — subject undefined
+ */
+function testFallbackNameForUndefinedSubject() {
+  console.log('\n[Test 9] AC-1: Fallback isim — subject undefined');
+
+  // Cleanup
+  if (fs.existsSync(TEST_GROUPS_PATH)) {
+    fs.unlinkSync(TEST_GROUPS_PATH);
+  }
+
+  const baileyGroupsObject = {
+    '999999999012345@g.us': {
+      id: '999999999012345@g.us',
+      subject: undefined, // undefined subject
+    },
+  };
+
+  writeGroupsState(baileyGroupsObject, TEST_GROUPS_PATH);
+
+  const content = readGroupsFile(TEST_GROUPS_PATH);
+  const group = content.groups[0];
+  const expectedName = 'İsimsiz Grup (…012345)';
+  assert.strictEqual(
+    group.name,
+    expectedName,
+    `Group with undefined subject should have fallback name "${expectedName}"`
+  );
+
+  console.log('  ✓ Undefined subject handled with fallback isim');
+}
+
+/**
+ * Test: AC-1 Fallback isim mantığı — subject whitespace-only
+ */
+function testFallbackNameForWhitespaceSubject() {
+  console.log('\n[Test 10] AC-1: Fallback isim — subject whitespace-only');
+
+  // Cleanup
+  if (fs.existsSync(TEST_GROUPS_PATH)) {
+    fs.unlinkSync(TEST_GROUPS_PATH);
+  }
+
+  const baileyGroupsObject = {
+    '111111111555555@g.us': {
+      id: '111111111555555@g.us',
+      subject: '   ', // Sadece boşluk
+    },
+  };
+
+  writeGroupsState(baileyGroupsObject, TEST_GROUPS_PATH);
+
+  const content = readGroupsFile(TEST_GROUPS_PATH);
+  const group = content.groups[0];
+  const expectedName = 'İsimsiz Grup (…555555)';
+  assert.strictEqual(
+    group.name,
+    expectedName,
+    `Group with whitespace-only subject should have fallback name "${expectedName}"`
+  );
+
+  console.log('  ✓ Whitespace-only subject handled with fallback isim');
+}
+
+/**
+ * Test: AC-1 Regresyon — normal subject KORUNMALI
+ */
+function testNormalSubjectPreserved() {
+  console.log('\n[Test 11] AC-1 Regresyon: Normal subject preserved (no fallback)');
+
+  // Cleanup
+  if (fs.existsSync(TEST_GROUPS_PATH)) {
+    fs.unlinkSync(TEST_GROUPS_PATH);
+  }
+
+  const baileyGroupsObject = {
+    '123456789123456@g.us': {
+      id: '123456789123456@g.us',
+      subject: 'Test Grubu', // Normal isim
+    },
+  };
+
+  writeGroupsState(baileyGroupsObject, TEST_GROUPS_PATH);
+
+  const content = readGroupsFile(TEST_GROUPS_PATH);
+  const group = content.groups[0];
+  assert.strictEqual(
+    group.name,
+    'Test Grubu',
+    'Normal subject should NOT be replaced with fallback'
+  );
+
+  console.log('  ✓ Normal subject preserved without fallback');
+}
+
+/**
+ * Test: AC-1 + AC-5 Kısmi başarı — aynı çağrıda isimli + isimsiz gruplar
+ *
+ * Given: aynı writeGroupsState() çağrısında hem isimli hem isimsiz gruplar
+ * When: groups dosyasına yazılır
+ * Then: isimli gruplar normal isimle, isimsiz gruplar fallback isimle yazılmalı
+ *
+ * AC-1/AC-5: Kısmi başarı, ikisi de filtre edilmez, sıralama bozulmaz
+ */
+function testMixedNamedAndUnnamedGroups() {
+  console.log('\n[Test 12] AC-1+AC-5: Kısmi başarı — isimli + isimsiz gruplar karışık');
+
+  // Cleanup
+  if (fs.existsSync(TEST_GROUPS_PATH)) {
+    fs.unlinkSync(TEST_GROUPS_PATH);
+  }
+
+  const baileyGroupsObject = {
+    '100000000000001@g.us': {
+      id: '100000000000001@g.us',
+      subject: 'Lojistik', // İsimli
+    },
+    '200000000000002@g.us': {
+      id: '200000000000002@g.us',
+      subject: '', // İsimsiz
+    },
+    '300000000000003@g.us': {
+      id: '300000000000003@g.us',
+      subject: 'Yönetim', // İsimli
+    },
+  };
+
+  writeGroupsState(baileyGroupsObject, TEST_GROUPS_PATH);
+
+  const content = readGroupsFile(TEST_GROUPS_PATH);
+  assert.strictEqual(content.groups.length, 3, 'Should have 3 groups');
+
+  // Verify each group has correct name handling
+  // Note: Object.values() order may vary, so we need to find each by ID
+  const groupMap = {};
+  for (const g of content.groups) {
+    groupMap[g.id] = g;
+  }
+
+  // Group 1: İsimli
+  assert.strictEqual(
+    groupMap['100000000000001@g.us'].name,
+    'Lojistik',
+    'Named group should keep its name'
+  );
+
+  // Group 2: İsimsiz (fallback)
+  assert.strictEqual(
+    groupMap['200000000000002@g.us'].name,
+    'İsimsiz Grup (…000002)',
+    'Unnamed group should have fallback name'
+  );
+
+  // Group 3: İsimli
+  assert.strictEqual(
+    groupMap['300000000000003@g.us'].name,
+    'Yönetim',
+    'Named group should keep its name'
+  );
+
+  console.log('  ✓ Mixed named/unnamed groups handled correctly');
+}
+
+/**
  * Run all tests
  */
 function runAllTests() {
@@ -359,6 +565,13 @@ function runAllTests() {
     testFileReadable();
     testResponseStructure();
     testSpecialCharactersInGroupNames();
+
+    // AC-1 + AC-5: Fallback isim mantığı testleri
+    testFallbackNameForEmptySubject();
+    testFallbackNameForUndefinedSubject();
+    testFallbackNameForWhitespaceSubject();
+    testNormalSubjectPreserved();
+    testMixedNamedAndUnnamedGroups();
 
     console.log('\n' + '='.repeat(70));
     console.log('✓ ALL TESTS PASSED');

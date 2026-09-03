@@ -290,6 +290,185 @@ class TestBackendContractPreservation:
             "loadBaileysGroups() does not check d.message for empty-state handling (AC-4 violation)"
 
 
+class TestPaginationFunctionality:
+    """AC-2: Pagination for Kayıtlı Gruplar panel (20+ groups)"""
+
+    def test_pagination_function_exists(self):
+        """
+        Given: INDEX_HTML contains groups panel code
+        When: searching for pagination function definition
+        Then: a pagination function should exist (regex: function name can vary,
+               but must be related to pagination/sayfa/page, case-insensitive)
+
+        AC-2 (Critical): Pagination function must be implemented for client-side
+        group list navigation.
+        """
+        html = admin_panel.INDEX_HTML
+
+        # Look for a pagination function with common naming patterns
+        # Function name can be: renderGrpPage, updatePagination, showPage, etc.
+        # Pattern allows flexibility in naming
+        pagination_func_pattern = r'function\s+\w*[Pp]agina\w*\s*\('
+        has_pagination_func = re.search(pagination_func_pattern, html, re.IGNORECASE)
+
+        assert has_pagination_func, \
+            "No pagination function found in INDEX_HTML (AC-2 requires pagination logic)"
+
+    def test_pagination_container_exists(self):
+        """
+        Given: #tab-grp section (Kayıtlı Gruplar panel)
+        When: searching for pagination UI container
+        Then: an HTML element for page numbers/navigation should exist
+               (e.g., id/class containing 'pagination' or 'sayfa')
+
+        AC-2 (Critical): Pagination UI must be present for user navigation.
+        """
+        html = admin_panel.INDEX_HTML
+
+        # Extract tab-grp section
+        tab_grp_match = re.search(
+            r'id=["\']tab-grp["\'].*?(?=<div\s+id=["\'][^"\']+["\']|\Z)',
+            html,
+            re.DOTALL
+        )
+        assert tab_grp_match, "#tab-grp section not found"
+        tab_grp_section = tab_grp_match.group(0)
+
+        # Look for pagination container (id or class with 'pagination' or 'sayfa')
+        has_pagination_ui = re.search(
+            r'\b(id|class)\s*=\s*["\']?[^"\'>\s]*(?:pagination|sayfa|page)[^"\'>\s]*["\']?',
+            tab_grp_section,
+            re.IGNORECASE
+        )
+        assert has_pagination_ui, \
+            "No pagination UI container found in #tab-grp (AC-2 requires visible pagination)"
+
+
+class TestPaginationAndSearchIntegration:
+    """AC-3: Pagination resets to page 1 when search filter is applied"""
+
+    def test_filterGroups_resets_pagination(self):
+        """
+        Given: filterGroups() function (search handler) in INDEX_HTML
+        When: user enters search query while pagination is active
+        Then: filterGroups should reset pagination to page 1
+               (verify by looking for "page = 1" or pagination reset call within function)
+
+        AC-3 (High): Search result must start from first page, not current page.
+        """
+        html = admin_panel.INDEX_HTML
+
+        # Extract filterGroups function
+        filtergroups_match = re.search(
+            r'function\s+filterGroups\s*\([^)]*\)\s*\{(.*?)(?=\n\s*function|\Z)',
+            html,
+            re.DOTALL
+        )
+        assert filtergroups_match, "filterGroups() function not found in INDEX_HTML"
+        filtergroups_body = filtergroups_match.group(1)
+
+        # Check for pagination reset: look for "page" or "sayfa" variable assignment/reset
+        # or a call to pagination update function
+        has_pagination_reset = re.search(
+            r'\b(?:currentPage|page|sayfa)\s*=\s*[01]|\b(?:renderGrpPage|updatePagination|showPage)\s*\(',
+            filtergroups_body,
+            re.IGNORECASE
+        )
+        assert has_pagination_reset, \
+            "filterGroups() does not appear to reset pagination state (AC-3 violation: should reset to page 1)"
+
+
+class TestVisualEnhancements:
+    """AC-4: Visual enhancements (icons/styling) added to existing .grp-row class"""
+
+    def test_grp_row_styling_enhanced(self):
+        """
+        Given: CSS block in INDEX_HTML with .grp-row class styling
+        When: checking for visual enhancements compared to base styling
+        Then: additional CSS rules/styles should be present around .grp-row
+               (to indicate icons, badges, spacing improvements)
+
+        AC-4 (High): Styling must be enhanced beyond previous version.
+        Approach: Verify that .grp-row styling exists and has multiple properties,
+        indicating visual enhancement. We check for presence of multiple style rules
+        rather than hardcoding exact property names (code-copilot has freedom in implementation).
+        """
+        html = admin_panel.INDEX_HTML
+
+        # Find .grp-row CSS class definition
+        grp_row_css_pattern = r'\.grp[-_]row\s*\{[^}]+\}'
+        grp_row_css_match = re.search(grp_row_css_pattern, html, re.IGNORECASE | re.DOTALL)
+
+        assert grp_row_css_match, \
+            ".grp-row CSS class not found in INDEX_HTML (AC-4 requires styling)"
+
+        grp_row_css_block = grp_row_css_match.group(0)
+
+        # Check that CSS block has multiple properties (indicates styling, not just empty)
+        # Count semicolons as property terminators; at least 2-3 properties expected
+        property_count = grp_row_css_block.count(';')
+        assert property_count >= 2, \
+            ".grp-row CSS block appears minimal (AC-4 requires enhanced visual styling)"
+
+
+class TestBaileysGroupsPaginationNegative:
+    """AC-6: Baileys Grupları panel is NOT affected by pagination (negative test)"""
+
+    def test_baileys_panel_no_pagination_reference(self):
+        """
+        Given: loadBaileysGroups() function in INDEX_HTML
+        When: searching within the function and surrounding Baileys panel HTML
+        Then: pagination function calls should NOT appear in or near loadBaileysGroups
+               (Baileys panel list is short, does not need pagination)
+
+        AC-6 (Medium): Baileys panel must remain simple, pagination applies only to
+        Kayıtlı Gruplar. This is a NEGATIVE test — pagination should NOT be applied here.
+        """
+        html = admin_panel.INDEX_HTML
+
+        # Extract loadBaileysGroups function
+        loadbailey_match = re.search(
+            r'function\s+loadBaileysGroups\s*\([^)]*\)\s*\{(.*?)(?=\n\s*function|\Z)',
+            html,
+            re.DOTALL
+        )
+        assert loadbailey_match, "loadBaileysGroups() function not found"
+        loadbailey_body = loadbailey_match.group(1)
+
+        # Negative test: loadBaileysGroups should NOT call pagination functions
+        # Look for common pagination function names (renderGrpPage, updatePagination, showPage, etc.)
+        has_pagination_call = re.search(
+            r'\b(?:renderGrpPage|updatePagination|showPage|paginate|pagination|showBaileysPage)\s*\(',
+            loadbailey_body,
+            re.IGNORECASE
+        )
+        assert not has_pagination_call, \
+            "loadBaileysGroups() should NOT call pagination functions (AC-6: pagination only for Kayıtlı Gruplar)"
+
+        # Also check that #baileys-available-groups-list container is separate from
+        # Kayıtlı Gruplar pagination container (this is structural, not in the function)
+        # Look for baileys groups container in HTML
+        baileys_container_pattern = r'id\s*=\s*["\']?baileys[-_]?groups?[-_]?list["\']?'
+        has_baileys_container = re.search(baileys_container_pattern, html, re.IGNORECASE)
+
+        if has_baileys_container:
+            # Verify there's no pagination reference near the Baileys container
+            baileys_match = re.search(
+                r'id\s*=\s*["\']baileys[-_]?groups?[-_]?list["\'][^<]*<[^<]*?(?=<div\s+id|<section|\Z)',
+                html,
+                re.IGNORECASE | re.DOTALL
+            )
+            if baileys_match:
+                baileys_section = baileys_match.group(0)
+                baileys_has_pagination = re.search(
+                    r'(?:pagination|sayfa|paginat)',
+                    baileys_section,
+                    re.IGNORECASE
+                )
+                assert not baileys_has_pagination, \
+                    "Baileys groups container should not reference pagination (AC-6 negative test)"
+
+
 class TestButtonPreservation:
     """AC-5: Yenile (Refresh) buttons preserve their onclick handlers"""
 

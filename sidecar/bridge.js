@@ -148,11 +148,13 @@ function writeAuthenticatedState(filePath = path.join(__dirname, '..', 'data', '
 // Write groups state to shared file: {groups: [{"id": "...", "name": "..."}]}
 // Transforms Baileys groupFetchAllParticipating() response ({jid: GroupMetadata})
 // to stored format by extracting id and subject (→ name)
+// AC-1: If subject is empty/undefined/whitespace-only, use fallback name format:
+// "İsimsiz Grup (…<id_before_@_last_6_digits>)"
 function writeGroupsState(groupsObject, filePath = path.join(__dirname, '..', 'data', 'baileys_groups.json')) {
   try {
     const groupsArray = Object.values(groupsObject).map(g => ({
       id: g.id,
-      name: g.subject
+      name: (g.subject && g.subject.trim()) ? g.subject : ('İsimsiz Grup (…' + g.id.split('@')[0].slice(-6) + ')')
     }));
     const content = JSON.stringify({
       groups: groupsArray
