@@ -1067,6 +1067,8 @@ select{width:auto}
 pre{background:#0f172a;color:#d1d5db;padding:10px;border-radius:10px;font-size:11px;overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all}
 .bl-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
 .bl-item button{width:auto;padding:6px 12px;font-size:12px}
+.grp-row{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
+.grp-row button{width:auto;padding:6px 12px;font-size:12px}
 label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 #toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;z-index:20;transition:.3s;opacity:0}
 .login-wrap{max-width:340px;margin:25vh auto;padding:0 16px;text-align:center}
@@ -1221,14 +1223,17 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
       <button class="b-acc btn-full" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
       <button class="b-warn btn-full" onclick="loadBaileysGroups()">⟳ Grupları Yenile</button>
     </div>
+    <input id="grp-search" type="text" placeholder="Grup ara..." oninput="filterGroups()" style="margin-bottom:8px">
     <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
     <div id="grp-list"></div>
+    <div id="grp-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</div>
   </div>
 
   <div class="card">
     <b style="font-size:13px;color:var(--tx)">📥 Baileys Grupları</b>
     <p id="baileys-groups-msg" style="color:var(--mut);font-size:12px;margin:10px 0 4px">Yükleniyor...</p>
     <div id="baileys-available-groups-list"></div>
+    <div id="baileys-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</div>
   </div>
 </div>
 
@@ -1545,11 +1550,53 @@ async function loadGrpTab(){
   checkBaileysQr();
 }
 
+function filterGroups(){
+  try {
+    const query = $('grp-search').value.toLowerCase().trim();
+    const rows = document.querySelectorAll('.grp-row');
+
+    // Filtrele her row'u
+    rows.forEach(row => {
+      const name = row.querySelector('span').textContent.toLowerCase();
+      row.style.display = name.includes(query) ? '' : 'none';
+    });
+
+    // Her panel için empty-state kontrol et
+    const grpList = $('grp-list');
+    const baileysListEl = $('baileys-available-groups-list');
+    const grpSearchEmpty = $('grp-search-empty');
+    const baileysSearchEmpty = $('baileys-search-empty');
+
+    // Kayıtlı gruplar paneli
+    if(grpList){
+      const visibleInGrp = [...grpList.querySelectorAll('.grp-row')].filter(r => r.style.display !== 'none').length;
+      if(visibleInGrp === 0 && query){
+        grpSearchEmpty.style.display = 'block';
+      } else {
+        grpSearchEmpty.style.display = 'none';
+      }
+    }
+
+    // Baileys paneli
+    if(baileysListEl){
+      const visibleInBaileys = [...baileysListEl.querySelectorAll('.grp-row')].filter(r => r.style.display !== 'none').length;
+      if(visibleInBaileys === 0 && query){
+        baileysSearchEmpty.style.display = 'block';
+      } else {
+        baileysSearchEmpty.style.display = 'none';
+      }
+    }
+  } catch(e) {
+    console.error('Filter error:', e);
+  }
+}
+
 async function loadGroups(){
   const d = await api('/api/groups'); if(!d) return;
   $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
   $('grp-list').innerHTML = d.groups.map(g =>
-    `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
+    `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
+  filterGroups();
 }
 
 async function loadBaileysGroups(){
@@ -1559,7 +1606,7 @@ async function loadBaileysGroups(){
 
   // 202 durumu: henüz bağlı değil veya henüz taranmadı
   if(d.message){
-    msgEl.textContent = d.message;
+    msgEl.textContent = '📭 ' + d.message;
     listEl.innerHTML = '';
     return;
   }
@@ -1568,14 +1615,15 @@ async function loadBaileysGroups(){
   const unsaved = groups.filter(g => !g.saved);
 
   if(!unsaved.length){
-    msgEl.textContent = 'Tüm gruplar kayıtlı';
+    msgEl.textContent = '📭 Tüm gruplar kayıtlı';
     listEl.innerHTML = '';
     return;
   }
 
   msgEl.textContent = `${unsaved.length} yeni grup bulundu`;
   listEl.innerHTML = unsaved.map(g =>
-    `<div class="bl-item"><span>${escapeHtml(g.name)}</span><button class="b-ok" onclick="baileysGrpAdd('${g.id}', '${escapeHtml(g.name).replace(/'/g, "\\'")}')">Ekle</button></div>`).join('');
+    `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-ok" onclick="baileysGrpAdd('${g.id}', '${escapeHtml(g.name).replace(/'/g, "\\'")}')">Ekle</button></div>`).join('');
+  filterGroups();
 }
 
 async function baileysGrpAdd(id, name){
@@ -1589,7 +1637,7 @@ async function baileysGrpAdd(id, name){
 }
 
 async function grpDel(id){
-  const card = event.target.closest('.bl-item');
+  const card = event.target.closest('.grp-row');
   const name = card ? card.querySelector('span').textContent.trim() : id;
   if(!confirm(`"${name}" silinsin mi?`))return;
   const d = await api('/api/groups/'+encodeURIComponent(id),{method:'DELETE'});
