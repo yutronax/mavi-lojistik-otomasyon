@@ -1067,7 +1067,8 @@ select{width:auto}
 pre{background:#0f172a;color:#d1d5db;padding:10px;border-radius:10px;font-size:11px;overflow:auto;max-height:60vh;white-space:pre-wrap;word-break:break-all}
 .bl-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
 .bl-item button{width:auto;padding:6px 12px;font-size:12px}
-.grp-row{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
+.grp-row{display:flex;justify-content:space-between;align-items:center;padding:12px 8px;border-bottom:1px solid var(--border);font-size:14px;border-radius:6px;transition:background-color 0.2s ease,transform 0.2s ease}
+.grp-row:hover{background-color:var(--acc-soft);transform:translateX(2px)}
 .grp-row button{width:auto;padding:6px 12px;font-size:12px}
 .grp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 -16px -16px -16px}
 label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
@@ -1231,6 +1232,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
         </div>
         <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
         <section id="grp-list"></section>
+        <section id="grp-pagination" style="display:none;margin-top:10px;text-align:center;font-size:12px;color:var(--mut)"></section>
         <p id="grp-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</p>
       </section>
       <section style="padding:16px;overflow-y:auto">
@@ -1288,6 +1290,9 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 <script>
 let TOK = localStorage.getItem('tok') || '';
 const $ = id => document.getElementById(id);
+let currentPage = 1;
+const ITEMS_PER_PAGE = 20;
+let grpSearchMatches = null;
 
 function isMob(){ return window.innerWidth <= 768; }
 
@@ -1564,6 +1569,57 @@ async function loadGroups(){
   $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
   $('grp-list').innerHTML = d.groups.map(g =>
     `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
+  grpSearchMatches = null;
+  currentPage = 1;
+  renderGrpPagination(1);
+}
+
+function renderGrpPagination(page){
+  const allRows = document.querySelectorAll('#grp-list .grp-row');
+  const visibleRows = grpSearchMatches !== null ? grpSearchMatches : Array.from(allRows);
+
+  // Aramayla eşleşmeyen satırları gizle (arama aktifse)
+  allRows.forEach(row => {
+    if(grpSearchMatches !== null && !grpSearchMatches.includes(row)){
+      row.style.display = 'none';
+    }
+  });
+
+  const totalPages = Math.ceil(visibleRows.length / ITEMS_PER_PAGE);
+  const startIdx = (page - 1) * ITEMS_PER_PAGE;
+  const endIdx = startIdx + ITEMS_PER_PAGE;
+
+  visibleRows.forEach((row, idx) => {
+    row.style.display = (idx >= startIdx && idx < endIdx) ? '' : 'none';
+  });
+
+  const paginationEl = $('grp-pagination');
+  if(visibleRows.length <= ITEMS_PER_PAGE) {
+    paginationEl.style.display = 'none';
+    return;
+  }
+
+  currentPage = page;
+  paginationEl.style.display = 'block';
+  let paginationHtml = '';
+
+  if(page > 1) {
+    paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderGrpPagination(${page - 1})">‹</button> `;
+  }
+
+  for(let i = 1; i <= totalPages; i++) {
+    if(i === page) {
+      paginationHtml += `<b style="margin:0 4px">${i}</b>`;
+    } else {
+      paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px;margin:0 2px" onclick="renderGrpPagination(${i})">${i}</button> `;
+    }
+  }
+
+  if(page < totalPages) {
+    paginationHtml += ` <button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderGrpPagination(${page + 1})">›</button>`;
+  }
+
+  paginationEl.innerHTML = paginationHtml;
 }
 
 async function loadBaileysGroups(){
@@ -1620,11 +1676,11 @@ function filterGroups(){
     const query = $('grp-search').value.toLowerCase().trim();
     const regRows = document.querySelectorAll('#grp-list .grp-row');
     let regVisible = 0;
+    const matched = [];
     regRows.forEach(row => {
       const name = row.querySelector('span').textContent.toLowerCase();
       const match = name.includes(query);
-      row.style.display = match ? '' : 'none';
-      if(match) regVisible++;
+      if(match) { regVisible++; matched.push(row); }
     });
     const regEmpty = $('grp-search-empty');
     if(regEmpty) regEmpty.style.display = (query && regVisible === 0 && regRows.length > 0) ? 'block' : 'none';
@@ -1639,6 +1695,10 @@ function filterGroups(){
     });
     const baiEmpty = $('baileys-search-empty');
     if(baiEmpty) baiEmpty.style.display = (query && baiVisible === 0 && baiRows.length > 0) ? 'block' : 'none';
+
+    grpSearchMatches = query ? matched : null;
+    currentPage = 1;
+    renderGrpPagination(1);
   } catch(e) {
     console.error('Filter error:', e);
   }
