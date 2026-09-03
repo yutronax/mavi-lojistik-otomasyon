@@ -64,17 +64,13 @@ class TextGenParser:
         self.semaphore = threading.Semaphore(max_concurrent)
         
         # Models: DeepSeek primary, Groq fallback
-        # DÜZELTME (2026-09-01): atdd.md/deepseek-primary-balance-alert AC-1
-        # açıkça "deepseek-v4-flash İLK denenen model olur" diyordu ama
-        # uygulama yanlışlıkla pahalı 'deepseek-v4-pro'yu birincil yapmıştı
-        # (spesifikasyon sapması, gerçek maliyete yol açtı — kullanıcı fark
-        # etti). flash da DeepSeek gibi günlük limitsiz, çok daha ucuz;
-        # pro artık ekstra bir fallback olarak duruyor, birincil değil.
+        # DÜZELTME (2026-09-02): Pro model fallback zincirinden kaldırıldı
+        # (maliyet nedeniyle). Artık sadece flash + Groq zinciri kullanılıyor.
         self.model_robust = 'deepseek-v4-flash'  # DeepSeek birincil (ucuz, günlük limitsiz)
         self.model_deepseek = 'deepseek-v4-flash'  # Legacy reference
         self.model_gemini = 'deepseek-v4-flash'  # Legacy reference
         self.model_fast = 'openai/gpt-oss-20b'  # Groq primary model
-        self.fallback_models = ['deepseek-v4-pro']  # DeepSeek fallback (flash başarısız olursa)
+        self.fallback_models = []  # Pro model kaldırıldı (maliyet), sadece flash + Groq fallback zinciri kaldı
         
         # NEIGHBORHOOD CACHE
         self.neighborhood_cache = {}
@@ -282,28 +278,38 @@ RULES:
                     try:
                         if "deepseek" in model_to_use:
                             client = self._get_deepseek_client()
-                            response = await client.chat.completions.create(
-                                model=model_to_use,
-                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0,
-                                max_tokens=1500
-                            )
-                            text = response.choices[0].message.content
-                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                            return text.strip()
+                            try:
+                                response = await client.chat.completions.create(
+                                    model=model_to_use,
+                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                    temperature=0.0,
+                                    max_tokens=1500
+                                )
+                                text = response.choices[0].message.content
+                                self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                                await client.close()
+                                return text.strip()
+                            except:
+                                await client.close()
+                                raise
                         else:
                             # Groq client (llama model)
                             client = self._get_async_client()
-                            response = await client.chat.completions.create(
-                                model=model_to_use,
-                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0,
-                                reasoning_effort="low",
-                                max_tokens=1500
-                            )
-                            text = response.choices[0].message.content
-                            self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                            return text.strip()
+                            try:
+                                response = await client.chat.completions.create(
+                                    model=model_to_use,
+                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                    temperature=0.0,
+                                    reasoning_effort="low",
+                                    max_tokens=1500
+                                )
+                                text = response.choices[0].message.content
+                                self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
+                                await client.close()
+                                return text.strip()
+                            except:
+                                await client.close()
+                                raise
                     except RuntimeError as e:
                         if "interpreter shutdown" in str(e):
                             return ""
@@ -471,34 +477,46 @@ Return ONLY a JSON object in this format:
                             self._track_spend(model_name, response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
                         elif "deepseek" in model_name:
                             client = self._get_deepseek_client()
-                            response = await client.chat.completions.create(
-                                model=model_name,
-                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0,
-                                response_format={"type": "json_object"},
-                                max_tokens=1500
-                            )
-                            is_truncated = response.choices[0].finish_reason == 'length'
-                            if is_truncated:
-                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
-                            text = response.choices[0].message.content
-                            self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            try:
+                                response = await client.chat.completions.create(
+                                    model=model_name,
+                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                    temperature=0.0,
+                                    response_format={"type": "json_object"},
+                                    max_tokens=1500
+                                )
+                                is_truncated = response.choices[0].finish_reason == 'length'
+                                if is_truncated:
+                                    logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
+                                text = response.choices[0].message.content
+                                self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            except:
+                                await client.close()
+                                raise
+                            else:
+                                await client.close()
                         else:
                             # Groq client (llama model)
                             client = self._get_async_client()
-                            response = await client.chat.completions.create(
-                                model=model_name,
-                                messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                temperature=0.0,
-                                response_format={"type": "json_object"},
-                                reasoning_effort="low",
-                                max_tokens=1500
-                            )
-                            is_truncated = response.choices[0].finish_reason == 'length'
-                            if is_truncated:
-                                logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
-                            text = response.choices[0].message.content
-                            self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            try:
+                                response = await client.chat.completions.create(
+                                    model=model_name,
+                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+                                    temperature=0.0,
+                                    response_format={"type": "json_object"},
+                                    reasoning_effort="low",
+                                    max_tokens=1500
+                                )
+                                is_truncated = response.choices[0].finish_reason == 'length'
+                                if is_truncated:
+                                    logger.warning(f"truncated_at_max_tokens: {model_name} yanıtı max_tokens=1500 sınırına takıldı")
+                                text = response.choices[0].message.content
+                                self._track_spend(model_name, response.usage.prompt_tokens, response.usage.completion_tokens)
+                            except:
+                                await client.close()
+                                raise
+                            else:
+                                await client.close()
 
                         text = text.strip()
                         print(f"\n[DEBUG] AI RESPONSE [{model_name}]:\n{text}\n")

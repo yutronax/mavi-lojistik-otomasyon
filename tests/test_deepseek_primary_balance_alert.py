@@ -107,10 +107,12 @@ class TestDeepSeekModelOrder:
             f"model birincil olmalı), got {parser.model_robust}"
         )
 
-        # Verify that fallback_models contain deepseek models
-        assert len(parser.fallback_models) > 0, "fallback_models should not be empty"
-        assert any('deepseek' in m for m in parser.fallback_models), (
-            f"fallback_models should contain deepseek models, got {parser.fallback_models}"
+        # DÜZELTME (2026-09-02): baileys-pro-model-kaldir-ve-blacklist-lid-fix —
+        # pahalı deepseek-v4-pro fallback modeli maliyet nedeniyle kasıtlı olarak
+        # kaldırıldı, fallback_models artık boş olmalı (flash başarısız olursa
+        # doğrudan Groq'a geçiliyor).
+        assert parser.fallback_models == [], (
+            f"fallback_models pro model kaldırıldığı için boş olmalı, got {parser.fallback_models}"
         )
 
         # Extract ONLY the Stage 2 method source (parse_async, not entire class)

@@ -1069,6 +1069,7 @@ pre{background:#0f172a;color:#d1d5db;padding:10px;border-radius:10px;font-size:1
 .bl-item button{width:auto;padding:6px 12px;font-size:12px}
 .grp-row{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--border);font-size:14px}
 .grp-row button{width:auto;padding:6px 12px;font-size:12px}
+.grp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 -16px -16px -16px}
 label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
 #toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;z-index:20;transition:.3s;opacity:0}
 .login-wrap{max-width:340px;margin:25vh auto;padding:0 16px;text-align:center}
@@ -1082,6 +1083,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   #mob-overlay.show{display:block}
   main{margin-left:0!important}
   .split{grid-template-columns:1fr}
+  .grp-grid{grid-template-columns:1fr}
   .msg-layout{flex-direction:column}
   .msg-orig{width:100%}
   .grid{grid-template-columns:repeat(2,1fr)}
@@ -1211,29 +1213,36 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   </div>
 </div>
 
+<!-- #tab-grp -->
 <div id="tab-grp" class="hide">
-  <div id="baileys-qr-section" style="display:none;margin:12px 16px 0;flex-direction:column;align-items:center;gap:12px;padding:16px;background:var(--bg);border-radius:14px">
+  <section id="baileys-qr-section" style="display:none;margin:12px 16px 0;flex-direction:column;align-items:center;gap:12px;padding:16px;background:var(--bg);border-radius:14px">
     <img id="baileys-qr-img" style="min-width:200px;max-width:300px;height:auto;border-radius:10px;border:2px solid var(--border)">
     <span id="baileys-qr-status" style="font-size:12px;color:var(--mut);text-align:center;max-width:300px">Yükleniyor...</span>
-  </div>
-  <div id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</div>
+  </section>
+  <section id="baileys-qr-connected-msg" style="display:none;margin:12px 16px 0;padding:8px 14px;background:#dcfce7;border-radius:20px;font-size:12px;font-weight:700;color:var(--ok);text-align:center">✓ WhatsApp Bağlı (Baileys)</section>
   <button id="baileys-disconnect-btn" class="b-err btn-full" style="display:none;margin:8px 16px 0;width:calc(100% - 32px)" onclick="if(confirm('WhatsApp bağlantısı kesilsin mi? Yeniden QR taratmanız gerekecek.'))disconnectBaileys()">🔌 Bağlantıyı Kes</button>
-  <div class="card">
-    <div class="row" style="margin:0 0 10px">
-      <button class="b-acc btn-full" onclick="loadGroups()">⟳ Kayıtlı Gruplar</button>
-      <button class="b-warn btn-full" onclick="loadBaileysGroups()">⟳ Grupları Yenile</button>
+  <div class="card" style="margin:16px">
+    <input id="grp-search" type="text" placeholder="Grup adında ara..." oninput="filterGroups()" style="margin:0 0 10px">
+    <div class="grp-grid">
+      <section style="padding:16px;overflow-y:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:0 0 10px">
+          <b style="font-size:13px;color:var(--tx)">📋 Kayıtlı Gruplar</b>
+          <button class="b-acc" style="width:auto;padding:6px 12px;font-size:12px" onclick="loadGroups()">⟳</button>
+        </div>
+        <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
+        <section id="grp-list"></section>
+        <p id="grp-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</p>
+      </section>
+      <section style="padding:16px;overflow-y:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:0 0 10px">
+          <b style="font-size:13px;color:var(--tx)">📥 Baileys Grupları</b>
+          <button class="b-warn" style="width:auto;padding:6px 12px;font-size:12px" onclick="loadBaileysGroups()">⟳</button>
+        </div>
+        <p id="baileys-groups-msg" style="color:var(--mut);font-size:12px;margin:0 0 4px">Yükleniyor...</p>
+        <section id="baileys-available-groups-list"></section>
+        <p id="baileys-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</p>
+      </section>
     </div>
-    <input id="grp-search" type="text" placeholder="Grup ara..." oninput="filterGroups()" style="margin-bottom:8px">
-    <p id="grp-count" style="color:var(--mut);font-size:12px;margin:0 0 4px"></p>
-    <div id="grp-list"></div>
-    <div id="grp-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</div>
-  </div>
-
-  <div class="card">
-    <b style="font-size:13px;color:var(--tx)">📥 Baileys Grupları</b>
-    <p id="baileys-groups-msg" style="color:var(--mut);font-size:12px;margin:10px 0 4px">Yükleniyor...</p>
-    <div id="baileys-available-groups-list"></div>
-    <div id="baileys-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</div>
   </div>
 </div>
 
@@ -1550,53 +1559,11 @@ async function loadGrpTab(){
   checkBaileysQr();
 }
 
-function filterGroups(){
-  try {
-    const query = $('grp-search').value.toLowerCase().trim();
-    const rows = document.querySelectorAll('.grp-row');
-
-    // Filtrele her row'u
-    rows.forEach(row => {
-      const name = row.querySelector('span').textContent.toLowerCase();
-      row.style.display = name.includes(query) ? '' : 'none';
-    });
-
-    // Her panel için empty-state kontrol et
-    const grpList = $('grp-list');
-    const baileysListEl = $('baileys-available-groups-list');
-    const grpSearchEmpty = $('grp-search-empty');
-    const baileysSearchEmpty = $('baileys-search-empty');
-
-    // Kayıtlı gruplar paneli
-    if(grpList){
-      const visibleInGrp = [...grpList.querySelectorAll('.grp-row')].filter(r => r.style.display !== 'none').length;
-      if(visibleInGrp === 0 && query){
-        grpSearchEmpty.style.display = 'block';
-      } else {
-        grpSearchEmpty.style.display = 'none';
-      }
-    }
-
-    // Baileys paneli
-    if(baileysListEl){
-      const visibleInBaileys = [...baileysListEl.querySelectorAll('.grp-row')].filter(r => r.style.display !== 'none').length;
-      if(visibleInBaileys === 0 && query){
-        baileysSearchEmpty.style.display = 'block';
-      } else {
-        baileysSearchEmpty.style.display = 'none';
-      }
-    }
-  } catch(e) {
-    console.error('Filter error:', e);
-  }
-}
-
 async function loadGroups(){
   const d = await api('/api/groups'); if(!d) return;
   $('grp-count').textContent = `Kayıtlı ${d.groups.length} grup`;
   $('grp-list').innerHTML = d.groups.map(g =>
     `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-err" onclick="grpDel('${g.id}')">Sil</button></div>`).join('');
-  filterGroups();
 }
 
 async function loadBaileysGroups(){
@@ -1615,7 +1582,7 @@ async function loadBaileysGroups(){
   const unsaved = groups.filter(g => !g.saved);
 
   if(!unsaved.length){
-    msgEl.textContent = '📭 Tüm gruplar kayıtlı';
+    msgEl.textContent = '✅ Tüm gruplar kayıtlı';
     listEl.innerHTML = '';
     return;
   }
@@ -1623,7 +1590,6 @@ async function loadBaileysGroups(){
   msgEl.textContent = `${unsaved.length} yeni grup bulundu`;
   listEl.innerHTML = unsaved.map(g =>
     `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-ok" onclick="baileysGrpAdd('${g.id}', '${escapeHtml(g.name).replace(/'/g, "\\'")}')">Ekle</button></div>`).join('');
-  filterGroups();
 }
 
 async function baileysGrpAdd(id, name){
@@ -1647,6 +1613,35 @@ async function grpDel(id){
     await loadGroups();
     _grpFlash('grp-count');
   } else if(d) toast(d.error,true);
+}
+
+function filterGroups(){
+  try {
+    const query = $('grp-search').value.toLowerCase().trim();
+    const regRows = document.querySelectorAll('#grp-list .grp-row');
+    let regVisible = 0;
+    regRows.forEach(row => {
+      const name = row.querySelector('span').textContent.toLowerCase();
+      const match = name.includes(query);
+      row.style.display = match ? '' : 'none';
+      if(match) regVisible++;
+    });
+    const regEmpty = $('grp-search-empty');
+    if(regEmpty) regEmpty.style.display = (query && regVisible === 0 && regRows.length > 0) ? 'block' : 'none';
+
+    const baiRows = document.querySelectorAll('#baileys-available-groups-list .grp-row');
+    let baiVisible = 0;
+    baiRows.forEach(row => {
+      const name = row.querySelector('span').textContent.toLowerCase();
+      const match = name.includes(query);
+      row.style.display = match ? '' : 'none';
+      if(match) baiVisible++;
+    });
+    const baiEmpty = $('baileys-search-empty');
+    if(baiEmpty) baiEmpty.style.display = (query && baiVisible === 0 && baiRows.length > 0) ? 'block' : 'none';
+  } catch(e) {
+    console.error('Filter error:', e);
+  }
 }
 
 function _grpFlash(elId){
