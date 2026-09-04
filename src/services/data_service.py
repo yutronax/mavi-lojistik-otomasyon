@@ -209,9 +209,11 @@ class DataService:
                 
                 # --- BLACKLIST FILTER ---
                 # Check message_info or top-level sender fields
-                sender_num = item.get('phone') or item.get('sender')
+                sender_num = item.get('phone')
                 if not sender_num and 'message_info' in item:
-                    sender_num = item['message_info'].get('sender')
+                    sender_num = item['message_info'].get('sender_number')
+                if not sender_num:
+                    sender_num = item.get('sender')
                 
                 if sender_num:
                     if is_phone_in_list(sender_num, blacklist):

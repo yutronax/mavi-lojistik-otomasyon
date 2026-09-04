@@ -125,9 +125,11 @@ class MongoDataService:
                     continue
                 
                 # --- BLACKLIST FILTER ---
-                sender_num = doc.get('phone') or doc.get('sender')
+                sender_num = doc.get('phone')
                 if not sender_num and 'message_info' in doc:
-                    sender_num = doc['message_info'].get('sender')
+                    sender_num = doc['message_info'].get('sender_number')
+                if not sender_num:
+                    sender_num = doc.get('sender')
                 
                 if sender_num:
                     from src.utils.phone_utils import is_phone_in_list

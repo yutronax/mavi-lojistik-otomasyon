@@ -1,0 +1,56 @@
+{
+  "task": "kara-liste-gonderen-numara-tespiti",
+  "reviewed_at": "2026-09-04T00:00:00Z",
+  "summary": "Fix is minimal, matches plan.md's Değişiklik Detayı almost verbatim for data_service.py/mongo_service.py, and correctly implements the WARN-log behavioral contract from atdd.md in veri_cekici_ayristirici.py. No new files/helpers/abstractions were added (CAVEMAN-clean), scope was respected, and the real code diff is low-risk. The main weakness is test quality: most AC-4/AC-5 tests in test_orchestrator_missing_sender_warning.py are static source-text greps (using unused caplog fixtures) rather than true behavioral tests, so they would pass even if the warning were dead code or logically unreachable.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "test-gap",
+      "file": "tests/test_orchestrator_missing_sender_warning.py",
+      "issue": "AC-4/AC-5 tests (test_missing_sender_raw_produces_warn_log_ac5, test_lid_format_sender_produces_warn_log_ac4, test_code_inspection_sender_raw_flow_ac4_ac5) accept a `caplog` fixture but never use it — instead they read the .py file as text and grep for substrings like 'tespit'/'belirsiz'/'logger.warning'. This does not verify the warning actually fires at runtime for the specified condition (e.g. it would still pass if the warning were placed in the wrong branch, guarded by a bug, or unreachable due to a typo in the condition).",
+      "better_approach": "Replace the string-grep assertions with real invocations: construct a minimal msg dict with `from` missing/empty (AC-5) or set to '...@lid' (AC-4), call add_to_processing_queue (or the relevant private helper) with mocked dependencies, and assert on caplog.records/caplog.text produced during the actual call, plus assert the item was still enqueued (fail-open).",
+      "reason": "atdd.md's Davranış Sözleşmesi table (rows 3 and 4) requires the WARN log to be an observable runtime behavior, not just source-code presence — verify_report.md itself flags this as a known limitation ('statik kod-okuma tabanlı ... davranış testi değil') but the task treats it as accepted debt rather than fixing it before merge."
+    },
+    {
+      "severity": "low",
+      "category": "correctness",
+      "file": "src/parsers/veri_cekici_ayristirici.py",
+      "issue": "The added `'@lid' in sender_raw` check for AC-4 was not literally shown in plan.md's 'Değişiklik Detayı' code snippet (which only specified the else-block addition), so the actual diff has one extra piece of logic beyond what plan.md's snippet documented.",
+      "better_approach": "No code change needed — the extra check correctly fulfills AC-4, which plan.md's 'Files to Modify' table did reference. Just flagging that plan.md's snippet section under-specified this and should have been updated for full traceability.",
+      "reason": "Minor process/documentation gap only; does not affect correctness since AC-4 explicitly requires this exact behavior."
+    }
+  ],
+  "strengths": [
+    "data_service.py and mongo_service.py diffs are byte-for-byte identical to plan.md's 'Değişiklik Detayı' pseudocode: phone -> message_info.sender_number -> item.get('sender') fallback order, satisfying AC-1/AC-2 exactly.",
+    "The '@lid' check and the else-branch WARN log in veri_cekici_ayristirici.py are placed inside the pre-existing `if sender_raw:` / new `else:` structure without introducing new functions, files, or abstractions — CAVEMAN-compliant, consistent with plan.md's 'no new files besides tests' expectation.",
+    "sender_raw is only inspected with `'@lid' in sender_raw` inside the truthy branch (msg.get('from', '') already guarantees a string default), so there is no realistic TypeError risk from None/non-string values.",
+    "Keeping item.get('sender') as the last-resort fallback (rather than deleting it) is a reasonable, low-risk decision since normalize_phone strips non-digits and real names essentially never contain 10-12 contiguous digits matching a blacklist entry — plan.md's own risk analysis of this is sound.",
+    "Full regression suite (166 tests) passed per verify_report.md, and the task's 3-layer consistency goal (add_to_processing_queue, data_service, mongo_service) is verified per AC-to-test mapping.",
+    "Scope was respected: phone_utils.py untouched, Whapi channel untouched, admin panel UI untouched, sidecar/bridge.js untouched — all matching atdd.md's Kapsam Dışı section."
+  ],
+  "risks": [
+    "Because AC-4/AC-5 tests are text-based rather than behavioral, a future refactor of veri_cekici_ayristirici.py could silently break the WARN logging (e.g. move it outside the reachable code path) without any test catching it — this is a latent reliability blind spot going forward, not an issue with the current diff's actual behavior (which was manually confirmed correct via the diff read).",
+    "message_info.sender_number's true source (Baileys participantAlt||participant chain) remains dependent on the previously-approved (commit c767210) upstream fallback; if that chain regresses, this fix's correctness assumption (sender_number is always the real JID) would silently degrade back to the LID-only failure mode already accepted as a known limitation."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}
