@@ -504,10 +504,16 @@ class OrchestratorSDK:
             
             sender_raw = msg.get('from', '')
             if sender_raw:
+                # LID kontrolü (AC-4)
+                if '@lid' in sender_raw:
+                    logger.warning(f"[WARN] Gönderen LID formatında ({sender_raw}), gerçek numara bilinmiyor, blacklist eşleşmesi belirsiz (mid={mid})")
                 if is_phone_in_list(sender_raw, blacklist):
                     logger.info(f"[BLOCK] Orchestrator Blacklist: skipping message {mid} from {sender_raw}")
                     self.data_service.mark_id_handled(mid) # Kalıcı mark
                     continue
+            else:
+                # AC-5: gönderen tespit edilemedi
+                logger.warning(f"[WARN] Gönderen kimliği tespit edilemedi (mid={mid}) — blacklist kontrolü atlandı, mesaj işlenmeye devam ediyor")
             
             # D. Check if already in memory queue (active_ids or active_body_hashes)
             with self.active_lock:
@@ -703,10 +709,16 @@ class OrchestratorSDK:
                 # E. Blacklist Kontrolü
                 sender_raw = msg.get('from', '')
                 if sender_raw:
+                    # LID kontrolü (AC-4)
+                    if '@lid' in sender_raw:
+                        logger.warning(f"[WARN] Gönderen LID formatında ({sender_raw}), gerçek numara bilinmiyor, blacklist eşleşmesi belirsiz (mid={mid})")
                     blacklist = self.data_service.load_blacklist()
                     if is_phone_in_list(sender_raw, blacklist):
                         logger.info(f"[BLOCK] Kara listedeki numaradan gelen mesaj atlandı: {sender_raw}")
                         continue
+                else:
+                    # AC-5: gönderen tespit edilemedi
+                    logger.warning(f"[WARN] Gönderen kimliği tespit edilemedi (mid={mid}) — blacklist kontrolü atlandı, mesaj işlenmeye devam ediyor")
                 
                 # Yurt dışı kontrolü artık burada (ham mesaj üzerinden) yapılmıyor.
                 # Sadece ayrıştırma sonrası 'YURT DIŞI' alanı kontrol edilecek.
