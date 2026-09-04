@@ -47,6 +47,51 @@ from google import genai as google_genai
 from src.utils.vehicle_type_matcher import VehicleTypeMatcher
 from src.utils.city_district_validator import CityDistrictValidator
 
+# Hourly Spend Cap Implementation (AC-2, AC-4, AC-5, AC-6)
+_hourly_lock = threading.Lock()
+_current_hour_key = None
+_current_hour_cost_try = 0.0
+
+def _get_current_hour_key() -> str:
+    """Returns current hour as YYYY-MM-DD-HH format."""
+    return datetime.now().strftime('%Y-%m-%d-%H')
+
+def _init_hourly_counter_from_file():
+    """Restart-kurtarma: process başlangıcında bir kez, mevcut saatin geçmiş harcamasını dosyadan topla."""
+    global _current_hour_key, _current_hour_cost_try
+    hour_key = _get_current_hour_key()
+    total = 0.0
+    try:
+        spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
+        history = load_json_safe(spend_file, default=[])
+        for entry in history:
+            ts = entry.get('timestamp', '')
+            try:
+                entry_hour_key = datetime.fromisoformat(ts).strftime('%Y-%m-%d-%H')
+            except (ValueError, TypeError):
+                continue
+            if entry_hour_key == hour_key:
+                total += entry.get('cost_try', 0.0)
+    except Exception as e:
+        logger.error(f"Saatlik harcama sayacı ilklendirme hatası (fail-open): {e}")
+        total = 0.0
+    _current_hour_key = hour_key
+    _current_hour_cost_try = total
+
+def is_hourly_cap_exceeded() -> bool:
+    """AC-2,5,6: Saatlik AI harcaması (DeepSeek+Groq toplamı) eşiği aştı mı? Fail-open: hata durumunda False döner."""
+    global _current_hour_key, _current_hour_cost_try
+    try:
+        if _current_hour_key is None:
+            _init_hourly_counter_from_file()
+        with _hourly_lock:
+            cap = float(os.getenv('AI_HOURLY_SPEND_CAP_TRY', '9'))
+            # AC-6: > kullan, >= değil — eşiğe TAM ulaşan mesaj engellenmemeli
+            return _current_hour_cost_try > cap
+    except Exception as e:
+        logger.error(f"Saatlik limit kontrolü hatası (fail-open, limit yokmuş gibi devam): {e}")
+        return False
+
 class TextGenParser:
     """Async/Parallel Groq (Llama 3.1) based parser with Traffic Control."""
     
@@ -141,6 +186,16 @@ class TextGenParser:
             }
             history.append(entry)
             save_json_safe(spend_file, history)
+
+            # Update hourly spend counter (AC-4, AC-5, AC-6)
+            global _current_hour_key, _current_hour_cost_try
+            with _hourly_lock:
+                hour_key = _get_current_hour_key()
+                if _current_hour_key != hour_key:
+                    # AC-4: saat değişti, pencere kayar, sayaç sıfırlanır
+                    _current_hour_key = hour_key
+                    _current_hour_cost_try = 0.0
+                _current_hour_cost_try += cost_try
 
             logger.info(f"💰 SPEND TRACKER [{provider}][{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
             print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Provider: {provider} | Total Entries: {len(history)}")
@@ -815,6 +870,9 @@ Return ONLY a JSON object in this format:
                     return city, dist
             except: pass
         return "", ""
+
+# Initialize hourly counter at module load (restart recovery, AC-4/AC-5)
+_init_hourly_counter_from_file()
 
 if __name__ == "__main__":
     parser = TextGenParser()

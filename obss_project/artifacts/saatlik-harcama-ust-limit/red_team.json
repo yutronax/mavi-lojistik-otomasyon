@@ -1,0 +1,60 @@
+{
+  "task": "saatlik-harcama-ust-limit",
+  "reviewed_at": "2026-09-04T00:00:00Z",
+  "summary": "Test-gap düzeltmesi doğrulandı: iki entegrasyon testi artık processing_queue.put() çağrısını gerçekten assert_called()/assert_not_called() ile kontrol ediyor, ve mesaj gövdeleri şehir+TIR anahtar kelimesi içerecek şekilde düzeltildiği için junk-filtre tarafından yanlışlıkla elenmiyorlar. 10/10 test doğru sebeple PASS ediyor, production kodunda bu düzeltme kapsamında hiçbir değişiklik yok — sadece test dosyası değişti.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "text_gen_parser.py",
+      "issue": "is_hourly_cap_exceeded() içindeki '_current_hour_key is None' kontrolü lock dışında yapılıyor ve _init_hourly_counter_from_file() lock olmadan global değişkenleri yazıyor; thread-safety şu an sadece modül-yükleme sırasındaki eager-init çağrısına dayanıyor, kodun kendisi tek başına thread-safe değil (önceki turdan devralındı, bu turda düzeltilmedi).",
+      "better_approach": "_init_hourly_counter_from_file()'ın atamalarını _hourly_lock altına al veya None kontrolünü de lock içine taşı.",
+      "reason": "Kullanıcı sadece test-gap bulgusunun kapatılmasını istedi; bu bulgu blocking değil çünkü mevcut eager-init modül yüklemede tek thread'de çalışıyor ve pratikte güvenli, ama gelecekteki bir refactor bu örtük varsayımı sessizce bozabilir."
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "text_gen_parser.py",
+      "issue": "_init_hourly_counter_from_file() tek bir bozuk kayıtta tüm init'i sıfırlıyor, per-entry hata toleransı yok (önceki turdan devralındı).",
+      "better_approach": "Döngü içi per-entry try/except ile tekil bozuk kayıtları atlamak, toplamı sıfırlamak yerine.",
+      "reason": "AC-5 fail-open'ı teknik olarak karşılıyor ama kısmi veri bozukluğunda toptan kayıp riskini kabul ediyor; kapsam dışı bırakıldı, kabul edilebilir."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "ai_spend_history.json'un tamamının her init'te okunması ölçek riski (önceki turdan devralındı).",
+      "better_approach": "İleride sadece son N kaydı okumak.",
+      "reason": "Şu anki veri boyutunda önemsiz, bilinçli olarak ertelendi."
+    }
+  ],
+  "strengths": [
+    "git diff ile doğrulandı: her iki entegrasyon testine assert_not_called()/assert_called() eklendi ve mesaj body'leri 'ISTANBUL ANKARA TIR LAZIM. Acil sipariş var, fiyat sorunuz.' olarak değiştirildi — junk-filtreyi kesin geçiyor.",
+    "10/10 PASS, artık 'blocks' testi gerçekten put() çağrılmadığını, 'allows' testi gerçekten put() çağrıldığını doğruluyor — önceki turun 'yanlış sebeple geçme' riski ortadan kalktı.",
+    "Bu düzeltme production kodunda (text_gen_parser.py, veri_cekici_ayristirici.py) SIFIR değişikliğe yol açtı — sadece test dosyası değişti, doğrulandı."
+  ],
+  "risks": [
+    "Thread-safety kırılganlığı (medium) ve init toptan-sıfırlama (low) hâlâ mevcut, kullanıcı bilinçli olarak sadece test-gap kapatılmasını istedi — kabul edilebilir bir kapsam sınırlaması, blocking değil."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve"
+}

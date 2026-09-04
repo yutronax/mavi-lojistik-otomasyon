@@ -61,6 +61,7 @@ from src.utils.config import (
 sys.path.insert(0, PROJECT_ROOT)
 from production_parser import ProductionParser
 from src.utils.phone_utils import is_phone_in_list
+import text_gen_parser
 
 from src.utils.file_operations import save_json_safe, load_json_safe
 from src.services.persistence_manager import persistence_manager
@@ -617,6 +618,18 @@ class OrchestratorSDK:
                 # Mark as handled so we don't re-process it
                 self.data_service.mark_id_handled(mid)
                 # Remove from active sets
+                with self.active_lock:
+                    if mid in self.active_ids:
+                        self.active_ids.remove(mid)
+                    if body_hash in self.active_body_hashes:
+                        self.active_body_hashes.remove(body_hash)
+                continue
+
+            # F. Hourly Spend Cap Check (AC-1, AC-2, AC-3)
+            # If hourly limit exceeded, postpone message (don't add to queue, don't mark handled)
+            if text_gen_parser.is_hourly_cap_exceeded():
+                logger.warning(f"[LIMIT] Saatlik AI harcama limiti aşıldı, mesaj ertelendi: {mid}")
+                # Remove from active sets (will be re-tried next fetch cycle)
                 with self.active_lock:
                     if mid in self.active_ids:
                         self.active_ids.remove(mid)
