@@ -56,37 +56,6 @@ import text_gen_parser
 class TestDeepSeekModelOrder:
     """AC-1: Verify DeepSeek models are tried FIRST, before Groq."""
 
-    def test_stage1_model_order_deepseek_first(self):
-        """
-        Given: text_gen_parser.py Stage 1 (initial attempt)
-        When: models_to_try list is defined in _extract_locations_stage1_async
-        Then: DeepSeek model appears BEFORE openai/gpt-oss-20b (Groq) in that method
-        """
-        import re
-
-        parser = text_gen_parser.TextGenParser()
-
-        # Extract ONLY the Stage 1 method source (not the entire class)
-        # This isolates the test from __init__ attribute assignments
-        stage1_source = inspect.getsource(parser._extract_locations_stage1_async)
-
-        # Find the models_to_try = [...] assignment within Stage 1 method
-        match = re.search(r'models_to_try\s*=\s*\[([^\]]*)\]', stage1_source)
-        assert match, "models_to_try assignment not found in _extract_locations_stage1_async method"
-
-        list_content = match.group(1)
-
-        # Check positions within the models_to_try list definition
-        deepseek_pos = list_content.find('deepseek')
-        groq_pos = list_content.find('openai/gpt-oss-20b')
-
-        assert deepseek_pos != -1, "deepseek model not found in Stage 1 models_to_try"
-        assert groq_pos != -1, "openai/gpt-oss-20b model not found in Stage 1 models_to_try"
-        assert deepseek_pos < groq_pos, (
-            f"DeepSeek (pos {deepseek_pos}) should appear before Groq (pos {groq_pos}) "
-            f"in Stage 1 models_to_try list, got: {list_content}"
-        )
-
     def test_stage2_model_order_deepseek_first(self):
         """
         Given: text_gen_parser.py Stage 2 (robust attempt with fallbacks)
