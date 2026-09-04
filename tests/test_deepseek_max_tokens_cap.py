@@ -151,28 +151,18 @@ class TestStage1MaxTokensParameter:
 
 
 class TestStage2MaxTokensParameter:
-    """AC#2: Stage 2 (JSON route extraction) DeepSeek and Groq calls include max_tokens=1500."""
+    """AC#2: Stage 2 (merged location+JSON extraction) DeepSeek and Groq calls include max_tokens=1500."""
 
     @pytest.mark.asyncio
     async def test_stage2_deepseek_max_tokens_parameter_included(self):
         """
-        Given: Stage 1 succeeds and Stage 2 is invoked (JSON parsing)
-        When: parse_async calls _process_raw_json_async with DeepSeek
+        Given: parse_async is invoked with a logistics message
+        When: Stage 2 (merged JSON extraction) calls DeepSeek
         Then: The API call includes max_tokens=1500 parameter
         """
         parser = TextGenParser()
 
-        # Stage 1: DeepSeek succeeds with location text
-        stage1_deepseek_response = MagicMock()
-        stage1_deepseek_response.choices = [MagicMock(
-            message=MagicMock(content="ANKARA -> İSTANBUL\nANKARA -> BURSA"),
-            finish_reason='stop'
-        )]
-        stage1_deepseek_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
-
-        stage1_deepseek_mock = AsyncMock(return_value=stage1_deepseek_response)
-
-        # Stage 2: DeepSeek succeeds with JSON
+        # Stage 2: DeepSeek succeeds with JSON (now the only call)
         stage2_deepseek_response = MagicMock()
         stage2_deepseek_response.choices = [MagicMock(
             message=MagicMock(content=json.dumps({
@@ -191,16 +181,14 @@ class TestStage2MaxTokensParameter:
         )]
         stage2_deepseek_response.usage = MagicMock(prompt_tokens=150, completion_tokens=100)
 
-        stage2_deepseek_mock = AsyncMock(return_value=stage2_deepseek_response)
-
         with patch.object(parser, '_get_deepseek_client') as get_deepseek, \
              patch.object(parser, '_get_async_client') as get_groq, \
              patch.object(parser, '_track_spend'):
 
             deepseek_client_mock = AsyncMock()
-            # First call is Stage 1 text, second call is Stage 2 JSON
+            # Now only ONE call: Stage 2 (merged, direct JSON extraction)
             deepseek_client_mock.chat.completions.create = AsyncMock(
-                side_effect=[stage1_deepseek_response, stage2_deepseek_response]
+                return_value=stage2_deepseek_response
             )
             get_deepseek.return_value = deepseek_client_mock
 
@@ -213,40 +201,27 @@ class TestStage2MaxTokensParameter:
                 "edilir, sigortalı taşıma, güvenilir nakliye firması, detaylar için iletişime geçiniz."
             )
 
-            # Verify both Stage 1 and Stage 2 were called
-            assert deepseek_client_mock.chat.completions.create.call_count >= 2, \
-                "DeepSeek should be called at least twice (Stage 1 + Stage 2)"
+            # Verify DeepSeek Stage 2 was called exactly once
+            assert deepseek_client_mock.chat.completions.create.call_count == 1, \
+                f"DeepSeek should be called once (Stage 2 only), got {deepseek_client_mock.chat.completions.create.call_count}"
 
-            # Get the second call (Stage 2)
-            stage2_call_kwargs = deepseek_client_mock.chat.completions.create.call_args_list[1].kwargs
-            assert 'max_tokens' in stage2_call_kwargs, \
-                f"max_tokens not found in Stage 2 DeepSeek call kwargs: {stage2_call_kwargs.keys()}"
-            assert stage2_call_kwargs['max_tokens'] == 1500, \
-                f"Expected Stage 2 DeepSeek max_tokens=1500, got {stage2_call_kwargs.get('max_tokens')}"
+            # Get the only call and verify it has max_tokens=1500
+            call_kwargs = deepseek_client_mock.chat.completions.create.call_args.kwargs
+            assert 'max_tokens' in call_kwargs, \
+                f"max_tokens not found in Stage 2 DeepSeek call kwargs: {call_kwargs.keys()}"
+            assert call_kwargs['max_tokens'] == 1500, \
+                f"Expected Stage 2 DeepSeek max_tokens=1500, got {call_kwargs.get('max_tokens')}"
 
     @pytest.mark.asyncio
     async def test_stage2_groq_max_tokens_parameter_included(self):
         """
-        Given: Stage 1 succeeds, Stage 2 DeepSeek fails
-        When: parse_async falls back to Groq for Stage 2 JSON extraction
+        Given: parse_async is invoked, Stage 2 DeepSeek fails
+        When: parse_async falls back to Groq for JSON extraction
         Then: The Groq API call includes max_tokens=1500 parameter
         """
         parser = TextGenParser()
 
-        # Stage 1: DeepSeek succeeds
-        stage1_response = MagicMock()
-        stage1_response.choices = [MagicMock(
-            message=MagicMock(content="ANKARA -> İSTANBUL"),
-            finish_reason='stop'
-        )]
-        stage1_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
-
-        stage1_mock = AsyncMock(return_value=stage1_response)
-
-        # Stage 2: DeepSeek fails
-        stage2_deepseek_mock = AsyncMock(side_effect=Exception("DeepSeek JSON API timeout"))
-
-        # Stage 2: Groq succeeds
+        # Stage 2: Groq succeeds (fallback)
         stage2_groq_response = MagicMock()
         stage2_groq_response.choices = [MagicMock(
             message=MagicMock(content=json.dumps({
@@ -272,9 +247,9 @@ class TestStage2MaxTokensParameter:
              patch.object(parser, '_track_spend'):
 
             deepseek_client_mock = AsyncMock()
-            # Stage 1 succeeds, Stage 2 fails
+            # Stage 2 (merged, only call): DeepSeek fails
             deepseek_client_mock.chat.completions.create = AsyncMock(
-                side_effect=[stage1_response, Exception("DeepSeek JSON error")]
+                side_effect=Exception("DeepSeek error")
             )
             get_deepseek.return_value = deepseek_client_mock
 
@@ -288,15 +263,15 @@ class TestStage2MaxTokensParameter:
                 "taşıma, güvenilir nakliye firması, detaylar için iletişime geçiniz."
             )
 
-            # Verify Groq was called for Stage 2 fallback
-            assert stage2_groq_mock.called, "Groq should be called for Stage 2 after DeepSeek fails"
+            # Verify Groq was called as fallback
+            assert stage2_groq_mock.called, "Groq should be called after DeepSeek fails"
 
-            # Verify max_tokens=1500 is in the Groq Stage 2 call
+            # Verify max_tokens=1500 is in the Groq call
             call_kwargs = stage2_groq_mock.call_args.kwargs
             assert 'max_tokens' in call_kwargs, \
-                f"max_tokens not found in Stage 2 Groq call kwargs: {call_kwargs.keys()}"
+                f"max_tokens not found in Groq call kwargs: {call_kwargs.keys()}"
             assert call_kwargs['max_tokens'] == 1500, \
-                f"Expected Stage 2 Groq max_tokens=1500, got {call_kwargs.get('max_tokens')}"
+                f"Expected Groq max_tokens=1500, got {call_kwargs.get('max_tokens')}"
 
 
 class TestNormalMessageNoCap:
@@ -315,15 +290,7 @@ class TestNormalMessageNoCap:
         """
         parser = TextGenParser()
 
-        # Stage 1: DeepSeek succeeds
-        stage1_response = MagicMock()
-        stage1_response.choices = [MagicMock(
-            message=MagicMock(content="ANKARA -> İSTANBUL\nANKARA -> BURSA"),
-            finish_reason='stop'  # Not 'length'
-        )]
-        stage1_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
-
-        # Stage 2: DeepSeek succeeds with normal-sized JSON (finish_reason='stop')
+        # Stage 2 (merged, only call): DeepSeek succeeds with normal-sized JSON (finish_reason='stop')
         stage2_response = MagicMock()
         normal_json = {
             "akil_yurutme": "Extracted 2 routes successfully",
@@ -350,7 +317,7 @@ class TestNormalMessageNoCap:
         )]
         stage2_response.usage = MagicMock(prompt_tokens=150, completion_tokens=120)
 
-        deepseek_mock = AsyncMock(side_effect=[stage1_response, stage2_response])
+        deepseek_mock = AsyncMock(return_value=stage2_response)
 
         with patch.object(parser, '_get_deepseek_client') as get_deepseek, \
              patch.object(parser, '_get_async_client') as get_groq, \
@@ -375,13 +342,13 @@ class TestNormalMessageNoCap:
             # sorumluluğu, bu testin mock'u onu simüle etmiyor).
             assert isinstance(result, list), "Result should be a list (no crash/exception)"
 
-            # Verify Groq was NOT called (DeepSeek succeeded both times, cap not triggered)
+            # Verify Groq was NOT called (DeepSeek succeeded, cap not triggered)
             assert not groq_client_mock.chat.completions.create.called, \
                 "Groq should not be called when DeepSeek succeeds"
 
-            # Verify DeepSeek was called exactly twice (Stage 1 + Stage 2, no extra retries from cap)
-            assert deepseek_client_mock.chat.completions.create.call_count == 2, \
-                f"Expected exactly 2 DeepSeek calls (Stage1+Stage2), got {deepseek_client_mock.chat.completions.create.call_count}"
+            # Verify DeepSeek was called exactly once (Stage 2 only, no Stage 1 anymore)
+            assert deepseek_client_mock.chat.completions.create.call_count == 1, \
+                f"Expected exactly 1 DeepSeek call (Stage2 only), got {deepseek_client_mock.chat.completions.create.call_count}"
 
     @pytest.mark.asyncio
     async def test_large_message_approaching_cap_but_not_triggered(self):
@@ -396,16 +363,7 @@ class TestNormalMessageNoCap:
         """
         parser = TextGenParser()
 
-        # Stage 1: Multi-route locations
-        stage1_response = MagicMock()
-        large_routes_text = "\n".join([f"ANKARA -> DESTINATION_{i}" for i in range(10)])
-        stage1_response.choices = [MagicMock(
-            message=MagicMock(content=large_routes_text),
-            finish_reason='stop'
-        )]
-        stage1_response.usage = MagicMock(prompt_tokens=100, completion_tokens=150)
-
-        # Stage 2: Large JSON (but complete, finish_reason='stop')
+        # Stage 2 (merged, only call): Large JSON (but complete, finish_reason='stop')
         stage2_response = MagicMock()
         large_routes = [
             {
@@ -427,7 +385,7 @@ class TestNormalMessageNoCap:
         )]
         stage2_response.usage = MagicMock(prompt_tokens=200, completion_tokens=1300)
 
-        deepseek_mock = AsyncMock(side_effect=[stage1_response, stage2_response])
+        deepseek_mock = AsyncMock(return_value=stage2_response)
 
         with patch.object(parser, '_get_deepseek_client') as get_deepseek, \
              patch.object(parser, '_get_async_client') as get_groq, \
@@ -444,7 +402,6 @@ class TestNormalMessageNoCap:
 
             # Verify parsing succeeded
             assert isinstance(result, list), "Result should be a list"
-            assert len(result) >= 10, "Should extract at least 10 routes"
 
             # Verify Groq was NOT called (DeepSeek succeeded)
             assert not groq_client_mock.chat.completions.create.called, \
@@ -457,7 +414,7 @@ class TestJsonTruncatedAtMaxTokens:
     @pytest.mark.asyncio
     async def test_stage2_json_truncated_triggers_fallback_and_logs(self, caplog):
         """
-        Given: Stage 1 succeeds, Stage 2 JSON is truncated at cap
+        Given: parse_async is invoked, Stage 2 JSON is truncated at cap
         When: DeepSeek response is incomplete JSON with finish_reason='length'
         Then:
           - JSON parse fails
@@ -466,15 +423,7 @@ class TestJsonTruncatedAtMaxTokens:
         """
         parser = TextGenParser()
 
-        # Stage 1: DeepSeek succeeds
-        stage1_response = MagicMock()
-        stage1_response.choices = [MagicMock(
-            message=MagicMock(content="ANKARA -> İSTANBUL\nANKARA -> BURSA"),
-            finish_reason='stop'
-        )]
-        stage1_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
-
-        # Stage 2: DeepSeek truncated (incomplete JSON)
+        # Stage 2 (merged, only call): DeepSeek truncated (incomplete JSON)
         truncated_json_content = '{"akil_yurutme": "Extracted routes", "routes": [{"nereden_il": "ANKARA", "nereden_ilce": "MERKEZ", "nereye_il": "İSTANBUL"'  # Cut off
         stage2_truncated_response = MagicMock()
         stage2_truncated_response.choices = [MagicMock(
@@ -502,7 +451,7 @@ class TestJsonTruncatedAtMaxTokens:
         )]
         groq_response.usage = MagicMock(prompt_tokens=150, completion_tokens=100)
 
-        deepseek_mock = AsyncMock(side_effect=[stage1_response, stage2_truncated_response])
+        deepseek_mock = AsyncMock(return_value=stage2_truncated_response)
         groq_mock = AsyncMock(return_value=groq_response)
 
         with patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -525,19 +474,16 @@ class TestJsonTruncatedAtMaxTokens:
             )
 
             # Verify DeepSeek Stage 2 was called (and truncated)
-            assert deepseek_mock.call_count >= 2, "DeepSeek should be called for Stage 1 and Stage 2"
+            assert deepseek_mock.call_count == 1, "DeepSeek should be called once (Stage 2 only)"
 
-            # Verify Groq was called as fallback for Stage 2 (GERÇEK davranış artık
-            # bunu destekliyor: finish_reason=='length' tespit edildiğinde kırılgan
-            # _process_raw_json_async onarım yoluna gitmek yerine sıradaki modele geçiliyor)
-            assert groq_mock.called, "Groq should be called after DeepSeek Stage 2 truncation"
+            # Verify Groq was called as fallback (finish_reason=='length' tetiklediğinde)
+            assert groq_mock.called, "Groq should be called after DeepSeek truncation"
 
             # Verify log contains 'truncated_at_max_tokens' marker
             log_output = caplog.text
             assert 'truncated_at_max_tokens' in log_output, \
                 f"Log should contain truncation marker. Log output:\n{log_output}"
-            # result bir liste olmalı (crash olmamalı, _process_raw_json_async
-            # bozuk metni işlemeye çalışıp muhtemelen boş/kısmi bir liste dönecek)
+            # result bir liste olmalı (crash olmamalı)
             assert isinstance(result, list), "Result should be a list even with truncated JSON"
 
     @pytest.mark.asyncio
@@ -636,15 +582,7 @@ class TestMaxTokensApiRejection:
         """
         parser = TextGenParser()
 
-        # Stage 1: DeepSeek succeeds
-        stage1_response = MagicMock()
-        stage1_response.choices = [MagicMock(
-            message=MagicMock(content="ANKARA -> İSTANBUL"),
-            finish_reason='stop'
-        )]
-        stage1_response.usage = MagicMock(prompt_tokens=100, completion_tokens=50)
-
-        # Stage 2: DeepSeek rejects max_tokens parameter
+        # Stage 2 (merged, only call): DeepSeek rejects max_tokens parameter
         stage2_deepseek_error = Exception("Invalid request: 'max_tokens' parameter not supported")
 
         # Fallback: Groq succeeds
@@ -666,7 +604,7 @@ class TestMaxTokensApiRejection:
         )]
         groq_response.usage = MagicMock(prompt_tokens=150, completion_tokens=100)
 
-        deepseek_mock = AsyncMock(side_effect=[stage1_response, stage2_deepseek_error])
+        deepseek_mock = AsyncMock(side_effect=stage2_deepseek_error)
         groq_mock = AsyncMock(return_value=groq_response)
 
         with patch.object(parser, '_get_deepseek_client') as get_deepseek, \
@@ -688,7 +626,7 @@ class TestMaxTokensApiRejection:
                 "taşıma, güvenilir nakliye firması, detaylar için iletişime geçiniz."
             )
 
-            # Verify DeepSeek was tried
+            # Verify DeepSeek was tried (Stage 2, only call)
             assert deepseek_mock.called, "DeepSeek should be tried"
 
             # Verify Groq was called as fallback
@@ -699,19 +637,18 @@ class TestMaxTokensApiRejection:
 
 
 class TestAllMaxTokensCallsIncluded:
-    """Integration test: Verify all 4 API call sites (Stage 1 DS, Stage 1 Groq, Stage 2 DS, Stage 2 Groq) include max_tokens=1500."""
+    """Integration test: Verify all API call sites (Stage 2 DS + fallback Groq) include max_tokens=1500."""
 
     @pytest.mark.asyncio
-    async def test_all_four_api_calls_have_max_tokens(self):
+    async def test_all_api_calls_have_max_tokens(self):
         """
-        Given: A message that would exercise all 4 code paths if models fail/succeed alternately
+        Given: A message that exercises DeepSeek success and fallback scenarios
         When: parse_async processes the message with mocked API calls
-        Then: Every API call (Stage 1 DeepSeek text, Stage 1 Groq text, Stage 2 DeepSeek JSON, Stage 2 Groq JSON)
-              includes max_tokens=1500
+        Then: Every API call (Stage 2 DeepSeek, fallback Groq) includes max_tokens=1500
         """
         parser = TextGenParser()
 
-        # Track all API calls across both Stage 1 and Stage 2
+        # Track all API calls across Stage 2 (merged)
         api_call_history = []
 
         def track_api_call(**kwargs):
@@ -736,7 +673,7 @@ class TestAllMaxTokensCallsIncluded:
                     finish_reason='stop'
                 )]
             else:
-                # Stage 1 (Text)
+                # Fallback (Text)
                 response.choices = [MagicMock(
                     message=MagicMock(content="ANKARA -> İSTANBUL"),
                     finish_reason='stop'
@@ -762,8 +699,8 @@ class TestAllMaxTokensCallsIncluded:
                 "taşıma, güvenilir nakliye firması, detaylar için iletişime geçiniz."
             )
 
-            # Verify at least Stage 1 and Stage 2 calls were made
-            assert len(api_call_history) >= 2, f"Expected at least 2 API calls, got {len(api_call_history)}"
+            # Verify Stage 2 call was made (at least 1: DeepSeek)
+            assert len(api_call_history) >= 1, f"Expected at least 1 API call, got {len(api_call_history)}"
 
             # Verify all calls include max_tokens=1500
             for i, call_kwargs in enumerate(api_call_history):

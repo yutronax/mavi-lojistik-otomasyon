@@ -158,6 +158,15 @@ class TextGenParser:
         cache_path = os.path.join(os.getcwd(), 'data', 'neighborhood_cache.json')
         persistence_manager.queue_write(cache_path, self.neighborhood_cache)
 
+    async def _extract_locations_stage1_async(self, message: str) -> str:
+        """
+        Stage 1 (Legacy): Fast extraction of just origins and destinations.
+        NOTE: This method is no longer called from parse_async() as of AC-1 (Stage merge).
+        Kept for backward compatibility and test compatibility.
+        Returns empty string (not used).
+        """
+        return ""
+
     def _get_model_for_message(self, message: str) -> str:
         """Determines which model to use. Primary: Groq (Llama)."""
         return 'openai/gpt-oss-20b'  # Groq primary model
@@ -250,83 +259,6 @@ class TextGenParser:
         
         return self._tag_cities(text)
 
-    async def _extract_locations_stage1_async(self, message: str) -> str:
-        """Stage 1: Fast extraction of just origins and destinations (Async). Groq -> DeepSeek fallback."""
-        clean_msg = self._clean_message(message)
-
-        # --- REGEX DISCOVERY ---
-        # Find all Turkish cities tagged in the message to give AI a hint
-        # The message is already tagged by parse_async -> _clean_message
-        found_tags = re.findall(r'\[(.*?)\]', clean_msg)
-        hint = f"\nIDENTIFIED CITIES (TAGGED AS [CITY]): {', '.join(found_tags)}" if found_tags else ""
-
-        system_prompt = """You are a logistics location extractor.
-RULES:
-1. If a line contains 'LOCATION YÜKLER', 'LOCATION YÜKLEMELİ' or 'LOCATION ÇIKIŞLI', that LOCATION is the ORIGIN for ALL subsequent destinations until a '---' separator or new header.
-2. '---' separators mark SECTION BOUNDARIES. Each section has its own ORIGIN header. NEVER carry an origin across a '---' boundary.
-3. If you see a multi-origin pattern like 'A+B+C -> D', output separate lines: A -> D, B -> D, C -> D.
-4. NEVER create routes between two list items (chaining). Only HEADER -> list_item routes.
-5. Output ONLY the routes in 'ORIGIN -> DESTINATION' format. No explanations."""
-        user_prompt = f"Extract routes from this logistics message. {hint}\n\nMESSAGE:\n{clean_msg}"
-
-        # Stage 1: Try DeepSeek first (primary), then Groq
-        models_to_try = ['deepseek-v4-flash', 'openai/gpt-oss-20b']
-
-        with self.semaphore:
-            for model_to_use in models_to_try:
-                for attempt in range(3):
-                    try:
-                        if "deepseek" in model_to_use:
-                            client = self._get_deepseek_client()
-                            try:
-                                response = await client.chat.completions.create(
-                                    model=model_to_use,
-                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                    temperature=0.0,
-                                    max_tokens=1500
-                                )
-                                text = response.choices[0].message.content
-                                self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                                await client.close()
-                                return text.strip()
-                            except:
-                                await client.close()
-                                raise
-                        else:
-                            # Groq client (llama model)
-                            client = self._get_async_client()
-                            try:
-                                response = await client.chat.completions.create(
-                                    model=model_to_use,
-                                    messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-                                    temperature=0.0,
-                                    reasoning_effort="low",
-                                    max_tokens=1500
-                                )
-                                text = response.choices[0].message.content
-                                self._track_spend(model_to_use, response.usage.prompt_tokens, response.usage.completion_tokens)
-                                await client.close()
-                                return text.strip()
-                            except:
-                                await client.close()
-                                raise
-                    except RuntimeError as e:
-                        if "interpreter shutdown" in str(e):
-                            return ""
-                        raise
-                    except Exception as e:
-                        error_str = str(e)
-                        if "429" in error_str:
-                            logger.warning(f"Stage 1 {model_to_use} Rate Limit. Trying next model...")
-                            # Move to next model
-                            break
-
-                        print(f"STAGE 1 ERROR [{model_to_use}]: {e}")
-                        logger.warning(f"Stage 1 {model_to_use} failed: {str(e)[:100]}")
-                        # Move to next model
-                        break
-        return ""
-
     async def parse_async(self, message: str) -> list:
         """Asynchronously parse logistics message with full logic recovery."""
         # 0. Clean Message (Emoji separation, symbol normalization)
@@ -349,12 +281,9 @@ RULES:
             logger.info(f"🚫 Hallucination protection triggered for: '{message}'")
             return []
 
-        # 2. Stage 1 (Ground Truth)
-        confirmed_locs = ""
-        if len(message) > 150:
-            confirmed_locs = await self._extract_locations_stage1_async(message)
-        
-        loc_guideline = f"\nCONFIRMED ROUTES (Priority):\n{confirmed_locs}\n" if confirmed_locs else ""
+        # 2. Stage 1 integration (merged into Stage 2)
+        # Stage 1 is now integrated into Stage 2's prompt via enhanced reasoning.
+        # No separate API call needed.
 
         # 3. Final Parse Call (Stage 2)
         target_model = self._get_model_for_message(message)
@@ -372,11 +301,22 @@ LOGISTICS ABBREVIATIONS & RULES:
 
 VALID TURKISH CITIES: ADANA, ADIYAMAN, AFYONKARAHİSAR, AĞRI, AKSARAY, AMASYA, ANKARA, ANTALYA, ARDAHAN, ARTVİN, AYDIN, BALIKESİR, BARTIN, BATMAN, BAYBURT, BİLECİK, BİNGÖL, BİTLİS, BOLU, BURDUR, BURSA, ÇANAKKALE, ÇANKIRI, ÇORUM, DENİZLİ, DİYARBAKIR, DÜZCE, EDİRNE, ELAZIĞ, ERZİNCAN, ERZURUM, ESKİŞEHİR, GAZİANTEP, GİRESUN, GÜMÜŞHANE, HAKKARİ, HATAY, IĞDIR, ISPARTA, MERSİN, İSTANBUL, İZMİR, KAHRAMANMARAŞ, KARABÜK, KARAMAN, KARS, KASTAMONU, KAYSERİ, KIRIKKALE, KIRKLARELİ, KIRŞEHİR, KİLİS, KOCAELİ, KONYA, KÜTAHYA, MALATYA, MANİSA, MARDİN, MUĞLA, MUŞ, NEVŞEHİR, NİĞDE, ORDU, OSMANİYE, RİZE, SAKARYA, SAMSUN, SİİRT, SİNOP, SİVAS, ŞANLIURFA, ŞIRNAK, TEKİRDAĞ, TOKAT, TRABZON, TUNCELİ, UŞAK, VAN, YALOVA, YOZGAT, ZONGULDAK."""
 
-        user_prompt = f"""Extract ALL routes from this message. 
+        # Prepare STEP-BY-STEP REASONING instruction for complex messages (150+ chars)
+        reasoning_instruction = ""
+        if len(message) > 150:
+            reasoning_instruction = """
+STEP-BY-STEP REASONING (for messages with multiple sections or complex structure):
+Before producing the final JSON, first reason through the message in "akil_yurutme":
+1. Identify each section (separated by '---' or a new header line).
+2. For each section, identify the ORIGIN (from header rules 5 and 9 below) and list all DESTINATIONS.
+3. Apply the NO-CHAINING rule (10): list items are destinations FROM the origin, never from each other.
+4. Write down each confirmed ORIGIN -> DESTINATION pair as your reasoning in "akil_yurutme".
+Then convert this exact reasoning into the "routes" JSON array — the JSON must match what you reasoned, no new routes invented.
+"""
+
+        user_prompt = f"""Extract ALL routes from this message.
 STRICT RULE: Only extract routes explicitly stated. Do NOT invent locations.
-
-{loc_guideline}
-
+{reasoning_instruction}
 EXTRACTION & LOGIC RULES:
 5. GLOBAL ORIGIN (HEADER-BASED): If a line contains "LOCATION YÜKLER", "LOCATION YÜKLER:", "LOCATION ÇIKIŞLI", "LOCATION YÜKLEME" or similar, that LOCATION is ALWAYS the ORIGIN (nereden) for ALL subsequent locations until a '---' separator or a new header appears. Words like "ORGANİZE", "ERCİYES", "HAL" are qualifiers (industrial zone, market area), NOT locations.
 6. VERTICAL LISTS (MANY-TO-ONE): In a vertical list following an origin header, EVERY line between the header and the next '---' separator is a DESTINATION (nereye) from that header's origin. Even if a line contains a city name like "ORDU merkez" or "Amasya merkez", it is still a DESTINATION, not a new origin. The header is ALWAYS the start, the list items are ALWAYS the ends.
@@ -448,8 +388,8 @@ Expected Logic:
 MESSAGE TO PARSE:
 {message.strip()}
 
-Return ONLY a JSON object in this format: 
-{{"akil_yurutme": "Kısa analiziniz buraya", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
+Return ONLY a JSON object in this format:
+{{"akil_yurutme": "Section-by-section reasoning: identify origins/destinations from headers and lists, apply NO-CHAINING rule, confirm ORIGIN -> DESTINATION pairs", "routes": [{{ "nereden_il": "CITY", "nereden_ilce": "DISTRICT", "nereye_il": "CITY", "nereye_ilce": "DISTRICT", "type": "VEHICLE", "isim": "COMPANY" }}]}}"""
 
         # 413 Payload Too Large protection
         if len(message) > 8000:

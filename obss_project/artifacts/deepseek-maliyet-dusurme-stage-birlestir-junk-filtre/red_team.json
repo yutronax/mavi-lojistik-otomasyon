@@ -1,0 +1,54 @@
+{
+  "task": "deepseek-maliyet-dusurme-stage-birlestir-junk-filtre",
+  "reviewed_at": "2026-09-04T00:00:00Z",
+  "summary": "Prior blocking findings are genuinely closed: the reasoning_instruction compensating prompt block was added to parse_async() exactly as plan.md required, and two new tests validate both its presence (150+ char messages) and its absence (short messages). Full suite (179 tests) passes with no regressions.",
+  "findings": [
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "tests/test_stage_merge_call_count.py",
+      "issue": "Yeni testler reasoning_instruction'ın promptta var/yok olduğunu doğruluyor ama modelin akil_yurutme alanını gerçekten doğru kullanıp kullanmadığını (LLM davranışsal etkinliği) test etmiyor.",
+      "better_approach": "Bloklayıcı değil — prompt-içerik assertion'ları kod incelemesi için doğru kapsam, gerçek LLM davranışı unit test edilemez. Gelecekte gerçek model çağrılarıyla golden-fixture tabanlı bir eval testi düşünülebilir.",
+      "reason": "LLM çıktı kalitesi deterministik olarak unit test edilemez; bu boşluk şu aşamada kabul edilebilir ama pytest suite dışında eval/prompt-regresyon testi olarak izlenmeli."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "Ölü `_extract_locations_stage1_async` metodu sadece 'geriye dönük/test uyumluluğu' için tutuluyor, artık her zaman boş string döndürüyor.",
+      "better_approach": "Şimdilik kabul edilebilir (docstring ve testler bunu çağrılmadığını doğruluyor) ama gelecekteki bir temizlik turunda ilgili eski testlerle birlikte kaldırılmalı.",
+      "reason": "Stub olarak ölü kod tutmak küçük ama gerçek bir uzun-vadeli bakım maliyeti ekliyor; bu görevi bloklamıyor, sonraki temizlik turu için işaretleniyor."
+    }
+  ],
+  "strengths": [
+    "git diff, reasoning_instruction bloğunun (STEP-BY-STEP REASONING) parse_async() içinde gerçek kod olduğunu, sadece len(message) > 150 için koşullu oluşturulduğunu doğruluyor — plan.md'nin telafi edici tasarımıyla birebir uyumlu.",
+    "JSON çıktı şablonundaki akil_yurutme örnek metni de bölüm-bölüm akıl yürütmeye referans verecek şekilde güncellenmiş, talimat ve beklenen çıktı formatı tutarlı.",
+    "test_multi_section_message_prompt_includes_reasoning_instruction sadece talimatın varlığını değil, orijinal mesaj içeriğinin (---, YÜKLER header'ları) da promptta hayatta kaldığını ve talimatın EXTRACTION & LOGIC RULES'den ÖNCE geldiğini doğruluyor.",
+    "test_short_message_no_reasoning_instruction basit mesajlar için prompt şişmesine karşı doğru şekilde koruma sağlıyor, maliyet kazancını yaygın durum için koruyor.",
+    "Tam test suite (179 test, dokunulmamış retry/fallback regresyon testleri AC-2/AC-6 dahil) temiz geçiyor — Stage-1 kaldırma + prompt telafisi hiçbir regresyona yol açmamış."
+  ],
+  "risks": [
+    "150+ karakterlik mesajlarda prompt uzunluğu artışı, bu görevi tetikleyen Stage-1-kaldırma tasarrufunu kısmen dengeleyebilir; ama bu plan.md'de kabul edilen telafi tasarımının doğal bir parçası ve tek çağrı (iki çağrı değil), net maliyet hâlâ iki-çağrı temeline göre düşmeli."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve"
+}

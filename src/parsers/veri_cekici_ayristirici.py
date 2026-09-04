@@ -103,6 +103,86 @@ try:
 except ImportError:
     BACKUP_SCHEDULER_AVAILABLE = False
 
+# Junk Message Filter (Modül Seviyesi Fonksiyon)
+# AC-3, AC-4, AC-5: Yerel/LLM'siz junk mesaj filtresi
+def _is_junk_message(message: str) -> bool:
+    """
+    Determines if a message is junk (not a logistics shipment offer).
+
+    Rules (CONSERVATIVE):
+    - If message contains ANY Turkish city/hub/alias OR logistics keyword OR phone number,
+      return False (NOT junk, send to LLM).
+    - If NONE of these signals are present, return True (junk, skip).
+
+    Args:
+        message: The message body to check
+
+    Returns:
+        bool: True if junk, False if legitimate shipment offer
+    """
+    if not message or not isinstance(message, str):
+        return True  # Empty = junk
+
+    # Normalize to uppercase for case-insensitive matching
+    # Turkish characters must be normalized (ı->I, ş->S, etc.)
+    msg_upper = message.upper().translate(str.maketrans(
+        'ışğüöçİŞĞÜÖÇ',
+        'isguocISGUOC'
+    ))
+
+    # Turkish cities + aliases + logistics hubs (normalized)
+    cities_and_hubs = {
+        "ADANA", "ADIYAMAN", "AFYON", "AFYONKARAHISAR", "AGRI", "AKSARAY", "AMASYA", "ANKARA",
+        "ANTALYA", "ARDAHAN", "ARTVIN", "AYDIN", "BALIKESIR", "BARTIN", "BATMAN", "BAYBURT",
+        "BILECIK", "BINGOL", "BITLIS", "BOLU", "BURDUR", "BURSA", "CANAKKALE", "CANKIRI",
+        "CORUM", "DENIZLI", "DIYARBAKIR", "DUZCE", "EDIRNE", "ELAZIG", "ERZINCAN", "ERZURUM",
+        "ESKISEHIR", "GAZIANTEP", "GIRESUN", "GUMUSHANE", "HAKKARI", "HATAY", "IGDIR",
+        "ISPARTA", "MERSIN", "ICEL", "ISTANBUL", "IZMIR", "KAHRAMANMARAS", "KARABUK",
+        "KARAMAN", "KARS", "KASTAMONU", "KAYSERI", "KIRIKKALE", "KIRKLARELI", "KIRSEHIR",
+        "KILIS", "KOCAELI", "KONYA", "KUTAHYA", "MALATYA", "MANISA", "MARDIN", "MUGLA",
+        "MUS", "NEVSEHIR", "NIGDE", "ORDU", "OSMANIYE", "RIZE", "SAKARYA", "SAMSUN", "SIIRT",
+        "SINOP", "SIVAS", "SANLIURFA", "SIRNAK", "TEKIRDAG", "TOKAT", "TRABZON", "TUNCELI",
+        "USAK", "VAN", "YALOVA", "YOZGAT", "ZONGULDAK",
+        # Aliases
+        "ANTEP", "MARAS", "URFA", "GANTEP", "KMARAS", "SURFA",
+        # Major logistics hubs
+        "ALIAGA", "KIZILTEPE", "GEBZE", "CORLU", "INEGOL", "ISKENDERUN",
+        "CERKEZKOY", "SILIVRI", "TUZLA", "DILOVASI", "KEMALPASA", "MUSTAFAKEMALPASA"
+    }
+
+    # Logistics keywords (also normalized: ş→s, ü→u, ö→o, ı→i, ç→c, etc.)
+    logistics_keywords = {
+        "TIR", "KAMYON", "INSAAT", "BOSYAR", "BOS", "ARAC",
+        "NAKLIYE", "NAKLIYAT", "NAK", "LOJISTIK", "TASIMA", "YUKLEME",
+        "YUKU", "YUKLER", "CIKISLI", "KALKIS", "VARISLI",
+        "YUKLU", "KARGI", "KARGIE", "KURYE", "DOLMUS"
+    }
+
+    # Check for any city/hub
+    for location in cities_and_hubs:
+        if location in msg_upper:
+            # Word boundary check to avoid false positives like "KONYA400"
+            pattern = rf'\b{re.escape(location)}\b'
+            if re.search(pattern, msg_upper):
+                return False  # Found city/hub, NOT junk
+
+    # Check for any logistics keyword
+    for keyword in logistics_keywords:
+        if keyword in msg_upper:
+            pattern = rf'\b{re.escape(keyword)}\b'
+            if re.search(pattern, msg_upper):
+                return False  # Found keyword, NOT junk
+
+    # Check for Turkish phone number format (0XXX-XXX-XX-XX or 0XXXXXXXXXX)
+    # More flexible with spaces/dashes: allows "0546 -183- 0165" format
+    phone_pattern = r'\b0\d{3}[\s\-]+\d{3}[\s\-]+\d{2}[\s\-]+\d{2}\b|\b0\d{10,11}\b'
+    if re.search(phone_pattern, message):
+        return False  # Found phone, NOT junk
+
+    # No signals found = junk
+    return True
+
+
 # Logging Yapılandırması
 LOG_FILE = os.path.join(PROJECT_ROOT, 'tools', 'orchestrator.log')
 os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
@@ -519,7 +599,7 @@ class OrchestratorSDK:
             with self.active_lock:
                 if mid in self.active_ids:
                     continue
-                
+
                 # Check body hash in memory (Race condition protection)
                 body_hash = self.data_service._normalize_and_hash(body)
                 if body_hash in self.active_body_hashes:
@@ -529,6 +609,20 @@ class OrchestratorSDK:
                 # Tüm kontrollerden geçtiyse kuyruğa at
                 self.active_ids.add(mid)
                 self.active_body_hashes.add(body_hash)
+
+            # E. Junk Message Filter (AC-3, AC-4, AC-5)
+            # Yerel heuristic: Şehir/anahtar kelime/telefon yoksa junk
+            if _is_junk_message(body):
+                logger.info(f"[JUNK] Mesaj filtrelendi (şehir/anahtar kelime/telefon yok): {mid}")
+                # Mark as handled so we don't re-process it
+                self.data_service.mark_id_handled(mid)
+                # Remove from active sets
+                with self.active_lock:
+                    if mid in self.active_ids:
+                        self.active_ids.remove(mid)
+                    if body_hash in self.active_body_hashes:
+                        self.active_body_hashes.remove(body_hash)
+                continue
 
             # NOTE: Mark ONLY after successful processing in save_results(), not here!
             # Marking here causes infinite loop if processing fails (e.g., API error)
