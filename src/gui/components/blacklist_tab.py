@@ -44,19 +44,12 @@ class BlacklistTab:
         """Refresh blacklist display"""
         items = []
 
-        for entry in self.blacklist:
-            if isinstance(entry, dict):
-                phone = entry.get('phone', entry)
-                reason = entry.get('reason', '')
-            else:
-                phone = entry
-                reason = ''
-
+        # Artık blacklist her zaman normalize string listesi (AC-1, AC-6)
+        for phone in self.blacklist:
             items.append(
                 ft.ListTile(
                     leading=ft.Icon(ft.Icons.BLOCK, color=AppColors.DANGER),
                     title=ft.Text(phone, weight="bold"),
-                    subtitle=ft.Text(reason, size=11) if reason else None,
                     trailing=ft.IconButton(
                         icon=ft.Icons.DELETE_OUTLINE,
                         icon_color=AppColors.DANGER,
@@ -70,34 +63,59 @@ class BlacklistTab:
         self.page.update()
 
     async def _add_blacklist(self):
-        """Add phone to blacklist"""
-        phone = self.phone_input.value.strip()
+        """
+        Add phone to blacklist (AC-1, AC-2, AC-4, AC-5).
+        1. Normalize phone (AC-1, AC-5: validate)
+        2. Check duplicate (AC-4)
+        3. Save with reason if provided (AC-2)
+        """
+        from src.utils.phone_utils import normalize_phone
+
+        phone_input = self.phone_input.value.strip()
         reason = self.reason_input.value.strip()
 
-        if not phone:
+        if not phone_input:
             self._show_error("Telefon numarası gerekli!")
             return
 
         try:
-            entry = {"phone": phone, "reason": reason} if reason else phone
-            self.blacklist.append(entry)
-            await self.data_service.save_blacklist(self.blacklist)
+            # AC-1, AC-5: Normalize phone; if invalid (< 7 or > 15 digits), show error
+            normalized = normalize_phone(phone_input)
+            if not normalized:
+                self._show_error("Geçersiz numara")
+                return
+
+            # AC-4: Check duplicate in current blacklist (compare normalized)
+            if normalized in self.blacklist:
+                self._show_error("Zaten kara listede")
+                return
+
+            # AC-1, AC-6: Prepare entry (dict with reason for coercion, or string)
+            entry = {"phone": normalized, "reason": reason} if reason else normalized
+            candidate_blacklist = self.blacklist + [entry]
+
+            # AC-2: save_blacklist will coerce dict to normalized string + save reason separately
+            success = await self.data_service.save_blacklist(candidate_blacklist)
+            if not success:
+                self._show_error("Kaydetme başarısız, tekrar deneyin")
+                return
+
+            # Reload blacklist to get normalized version (coerced by save_blacklist)
+            self.blacklist = await self.data_service.load_blacklist()
 
             self.phone_input.value = ""
             self.reason_input.value = ""
             await self._refresh_list()
-            self._show_success(f"'{phone}' kara listeye eklendi")
+            self._show_success(f"'{normalized}' kara listeye eklendi")
 
         except Exception as e:
             self._show_error(f"Ekleme hatası: {e}")
 
     async def _delete_blacklist(self, phone):
-        """Remove phone from blacklist"""
+        """Remove phone from blacklist (simplified: now always strings)"""
         try:
-            self.blacklist = [
-                e for e in self.blacklist
-                if (e if isinstance(e, str) else e.get('phone')) != phone
-            ]
+            # Artık blacklist her zaman normalize string (AC-1, AC-6)
+            self.blacklist = [p for p in self.blacklist if p != phone]
             await self.data_service.save_blacklist(self.blacklist)
             await self._refresh_list()
             self._show_success("Telefon kara listeden çıkarıldı")

@@ -1,0 +1,63 @@
+{
+  "task": "blacklist-normalize-fix",
+  "reviewed_at": "2026-09-05T00:00:00Z",
+  "summary": "Normalize/coercion mantığı (phone_utils.py, data_service.py) ATDD'nin AC-1..AC-6'sını doğru şekilde karşılıyor ve testler (30 passed) bunu doğruluyor; ancak blacklist_tab.py'de save_blacklist()'in dönüş değeri kontrol edilmediği için, ATDD'nin bizzat düzeltmeye çalıştığı 'sessiz başarı' sorununun ince bir versiyonu hâlâ GUI katmanında yaşıyor.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "src/gui/components/blacklist_tab.py",
+      "issue": "`_add_blacklist()` içinde `await self.data_service.save_blacklist(self.blacklist)` çağrısının dönüş değeri (True/False) hiç kontrol edilmiyor (satır 98). `save_blacklist()` içindeki genel `try/except` bir istisna yakalayıp `False` döndürse bile (ör. persistence_manager.queue_write başarısız olursa, disk dolu/izin hatası vb.), GUI kod akışı doğrudan devam edip kullanıcıya '<numara> kara listeye eklendi' başarı mesajını gösteriyor.",
+      "better_approach": "`success = await self.data_service.save_blacklist(self.blacklist)` şeklinde dönüş değerini yakalayıp `if not success:` durumunda `self.blacklist.pop()` (optimistic append'i geri al) + `_show_error('Kaydetme başarısız, tekrar deneyin')` göster.",
+      "reason": "atdd.md Davranış Sözleşmesi tam olarak bunu yasaklıyor: 'Hiçbir şey yapılamadı ama hata da yok ... sessiz başarı mesajı verilmez'. Bu satır tam olarak görevin çözmeye çalıştığı orijinal bug sınıfının (save sessizce başarısız olurken kullanıcı 'eklendi' görüyor) GUI tarafındaki artığı.",
+      "outcome": "fixed"
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "src/services/data_service.py",
+      "issue": "`save_blacklist()` her çağrıldığında `reasons = self.load_blacklist_reasons()` ile mevcut reasons dosyasını yükleyip üzerine ekliyor, ama bir numara `_delete_blacklist()` ile silindiğinde ona ait reason kaydı `blacklist_reasons.json`'dan hiç temizlenmiyor (satır 966-992). Zamanla silinmiş numaraların reason'ları dosyada birikir.",
+      "better_approach": "save_blacklist çağrısı sırasında, artık `normalized_blacklist` içinde olmayan anahtarları `reasons` dict'inden çıkarmalı (`reasons = {k: v for k, v in reasons.items() if k in normalized_blacklist}`).",
+      "reason": "atdd.md Rollback Beklentisi 'blacklist_reasons.json dosyası silinse veya hiç var olmasa bile ana filtreleme işlevi etkilenmemeli' diyor — bu doğru, ama dosyanın kendisi sınırsız büyüyen ölü veri biriktirmesi maintainability açısından ayrı bir sorun; AC'lerde açıkça talep edilmemiş olsa da ilerideki bir 'codebase cleanup' görevinde tekrar karşımıza çıkacak bir teknik borç."
+    },
+    {
+      "severity": "low",
+      "category": "correctness",
+      "file": "src/utils/phone_utils.py",
+      "issue": "`normalize_phone()` yalnızca TR'ye özgü 10/11(0...)/12(90...) haneli kalıpları tanıyor; bunların dışındaki (ör. 13-15 haneli, yabancı ülke kodlu) geçerli-uzunluktaki numaralar `return digits` (satır 32) ile ham haliyle döndürülüyor. `get_phone_variants()` ise yalnızca 10/11/12 haneli kalıpları biliyor, bu ham haldeki numara için üreteceği varyantlar `normalize_phone`'un ürettğiyle her zaman tutarlı olmayabilir (ör. 13 haneli bir numara `get_phone_variants` içinde `len(digits)>=10` fallback'ine düşüp `base=digits` olarak alınır, `0{13-hane}` gibi anlamsız bir varyant üretilir).",
+      "better_approach": "`normalize_phone` ve `get_phone_variants`'in TR-dışı/kalıp-dışı numaralar için davranışı aynı fallback kuralını paylaşmalı (ortak bir `_extract_base_digits()` yardımcı fonksiyonu ile), ya da açıkça 'sadece TR numaraları destekleniyor' dokümante edilip kalıp dışı numaralar `normalize_phone`'da da geçersiz sayılmalı.",
+      "reason": "AC-3 regresyon testi VPS'teki 111 kaydı kapsıyor (hepsi muhtemelen TR formatında) bu yüzden testler bunu yakalamıyor, ama gerçek dünyada gelen bir mesajın gönderici numarası TR-dışı formatta olursa filtreleme sonucu öngörülemez hale gelebilir — bu tam olarak is_phone_in_list'in ana amacı (spam engelleme) ile ilgili bir kör nokta."
+    }
+  ],
+  "strengths": [
+    "phone_utils.py::is_phone_in_list artık hem dict hem string hem de boşluklu/tireli phone_list elemanlarını normalize edip karşılaştırıyor, mevcut düz-string tabanlı çağrı yerlerini (data_service.py, mongo_service.py, veri_cekici_ayristirici.py) kırmadan geriye dönük uyumlu (imza değişmedi).",
+    "data_service.py::save_blacklist artık her elemanı coerce edip `normalize_phone` ile filtreliyor, dict/karışık girdi ile `set()` çağrısında oluşan eski `TypeError: unhashable type` crash'i kalıcı olarak ortadan kaldırılmış — kod okunarak doğrulandı (satır 970-988).",
+    "blacklist_tab.py::_add_blacklist duplicate kontrolünü normalize edilmiş değer üzerinden yapıyor ve AC-4'te istenen 'zaten kara listede' mesajını ayrı, açık bir mesaj olarak gösteriyor (satır 89-91) — genel hataya düşürülmemiş.",
+    "Test dosyasına (`tests/test_blacklist_normalize.py`) code-copilot tarafından dokunulmamış, gerçek 30 testin (`pytest tests/test_blacklist_normalize.py tests/test_blacklist_sender_number_field.py -q`) çalıştırılıp PASS olduğu orkestratör tarafından doğrulanmış (sub-agent özetine güvenilmemiş) — verify_report.md'de kanıtlı."
+  ],
+  "risks": [
+    "Gate 10 (güvenlik taraması) `pip-audit` timeout nedeniyle INCONCLUSIVE kaldı; bu görev yeni bağımlılık eklemediği için risk düşük ama commit öncesi tekrar denenmesi önerilir.",
+    "blacklist_reasons.json .gitignore'a eklenip mevcut `data/backups/` yedekleme akışına dahil edilmedi (atdd.md Risks'te not düşülmüştü) — kullanıcı reason bilgisini kaybetme riskiyle karşılaşabilir, ama ana filtreleme (blacklist.json) etkilenmiyor."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}

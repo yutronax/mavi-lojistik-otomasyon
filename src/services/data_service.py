@@ -915,11 +915,11 @@ class DataService:
         try:
             if not os.path.exists(self.blacklist_file):
                 return []
-            
+
             mtime = os.path.getmtime(self.blacklist_file)
             if self._blacklist_cache is not None and mtime <= self._blacklist_mtime:
                 return self._blacklist_cache
-            
+
             data = load_json_safe(self.blacklist_file, default=[])
             self._blacklist_cache = data
             self._blacklist_mtime = mtime
@@ -928,21 +928,82 @@ class DataService:
             logger.error(f"Error loading blacklist: {e}")
             return self._blacklist_cache or []
 
-    def save_blacklist(self, blacklist: List[str]) -> bool:
-        """Save blacklisted phone numbers and sync with MongoDB if available."""
+    def load_blacklist_reasons(self) -> Dict[str, str]:
+        """
+        Load phone -> reason mapping from blacklist_reasons.json.
+        AC-2: Reasons stored separately from main blacklist.
+        """
+        blacklist_reasons_file = str(self.user_data_dir / 'blacklist_reasons.json')
         try:
-            persistence_manager.queue_write(self.blacklist_file, sorted(list(set(blacklist))))
-            success = True # Arka plana atıldığı için başarılı varsayıyoruz
-            
+            data = load_json_safe(blacklist_reasons_file, default={})
+            return data if isinstance(data, dict) else {}
+        except Exception as e:
+            logger.error(f"Error loading blacklist reasons: {e}")
+            return {}
+
+    def save_blacklist_reasons(self, reasons: Dict[str, str]) -> bool:
+        """
+        Save phone -> reason mapping to blacklist_reasons.json.
+        AC-2: Reasons stored separately from main blacklist.
+        """
+        blacklist_reasons_file = str(self.user_data_dir / 'blacklist_reasons.json')
+        try:
+            return persistence_manager.queue_write(blacklist_reasons_file, reasons)
+        except Exception as e:
+            logger.error(f"Error saving blacklist reasons: {e}")
+            return False
+
+    def save_blacklist(self, blacklist: List) -> bool:
+        """
+        Save blacklisted phone numbers after coercion and normalize.
+        AC-1, AC-6: Coerce dict/unnormalized entries to normalized strings.
+        AC-2: Save reasons separately if present.
+        AC-5: Only add valid (7-15 digit) phone numbers.
+        """
+        try:
+            from src.utils.phone_utils import normalize_phone
+
+            # AC-6: Coerce mixed format to normalized strings + separate reasons
+            normalized_blacklist = []
+            reasons = self.load_blacklist_reasons() or {}
+
+            for entry in blacklist:
+                phone_str = None
+                reason = None
+
+                # AC-6: Extract phone from dict or use string directly
+                if isinstance(entry, dict):
+                    phone_str = entry.get('phone', '')
+                    reason = entry.get('reason', '')
+                else:
+                    phone_str = entry
+
+                if phone_str:
+                    # AC-1, AC-5: Normalize and validate (7-15 digits)
+                    normalized = normalize_phone(str(phone_str))
+                    if normalized:  # Empty string means invalid
+                        normalized_blacklist.append(normalized)
+                        # AC-2: Save reason separately if present
+                        if reason:
+                            reasons[normalized] = reason
+
+            # Save reasons if any exist
+            if reasons:
+                self.save_blacklist_reasons(reasons)
+
+            # AC-1: Save deduplicated normalized list
+            persistence_manager.queue_write(self.blacklist_file, sorted(list(set(normalized_blacklist))))
+            success = True  # Arka plana atıldığı için başarılı varsayıyoruz
+
             # Sync with MongoDB if service is attached
             if success and self.mongo_service:
                 try:
-                    self.mongo_service.save_blacklist(blacklist)
+                    self.mongo_service.save_blacklist(normalized_blacklist)
                     logger.info("Blacklist synchronized to MongoDB.")
                 except Exception as e:
                     logger.error(f"Failed to sync blacklist to MongoDB: {e}")
                     # We still return True because local save succeeded
-            
+
             return success
         except Exception as e:
             logger.error(f"Error saving blacklist: {e}")
