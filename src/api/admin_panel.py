@@ -1268,6 +1268,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
       <input id="bl-q" placeholder="Ara..." oninput="loadBl()">
     </div>
     <p id="bl-count" style="color:var(--mut);font-size:12px;margin:10px 0 4px"></p>
+    <section id="bl-pagination" style="display:none;margin-top:10px;text-align:center;font-size:12px;color:var(--mut)"></section>
     <div id="bl-list"></div>
   </div>
 </div>
@@ -1293,6 +1294,7 @@ const $ = id => document.getElementById(id);
 let currentPage = 1;
 const ITEMS_PER_PAGE = 20;
 let grpSearchMatches = null;
+let blCurrentPage = 1;
 
 function isMob(){ return window.innerWidth <= 768; }
 
@@ -1770,6 +1772,49 @@ async function loadBl(){
   const d = await api('/api/blacklist?q='+q); if(!d) return;
   $('bl-count').textContent = `Toplam ${d.count} numara` + (q?` (filtre: ${d.items.length})`:'');
   $('bl-list').innerHTML = d.items.map(n=>`<div class="bl-item"><span>${n}</span><button class="b-err" onclick="blDel('${n}')">Sil</button></div>`).join('');
+  blCurrentPage = 1;
+  renderBlPagination(1);
+}
+
+function renderBlPagination(page){
+  const allRows = document.querySelectorAll('#bl-list .bl-item');
+  const visibleRows = Array.from(allRows);
+
+  const totalPages = Math.ceil(visibleRows.length / ITEMS_PER_PAGE);
+  const startIdx = (page - 1) * ITEMS_PER_PAGE;
+  const endIdx = startIdx + ITEMS_PER_PAGE;
+
+  visibleRows.forEach((row, idx) => {
+    row.style.display = (idx >= startIdx && idx < endIdx) ? '' : 'none';
+  });
+
+  const paginationEl = $('bl-pagination');
+  if(visibleRows.length <= ITEMS_PER_PAGE) {
+    paginationEl.style.display = 'none';
+    return;
+  }
+
+  blCurrentPage = page;
+  paginationEl.style.display = 'block';
+  let paginationHtml = '';
+
+  if(page > 1) {
+    paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderBlPagination(${page - 1})">‹</button> `;
+  }
+
+  for(let i = 1; i <= totalPages; i++) {
+    if(i === page) {
+      paginationHtml += `<b style="margin:0 4px">${i}</b>`;
+    } else {
+      paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px;margin:0 2px" onclick="renderBlPagination(${i})">${i}</button> `;
+    }
+  }
+
+  if(page < totalPages) {
+    paginationHtml += ` <button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderBlPagination(${page + 1})">›</button>`;
+  }
+
+  paginationEl.innerHTML = paginationHtml;
 }
 
 async function blAdd(){
