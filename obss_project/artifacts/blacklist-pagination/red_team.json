@@ -1,0 +1,63 @@
+{
+  "task": "blacklist-pagination",
+  "reviewed_at": "2026-09-06T00:00:00Z",
+  "summary": "Implementasyon küçük, izole ve ATDD'nin çoğu AC'sini gerçekten karşılıyor; ancak AC-5'in davranışı (silme sonrası 'bir önceki geçerli sayfaya dön' yerine her zaman sayfa 1'e sıfırlama) plan.md'de sessizce sadeleştirilmiş ve bu, ATDD'nin kendi 'kullanıcı onayı gerekiyor' notuna rağmen onay alınmadan yapılmış bir davranış değişikliği. Ayrıca `blCurrentPage` değişkeni sadece testleri geçmek için yazılıyor ama hiçbir yerde okunmuyor (write-only state) — tespit edilen önceki '#tab-bl{}' teste-uydurma kalıbına yapısal olarak benzer, daha hafif bir versiyonu.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "correctness",
+      "file": "obss_project/artifacts/blacklist-pagination/atdd.md",
+      "issue": "AC-5, 'kullanıcının şu an görüntülediği sayfanın son kaydı silinince Math.min(currentPage, totalPages) ile BİR ÖNCEKİ geçerli sayfaya dönme' davranışını tarif ediyor (satır 41, 50). Ama plan.md (satır 30) ve gerçek kod (loadBl() sonu: `blCurrentPage = 1; renderBlPagination(1);`), silme dahil HER `loadBl()` çağrısında sayfayı doğrudan 1'e sıfırlıyor — 'bir önceki sayfa'ya değil, her zaman ilk sayfaya dönüyor.",
+      "better_approach": "Ya ATDD'nin AC-5 metnini gerçek davranışa göre güncelleyip kullanıcıya 'sadeleştirme onayı' sorulmalıydı (ATDD zaten Assumptions bölümünde bunun 'kullanıcı onayı gerektiren bir varsayım' olduğunu işaretlemişti — atdd.md satır 91), ya da gerçekten AC-5'in tarif ettiği gibi mevcut sayfa numarasını `Math.min(blCurrentPage, totalPages)` ile clamp edip loadBl() sonunda `renderBlPagination(blCurrentPage)` çağırılmalıydı (page=1 sabit değil).",
+      "reason": "Operatör 6 sayfalık bir listenin 5. sayfasında bir kayıt silince şu anki davranışla anında sayfa 1'e fırlatılıyor — bu, ATDD'nin Hedef bölümünde belirttiği 'gezinme/okunabilirlik' iyileştirme amacına ters, gerçek dünyada irritan bir UX regresyonu olabilir. Plan.md'nin 'daha basit çözüm' gerekçesi teknik olarak doğru ama AC metniyle davranışsal olarak çelişiyor ve bu sapma kullanıcıya hiç sorulmadan code-copilot'a 'doğrudan aktarıldı' (plan.md satır 29).",
+      "outcome": "fixed",
+      "resolution": "Kullanıcıya soruldu (AskUserQuestion) — kullanıcı mevcut basit davranışı ('her zaman sayfa 1'e dön') açıkça onayladı. atdd.md AC-5 ve Davranış Sözleşmesi satır 4 buna göre güncellendi, kod değişmedi (zaten doğruydu)."
+    },
+    {
+      "severity": "low",
+      "category": "caveman",
+      "file": "src/api/admin_panel.py",
+      "issue": "`blCurrentPage` global değişkeni `renderBlPagination` içinde ve `loadBl()` sonunda YAZILIYOR (`blCurrentPage = page;`, `blCurrentPage = 1;`) ama kod tabanının hiçbir yerinde OKUNMUYOR — pagination'ın hangi sayfada olduğu bilgisi fiilen sadece DOM'daki render edilmiş buton/satırlarda tutuluyor, `blCurrentPage` fonksiyonel olarak ölü/write-only bir değişken. Değişkenin varlığının tek amacı `test_bl_pagination_function_uses_bl_current_page` ve `test_blCurrentPage_not_named_currentPage` testlerini geçirmek.",
+      "better_approach": "Ya `blCurrentPage`'i gerçekten kullanan bir amaç ekle (örn. pencere yeniden boyutlandığında veya arama sırasında mevcut sayfayı korumak/loglamak için), ya da isim çakışması riskini önlemek amacıyla değişkeni tutmaya devam edip yorum ile 'şu an sadece izolasyon kanıtı, gelecekte state-preserving davranış için kullanılabilir' notu düş.",
+      "reason": "Bu, önceki turda tespit edilen '#tab-bl{}' teste-uydurma kalıbıyla aynı kök nedene sahip (bir testi geçirmek için işlevsel karşılığı olmayan kod eklemek) — daha zararsız bir versiyonu ama yine de 'ölü kod yok' definition-of-done iddiasıyla (code_diff.md satır 35) tam örtüşmüyor."
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "src/api/admin_panel.py",
+      "issue": "AC-6 ('renderBlPagination hata fırlatırsa loadBl()'ün temel `#bl-list` render akışı bundan etkilenmemeli') kodda try/catch veya açık bir izolasyon mekanizmasıyla değil, sadece ÇAĞRI SIRASI ile sağlanıyor: `$('bl-list').innerHTML = ...` satırı `renderBlPagination(1)` çağrısından ÖNCE çalıştığı için, ikincisi patlasa bile ilki zaten tamamlanmış oluyor.",
+      "better_approach": "`renderBlPagination(1)` çağrısını `try { renderBlPagination(1); } catch(e) { console.error(e); }` ile sarmalayarak izolasyonu koda AÇIKÇA yaz, sıra bağımlılığına güvenme.",
+      "reason": "verify_report.md kendisi de bunu 'PASS (kısmi kanıt)' olarak işaretlemiş (satır 38) ve gelecekte biri `renderBlPagination` çağrısını `loadBl()`'ün innerHTML atamasından ÖNCEye taşırsa (örn. bir refactor sırasında), AC-6 sessizce bozulur ve hiçbir test bunu yakalamaz — atdd.md'nin kendi Risks bölümü de zaten 'otomatik regresyon koruması zayıf' diyor (atdd.md satır 87)."
+    }
+  ],
+  "strengths": [
+    "renderBlPagination, Gruplar sekmesinin grpSearchMatches'e ihtiyaç duyan koşullu mantığını GEREKSİZ bulup (plan.md satır 26), kara listenin zaten server-side filtrelenmiş olmasından yararlanarak daha basit ve doğru bir çözüm üretmiş — bu, atdd.md'nin varsayımını sorgulayıp daha iyi bir tasarıma varan iyi bir örnek.",
+    "blCurrentPage/renderBlPagination isimlendirmesi Gruplar'ın currentPage/renderGrpPagination'ından tamamen izole; regresyon testleri (test_grp_pagination_functions_preserved, test_items_per_page_not_redefined) bunu doğruluyor ve git diff satır 1268-1817 aralığı dışına hiç dokunulmamış.",
+    "Önceki turdaki '#tab-bl{}' teste-uydurma hatası orkestratör tarafından doğru kök nedene (test assertion hatası, implementasyon hatası değil) indirgenip hem test hem kod düzgün düzeltilmiş — bu süreç kalitesi açısından olumlu."
+  ],
+  "risks": [
+    "AC-5 ve AC-6'nın gerçek runtime kanıtı native confirm() dialog engeli nedeniyle tamamlanamadı (verify_report.md satır 43) — kullanıcının manuel olarak bir kez daha silme senaryosunu (özellikle 5. sayfada tek kayıt silme) test etmesi önerilir, çünkü yukarıdaki AC-5 bulgusu tam da bu senaryoda beklenenden farklı davranıyor.",
+    "Bu özellik tamamen yapısal (string/regex) testlerle korunuyor; gelecekte biri INDEX_HTML içindeki JS'i formatını değiştirerek (örn. fonksiyonu farklı satır sonlarıyla) refactor ederse regex tabanlı testler yanlış-pozitif/yanlış-negatif verebilir — atdd.md bunu zaten kabul edilmiş bir sınırlama olarak işaretlemiş."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}
