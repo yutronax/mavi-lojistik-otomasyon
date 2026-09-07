@@ -54,9 +54,9 @@ _current_hour_cost_try = 0.0
 _current_hour_reserved_try = 0.0
 
 # Reservation: Estimated cost per API call (DeepSeek avg: ~5000 input + 2000 output tokens)
-# Cost = (5000 * 0.27/1M + 2000 * 1.10/1M) USD * 33 TL/USD ≈ 0.12 TL
-# Conservative upper bound to account for larger messages: 0.20 TL per call
-ESTIMATED_COST_PER_CALL_TRY = 0.20
+# Cost = (5000 * 0.27/1M + 2000 * 1.10/1M) USD * 48.5 TL/USD ≈ 0.17 TL
+# Conservative upper bound to account for larger messages: 0.25 TL per call
+ESTIMATED_COST_PER_CALL_TRY = 0.25
 
 def _get_current_hour_key() -> str:
     """Returns current hour as YYYY-MM-DD-HH format."""
@@ -221,11 +221,11 @@ class TextGenParser:
                 _current_hour_reserved_try = max(0.0, _current_hour_reserved_try - ESTIMATED_COST_PER_CALL_TRY)
                 # Gerçek maliyeti sayaca ekle (sadece cost > 0 ise)
                 if cost > 0:
-                    cost_try = cost * 33  # Approx 33 TL per USD
+                    cost_try = cost * 48.5  # Approx 48.5 TL per USD
                     _current_hour_cost_try += cost_try
 
             if cost > 0:
-                cost_try = cost * 33  # Approx 33 TL per USD
+                cost_try = cost * 48.5  # Approx 48.5 TL per USD
 
                 # Detect provider from model name
                 if "deepseek" in model_name:
