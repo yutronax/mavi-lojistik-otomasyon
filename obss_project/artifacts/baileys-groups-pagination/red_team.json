@@ -1,0 +1,55 @@
+{
+  "task": "baileys-groups-pagination",
+  "reviewed_at": "2026-09-07T00:00:00Z",
+  "summary": "Implementasyon Gruplar'ın pagination desenini büyük ölçüde doğru izole ediyor ve tüm AC'leri canlı e2e ile geçiyor, ancak `loadGroups()`'un yaptığı `grpSearchMatches = null` sıfırlamasının Baileys eşdeğeri (`baileysSearchMatches = null`) `loadBaileysGroups()`'a hiç eklenmemiş — bu, arama yapılıp ardından yenile'ye basıldığında stale/kopmuş DOM referanslarıyla render edilme riski taşıyan gerçek bir correctness bug'ı.",
+  "findings": [
+    {
+      "severity": "high",
+      "category": "correctness",
+      "file": "src/api/admin_panel.py",
+      "issue": "`loadGroups()` (satır 1571-1578) `$('grp-list').innerHTML` atamasından sonra `grpSearchMatches = null;` ile arama-eşleşme state'ini sıfırlıyor (çünkü DOM yeniden oluşturulunca eski dizi artık kopmuş/geçersiz element referansları tutar). `loadBaileysGroups()`'un (satır ~1679-1714) HİÇBİR dönüş noktasında (`d.message`, `!unsaved.length`, normal akış sonu) buna karşılık gelen `baileysSearchMatches = null;` YOK — sadece `baileysCurrentPage = 1;` set ediliyor. `renderBaileysGrpPagination` (satır 1632) `baileysSearchMatches !== null ? baileysSearchMatches : Array.from(allRows)` mantığıyla çalıştığı için, önceden arama yapılmış (`baileysSearchMatches` non-null) bir durumda yenile'ye basılırsa, pagination YENİ yüklenen DOM satırları yerine ESKİ (artık DOM'dan kopmuş) satır referanslarını kullanır.",
+      "better_approach": "`loadBaileysGroups()`'un her üç dönüş noktasına da `baileysSearchMatches = null;` eklenmeli — `baileysCurrentPage = 1;`'in yanına, `loadGroups()`'un `grpSearchMatches = null;` satırıyla birebir aynı konumda.",
+      "reason": "atdd.md AC-5 ve Davranış Sözleşmesi satır 4, 'loadBaileysGroups() sonrası pagination'ın tutarlı/temiz bir durumda olması' gerektiğini söylüyor; stale arama-eşleşme state'i bu sözleşmeyi bozuyor. Canlı e2e testimde bu senaryo (önce ara, TEMİZLEMEDEN yenile) test edilmediği için `verify_report.md` bunu yakalamadı — bu, verify raporundaki bir kapsam boşluğu olarak da not düşülmeli.",
+      "outcome": "fixed",
+      "resolution": "Haiku alt-ajanına dispatch edildi — `baileysSearchMatches = null;` her üç dönüş noktasına da eklendi (`loadGroups()`'un `grpSearchMatches = null;` sıralamasıyla tutarlı). `git diff` ile doğrulandı, `pytest tests/test_baileys_grp_pagination.py tests/test_gruplar_tab_ui.py tests/test_blacklist_pagination.py tests/test_blacklist_normalize.py -q` → 71 passed."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "tests/test_baileys_grp_pagination.py",
+      "issue": "Yukarıdaki bug'ı yakalayacak bir yapısal test yok — `test_loadBaileysGroups_calls_renderBaileysGrpPagination_all_exit_points` sadece `renderBaileysGrpPagination` çağrısının varlığını kontrol ediyor, `baileysSearchMatches = null` sıfırlamasının üç dönüş noktasında da yapıldığını kontrol etmiyor.",
+      "better_approach": "Bu üç dönüş noktasının her birinde regex ile `baileysSearchMatches\\s*=\\s*null` varlığını da kontrol eden bir assertion eklenmeli (Gruplar'ın `test_gruplar_tab_ui.py`'sindeki benzer bir kontrol var mı incelenip örnek alınabilir).",
+      "reason": "Davranış Sözleşmesi tablosunun her satırı kendi testini almalı kuralına göre (red-team SKILL.md), bu spesifik reset davranışı test edilmeden bırakılmış — yukarıdaki high-severity bug tam da bu boşluktan kaynaklanıyor."
+    }
+  ],
+  "strengths": [
+    "renderBaileysGrpPagination, Gruplar'ın grpSearchMatches deseninin doğru bir izole kopyası — arama-eşleşme + sayfalama birleşimi mantıksal olarak doğru uygulanmış (baileysCurrentPage sıfırlaması eksiksiz).",
+    "loadBaileysGroups()'un üç dönüş noktasının hepsinde baileysCurrentPage sıfırlanıp pagination yeniden render ediliyor — stale pagination görünümü riski (plan.md Risks) gerçekten giderilmiş, canlı e2e testinde doğrulandı (0-sonuç senaryosu).",
+    "filterGroups()'un Kayıtlı Gruplar bloğuna hiç dokunulmamış, sadece Baileys bloğu plan.md'nin öngördüğü şekilde yeniden yazılmış — kapsam disiplinli.",
+    "Canlı tarayıcı testinde üç izole pagination'ın (Gruplar 100 kayıt, Baileys 25 test kaydı) aynı anda doğru çalıştığı somut olarak gösterilmiş."
+  ],
+  "risks": [
+    "Yukarıdaki high-severity bug canlıda şu senaryoda tetiklenir: kullanıcı Baileys panelinde arama yapar (baileysSearchMatches dolar) → aynı arama kutusundan (paylaşılan #grp-search) SİLMEDEN '⟳ yenile'ye basar → yeni gruplar DOM'a yazılır ama pagination hâlâ eski (kopmuş) satırlara bakar → pagination görünümü bozulabilir veya hiç grup göstermeyebilir. Gerçek kullanım sıklığı düşük olabilir (kullanıcı genelde aramayı temizler) ama sessiz bir UI hatası olduğu için fark edilmesi zor."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}

@@ -1242,6 +1242,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
         </div>
         <p id="baileys-groups-msg" style="color:var(--mut);font-size:12px;margin:0 0 4px">Yükleniyor...</p>
         <section id="baileys-available-groups-list"></section>
+        <section id="baileys-pagination" style="display:none;margin-top:10px;text-align:center;font-size:12px;color:var(--mut)"></section>
         <p id="baileys-search-empty" style="display:none;color:var(--mut);font-size:12px;text-align:center;padding:12px">🔍 Arama sonucu yok</p>
       </section>
     </div>
@@ -1294,6 +1295,8 @@ const $ = id => document.getElementById(id);
 let currentPage = 1;
 const ITEMS_PER_PAGE = 20;
 let grpSearchMatches = null;
+let baileysCurrentPage = 1;
+let baileysSearchMatches = null;
 let blCurrentPage = 1;
 
 function isMob(){ return window.innerWidth <= 768; }
@@ -1624,6 +1627,54 @@ function renderGrpPagination(page){
   paginationEl.innerHTML = paginationHtml;
 }
 
+function renderBaileysGrpPagination(page){
+  const allRows = document.querySelectorAll('#baileys-available-groups-list .grp-row');
+  const visibleRows = baileysSearchMatches !== null ? baileysSearchMatches : Array.from(allRows);
+
+  // Aramayla eşleşmeyen satırları gizle (arama aktifse)
+  allRows.forEach(row => {
+    if(baileysSearchMatches !== null && !baileysSearchMatches.includes(row)){
+      row.style.display = 'none';
+    }
+  });
+
+  const totalPages = Math.ceil(visibleRows.length / ITEMS_PER_PAGE);
+  const startIdx = (page - 1) * ITEMS_PER_PAGE;
+  const endIdx = startIdx + ITEMS_PER_PAGE;
+
+  visibleRows.forEach((row, idx) => {
+    row.style.display = (idx >= startIdx && idx < endIdx) ? '' : 'none';
+  });
+
+  const paginationEl = $('baileys-pagination');
+  if(visibleRows.length <= ITEMS_PER_PAGE) {
+    paginationEl.style.display = 'none';
+    return;
+  }
+
+  baileysCurrentPage = page;
+  paginationEl.style.display = 'block';
+  let paginationHtml = '';
+
+  if(page > 1) {
+    paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderBaileysGrpPagination(${page - 1})">‹</button> `;
+  }
+
+  for(let i = 1; i <= totalPages; i++) {
+    if(i === page) {
+      paginationHtml += `<b style="margin:0 4px">${i}</b>`;
+    } else {
+      paginationHtml += `<button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px;margin:0 2px" onclick="renderBaileysGrpPagination(${i})">${i}</button> `;
+    }
+  }
+
+  if(page < totalPages) {
+    paginationHtml += ` <button class="b-acc" style="width:auto;padding:4px 8px;font-size:11px" onclick="renderBaileysGrpPagination(${page + 1})">›</button>`;
+  }
+
+  paginationEl.innerHTML = paginationHtml;
+}
+
 async function loadBaileysGroups(){
   const d = await api('/api/whatsapp/groups'); if(!d) return;
   const msgEl = $('baileys-groups-msg');
@@ -1633,6 +1684,9 @@ async function loadBaileysGroups(){
   if(d.message){
     msgEl.textContent = '📭 ' + d.message;
     listEl.innerHTML = '';
+    baileysSearchMatches = null;
+    baileysCurrentPage = 1;
+    renderBaileysGrpPagination(1);
     return;
   }
 
@@ -1642,12 +1696,18 @@ async function loadBaileysGroups(){
   if(!unsaved.length){
     msgEl.textContent = '✅ Tüm gruplar kayıtlı';
     listEl.innerHTML = '';
+    baileysSearchMatches = null;
+    baileysCurrentPage = 1;
+    renderBaileysGrpPagination(1);
     return;
   }
 
   msgEl.textContent = `${unsaved.length} yeni grup bulundu`;
   listEl.innerHTML = unsaved.map(g =>
     `<div class="grp-row"><span>${escapeHtml(g.name)}</span><button class="b-ok" onclick="baileysGrpAdd('${g.id}', '${escapeHtml(g.name).replace(/'/g, "\\'")}')">Ekle</button></div>`).join('');
+  baileysSearchMatches = null;
+  baileysCurrentPage = 1;
+  renderBaileysGrpPagination(1);
 }
 
 async function baileysGrpAdd(id, name){
@@ -1688,15 +1748,17 @@ function filterGroups(){
     if(regEmpty) regEmpty.style.display = (query && regVisible === 0 && regRows.length > 0) ? 'block' : 'none';
 
     const baiRows = document.querySelectorAll('#baileys-available-groups-list .grp-row');
-    let baiVisible = 0;
+    let baiMatched = [];
     baiRows.forEach(row => {
       const name = row.querySelector('span').textContent.toLowerCase();
       const match = name.includes(query);
-      row.style.display = match ? '' : 'none';
-      if(match) baiVisible++;
+      if(match) { baiMatched.push(row); }
     });
+    baileysSearchMatches = query ? baiMatched : null;
+    baileysCurrentPage = 1;
+    renderBaileysGrpPagination(1);
     const baiEmpty = $('baileys-search-empty');
-    if(baiEmpty) baiEmpty.style.display = (query && baiVisible === 0 && baiRows.length > 0) ? 'block' : 'none';
+    if(baiEmpty) baiEmpty.style.display = (query && baiMatched.length === 0 && baiRows.length > 0) ? 'block' : 'none';
 
     grpSearchMatches = query ? matched : null;
     currentPage = 1;
