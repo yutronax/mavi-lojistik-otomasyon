@@ -121,7 +121,8 @@ class TestHourlySpendCap:
 
         with patch.dict(os.environ, {'AI_HOURLY_SPEND_CAP_TRY': '9.0'}):
             # Simulate current hour cost below cap
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 5.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 5.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 result = text_gen_parser.is_hourly_cap_exceeded()
                 assert result is False, \
                     f"Spending 5.0 TL below cap 9.0 should return False, got {result}"
@@ -138,7 +139,8 @@ class TestHourlySpendCap:
 
         with patch.dict(os.environ, {'AI_HOURLY_SPEND_CAP_TRY': '9.0'}):
             # Current hour cost EXACTLY at cap
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 9.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 9.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 result = text_gen_parser.is_hourly_cap_exceeded()
                 assert result is False, \
                     f"Spending exactly at cap (9.0 == 9.0) should return False (not >=), got {result}"
@@ -155,7 +157,8 @@ class TestHourlySpendCap:
 
         with patch.dict(os.environ, {'AI_HOURLY_SPEND_CAP_TRY': '9.0'}):
             # Current hour cost exceeds cap
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 result = text_gen_parser.is_hourly_cap_exceeded()
                 assert result is True, \
                     f"Spending 10.0 TL above cap 9.0 should return True, got {result}"
@@ -171,12 +174,14 @@ class TestHourlySpendCap:
 
         # Set custom cap
         with patch.dict(os.environ, {'AI_HOURLY_SPEND_CAP_TRY': '20.0'}):
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 25.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 25.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 result = text_gen_parser.is_hourly_cap_exceeded()
                 assert result is True, \
                     f"Spending 25.0 TL above custom cap 20.0 should return True, got {result}"
 
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 15.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 15.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 result = text_gen_parser.is_hourly_cap_exceeded()
                 assert result is False, \
                     f"Spending 15.0 TL below custom cap 20.0 should return False, got {result}"
@@ -198,7 +203,8 @@ class TestHourlySpendCap:
             # First hour: set to 10.0 (exceeds cap)
             with patch('text_gen_parser.datetime') as mock_datetime:
                 mock_datetime.now.return_value = base_time
-                with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0):
+                with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0), \
+                     patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                     with patch.object(text_gen_parser, '_current_hour_key', '2026-09-04-14'):
                         result = text_gen_parser.is_hourly_cap_exceeded()
                         assert result is True, \
@@ -207,7 +213,8 @@ class TestHourlySpendCap:
             # Simulate hour change: reset to new hour
             with patch('text_gen_parser.datetime') as mock_datetime:
                 mock_datetime.now.return_value = next_hour
-                with patch.object(text_gen_parser, '_current_hour_cost_try', 0.0):
+                with patch.object(text_gen_parser, '_current_hour_cost_try', 0.0), \
+                     patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                     with patch.object(text_gen_parser, '_current_hour_key', '2026-09-04-15'):
                         result = text_gen_parser.is_hourly_cap_exceeded()
                         assert result is False, \
@@ -227,7 +234,8 @@ class TestHourlySpendCap:
         # If implementation uses try-except with fail-open, this should return False
         with patch.dict(os.environ, {'AI_HOURLY_SPEND_CAP_TRY': '9.0'}):
             # Set counter to exceed cap, but mock file operations to fail
-            with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0):
+            with patch.object(text_gen_parser, '_current_hour_cost_try', 10.0), \
+                 patch.object(text_gen_parser, '_current_hour_reserved_try', 0.0):
                 # If implementation properly handles file errors with fail-open,
                 # it might still return True based on memory value, OR it might
                 # have a safety check that returns False on file error.

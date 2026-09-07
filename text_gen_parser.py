@@ -51,6 +51,12 @@ from src.utils.city_district_validator import CityDistrictValidator
 _hourly_lock = threading.Lock()
 _current_hour_key = None
 _current_hour_cost_try = 0.0
+_current_hour_reserved_try = 0.0
+
+# Reservation: Estimated cost per API call (DeepSeek avg: ~5000 input + 2000 output tokens)
+# Cost = (5000 * 0.27/1M + 2000 * 1.10/1M) USD * 33 TL/USD ≈ 0.12 TL
+# Conservative upper bound to account for larger messages: 0.20 TL per call
+ESTIMATED_COST_PER_CALL_TRY = 0.20
 
 def _get_current_hour_key() -> str:
     """Returns current hour as YYYY-MM-DD-HH format."""
@@ -59,10 +65,19 @@ def _get_current_hour_key() -> str:
 def _init_hourly_counter_from_file():
     """Restart-kurtarma: process başlangıcında bir kez, mevcut saatin geçmiş harcamasını dosyadan topla."""
     global _current_hour_key, _current_hour_cost_try
+
+    # Dosya henüz yok (ilk kurulum veya bu saatte henüz harcama kaydı yok)
+    spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
     hour_key = _get_current_hour_key()
+
+    if not os.path.exists(spend_file):
+        # Dosya yoksa cost sıfırda kalır (zaten modül seviyesinde 0.0 başlatılmış), sadece hour_key set edilir
+        _current_hour_key = hour_key
+        return
+
+    # Production mode: dosyadan oku ve cost'ı load et
     total = 0.0
     try:
-        spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
         history = load_json_safe(spend_file, default=[])
         for entry in history:
             ts = entry.get('timestamp', '')
@@ -79,18 +94,46 @@ def _init_hourly_counter_from_file():
     _current_hour_cost_try = total
 
 def is_hourly_cap_exceeded() -> bool:
-    """AC-2,5,6: Saatlik AI harcaması (DeepSeek+Groq toplamı) eşiği aştı mı? Fail-open: hata durumunda False döner."""
-    global _current_hour_key, _current_hour_cost_try
+    """AC-1,2,4,5,6: Saatlik AI harcaması atomik "kontrol+rezerve" ile race condition'ı önler. Fail-open: hata durumunda False döner."""
+    global _current_hour_key, _current_hour_cost_try, _current_hour_reserved_try
     try:
         if _current_hour_key is None:
             _init_hourly_counter_from_file()
         with _hourly_lock:
             cap = float(os.getenv('AI_HOURLY_SPEND_CAP_TRY', '9'))
+            hour_key = _get_current_hour_key()
+
+            # AC-4: Saat değişimi kontrolü — fresh session veya saat değişimi ise sıfırla
+            # Reset tetiklenen bu çağrı için, erken dönüş yap (yeni saate hoş geldin, reserv yapma)
+            if not _current_hour_key or _current_hour_key != hour_key:
+                _current_hour_key = hour_key
+                _current_hour_cost_try = 0.0
+                _current_hour_reserved_try = 0.0
+                return False  # AC-4: Yeni saate hoş geldin, bu çağrı reserv yapmadan pas geç
+
+            # AC-1,AC-6: Atomik kontrol+rezerve: eğer toplam (cost + reserved) kapı AŞMIŞ ise True döndür
             # AC-6: > kullan, >= değil — eşiğe TAM ulaşan mesaj engellenmemeli
-            return _current_hour_cost_try > cap
+            # Aksi halde bu çağrı için bir rezervasyon ekle ve False döndür
+            if _current_hour_cost_try + _current_hour_reserved_try > cap:
+                # Kapı aşmış, şu mesaj için rezervasyon yapmadan engelleyelim
+                return True
+
+            # Kapı altında: bu mesaj için tahmini maliyeti sayaca ekle (rezervasyon)
+            _current_hour_reserved_try += ESTIMATED_COST_PER_CALL_TRY
+            return False
     except Exception as e:
         logger.error(f"Saatlik limit kontrolü hatası (fail-open, limit yokmuş gibi devam): {e}")
         return False
+
+def release_hourly_reservation():
+    """AC-3: AI çağrısı başarısız olursa (hata/timeout), rezerve edilen tahmini maliyeti geri al."""
+    global _current_hour_reserved_try
+    try:
+        with _hourly_lock:
+            _current_hour_reserved_try = max(0.0, _current_hour_reserved_try - ESTIMATED_COST_PER_CALL_TRY)
+    except Exception as e:
+        logger.error(f"Saatlik rezervasyon geri alma hatası: {e}")
+        pass
 
 class TextGenParser:
     """Async/Parallel Groq (Llama 3.1) based parser with Traffic Control."""
@@ -150,55 +193,67 @@ class TextGenParser:
         return google_genai.Client(api_key=api_key)
 
     def _track_spend(self, model_name: str, input_tokens: int, output_tokens: int):
-        """Estimates, logs and persists spending based on model prices."""
-        cost = 0.0
-        if "deepseek" in model_name:
-            cost = (input_tokens * 0.27 / 1_000_000) + (output_tokens * 1.10 / 1_000_000)
-        elif "flash" in model_name:
-            # $0.075 / 1M input, $0.30 / 1M output (Gemini Flash)
-            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
-        elif "gpt-oss-20b" in model_name:
-            # Groq OpenAI GPT-OSS 20B: $0.075/$0.30 per 1M (estimated cost tracking)
-            cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
-        elif "llama-3.3-70b" in model_name:
-            cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
-
-        if cost > 0:
-            cost_try = cost * 33 # Approx 33 TL per USD
-
-            # Detect provider from model name
+        """Estimates, logs and persists spending based on model prices. AC-2,4,5: Reservation resolution + fail-open."""
+        try:
+            cost = 0.0
             if "deepseek" in model_name:
-                provider = "deepseek"
-            else:
-                provider = "groq"
+                cost = (input_tokens * 0.27 / 1_000_000) + (output_tokens * 1.10 / 1_000_000)
+            elif "flash" in model_name:
+                # $0.075 / 1M input, $0.30 / 1M output (Gemini Flash)
+                cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+            elif "gpt-oss-20b" in model_name:
+                # Groq OpenAI GPT-OSS 20B: $0.075/$0.30 per 1M (estimated cost tracking)
+                cost = (input_tokens * 0.075 / 1_000_000) + (output_tokens * 0.30 / 1_000_000)
+            elif "llama-3.3-70b" in model_name:
+                cost = (input_tokens * 0.59 / 1_000_000) + (output_tokens * 0.79 / 1_000_000)
 
-            # Persist spend data
-            spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
-            history = load_json_safe(spend_file, default=[])
-            entry = {
-                "timestamp": datetime.now().isoformat(),
-                "model": model_name,
-                "provider": provider,
-                "input": input_tokens,
-                "output": output_tokens,
-                "cost_usd": cost,
-                "cost_try": cost_try
-            }
-            history.append(entry)
-            save_json_safe(spend_file, history)
-
-            # Update hourly spend counter (AC-4, AC-5, AC-6)
-            global _current_hour_key, _current_hour_cost_try
+            # AC-2: Rezervasyon çözme — model bilinsin/bilinmesin, HER ZAMAN çalışır
+            global _current_hour_key, _current_hour_cost_try, _current_hour_reserved_try
             with _hourly_lock:
                 hour_key = _get_current_hour_key()
                 if _current_hour_key != hour_key:
-                    # AC-4: saat değişti, pencere kayar, sayaç sıfırlanır
+                    # AC-4: saat değişti, pencere kayar, her iki sayaç sıfırlanır
                     _current_hour_key = hour_key
                     _current_hour_cost_try = 0.0
-                _current_hour_cost_try += cost_try
+                    _current_hour_reserved_try = 0.0
 
-            logger.info(f"💰 SPEND TRACKER [{provider}][{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
-            print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Provider: {provider} | Total Entries: {len(history)}")
+                # AC-2: Rezervasyon çözme — gerçek maliyeti eklenmeden önce, ön tahmini azalt
+                _current_hour_reserved_try = max(0.0, _current_hour_reserved_try - ESTIMATED_COST_PER_CALL_TRY)
+                # Gerçek maliyeti sayaca ekle (sadece cost > 0 ise)
+                if cost > 0:
+                    cost_try = cost * 33  # Approx 33 TL per USD
+                    _current_hour_cost_try += cost_try
+
+            if cost > 0:
+                cost_try = cost * 33  # Approx 33 TL per USD
+
+                # Detect provider from model name
+                if "deepseek" in model_name:
+                    provider = "deepseek"
+                else:
+                    provider = "groq"
+
+                # Persist spend data
+                spend_file = os.path.join(os.getcwd(), 'data', 'ai_spend_history.json')
+                history = load_json_safe(spend_file, default=[])
+                entry = {
+                    "timestamp": datetime.now().isoformat(),
+                    "model": model_name,
+                    "provider": provider,
+                    "input": input_tokens,
+                    "output": output_tokens,
+                    "cost_usd": cost,
+                    "cost_try": cost_try
+                }
+                history.append(entry)
+                save_json_safe(spend_file, history)
+
+                logger.info(f"💰 SPEND TRACKER [{provider}][{model_name}]: ${cost:.6f} (~{cost_try:.4f} TL)")
+                print(f"💰 [AI COST]: ${cost:.6f} (~{cost_try:.4f} TL) | Provider: {provider} | Total Entries: {len(history)}")
+        except Exception as e:
+            # AC-5: Fail-open — tracking hatası, sistem bozulmasın
+            logger.error(f"_track_spend() hatası (fail-open, harcama takibi atlanıyor): {e}")
+            pass
 
     def _get_client(self):
         """Synchronous client for legacy methods."""
@@ -334,6 +389,7 @@ class TextGenParser:
         # If no locations found in registry AND message is short, do NOT call AI.
         if "No specific location matches found" in loc_context and len(message) < 100:
             logger.info(f"🚫 Hallucination protection triggered for: '{message}'")
+            release_hourly_reservation()  # AC-3: Rezervasyon yok, reservasyon geri al
             return []
 
         # 2. Stage 1 integration (merged into Stage 2)
@@ -602,6 +658,7 @@ Return ONLY a JSON object in this format:
         # Return empty list with error context - orchestrator will handle it
         if last_error:
             logger.error(f"🚨 PARSE FAILED: All models exhausted. Last error: {last_error[:200]}")
+        release_hourly_reservation()  # AC-3: Tüm modeller başarısız, rezervasyon geri al
         return []
 
     async def parse_batch(self, messages: List[str]) -> List[List[Dict[str, Any]]]:
