@@ -1,0 +1,58 @@
+{
+  "task": "hourly-cap-race-fix",
+  "reviewed_at": "2026-09-07T00:00:00Z",
+  "summary": "Rezervasyon tabanlı atomik kontrol+rezerve mekanizması ATDD'nin AC-1..AC-5'ini doğru ve yeterli test kapsamıyla karşılıyor; kilit (_hourly_lock) tutarlı kullanılmış, fail-open korunmuş. _init_hourly_counter_from_file()'daki 'test mode' dalı orkestratörün iddia ettiği gibi mevcut üretim verisiyle gerçekten zararsız, ama yorum/çerçeveleme yanıltıcı ve gerçek bir 'ilk kurulum' senaryosunu 'test'e özgü gibi göstererek bakım riski taşıyor. Ayrıca _track_spend()'in rezervasyon çözme mantığının cost>0 dalına gizlice bağımlı olması, gelecekte eklenecek bir modelin fiyat tablosuna eklenmemesi halinde sessiz rezervasyon sızıntısına yol açabilecek kırılgan bir bağlantı.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "maintainability",
+      "file": "text_gen_parser.py",
+      "issue": "_init_hourly_counter_from_file() içindeki 'if not os.path.exists(spend_file): ... # Test mode' dalı yorumda test senaryosuna atıf yapıyor, ama gerçekte üretimde de (temiz kurulum, modül import anında dosya henüz yoksa) tetiklenebilir. Fonksiyonel olarak zararsız olduğu doğrulandı (cost zaten 0.0'da başlıyor), ama çerçeveleme yanlış.",
+      "better_approach": "Yorumu 'fresh install / dosya henüz yok' olarak yeniden yaz; alternatif olarak load_json_safe zaten dosya yoksa [] döndürdüğü için bu dalı tamamen kaldırmayı değerlendir.",
+      "reason": "Prod kodunda 'test patch'leme' gibi ifadeler geçmesi, gelecekteki bir bakımcının gerçek üretim senaryosunu gözden kaçırmasına yol açabilir.",
+      "outcome": "fixed",
+      "resolution": "Haiku alt-ajanına dispatch edildi — yorumlar 'fresh install / dosya henüz yok' çerçevesine göre yeniden yazıldı, davranış değişmedi. `git diff` ile doğrulandı."
+    },
+    {
+      "severity": "medium",
+      "category": "reliability",
+      "file": "text_gen_parser.py",
+      "issue": "_track_spend() rezervasyon çözme kodu yalnızca 'if cost > 0' bloğu içinde çalışıyor; cost sadece bilinen model adı desenlerinde >0 olur. Şu an tüm kullanılan modeller kapsanıyor (LIVE bug yok), ama gelecekte fiyat tablosuna eklenmeyen yeni bir model, başarılı çağrılarda rezervasyonu hiç çözmeyip saatlik pencere boyunca sessizce sızmasına yol açabilir.",
+      "better_approach": "Rezervasyon çözme adımını cost>0 şartından bağımsızlaştır; her _track_spend çağrısı (model bilinsin/bilinmesin) rezervasyonu çözsün, sadece maliyet eklemeyi cost>0'a bağlı bırak.",
+      "reason": "AC-2 sözleşmesi 'her başarılı çağrı rezervasyonu düzeltir' diyor, model adına bakılmaksızın; mevcut coupling bunu garanti etmiyor.",
+      "outcome": "fixed",
+      "resolution": "Haiku alt-ajanına dispatch edildi — rezervasyon çözme + saat-değişimi sıfırlama artık `cost > 0` şartından bağımsız, her zaman çalışıyor; sadece gerçek maliyet ekleme ve dosyaya yazma/loglama `cost > 0`'a bağlı kaldı. `git diff` ile doğrulandı, `pytest tests/test_hourly_cap_race_condition.py tests/test_hourly_spend_cap.py tests/test_deepseek_cost_fix.py tests/test_deepseek_max_tokens_cap.py -q` → 39 passed."
+    }
+  ],
+  "strengths": [
+    "is_hourly_cap_exceeded() ve _track_spend() aynı _hourly_lock'u kullanıyor, saat değişimi her iki sayaç için tutarlı sıfırlanıyor (AC-4 doğru).",
+    "release_hourly_reservation() hallucination-protection ve tüm-modeller-tükendi çıkışlarına eklenmiş; interpreter-shutdown çıkışına bilinçli olarak eklenmemiş, gerekçesi plan.md'de belgelenmiş.",
+    "tests/test_hourly_spend_cap.py'deki state-sızıntısı regresyonu doğru tespit edilip minimal, hedefe yönelik bir düzeltmeyle giderilmiş.",
+    "max(0.0, ...) tabanı rezervasyon geri alma ve çözmede tutarlı uygulanmış, negatif rezervasyon riskini önlüyor."
+  ],
+  "risks": [
+    "ESTIMATED_COST_PER_CALL_TRY=0.20 sabiti gerçek ortalamadan sapabilir — atdd.md'de zaten kabul edilmiş bir sınırlama.",
+    "Yeni model eklenip _track_spend fiyat tablosu güncellenmezse rezervasyon sızıntısı oluşabilir (bkz. finding)."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}
