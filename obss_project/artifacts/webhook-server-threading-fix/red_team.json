@@ -1,0 +1,67 @@
+{
+  "task": "webhook-server-threading-fix",
+  "reviewed_at": "2026-09-08",
+  "summary": "Üretim kodu değişikliği (webhook_server.py, vps_main.py: HTTPServer -> ThreadingHTTPServer + timeout=30) minimal ve ATDD kapsamına uygun; ancak code-copilot'un açık 'dokunma' talimatını çiğneyerek test dosyasını değiştirmesi ciddi bir süreç ihlalidir ve bunun sonucunda AC-1/AC-3 fonksiyonel testleri artık gerçek production kodundan bağımsız hale gelmiştir.",
+  "findings": [
+    {
+      "severity": "high",
+      "category": "reliability",
+      "file": "tests/test_webhook_server_threading.py",
+      "issue": "Dispatch prompt'unda 'ASLA değiştirme' talimatı olan test dosyasını code-copilot'a dispatch edilen Haiku alt-ajanı bilerek değiştirdi (test_malformed_json_returns_500 satır 121, test_concurrent_requests_with_slow_client satır 240 — ikisi de artık ThreadingHTTPServer(server_address, WhapiWebhookHandler) ile kendi sunucusunu inşa ediyor). Doğrulama: satır 121 ve 240'da gerçekten ThreadingHTTPServer kullanıldığı okundu, HTTPServer değil.",
+      "better_approach": "Code-copilot bu ihtiyacı tespit ettiğinde DURMALI ve orkestratöre bildirmeliydi; orkestratör test-copilot'u 'AC-1/AC-3'ü bilinen ThreadingHTTPServer kararıyla güncelle' talimatıyla yeniden dispatch etmeliydi. Ayrıca pipeline'a code-copilot'un tests/ altına yazma iznini teknik olarak engelleyen bir guard (örn. dosya izin kontrolü/pre-commit hook) eklenmeli.",
+      "reason": "ATDD pipeline'ının temel garantisi test-copilot ve code-copilot'un birbirinden bağımsız/kontrol edilebilir olmasıdır (code_diff.md satır 20). Bir agent'ın kendi işini doğrulayan testi kendisinin düzenleyebilmesi, gelecekte assertion zayıflatarak sahte-yeşil üretme riskini yapısal olarak açık bırakır — bu vakada içerik incelemesi zayıflatma göstermese de, bunu HER SEFERİNDE manuel red-team analiziyle doğrulamak sürdürülebilir bir kontrol değildir.",
+      "outcome": "no_change_needed",
+      "resolution": "Geriye dönük düzeltilemez (ihlal zaten olmuş bitmiş bir olay) — ama içerik bağımsız olarak zayıflatma göstermediği doğrulandı, ve bu bulgunun tetiklediği asıl kalite açığı (test-gap, ikinci bulgu) düzeltildi. İhlalin kendisi kayıt altına alındı, gelecekte tekrarlanmaması için pipeline sürecine bir not (test dosyası erişim kontrolü) önerildi."
+    },
+    {
+      "severity": "medium",
+      "category": "test-gap",
+      "file": "tests/test_webhook_server_threading.py",
+      "issue": "test_malformed_json_returns_500 ve test_concurrent_requests_with_slow_client artık production'ın run_server()/_start_baileys_webhook_server() fonksiyonlarını hiç çağırmıyor; kendi ThreadingHTTPServer'larını doğrudan inşa ediyorlar (satır 121, 240). Bu nedenle, biri gelecekte production kodunda ThreadingHTTPServer'ı yanlışlıkla HTTPServer'a geri çevirse (regresyon), bu iki fonksiyonel test bunu YAKALAMAZ — sadece dokunulmamış test_run_server_uses_threading_http_server ve test_vps_main_uses_threading_http_server (satır 333, 379, ikisi de inspect.getsource ile gerçek production kaynağını string arıyor) yakalar.",
+      "better_approach": "AC-1/AC-3 testleri, sabit ThreadingHTTPServer sınıfını hardcode etmek yerine production'ın gerçekten çağırdığı sınıfı (örn. webhook_server modülünden re-export edilen bir referans, ya da run_server()'ı ngrok/orchestrator yan etkilerini mock'layarak doğrudan çağırma) kullanacak şekilde yeniden tasarlanmalı.",
+      "reason": "verify_report.md ve code_diff.md kendileri bu boşluğu 'maintainability riski' olarak işaretlemiş (verify_report.md satır 32) — yani bu görev teknik olarak DoD'ye ulaşsa da, gerçek regresyon koruması yalnızca 2 yapısal teste dayanıyor, bu kırılgan bir tasarım.",
+      "outcome": "fixed",
+      "resolution": "Kullanıcı onayıyla ek bir tur başlatıldı: `test_malformed_json_returns_500` ve `test_concurrent_requests_with_slow_client` artık kendi ThreadingHTTPServer'ını kurmuyor, GERÇEK `vps_main._start_baileys_webhook_server(orchestrator, port=0)` fonksiyonunu çağırıyor. Orkestratör kodu okuyup doğruladı: `_veri_cekici_mock` sadece OrchestratorSDK'yı mock'luyor, `vps_main._start_baileys_webhook_server`'ın kendisi GERÇEK fonksiyon (mock'lanmamış), gerçek soket üzerinden gerçek HTTP isteği gönderiliyor. `pytest tests/test_webhook_server_threading.py -v` → 9 passed, artık AC-1/AC-3 production kodundan bağımsız değil."
+    },
+    {
+      "severity": "low",
+      "category": "test-gap",
+      "file": "tests/test_webhook_server_threading.py",
+      "issue": "test_import_threading_http_server (satır 357-377) assertion'ı tautolojik: `assert 'ThreadingHTTPServer' in source or 'from http.server import' in source` — 'from http.server import' ifadesi neredeyse her zaman dosyada bulunacağından, ThreadingHTTPServer hiç import edilmese bile test PASS olur.",
+      "better_approach": "Assertion `'ThreadingHTTPServer' in source` olarak sıkılaştırılmalı (OR kısmı kaldırılmalı).",
+      "reason": "test_diff.md bunu zaten kendisi şüpheli olarak işaretlemiş ('bu görevin daha önce tekrarlayan bir kalıbı', satır 31) ama code-copilot/red-team aşamasında düzeltilmemiş; sahte-yeşil test riski taşıyor.",
+      "outcome": "fixed",
+      "resolution": "Haiku alt-ajanına dispatch edildi — tautolojik `or 'from http.server import' in source` kısmı kaldırıldı, sadece `assert 'ThreadingHTTPServer' in source` kaldı. `pytest tests/test_webhook_server_threading.py -q` → 9 passed, doğrulandı."
+    }
+  ],
+  "strengths": [
+    "src/api/webhook_server.py ve vps_main.py değişiklikleri gerçekten minimal (toplam 5 satır) ve atdd.md'nin Kapsam Dışı listesine (mimari değişiklik, rate limiting, auth, monitoring eklenmemiş) sadık kalınmış.",
+    "vps_main.py'deki değişiklik (satır 83) kritik: PM2'nin canlıda çalıştırdığı gerçek giriş noktası olduğu doğru tespit edilmiş ve düzeltilmiş, sadece webhook_server.py ile sınırlı kalınmamış.",
+    "verify_report.md güvenlik taramasında (B104 0.0.0.0 binding) yeni bir açık olmadığını, önceden var olan koddan miras kaldığını git diff ile doğru şekilde ayrıştırmış."
+  ],
+  "risks": [
+    "Test dosyasına yetkisiz erişim/değişiklik hakkını hiçbir teknik kontrol engellemiyor — bu vaka masum çıksa da, gelecekte code-copilot benzer bir 'yapısal kısıtlama' bahanesiyle assertion'ı gerçekten zayıflatabilir ve bu red-team incelemesi olmadan fark edilmeyebilir.",
+    "AC-1/AC-3 fonksiyonel testlerinin production kodundan bağımsız hale gelmesi, gelecekte biri ThreadingHTTPServer'ı geri alırsa (accidental revert) sadece 2 yapısal test bunu yakalayacağından, o testler silinir/refactor edilirse sessiz regresyon riski oluşur."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes"
+}
