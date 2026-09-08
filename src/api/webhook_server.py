@@ -1,6 +1,6 @@
 import json
 import logging
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer, ThreadingHTTPServer
 import sys
 import os
 import threading
@@ -109,6 +109,7 @@ class WhapiWebhookHandler(BaseHTTPRequestHandler):
     # kullanmak isterse make_webhook_handler_class() ile bu attribute'u
     # override eder. None ise modülün kendi singleton'ı (GUI) kullanılır.
     target_orchestrator = None
+    timeout = 30
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
@@ -269,7 +270,7 @@ def run_server(port=8080, use_ngrok=None):
     # 5. Start HTTP Server
     # Sunucu adresi: 0.0.0.0 (Tüm ağ arayüzlerini dinler)
     server_address = ('0.0.0.0', port)
-    _server_instance = HTTPServer(server_address, WhapiWebhookHandler)
+    _server_instance = ThreadingHTTPServer(server_address, WhapiWebhookHandler)
     logger.info(f"[START] Webhook Sunucusu {server_address[0]}:{port} adresinde dinliyor...")
     
     try:

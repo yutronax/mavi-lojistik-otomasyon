@@ -25,7 +25,7 @@ if PROJECT_ROOT not in sys.path:
 # Reporter ve Orkestratör Importları
 from src.utils.reporter import Reporter
 from src.parsers.veri_cekici_ayristirici import OrchestratorSDK
-from http.server import HTTPServer
+from http.server import HTTPServer, ThreadingHTTPServer
 import threading
 
 # Logging Yapılandırması
@@ -80,7 +80,7 @@ def _start_baileys_webhook_server(orchestrator, port=None):
     if port is None:
         port = int(os.getenv('BAILEYS_WEBHOOK_PORT', '8090'))
     handler_class = make_webhook_handler_class(orchestrator)
-    server = HTTPServer(('0.0.0.0', port), handler_class)
+    server = ThreadingHTTPServer(('0.0.0.0', port), handler_class)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     logger.info(f"[BAILEYS-WEBHOOK] :{port} adresinde dinliyor (mesai saatinden bağımsız, sürekli aktif).")
