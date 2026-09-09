@@ -223,12 +223,14 @@ def status():
     """Cache'lenmiş PM2 durumunu döner — disk/subprocess yok."""
     result = dict(_status_cache)
     result["deepseek_balance"] = _deepseek_balance_cache
+    result["deepseek_real_spend"] = _get_deepseek_real_spend()
     return jsonify(result)
 
 
 # -------- DeepSeek Balance Monitoring --------
 
 _deepseek_balance_cache = {"available": None, "balance_usd": None, "low": False}
+DEEPSEEK_BALANCE_HISTORY_PATH = os.path.join(PROJECT_ROOT, "data", "deepseek_balance_history.json")
 
 def _check_deepseek_balance_once(api_key, threshold_usd=5.0):
     """DeepSeek /user/balance uç noktasını bir kez kontrol eder.
@@ -258,15 +260,128 @@ def _check_deepseek_balance_once(api_key, threshold_usd=5.0):
         logger.error(f"DeepSeek bakiye kontrolü başarısız: {e}")
         return {"available": "unknown", "balance_usd": None, "low": False}
 
+
+def _compute_balance_diff(prev_balance, curr_result, t_prev, t_curr):
+    """İki ardışık balance okuması arasındaki farkı gerçek harcama olarak hesaplar.
+
+    - prev_balance None ise (henüz referans yok / ilk okuma): None döner, kayıt YAZILMAZ.
+    - curr_result "unknown" ise (ağ hatası): prev_balance varsa gap=True kaydı döner
+      (spend_usd=None, referans GÜNCELLENMEZ); prev_balance de yoksa None döner.
+    - Balance artmışsa (top-up): spend_usd=0.0 + top_up_detected=True (asla negatif harcama).
+    - Aksi halde: spend_usd = prev_balance - curr_balance.
+    """
+    is_unknown = curr_result.get("available") == "unknown"
+
+    if prev_balance is None:
+        # Karşılaştırılacak referans yok — ilk okuma, ne happy path ne gap yazılır.
+        return None
+
+    if is_unknown:
+        return {
+            "t_prev": t_prev,
+            "t_curr": t_curr,
+            "balance_prev": prev_balance,
+            "balance_curr": None,
+            "spend_usd": None,
+            "top_up_detected": False,
+            "gap": True,
+        }
+
+    curr_balance = curr_result.get("balance_usd")
+    diff = prev_balance - curr_balance
+    top_up_detected = diff < 0
+    spend_usd = 0.0 if top_up_detected else diff
+
+    return {
+        "t_prev": t_prev,
+        "t_curr": t_curr,
+        "balance_prev": prev_balance,
+        "balance_curr": curr_balance,
+        "spend_usd": spend_usd,
+        "top_up_detected": top_up_detected,
+        "gap": False,
+    }
+
+
+def _append_deepseek_balance_history(entry):
+    """Yeni bir balance-diff kaydını history dosyasına append eder (atomic write).
+    Yazma hatası (disk/izin) DIŞARI SIZMAZ — arka plan poller'ı crash etmemeli, sadece loglanır."""
+    try:
+        history = []
+        if os.path.exists(DEEPSEEK_BALANCE_HISTORY_PATH):
+            try:
+                with open(DEEPSEEK_BALANCE_HISTORY_PATH, "r", encoding="utf-8") as f:
+                    history = json.load(f)
+            except (json.JSONDecodeError, OSError):
+                history = []
+        history.append(entry)
+        _atomic_write(DEEPSEEK_BALANCE_HISTORY_PATH, json.dumps(history, ensure_ascii=False, indent=2))
+    except Exception as e:
+        logger.error(f"DeepSeek balance history yazılamadı: {e}")
+
+
+def _load_last_known_deepseek_balance():
+    """History dosyasındaki en son BAŞARILI (gap=False) okumayı döner: (balance, timestamp).
+    Dosya yoksa veya hiç başarılı kayıt yoksa (None, None) döner — restart-sonrası kurtarma için."""
+    if not os.path.exists(DEEPSEEK_BALANCE_HISTORY_PATH):
+        return None, None
+    try:
+        with open(DEEPSEEK_BALANCE_HISTORY_PATH, "r", encoding="utf-8") as f:
+            history = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None, None
+    for entry in reversed(history):
+        if not entry.get("gap", False):
+            return entry.get("balance_curr"), entry.get("t_curr")
+    return None, None
+
+
+def _get_deepseek_real_spend():
+    """/api/status için: en son history kaydının spend_usd'sini döner.
+    Hiç kayıt yoksa veya son kayıt gap ise None döner (0 ile 'veri yok' KARIŞTIRILMAZ)."""
+    if not os.path.exists(DEEPSEEK_BALANCE_HISTORY_PATH):
+        return None
+    try:
+        with open(DEEPSEEK_BALANCE_HISTORY_PATH, "r", encoding="utf-8") as f:
+            history = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not history:
+        return None
+    last_entry = history[-1]
+    if last_entry.get("gap", False):
+        return None
+    return last_entry.get("spend_usd")
+
+
 def _refresh_deepseek_balance():
-    """DeepSeek bakiyesini arka planda 15 dakikada bir kontrol edip cache'ler."""
+    """DeepSeek bakiyesini arka planda 15 dakikada bir kontrol edip cache'ler,
+    ardışık okumalar arasındaki farkı gerçek harcama olarak history'e kaydeder."""
     def _loop():
         global _deepseek_balance_cache
         api_key = os.getenv("DEEPSEEK_API_KEY")
         if not api_key:
             return
+        # Restart kurtarma: dosyadaki en son bilinen başarılı okumayı referans al
+        # (text_gen_parser.py'nin _init_hourly_counter_from_file() ile aynı desen).
+        prev_balance, prev_ts = _load_last_known_deepseek_balance()
         while True:
-            _deepseek_balance_cache = _check_deepseek_balance_once(api_key)
+            result = _check_deepseek_balance_once(api_key)
+            _deepseek_balance_cache = result
+            t_curr = datetime.now().isoformat()
+
+            entry = _compute_balance_diff(prev_balance, result, prev_ts, t_curr)
+            if entry is not None:
+                _append_deepseek_balance_history(entry)
+                if not entry["gap"]:
+                    prev_balance = entry["balance_curr"]
+                    prev_ts = t_curr
+                # gap=True: referans GÜNCELLENMEZ, sıradaki okuma en son bilinen değerle kıyaslanır
+            elif prev_balance is None and result.get("available") != "unknown":
+                # İlk başarılı okuma: kayıt yazma, sadece referansı kur
+                prev_balance = result.get("balance_usd")
+                prev_ts = t_curr
+
             time.sleep(900)
     t = threading.Thread(target=_loop, daemon=True, name="deepseek-balance-poller")
     t.start()
