@@ -173,13 +173,62 @@ def login():
 
 _status_cache = {"service": {"status": "unknown", "cpu": 0, "memory": 0, "restarts": 0, "uptime": 0}, "system": None}
 
+# pm2-process-izleme-ve-uyari: mavi-baileys-bridge bir gün PM2 listesinden
+# tamamen düşmüştü (crash-loop değil, tamamen yok olmuştu) ve kullanıcı
+# bunu manuel fark etti — _status_cache SADECE SERVICE_NAME'i (mavi-lojistik-
+# server) izliyordu, diğer ikisi hiç kontrol edilmiyordu.
+EXPECTED_PM2_PROCESSES = ["mavi-lojistik-server", "mavi-admin-panel", "mavi-baileys-bridge"]
+_process_health = {name: {"status": "unknown", "down_since": None} for name in EXPECTED_PM2_PROCESSES}
+
+
+def _parse_pm2_jlist(ok, out):
+    """pm2 jlist çıktısını {process_adı: pm2_status} sözlüğüne çevirir.
+    Subprocess başarısızsa veya çıktı ayrıştırılamazsa None döner (exception fırlatmaz)."""
+    if not ok or not out or not out.strip():
+        return None
+    try:
+        data = json.loads(out[out.find("["):])
+        return {a.get("name"): a.get("pm2_env", {}).get("status", "unknown") for a in data}
+    except Exception as e:
+        logger.error(f"pm2 jlist parse (process_health): {e}")
+        return None
+
+
+def _compute_process_health(pm2_processes, previous_health, now_iso):
+    """Beklenen 3 process'in sağlık durumunu hesaplar.
+
+    - pm2_processes None ise (pm2 komutu/parse başarısız): TÜM process'ler
+      "unknown" — "down" DEĞİL, sessiz "her şey online" izlenimi de verilmez.
+    - Bir process listede yok VEYA status "online" değilse: "down". İlk
+      tespitte down_since=now_iso; sonraki kontrollerde (hâlâ down ise)
+      down_since İLK tespit zamanında sabit kalır (debounce altyapısı).
+    - Online ise: "ok", down_since temizlenir.
+    """
+    if pm2_processes is None:
+        return {name: {"status": "unknown", "down_since": None} for name in EXPECTED_PM2_PROCESSES}
+
+    result = {}
+    for name in EXPECTED_PM2_PROCESSES:
+        is_online = pm2_processes.get(name) == "online"
+        if is_online:
+            result[name] = {"status": "ok", "down_since": None}
+        else:
+            prev = previous_health.get(name, {})
+            was_already_down = prev.get("status") == "down"
+            down_since = prev.get("down_since") if was_already_down else now_iso
+            result[name] = {"status": "down", "down_since": down_since}
+    return result
+
+
 def _refresh_status_cache():
     """PM2 jlist'i arka planda 8 sn'de bir çalıştırıp cache'ler."""
     def _loop():
-        global _status_cache
+        global _status_cache, _process_health
         while True:
             result = {"service": {"status": "unknown", "cpu": 0, "memory": 0, "restarts": 0, "uptime": 0}}
             ok, out = _pm2(["jlist"])
+            pm2_processes = _parse_pm2_jlist(ok, out)
+            _process_health = _compute_process_health(pm2_processes, _process_health, datetime.now().isoformat())
             if ok and out.strip():
                 try:
                     data = json.loads(out[out.find("["):])
@@ -224,6 +273,7 @@ def status():
     result = dict(_status_cache)
     result["deepseek_balance"] = _deepseek_balance_cache
     result["deepseek_real_spend"] = _get_deepseek_real_spend()
+    result["process_health"] = _process_health
     return jsonify(result)
 
 
