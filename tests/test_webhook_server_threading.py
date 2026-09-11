@@ -120,6 +120,14 @@ import vps_main
 # kaldigi icin gercek modulun importu burada da sorunsuz calisir).
 del sys.modules['src.parsers.veri_cekici_ayristirici']
 
+# DUZELTME (test-sys-modules-izolasyon-korumasi): yukaridaki src.utils.reporter
+# ve src.utils.config atamalari da AYNI sekilde hic geri alinmiyordu -- yeni
+# eklenen tests/conftest.py'deki pytest_collection_finish hook'u bunlari
+# canli olarak tespit etti (bu gorevin TAM amaci buydu). Ayni gerekce ile
+# buradan kaldiriliyorlar.
+del sys.modules['src.utils.reporter']
+del sys.modules['src.utils.config']
+
 
 class TestAC2_TimeoutAttribute:
     """

@@ -1,0 +1,54 @@
+{
+  "task_slug": "test-sys-modules-izolasyon-korumasi",
+  "reviewer": "obss-red-team (bağımsız subagent, Codex-override oturumu)",
+  "claims_verified": {
+    "git_diff_matches_code_diff_md": true,
+    "webhook_test_two_del_lines_confirmed": true,
+    "pytest_exit_actually_stops_process_confirmed_independently": true,
+    "xdist_not_used_risk_na_confirmed": true
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "file": "tests/conftest.py",
+      "area": "PROJECT_OWN_MODULE_PREFIXES",
+      "summary": "İlk versiyonda statik/hardcoded liste rthook_backports.py'yi kaçırıyordu — hook'un önlemeye çalıştığı TAM hata sınıfı kendi bakım listesinde oluşmuştu (ironik canlı kanıt).",
+      "recommendation": "Liste kök dizin glob taramasıyla dinamik türetilecek şekilde değiştirildi.",
+      "status": "fixed",
+      "blocking": false
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "tests/test_conftest_sys_modules_pollution.py",
+      "area": "test_project_own_module_prefixes_matches_real_project_structure",
+      "summary": "Regresyon testi tautolojikti (liste kendisiyle karşılaştırılıyordu, gerçek dosya sistemiyle değil) — Bulgu 1'i asla yakalamazdı.",
+      "recommendation": "Test artık gerçek kök dizini glob ile tarayıp PROJECT_OWN_MODULE_PREFIXES'in bunu kapsadığını doğruluyor.",
+      "status": "fixed",
+      "blocking": false
+    },
+    {
+      "severity": "LOW",
+      "file": "tests/test_conftest_sys_modules_pollution.py",
+      "area": "tests/__init__.py eksik",
+      "summary": "tests bir implicit namespace package, from tests.conftest import ... iki farklı import yolu (pytest'in kendi conftest yüklemesi vs elle import) yaratıyor — bugün sorun yok ama öngörülebilirlik için açık paket yapısı önerilir.",
+      "recommendation": "Bloklayıcı değil, gelecekte değerlendirilebilir.",
+      "blocking": false
+    },
+    {
+      "severity": "LOW",
+      "file": "tests/conftest.py",
+      "area": "isimlendirme netliği",
+      "summary": "PROJECT_OWN_MODULE_PREFIXES ismi 'prefix' çağrıştırıyor ama fonksiyon tam sınır kontrolü (dotted-path ata modülü) yapıyor.",
+      "recommendation": "Kozmetik, işlevsel değil, bloklayıcı değil.",
+      "blocking": false
+    }
+  ],
+  "approved_points": [
+    "find_polluted_project_modules saf fonksiyon, gerçekten test edilebilir (11/11 doğrulandı)",
+    "_is_project_own_module sınır kontrolü doğru (srclib/vps_maintenance false-positive üretmiyor, testle kanıtlandı)",
+    "pytest_collection_finish'in gerçekten süreci durdurduğu bağımsız subprocess ile doğrulandı (nadir görülen sağlam entegrasyon testi)",
+    "test_webhook_server_threading.py'deki iki yeni del satırı gerçek ve doğru gerekçeli",
+    "xdist kullanılmıyor, paralel-worker riski N/A doğrulandı"
+  ],
+  "verdict": "Ready To Commit: EVET — 2 MEDIUM bulgu (kendi bakım listesinin eksikliği + tautolojik test) tespit edilip AYNI turda düzeltildi ve regresyon testiyle doğrulandı (301 passed). 2 LOW bulgu bloklayıcı değil."
+}
