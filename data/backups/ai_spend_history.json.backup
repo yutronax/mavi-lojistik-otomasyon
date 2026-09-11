@@ -16350,13 +16350,5 @@
     "output": 121,
     "cost_usd": 0.00042902,
     "cost_try": 0.01415766
-  },
-  {
-    "timestamp": "2026-05-11T22:54:49.153337",
-    "model": "deepseek-chat",
-    "input": 5118,
-    "output": 847,
-    "cost_usd": 0.00231356,
-    "cost_try": 0.07634748000000001
   }
 ]

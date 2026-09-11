@@ -1,5 +1,622 @@
 [
   {
+    "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+    "message_timestamp": 1777702488.0,
+    "createdAt": 1777702488.0,
+    "message_date": "2026-05-02T09:14:48",
+    "invalid_location": false,
+    "message_info": {
+      "body": "🇹🇷KAYSERİ SEÇKİN NAKLİYAT  \n\nKAYSERİ  >>>> ANKARA  TIR \n\nNEVŞEHİR >>>> ANTALYA TIR \n\nKAYSERİ >>>> İZMİR TIR\n\nKAYSERİ >>>> İSTANBUL TIR     \n\nKAYSERİ >>>> KİRŞEHİR TIR \n\nKAYSERİ >>>> URFA AÇIK TIR \n\nKAYSERİ >>>> BURSA TIR\n\nNEVŞEHİR >>>> MANİSA TIR \n\nKAYSERİ >>>> KADİRLİ TIR\n\nKAYSERİ >>>> KUŞADASI AÇIK TIR\n\nKAYSERİ  >>>> DENİZLİ TIR \n\nNEVŞEHİR >>>> TARSUS FRİGO TIR\n\nNEVŞEHİR >>>> ERZURUM TIR\n\nNEVŞEHİR >>>> GEBZE TIR\n\nKAYSERİ >>>> SIMAV TIR\n\nKAYSERİ >>>> ÇANAKKALE TIR \n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\nKayseri > agri tır\nKayseri > Aydın tır\nKayseri > ıgdır tır\nKayseri > Samsun tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\nKAYSERİ >>>> ANKARA DAMPERLİ TIR\n\nKAYSERİ >>>> İSTANBUL DAMPERLİ TIR\n\nKAYSERİ >>>> İZMİR DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\nKAYSERİ >>>> IĞDIR PARÇA \n\nKAYSERİ >>>> DÜZİÇİ 5 TON \n\n \n🇹🇷 KAYSERİ SEÇKİN NAKLİYAT \n\n0532 419 10 38",
+      "sender": "İbrahim Yolcusoy",
+      "sender_number": "905072472099",
+      "timestamp": 1777702488,
+      "chat_id": "120363389742870737@g.us",
+      "chat_name": "TÜRKİYE GENELİ YÜK PAYLAŞİMİ"
+    },
+    "parse_timestamp": "2026-05-02T10:05:39.549121",
+    "total_shipments": 26,
+    "shipments": [
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "ANKARA",
+        "nereye_ilce": "YENİMAHALLE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.430764",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ANTALYA",
+        "nereye_ilce": "KONYAALTI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.477547",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "İZMİR",
+        "nereye_ilce": "BORNOVA",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.525702",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "MALTEPE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.569783",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "KIRŞEHİR",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.617381",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "ŞANLIURFA",
+        "nereye_ilce": "EYYÜBİYE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.656942",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "BURSA",
+        "nereye_ilce": "NİLÜFER",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.710815",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "MANİSA",
+        "nereye_ilce": "ŞEHZADELER",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.756849",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "OSMANİYE",
+        "nereye_ilce": "KADİRLİ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.801941",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "AYDIN",
+        "nereye_ilce": "KUŞADASI",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.854547",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "DENİZLİ",
+        "nereye_ilce": "MERKEZEFENDİ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.901124",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "MERSİN",
+        "nereye_ilce": "TARSUS",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "FRİGO"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.939988",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "ERZURUM",
+        "nereye_ilce": "AZİZİYE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:38.990763",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "NEVŞEHİR",
+        "nereden_ilce": "MERKEZ",
+        "nereye_il": "KOCAELİ",
+        "nereye_ilce": "GEBZE",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.035609",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "DENİZLİ",
+        "nereye_ilce": "MERKEZEFENDİ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.078759",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "ÇANAKKALE",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.119945",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "YOZGAT",
+        "nereden_ilce": "SARIKAYA",
+        "nereye_il": "VAN",
+        "nereye_ilce": "ERCİŞ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.164615",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "AĞRI",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.199934",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "AYDIN",
+        "nereye_ilce": "EFELER",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.236635",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "IĞDIR",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.273081",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "SAMSUN",
+        "nereye_ilce": "İLKADIM",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "KOMPLE"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.314596",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "ANKARA",
+        "nereye_ilce": "YENİMAHALLE",
+        "arac_tipi": [
+          "1360 + 860"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "DAMPERLİ",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.358067",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "İSTANBUL",
+        "nereye_ilce": "MALTEPE",
+        "arac_tipi": [
+          "1360 + 860"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "DAMPERLİ",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.403938",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "İZMİR",
+        "nereye_ilce": "BORNOVA",
+        "arac_tipi": [
+          "1360 + 860"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "DAMPERLİ",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "DÖKME"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.443797",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "IĞDIR",
+        "nereye_ilce": "MERKEZ",
+        "arac_tipi": [
+          "1360"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.489558",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      },
+      {
+        "isim": "SEÇKİN NAKLİYAT",
+        "nereden_il": "KAYSERİ",
+        "nereden_ilce": "KOCASİNAN",
+        "nereye_il": "OSMANİYE",
+        "nereye_ilce": "DÜZİÇİ",
+        "arac_tipi": [
+          "KAMYONET"
+        ],
+        "kasa_tipi": [
+          "AÇIK",
+          "KAPALI"
+        ],
+        "yuk_tipi": [
+          "PARÇA"
+        ],
+        "fiyat": "SORUNUZ",
+        "telefon": "05324191038",
+        "createdAt": "2026-05-02T10:05:39.546234",
+        "body": "🇹🇷[KAYSERİ] SEÇKİN NAKLİYAT\n\n[KAYSERİ] >>>> [ANKARA] TIR\n\n[NEVŞEHİR] >>>> [ANTALYA] TIR\n\n[KAYSERİ] >>>> [İZMİR] TIR\n\n[KAYSERİ] >>>> [İSTANBUL] TIR\n\n[KAYSERİ] >>>> [KİRŞEHİR] TIR\n\n[KAYSERİ] >>>> [URFA] AÇIK TIR\n\n[KAYSERİ] >>>> [BURSA] TIR\n\n[NEVŞEHİR] >>>> [MANİSA] TIR\n\n[KAYSERİ] >>>> KADİRLİ TIR\n\n[KAYSERİ] >>>> KUŞADASI AÇIK TIR\n\n[KAYSERİ] >>>> [DENİZLİ] TIR\n\n[NEVŞEHİR] >>>> TARSUS FRİGO TIR\n\n[NEVŞEHİR] >>>> [ERZURUM] TIR\n\n[NEVŞEHİR] >>>> [GEBZE] TIR\n\n[KAYSERİ] >>>> SIMAV TIR\n\n[KAYSERİ] >>>> [ÇANAKKALE] TIR\n\nSARIKAYA >>>> ERÇİŞ 7 METRE\n\n[KAYSERI] > agri tır\n[KAYSERI] > [AYDIN] tır\n[KAYSERI] > ıgdır tır\n[KAYSERI] > [SAMSUN] tır\n\n\n🇹🇷DAMPERLİ SEVKİYATLARI🇹🇷\n\n[KAYSERİ] >>>> [ANKARA] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İSTANBUL] DAMPERLİ TIR\n\n[KAYSERİ] >>>> [İZMİR] DAMPERLİ TIR\n\n\n🇹🇷PARÇA SEVKİYATLARI\n\n\n[KAYSERİ] >>>> [IĞDIR] PARÇA\n\n[KAYSERİ] >>>> DÜZİÇİ 5 TON\n\n\n🇹🇷 [KAYSERİ] SEÇKİN NAKLİYAT\n\n0532 419 10 38",
+        "message_id": "OoprfOdT9e2rkQ-gq8Bq53dgZXw0Q",
+        "invalid_location": false
+      }
+    ]
+  },
+  {
     "message_id": "Oh0p14GV9ehEzA-ghQBq53dgZXw0Q",
     "message_timestamp": 1777701804.0,
     "createdAt": 1777701804.0,
@@ -60989,225 +61606,6 @@
         "createdAt": "2026-05-11T22:54:23.625436",
         "body": "🇧🇾GRODNA🇧🇾\n🇹🇷[İZMİR]🇹🇷\n022 TON\nTENTE FRİGO FARKETMEZ\nPLAKA FARKETMEZ\nGEMİ İLE GELRİ\n0 552 687 52 88",
         "message_id": "Og_tC.JAInTz4A-gh8Bq53gHPAA8Q",
-        "invalid_location": false
-      }
-    ]
-  },
-  {
-    "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-    "message_timestamp": 1778528316.0,
-    "createdAt": 1778528316.0,
-    "message_date": "2026-05-11T22:38:36",
-    "invalid_location": false,
-    "message_info": {
-      "body": "*⚠️GÜNCEL LİSTE HE‎MEN YÜKLER*\n\n*🚛İstenilen araç:* *13.60 TENTELİ*\n*SAKARYA ÇIKIŞLI İŞLER;*\n\n*Alkar Gaziosmanpaşa 5 araç*\n*Dg grup Eyüp*\n*Küçükçekmece bayi 6 araç*\n*A 101 Kemalpaşa*\n*A 101 Muğla*\n*A 101 beylikdüzü*\n*A 101 Tosya*\n*A 101 torbalı*\n*Sinop bayi*\n\n📏 Yük Detayı: *SU*\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / *MİRAÇ AKBAL*\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır.\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat.whatsapp.com/HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat.whatsapp.com/GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat.whats⁠app.com/DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat.whatsapp.com/K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat.whatsapp.com/CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat.whatsapp.com/BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat.whatsapp.com/E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp.com/channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir.\n📦 Yük sahipleri & araç sahipleri içindir.\n🚛 Gereksiz mesaj yok, iş odaklıdır.\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail.com",
-      "sender": "Akbal Lojistik 🔗",
-      "sender_number": "905052691860",
-      "timestamp": 1778528316,
-      "chat_id": "120363402393862056@g.us",
-      "chat_name": "YükleGönder"
-    },
-    "parse_timestamp": "2026-05-11T22:54:53.593030",
-    "confidence_score": 0.5,
-    "confidence_issues": [],
-    "total_shipments": 9,
-    "shipments": [
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "AKSARAY",
-        "nereye_ilce": "GÜZELYURT",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.172308",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "İSTANBUL",
-        "nereye_ilce": "EYÜPSULTAN",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.229179",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "İSTANBUL",
-        "nereye_ilce": "KÜÇÜKÇEKMECE",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.315416",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "İZMİR",
-        "nereye_ilce": "KEMALPAŞA",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.376895",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "MUĞLA",
-        "nereye_ilce": "ORTACA",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.409694",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "İSTANBUL",
-        "nereye_ilce": "BEYLİKDÜZÜ",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.474681",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "KASTAMONU",
-        "nereye_ilce": "TOSYA",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.519331",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "İZMİR",
-        "nereye_ilce": "TORBALI",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.565677",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
-        "invalid_location": false
-      },
-      {
-        "isim": "AKBAL LOJİSTİK",
-        "nereden_il": "SAKARYA",
-        "nereden_ilce": "ADAPAZARI",
-        "nereye_il": "SİNOP",
-        "nereye_ilce": "MERKEZ",
-        "arac_tipi": [
-          "1360"
-        ],
-        "kasa_tipi": [
-          "KAPALI"
-        ],
-        "yuk_tipi": [
-          "KOMPLE"
-        ],
-        "fiyat": "SORUNUZ",
-        "telefon": "05052691860",
-        "createdAt": "2026-05-11T22:54:52.613446",
-        "body": "⚠️GÜNCEL LİSTE HE‎MEN YÜKLER\n\n🚛İstenilen araç TENTELİ\n[SAKARYA] ÇIKIŞLI İŞLER;\n\nAlkar Gaziosmanpaşa 5 araç\nDg grup Eyüp\nKüçükçekmece bayi 6 araç\nA 101 [KEMALPAŞA]\nA 101 [MUĞLA]\nA 101 beylikdüzü\nA 101 Tosya\nA 101 torbalı\n[SINOP] bayi\n\n📏 Yük Detayı: SU\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / MİRAÇ AKBAL\n📞 İletişim: +90 505 269 18 60\n\n🚛 AKBAL LOJİSTİK | RESMİ NAKLİYE GRUPLARI 🇹🇷\nTürkiye geneli yük & araç paylaşımı, spot ve devamlı işler için aktif gruplarımız aşağıdadır\nİhtiyacınıza göre ilgili gruba katılabilirsiniz 👇\n1️⃣ 🚛 AKBAL LOJİSTİK | GÜNLÜK YÜKLER – ANLIK ARAÇLAR\n👇\nhttps://chat. whatsapp. com / HaYIXW8QLI92Fep7imhbeZ\n\n2️⃣ 🚚 AKBAL LOJİSTİK | YURT İÇİ & YURT DIŞI NAKLİYE\n👇\nhttps://chat. whatsapp. com / GOKHc73OACJF1GBYJyMUhF\n\n3️⃣ 🚛 AKBAL LOJİSTİK | ARAÇ & YÜK BAĞLANTI MERKEZİ 🔥\n👇\nhttps://chat. whats⁠app. com / DtbSuT3xwMEASPNfQBjWwa\n\n4️⃣ 🚛 AKBAL LOJİSTİK | TÜM TÜRKİYE NAKLİYE GRUBU 🇹🇷 🔥\n👇\nhttps://chat. whatsapp. com / K69f9BbstXx8GF6Pxdrwnv\n\n5️⃣ 🚛 AKBAL LOJİSTİK | PARÇA YÜK GRUBU 📦 🔥\n👇\nhttps://chat. whatsapp. com / CeeLl1qvGn28TUuMpswMfd\n\n6️⃣ 🚛 AKBAL LOGISTICS | INTERNATIONAL TRANSPORTATION GROUP 🇹🇷 🗾\n👇\nhttps://chat. whatsapp. com / BmtfvK4tqGnAM10F2dL6fq\n\n7️⃣ 🔗AKBAL LOJİSTİK | MİRAÇ AKBAL🔗\n👇\nhttps://chat. whatsapp. com / E3aJyCvwo1L7244DZcxtml\n\n📢 Anlık yük & duyurular için WhatsApp Kanalı;\n👇 https://whatsapp. com / channel/0029Vb7Z9M089inmmGYBD23p\n\n\n📌 Kurallar nettir, ilanlar düzenlidir\n📦 Yük sahipleri & araç sahipleri içindir\n🚛 Gereksiz mesaj yok, iş odaklıdır\n\n\n𝗔𝗞𝗕𝗔𝗟 𝗟𝗢𝗝𝗜𝗦𝗧𝗜𝗞 / 𝗠𝗜̇𝗥𝗔𝗖̧ 𝗔𝗞𝗕𝗔𝗟\n📞 İletişim: +90 505 269 18 60\n📩 miracakbal90@gmail. com",
-        "message_id": "PrCntYl3T_7Oagg-gswBq53gc6S_qA",
         "invalid_location": false
       }
     ]

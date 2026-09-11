@@ -692,39 +692,5 @@
     },
     "error": "'05355909825'",
     "timestamp": "2026-05-11 22:55:07"
-  },
-  {
-    "record": {
-      "isim": "05355909825",
-      "nereden_il": "İZMİR",
-      "nereden_ilce": "BORNOVA",
-      "nereye_il": "MUĞLA",
-      "nereye_ilce": "MARMARİS",
-      "arac_tipi": [
-        "1360"
-      ],
-      "kasa_tipi": [
-        "AÇIK",
-        "KAPALI"
-      ],
-      "yuk_tipi": [
-        "KOMPLE"
-      ],
-      "fiyat": "SORUNUZ",
-      "telefon": "05355909825",
-      "aciklama": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
-      "createdAt": "2026-05-11T22:28:49.601720",
-      "body": "[İZMIR] Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
-      "original_message": "İzmir Kızık köy den Datcaya 10.masa 40 santalye Marmaris 30 Santalye 6000 TL parası var.05355909825",
-      "message_id": "rJ8dY.fe158ogOzfiCgGJA-gicBq53hkiajaA",
-      "invalid_location": false,
-      "arac_kasa_kombinasyon_listesi": [
-        "1360-AÇIK",
-        "1360-KAPALI"
-      ],
-      "onay_tarihi": "2026-05-11 22:39:52"
-    },
-    "error": "'05355909825'",
-    "timestamp": "2026-05-11 22:55:08"
   }
 ]
