@@ -106,6 +106,20 @@ from src.api.webhook_server import WhapiWebhookHandler, make_webhook_handler_cla
 # Import vps_main for real webhook server startup
 import vps_main
 
+# DUZELTME (CI kirmizi hatasi): yukaridaki sys.modules['src.parsers.veri_cekici_ayristirici']
+# atamasi pytest'in COLLECTION asamasinda (tum test dosyalari calistirilmadan
+# once import edilir) kalici olarak calisiyor ve HIC geri alinmiyordu. Bu,
+# sureç genelinde paylasilan sys.modules cache'ini kirletip test_junk_message_filter.py
+# gibi baska test dosyalarinin (calistirma asamasinda, fonksiyon icinde
+# `from src.parsers.veri_cekici_ayristirici import _is_junk_message` yapan)
+# GERCEK modul yerine bu sahte MockOrchestratorSDK objesini almasina, ve
+# cagirdiklari her fonksiyonun bir MagicMock donmesine yol aciyordu (izole
+# calistirildiginda bu dosya hic import edilmedigi icin sorun gorunmuyordu).
+# Sahte modulu buradan sonra kaldiriyoruz ki sonraki testler GERCEK moduluyle
+# calissin (google/pymongo/dotenv/pyngrok mock'lari zaten sys.modules'ta
+# kaldigi icin gercek modulun importu burada da sorunsuz calisir).
+del sys.modules['src.parsers.veri_cekici_ayristirici']
+
 
 class TestAC2_TimeoutAttribute:
     """

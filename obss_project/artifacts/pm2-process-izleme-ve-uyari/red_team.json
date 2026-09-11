@@ -1,0 +1,46 @@
+{
+  "task_slug": "pm2-process-izleme-ve-uyari",
+  "reviewer": "obss-red-team (bağımsız subagent, Codex-override oturumu)",
+  "claims_verified": {
+    "git_diff_stat_matches_code_diff_md": true,
+    "single_pm2_jlist_call_reused": true,
+    "pre_existing_failures_unrelated": true,
+    "scope_cut_documented_not_silent": true
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "file": "tests/test_pm2_process_health.py",
+      "area": "AC-3/AC-4 zincir senaryosu",
+      "summary": "down->online->tekrar-down senaryosu (down_since'in doğru sıfırlanıp yeniden başladığı) test edilmemişti.",
+      "recommendation": "test_recovered_then_down_again_resets_down_since eklendi.",
+      "status": "fixed",
+      "blocking": false
+    },
+    {
+      "severity": "LOW",
+      "file": "src/api/admin_panel.py",
+      "area": "_process_health thread-safety",
+      "summary": "Dict tamamen yeniden atanıyor (in-place mutate değil), GIL altında atomik — güvenli ama kodda bunu açıklayan yorum yok.",
+      "recommendation": "İleride in-place mutasyona geçilirse atomiklik garantisi bozulur; yorum eklenmesi önerilir, bloklayıcı değil.",
+      "blocking": false
+    },
+    {
+      "severity": "LOW-MEDIUM",
+      "file": "src/api/admin_panel.py",
+      "area": "EXPECTED_PM2_PROCESSES hardcoded liste",
+      "summary": "Gelecekte 4. bir PM2 process eklenirse manuel güncellenmezse izlenmez.",
+      "recommendation": "atdd.md Risks bölümüne eklendi.",
+      "status": "fixed",
+      "blocking": false
+    }
+  ],
+  "approved_points": [
+    "_parse_pm2_jlist sessiz hata yutmuyor, None + log ile AC-5 karşılanıyor",
+    "Tek pm2 jlist çağrısı paylaşılıyor, ikinci subprocess çağrısı yok",
+    "Mevcut _status_cache şeması bozulmadan process_health additive eklendi",
+    "Scope-cut (WhatsApp bildirimi ertelendi) plan.md+atdd.md'de açıkça dokümante edilmiş, sessiz değil",
+    "verify_report.md'nin pre-existing fail iddiası bağımsız doğrulandı"
+  ],
+  "verdict": "Ready To Commit: EVET — kritik/yüksek bulgu yok, önerilen 2 iyileştirme (test + dokümantasyon) uygulandı."
+}
