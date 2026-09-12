@@ -88,3 +88,38 @@ Düzeltme: her birine "karar zorunlu, çalıştırma koşullu" bir kontrol nokta
 eklendi — `atdd` 5b (threat-model), `plan` adım 0 (frontend-pipeline),
 `verify` (refactor adayı), `red-team` sonrası (strix-scan, AC-S varsa),
 `commit` 11b (postmortem, eşik ≥5). Detay: `pipeline/SKILL.md`.
+
+---
+
+## Epic — Ayarlar Sayfası Temizliği
+### Task — ayarlar-sayfasi-temizlik-tasarim (2026-09-12)
+
+**Bulunan ve düzeltilen gerçek bug (kaynak: `code_diff.md`, "Düzeltmeler"):**
+> İlk implementasyon denemesi LLM bölüm başlığına `ft.Icons.BRAIN` ikonunu
+> ekledi — bu, gerçek Flet kütüphanesinde MEVCUT OLMAYAN bir üye
+> (`hasattr(ft.Icons, 'BRAIN')` → False), çalışma zamanında Ayarlar sayfası
+> açılır açılmaz `AttributeError` fırlatıp çökertecekti. Gerçek Flet kurulu
+> ortamda `python -c "import flet as ft; ..."` ile doğrulanıp `ft.Icons.
+> SMART_TOY` ile değiştirildi. Aynı geçişte kullanılmayan `AppStyles`
+> import'u da temizlendi.
+
+**Test altyapısı hatası — implementasyon değil (kaynak: `code_diff.md`):**
+> test-copilot'un yazdığı test dosyası iki fixture hatası içeriyordu: (1)
+> proje `pytest-asyncio` kurulu değilken `@pytest.mark.asyncio` deseni
+> kullanılmıştı (projenin gerçek konvansiyonu `asyncio.run(...)` içinde
+> senkron test — bkz. `tests/test_stage_merge_call_count.py`); (2) `flet`
+> modülü tek bir `MagicMock()` ile stub'landığı için `ft.TextField(...)`'in
+> her çağrısı AYNI mock nesnesini döndürüyordu — üç farklı form alanı
+> aslında aynı objeydi, `.value` ataması birbirini eziyordu. İkisi de
+> ikinci bir Haiku alt-ajan dispatch'iyle düzeltildi, orkestratör tarafından
+> bağımsız `pytest` çalıştırmasıyla doğrulandı (18/18 PASS).
+
+**Red-team bulgusu, commit öncesi düzeltildi (kaynak: `red_team.json`):**
+> `llm_keys_field` (gerçek API anahtarlarını tutuyor) düz metin
+> gösteriliyordu — kaldırılan `whapi_token_field`'da zaten kullanılan
+> `password=True, can_reveal_password=True` deseni buna da eklendi.
+
+**Bilinçli kapsam kararı (kaynak: `atdd.md`, Kapsam Dışı):**
+> Kullanıcı "asıl gerekli ayarları ekleyelim" dedi ama somut yeni bir ayar
+> listesi vermedi — bu, "yeni ayar ekleme kapsam dışı, sadece mevcut LLM
+> ayarlarını koru" olarak yorumlandı (Sonnet 5 low alt-ajanı tarafından).
