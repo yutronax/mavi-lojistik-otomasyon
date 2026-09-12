@@ -24,6 +24,12 @@ const RISK_EVENTS_LOG = path.join(__dirname, 'risk_events.log');
 
 let groupsIntervalId = null;
 
+// AC-2: Log warning at process startup if WEBHOOK_SHARED_SECRET is not defined
+// This occurs once when the module is loaded, preventing log spam
+if (!process.env.WEBHOOK_SHARED_SECRET) {
+  console.warn('[WEBHOOK CONFIG] WEBHOOK_SHARED_SECRET is not defined - webhook requests may be rejected as 403');
+}
+
 // Saga epic #44 (baileys-risk-paritesi): Whapi'nin Safety Meter'ının yerini
 // tutacak sidecar/risk_check.js'in ham veri kaynağı. JSON Lines formatı —
 // her satır tek bir olay. Append-only, pruning bu görevde YOK (bkz. plan.md
@@ -101,9 +107,16 @@ function toWhapiShape(msg) {
 
 async function postToWebhook(messages) {
   try {
+    // AC-1: Add X-Webhook-Secret header if WEBHOOK_SHARED_SECRET is defined
+    const headers = { 'Content-Type': 'application/json' };
+    const webhookSecret = process.env.WEBHOOK_SHARED_SECRET;
+    if (webhookSecret) {
+      headers['X-Webhook-Secret'] = webhookSecret;
+    }
+
     const res = await fetch(WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify({ messages }),
     });
     if (!res.ok) {
@@ -301,7 +314,8 @@ module.exports = {
   writeGroupsState,
   buildGetMessage,  // AC-1: Export getMessage callback builder
   isDecryptFailedMessage,  // AC-5: Export decrypt failure detector
-  toWhapiShape
+  toWhapiShape,
+  postToWebhook  // AC-1/AC-2: Export postToWebhook for testability and AC requirements
 };
 
 if (require.main === module) {

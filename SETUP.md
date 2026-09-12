@@ -49,3 +49,22 @@ strix --target <hedef-dizin> -m quick -n --max-turns 25 --max-budget 2
 
 Detaylı tuzaklar (aynı hedefe ikinci tarama sessizce çıkar, model kalite
 uyarısı vb.): `~/.claude/skills/strix-scan/SKILL.md`.
+
+## WEBHOOK_SHARED_SECRET — Baileys sidecar'a da eklenmeli (kaynak: `plan.md`, baileys-sidecar-webhook-secret-header)
+
+`WEBHOOK_SHARED_SECRET`'i VPS'in `.env` dosyasına eklemek **YETERLİ DEĞİL** —
+`sidecar/bridge.js` (`mavi-baileys-bridge` PM2 process'i) `dotenv` kullanmıyor,
+env'i sadece `ecosystem.config.js`'in kendi `env` bloğundan (satır ~46-49)
+alıyor. Deploy'da İKİ adım gerekiyor:
+
+1. VPS `.env`'e ekle (Python tarafı — `webhook_server.py`, `dotenv` ile okuyor):
+   ```bash
+   echo 'WEBHOOK_SHARED_SECRET=<güçlü-rastgele-değer>' >> /opt/mavi-lojistik/.env
+   ```
+2. VPS'teki `ecosystem.config.js`'in ÇALIŞAN kopyasında (commit edilmeden,
+   gerçek secret değeri git'e gitmemeli) `mavi-baileys-bridge` app'inin `env`
+   bloğuna aynı değeri ekle, sonra `pm2 restart mavi-baileys-bridge
+   mavi-lojistik-server --update-env`.
+
+İkisi de yapılmadan sorun devam eder (gerçek WhatsApp mesajları 403 ile
+reddedilir).
