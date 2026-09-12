@@ -5,6 +5,7 @@ import sys
 import os
 import threading
 import time
+import secrets
 
 # Fix paths for imports
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -117,33 +118,6 @@ class WhapiWebhookHandler(BaseHTTPRequestHandler):
 
         try:
             data = json.loads(post_data.decode('utf-8'))
-
-            # Send 200 OK immediately to prevent webhook timeout drops
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps({'status': 'received'}).encode('utf-8'))
-
-            if self.path == '/baileys-webhook':
-                # Baileys sidecar (Saga epic #43) — mesajlar zaten tam haliyle
-                # gelir (convert_whapi_message ile aynı şekilde), Whapi REST'e
-                # gidip yeniden çekmeye gerek yok. handle_webhook_event'in
-                # "dürtüp Whapi'den yeniden çek" deseninden kasıtlı olarak
-                # AYRI tutuluyor — orası sadece Whapi webhook'u için doğru.
-                logger.info("--- INCOMING BAILEYS WEBHOOK ---")
-                threading.Thread(
-                    target=_handle_baileys_event,
-                    args=(data,),
-                    kwargs={'target_orchestrator': self.target_orchestrator},
-                    daemon=True,
-                ).start()
-            else:
-                # DEBUG DUMP
-                logger.info("--- INCOMING WEBHOOK ---")
-                # Handle the event via orchestrator ASYNCHRONOUSLY
-                active_orchestrator = self.target_orchestrator if self.target_orchestrator is not None else orchestrator
-                threading.Thread(target=active_orchestrator.handle_webhook_event, args=(data,), daemon=True).start()
-
         except Exception as e:
             logger.error(f"Webhook error: {e}")
             try:
@@ -151,6 +125,78 @@ class WhapiWebhookHandler(BaseHTTPRequestHandler):
                 self.end_headers()
             except:
                 pass
+            return
+
+        # AC-2/AC-3: Authenticate webhook request
+        webhook_secret = os.getenv("WEBHOOK_SHARED_SECRET", "")
+        header_secret = self.headers.get("X-Webhook-Secret", "")
+
+        if not webhook_secret or not secrets.compare_digest(webhook_secret, header_secret):
+            # AC-2: Invalid/missing secret → 403 Forbidden (fail-closed)
+            logger.warning(f"Webhook auth failed: secret mismatch (secret={bool(webhook_secret)}, header={bool(header_secret)})")
+            self.send_response(403)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Forbidden'}).encode('utf-8'))
+            return
+
+        # AC-4: Validate JSON shape
+        is_baileys = self.path == '/baileys-webhook'
+
+        if is_baileys:
+            # For Baileys: expect 'messages' list OR single object with 'id' field
+            if isinstance(data, dict):
+                messages = data.get('messages', [])
+                if not messages and data.get('id'):
+                    # Single message object
+                    messages = [data]
+            else:
+                messages = []
+
+            if not messages:
+                # Invalid shape
+                logger.warning(f"Invalid JSON shape for Baileys webhook: expected dict with 'messages' or 'id'")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Bad Request: invalid shape'}).encode('utf-8'))
+                return
+        else:
+            # For default path: expect an object (dict)
+            if not isinstance(data, dict):
+                logger.warning(f"Invalid JSON shape for webhook: expected dict")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Bad Request: invalid shape'}).encode('utf-8'))
+                return
+
+        # AC-5: All validation passed → 200 OK
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps({'status': 'ok'}).encode('utf-8'))
+
+        # Process asynchronously
+        if is_baileys:
+            # Baileys sidecar (Saga epic #43) — mesajlar zaten tam haliyle
+            # gelir (convert_whapi_message ile aynı şekilde), Whapi REST'e
+            # gidip yeniden çekmeye gerek yok. handle_webhook_event'in
+            # "dürtüp Whapi'den yeniden çek" deseninden kasıtlı olarak
+            # AYRI tutuluyor — orası sadece Whapi webhook'u için doğru.
+            logger.info("--- INCOMING BAILEYS WEBHOOK ---")
+            threading.Thread(
+                target=_handle_baileys_event,
+                args=(data,),
+                kwargs={'target_orchestrator': self.target_orchestrator},
+                daemon=True,
+            ).start()
+        else:
+            # DEBUG DUMP
+            logger.info("--- INCOMING WEBHOOK ---")
+            # Handle the event via orchestrator ASYNCHRONOUSLY
+            active_orchestrator = self.target_orchestrator if self.target_orchestrator is not None else orchestrator
+            threading.Thread(target=active_orchestrator.handle_webhook_event, args=(data,), daemon=True).start()
 
     def do_GET(self):
         """Health check for external monitors or ngrok"""

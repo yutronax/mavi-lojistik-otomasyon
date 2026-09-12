@@ -1,7 +1,7 @@
 import flet as ft
 import os
 import asyncio
-from src.gui.styles import AppColors, AppStyles
+from src.gui.styles import AppColors
 from src.services.data_service import DataService
 from src.services.data_service_async import AsyncDataService
 from src.utils.api_key_manager import APIKeyManager
@@ -18,56 +18,44 @@ class SettingsPage:
         self.llm_url_field = ft.TextField(
             label="LLM Sunucu URL (DeepSeek/Ollama)",
             value="https://api.deepseek.com/v1",
-            border_radius=10,
-            expand=True
+            border_radius=12,
+            expand=True,
+            filled=True,
+            bgcolor=AppColors.SURFACE_LIGHT,
+            focused_border_color=AppColors.ACCENT
         )
         self.llm_model_field = ft.TextField(
             label="LLM Model Adı",
             value="deepseek-chat",
-            border_radius=10,
-            expand=True
+            border_radius=12,
+            expand=True,
+            filled=True,
+            bgcolor=AppColors.SURFACE_LIGHT,
+            focused_border_color=AppColors.ACCENT
         )
         self.llm_keys_field = ft.TextField(
             label="LLM API Anahtarları (Virgülle ayırın)",
             placeholder="sk_..., sk_...",
-            border_radius=10,
+            border_radius=12,
             expand=True,
             multiline=True,
-            min_lines=2
-        )
-        self.whapi_token_field = ft.TextField(
-            label="Whapi Token",
+            min_lines=2,
             password=True,
             can_reveal_password=True,
-            border_radius=10,
-            expand=True
-        )
-        self.whapi_url_field = ft.TextField(
-            label="Whapi API URL",
-            value="https://gate.whapi.cloud",
-            border_radius=10,
-            expand=True
-        )
-        self.refresh_interval_field = ft.TextField(
-            label="Otomatik Yenileme (Saniye)",
-            value="60",
-            keyboard_type=ft.KeyboardType.NUMBER,
-            border_radius=10,
-            expand=True
+            filled=True,
+            bgcolor=AppColors.SURFACE_LIGHT,
+            focused_border_color=AppColors.ACCENT
         )
         
     async def load_settings(self):
         """Mevcut ayarları yükler"""
         try:
             config = await self.data_service.load_config("app_settings") or {}
-            
+
             self.llm_url_field.value = config.get("llm_url", "https://api.deepseek.com/v1")
             self.llm_model_field.value = config.get("llm_model", "deepseek-chat")
             self.llm_keys_field.value = config.get("llm_keys", "")
-            self.whapi_token_field.value = config.get("whapi_token", "")
-            self.whapi_url_field.value = config.get("whapi_url", "https://gate.whapi.cloud")
-            self.refresh_interval_field.value = str(config.get("refresh_interval", "60"))
-            
+
             self.page.update()
         except Exception as e:
             self._show_error(f"Ayarlar yüklenemedi: {e}")
@@ -78,21 +66,18 @@ class SettingsPage:
             config = {
                 "llm_url": self.llm_url_field.value,
                 "llm_model": self.llm_model_field.value,
-                "llm_keys": self.llm_keys_field.value,
-                "whapi_token": self.whapi_token_field.value,
-                "whapi_url": self.whapi_url_field.value,
-                "refresh_interval": int(self.refresh_interval_field.value or 60)
+                "llm_keys": self.llm_keys_field.value
             }
             await self.data_service.save_config("app_settings", config)
-            
+
             # Update env for underlying scripts expecting OS Env vars immediately
             os.environ["LLM_BASE_URL"] = self.llm_url_field.value
             os.environ["LLM_MODEL"] = self.llm_model_field.value
             os.environ["GROQ_API_KEYS"] = self.llm_keys_field.value
-            
+
             # Reload keys in manager
             self.api_manager.load_keys(reason='settings_update')
-            
+
             self._show_success("Ayarlar başarıyla kaydedildi.")
         except Exception as e:
             self._show_error(f"Kaydetme hatası: {e}")
@@ -122,32 +107,28 @@ class SettingsPage:
             )
         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
-        # Form Kartı
+        # Form Kartı — Modernize tasarım
+        llm_header = ft.Row([
+            ft.Icon(ft.Icons.SMART_TOY, color=AppColors.ACCENT, size=24),
+            ft.Text("Yapay Zeka (LLM) Yapılandırması", size=20, weight="bold", color=AppColors.TEXT),
+        ], spacing=12, vertical_alignment=ft.CrossAxisAlignment.CENTER)
+
         form_content = ft.Container(
             content=ft.Column([
-                ft.Text("Yapay Zeka (LLM) Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
+                llm_header,
                 ft.Text("Mesaj ayrıştırma için Groq veya Ollama bilgileri", size=12, color=AppColors.TEXT_MUTED),
-                ft.Divider(color="white10"),
-                
+                ft.Divider(color=AppColors.PRIMARY, height=2),
+
+                ft.Divider(height=20, color="transparent"),
+
                 self.llm_url_field,
+                ft.Divider(height=12, color="transparent"),
                 self.llm_model_field,
+                ft.Divider(height=12, color="transparent"),
                 self.llm_keys_field,
-                
-                ft.Divider(height=20, color="transparent"),
-                
-                ft.Text("WhatsApp API Yapılandırması", size=18, weight="bold", color=AppColors.TEXT),
-                ft.Divider(color="white10"),
-                self.whapi_token_field,
-                self.whapi_url_field,
-                
-                ft.Divider(height=20, color="transparent"),
-                
-                ft.Text("Uygulama Tercihleri", size=18, weight="bold", color=AppColors.TEXT),
-                ft.Divider(color="white10"),
-                self.refresh_interval_field,
-                
+
                 ft.Divider(height=40, color="transparent"),
-                
+
                 ft.Button(
                     content="AYARLARI KAYDET",
                     icon=ft.Icons.SAVE,
@@ -160,8 +141,13 @@ class SettingsPage:
             ], scroll=ft.ScrollMode.ADAPTIVE, spacing=15),
             padding=30,
             bgcolor=AppColors.SURFACE,
-            border_radius=15,
-            shadow=[AppStyles.CARD_SHADOW],
+            border_radius=20,
+            shadow=[ft.BoxShadow(
+                blur_radius=25,
+                spread_radius=2,
+                color="black40",
+                offset=ft.Offset(0, 8)
+            )],
             expand=True
         )
 

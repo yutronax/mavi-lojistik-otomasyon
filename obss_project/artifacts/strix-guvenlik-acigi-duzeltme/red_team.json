@@ -1,0 +1,62 @@
+{
+  "task": "strix-guvenlik-acigi-duzeltme",
+  "reviewed_at": "2026-09-12T00:00:00Z",
+  "summary": "Uygulama ATDD'nin kritik AC'lerini (AC-1..AC-6) doğru karşılıyor; secrets.compare_digest kullanımı timing-attack'e karşı doğru ve admin_panel.py'deki mevcut desenle tutarlı, XSS düzeltmesi tüm sink'leri kapatıyor görünüyor. Ancak JSON parse hatasının auth kontrolünden ÖNCE yapılması (fail-closed prensibini zayıflatan bir sıralama sorunu) ve `Content-Length` header'ının doğrulanmadan int()'e çevrilmesi orta seviye bulgular; ayrıca webhook_server.py'deki 4x tekrarlanan response-yazma bloğunun 'dokunulmama' kararı kabul edilebilir ama uzun vadede maintainability riski taşıyor.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "security",
+      "file": "src/api/webhook_server.py",
+      "issue": "do_POST içinde JSON parse (satır 119-128) secret/auth kontrolünden (satır 130-141) ÖNCE çalışıyor. Kimliği doğrulanmamış bir saldırgan bozuk JSON gönderdiğinde 403 yerine 500 alıyor; bu da auth kontrolünün var olup olmadığı hakkında bilgi sızdırabilir (403 vs 500 farkı, endpoint parmak izi çıkarmaya yardımcı olur) ve atdd.md'nin 'auth önce gelmeli' ilkesiyle (Davranış Sözleşmesi tablosu, satır 4) tam örtüşmüyor.",
+      "better_approach": "Ham body'yi oku, önce X-Webhook-Secret'ı compare_digest ile doğrula (403 dön), SONRA json.loads dene (400 dön parse hatasında).",
+      "reason": "Auth-önce-parse deseni hem bilgi sızıntısını azaltır hem de atdd.md'nin AC-2/AC-3'te vurguladığı 'fail-closed, saldırgan girdisi işlenmeden reddedilmeli' ilkesine daha sıkı uyar."
+    },
+    {
+      "severity": "low",
+      "category": "reliability",
+      "file": "src/api/webhook_server.py",
+      "issue": "`content_length = int(self.headers['Content-Length'])` (satır 116) — header eksikse KeyError, sayısal değilse ValueError fırlatır ve bu try/except bloğunun dışında, do_POST'u tamamen çökertir (BaseHTTPRequestHandler seviyesinde 500/bağlantı kopması). Kimlik doğrulamasız bir saldırgan Content-Length header'ı olmayan/geçersiz bir istek göndererek sunucu loglarında istisna/gürültü üretebilir.",
+      "better_approach": "int() çağrısını da try/except içine al veya `self.headers.get('Content-Length', '0')` ile varsayılan değer kullan.",
+      "reason": "AC-3'ün 'sunucu çökmeden ayakta kalır' gereksinimi sadece secret eksikliği senaryosunu kapsıyor gibi görünüyor; malformed header senaryosu test edilmemiş, davranış sözleşmesi tablosunda da yok."
+    },
+    {
+      "severity": "low",
+      "category": "maintainability",
+      "file": "src/api/webhook_server.py",
+      "issue": "send_response/send_header/end_headers/wfile.write bloğu do_POST içinde 4 kez neredeyse birebir tekrarlanıyor (satır 124-127, 137-140, 159-162, 168-171); refactor.md bunu bilinçli olarak 'dokunulmadı' diye işaretlemiş.",
+      "better_approach": "Küçük bir `_json_response(self, status, payload)` yardımcı metodu eklemek tekrarı 1 satıra indirir.",
+      "reason": "Bu görev güvenlik odaklı olduğu için refactor'dan kaçınmak makul bir risk-azaltma kararı (davranışı değiştirme riskini sıfırlıyor), ancak gelecekte yeni bir status kodu eklenirse 4 yerde aynı hatayı tekrarlama riski var — kabul edilebilir ama takip görevi olarak not düşülmeli."
+    }
+  ],
+  "strengths": [
+    "secrets.compare_digest kullanımı timing-attack'e karşı doğru ve admin_panel.py'deki (grep ile doğrulanan) mevcut kullanım deseniyle tutarlı — proje genelinde secret karşılaştırma yaklaşımı standartlaşmış.",
+    "AC-1/AC-6 XSS düzeltmesi: admin_panel.py satır 1600-1622'de tüm data-mid sink'leri escapeHtml ile sarılmış ve onclick handler'lar artık ham `${mid}` yerine `this.dataset.mid` kullanıyor; openEditModal için ayrıca encodeURIComponent+escapeHtml çift koruma uygulanmış (satır 1621) — ölü `midE` satırının temizlenmesi de doğru bir CAVEMAN kararı.",
+    "403 (AC-2/3) ile 400 (AC-4) ayrımı kodda net: secret kontrolü ayrı bloğunda erken return ile 403 dönüyor, şekil kontrolü ayrı blokta 400 dönüyor — Davranış Sözleşmesi tablosunun 2 ve 4 numaralı satırları koda birebir yansımış.",
+    "AC-7 CSP regresyonu (inline onclick'leri bloklayacak header) tespit edilip geri alınmış; şu anki (uygulanmamış, SKIPPED test) hali doğru — script-src 'self' + unsafe-inline olmadan eklemek panelin tamamını kırardı, bunu 'opsiyonel/medium AC' olarak ATLAMAK bu görevin kapsamında makul bir karar.",
+    "Bandit bulguları (B310, B104x2, B602) bağımsız olarak doğrulandı: webhook_server.py satır ~240 (subprocess shell=True) ve ~318 (0.0.0.0 bind), admin_panel.py satır ~296 (urlopen) ve ~2292 (0.0.0.0 bind) — hepsi diff dışı (do_POST 115-199, _renderShipList 1600-1622, index() 2277-2280 dışında), verify_report.md'nin iddiası doğru."
+  ],
+  "risks": [
+    "Sidecar/Whapi'nin henüz X-Webhook-Secret göndermemesi nedeniyle bu değişiklik production'a tek başına deploy edilirse gerçek webhook trafiği 403 ile kesintiye uğrayacak — atdd.md'de açıkça belgelenmiş ve kullanıcıya bildirilmesi planlanmış, kapsam dışı bırakılması makul çünkü sidecar/Whapi güncellemesi ayrı bir repo/dil gerektiriyor; ancak devreye alma SIRASI (önce sidecar, sonra bu kod) net vurgulanmalı, aksi halde production kesintisi riski yüksek."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": false
+  },
+  "verdict": "approve-with-changes"
+}
