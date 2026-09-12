@@ -69,8 +69,6 @@ EDITABLE_ENV_KEYS = [
     "DUPLICATE_CHECK_HOURS",
     "DEFAULT_UI_FILTER_MINUTES",
     "WHATSAPP_POLL_INTERVAL",
-    "START_HOUR",
-    "END_HOUR",
     "AUTO_SUBMIT",
     "BATCH_SLEEP_TIME",
     "LOOP_WAIT_TIME",
@@ -1256,6 +1254,7 @@ label{color:var(--mut);font-size:12px;display:block;margin:10px 0 4px}
   .collapse-btn{display:block}
   #mob-menu-btn{display:flex}
 }
+#set-fields input:focus{border-color:var(--acc);outline:none}
 </style>
 </head>
 <body>
@@ -2062,11 +2061,11 @@ async function loadSet(){
 
   let html = '';
   if(sysKeys.length){
-    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:0 0 8px">SİSTEM AYARLARI</p>';
+    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--border)">SİSTEM AYARLARI</p>';
     html += sysKeys.map(k=>`<label>${k}</label><input data-k="${k}" value="${escapeHtml(d.settings[k]??'')}">`).join('');
   }
   if(apiKeys.length){
-    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:14px 0 8px">AI API ANAHTARLARI</p>';
+    html += '<p style="font-weight:700;font-size:13px;color:var(--mut);margin:14px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--border)">AI API ANAHTARLARI</p>';
     html += apiKeys.map(k=>{
       const val = escapeHtml(d.settings[k]??'');
       const id = 'ak-'+k;

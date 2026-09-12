@@ -1,0 +1,46 @@
+{
+  "task": "web-admin-panel-ayarlar-temizlik-tasarim",
+  "reviewed_at": "2026-09-12T00:00:00Z",
+  "summary": "Implementasyon atdd.md'ye tam uyuyor: EDITABLE_ENV_KEYS'ten START_HOUR/END_HOUR gerçekten çıkarıldı ve bu allowlist tek noktadan hem GET hem POST'u kontrol ediyor (server-side enforcement doğrulandı, stale-client saldırı senaryosu test edilmiş). Scoped CSS (#set-fields input:focus) global input kuralına dokunmuyor, i18n/çeviri eklenmemiş. Küçük, düşük riskli, kapsamı aşmayan bir diff.",
+  "findings": [
+    {
+      "severity": "low",
+      "category": "security",
+      "file": "src/api/admin_panel.py",
+      "issue": "GET /api/settings hâlâ DEEPSEEK_API_KEY/GROQ_API_KEY/GEMINI_API_KEY değerlerini düz metin JSON olarak döndürüyor (satır ~1132). Bu görev kapsamı dışında bırakılmış (atdd.md Risks'te açıkça kabul edilmiş) ama tekrar not ediliyor çünkü uzun vadede tek token'ı ele geçiren biri tüm API anahtarlarını görebilir.",
+      "better_approach": "Ayrı bir görev olarak GET yanıtında API key alanlarını maskelenmiş (örn. son 4 karakter) döndürüp, gerçek değeri sadece kullanıcı değiştirmek istediğinde POST ile göndermesini sağlamak.",
+      "reason": "Bu diff'in parçası değil, kapsam dışı kabul edilmiş bir risk olduğu için severity low tutuldu; ancak red-team incelemesinde tekrar işaretlenmesi gerekiyordu."
+    }
+  ],
+  "strengths": [
+    "EDITABLE_ENV_KEYS allowlist'i settings_get (satır 1128) ve settings_save (satır 1140) tarafından aynı liste üzerinden kontrol ediliyor — tek nokta, ayrı ayrı senkron tutma riski yok.",
+    "AC-S1 testi (test_disallowed_key_not_written_to_env) gerçek bir saldırı senaryosunu (stale client START_HOUR gönderiyor) test_client() ile uçtan uca doğruluyor, sadece kod okuması değil.",
+    "Scoped CSS seçicisi (#set-fields input:focus, satır 1257) global input kuralıyla (satır 1213) çakışmıyor — grep ile teyit edildi, diğer sekmelere sızma yok.",
+    "Test dosyası gerçek .env'e dokunmuyor, ENV_PATH patch.object ile tmp_path'e yönlendiriliyor (temp_env_file fixture) — izolasyon iyi.",
+    "AC-4 (eski START_HOUR/END_HOUR satırlarının .env'de korunması) hem GET hem POST için ayrı testlerle doğrulanmış."
+  ],
+  "risks": [
+    "GET /api/settings API anahtarlarını düz metin döndürüyor (pre-existing, kapsam dışı, atdd.md'de kabul edilmiş risk) — ayrı bir görev gerektirir."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve"
+}

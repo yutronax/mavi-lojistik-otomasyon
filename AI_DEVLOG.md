@@ -123,3 +123,31 @@ eklendi — `atdd` 5b (threat-model), `plan` adım 0 (frontend-pipeline),
 > Kullanıcı "asıl gerekli ayarları ekleyelim" dedi ama somut yeni bir ayar
 > listesi vermedi — bu, "yeni ayar ekleme kapsam dışı, sadece mevcut LLM
 > ayarlarını koru" olarak yorumlandı (Sonnet 5 low alt-ajanı tarafından).
+
+---
+
+## Epic — Ayarlar Sayfası Temizliği
+### Task — web-admin-panel-ayarlar-temizlik-tasarim (2026-09-12)
+
+**Kabul edilen risk (kaynak: `atdd.md`, Risks + `red_team.json`, tekrar işaretlendi):**
+> GET `/api/settings` API anahtarlarını (DEEPSEEK/GROQ/GEMINI) düz metin
+> JSON olarak dönüyor — sadece `@require_auth` korumalı, bu görevden ÖNCE
+> de var olan bir tasarım kararı, bu görev kapsamında düzeltilmedi. red-team
+> bunu tekrar işaretledi (severity low, "ayrı bir görev gerektirir") — ileride
+> maskelenmiş döndürme (son 4 karakter) bir sonraki adım olabilir.
+
+**Threat-model bulgusu, gerçek testle kanıtlandı (kaynak: `atdd.md`, AC-S1):**
+> `EDITABLE_ENV_KEYS` allowlist'inden bir anahtar çıkarmanın gerçekten
+> sunucu tarafında uygulandığı (stale/eski istemci hâlâ o anahtarı
+> gönderse bile `.env`'e yazılmadığı) `test_disallowed_key_not_written_to_env`
+> testiyle uçtan uca (Flask `test_client()`) doğrulandı — sadece kod
+> okumasıyla değil.
+
+**Discover/Design bulgusu (kaynak: `plan.md`, `frontend-pipeline` adımı):**
+> Admin panelinin hiçbir sekmesinde (sadece Ayarlar değil, tüm panelde)
+> input focus stili yoktu — klavye kullanıcısı hangi alanda olduğunu
+> göremiyordu. Bu görev kapsamında SADECE Ayarlar sekmesine scoped bir
+> focus stili (`#set-fields input:focus`) eklendi; global `input:focus`
+> eklemek diğer sekmeleri de değiştireceği için bilinçli olarak kapsam
+> dışı bırakıldı — aynı iyileştirme diğer sekmelere de ayrı bir görev
+> olarak uygulanabilir.
