@@ -151,3 +151,40 @@ eklendi — `atdd` 5b (threat-model), `plan` adım 0 (frontend-pipeline),
 > eklemek diğer sekmeleri de değiştireceği için bilinçli olarak kapsam
 > dışı bırakıldı — aynı iyileştirme diğer sekmelere de ayrı bir görev
 > olarak uygulanabilir.
+
+---
+
+## Epic — Güvenlik Açığı Düzeltmeleri (Strix Bulguları)
+### Task — baileys-sidecar-webhook-secret-header (2026-09-12, ACİL production kesintisi)
+
+**Bulunan ve düzeltilen gerçek bug (kaynak: `atdd.md`, Hedef):**
+> `65c9fe6` commit'i (webhook auth güvenlik düzeltmesi) `webhook_server.py`'de
+> `WEBHOOK_SHARED_SECRET` kontrolünü fail-closed yaptı, ama `sidecar/bridge.js`'in
+> `postToWebhook()` fonksiyonu bu header'ı hiç göndermiyordu. Sonuç: VPS'te
+> GERÇEK gelen tüm WhatsApp mesajları 403 ile reddediliyordu (canlı log kanıtı:
+> "secret mismatch (secret=False, header=False)"). Bu risk aslında önceki
+> güvenlik görevinde ("webhook-shared-secret-auth") ÖNCEDEN yazılmıştı
+> (Rollback Beklentisi: "devreye alma sırası kritik... sidecar/Whapi henüz
+> header göndermiyorsa, gerçek webhook trafiği 403 ile kesintiye uğrayabilir")
+> ama sıra hiç tamamlanmamıştı.
+
+**Kritik keşif, deploy talimatını değiştirdi (kaynak: `plan.md`):**
+> `ecosystem.config.js`'in `mavi-baileys-bridge` env bloğu sadece `NODE_ENV`/
+> `WEBHOOK_URL` içeriyor — `bridge.js` `dotenv` KULLANMIYOR (Python tarafının
+> aksine). Yani VPS'in `.env` dosyasına `WEBHOOK_SHARED_SECRET` eklemek TEK
+> BAŞINA bu process'e ulaşmıyor; `ecosystem.config.js`'in `mavi-baileys-bridge`
+> `env` bloğu da (VPS'teki çalışan kopyada, commit edilmeden) güncellenmeli.
+> Yeni bir `dotenv` bağımlılığı eklemek CAVEMAN'a aykırı kapsam genişlemesi
+> sayılıp bilinçli olarak reddedildi.
+
+**Red-team bulgusu, commit öncesi düzeltildi (kaynak: `red_team.json`):**
+> `testPostToWebhookWarnsAboutMissingSecret` testi AC-2'nin "startup'ta bir
+> kez uyarı loglanır" kriterini fiilen assert etmiyordu (mock tabanlı yaklaşım,
+> modül seviyesi kodun sadece ilk `require`'da çalışması yüzünden hiçbir şey
+> kanıtlamıyordu). `child_process.execSync` ile taze bir alt-process açıp
+> gerçek stdout/stderr çıktısını yakalayan bir teste çevrildi.
+
+**Kabul edilen risk (kaynak: `atdd.md`, Risks):**
+> Bu kod değişikliği VPS'e deploy edilse bile `.env`/`ecosystem.config.js`
+> güncellenmeden sorun devam eder — iki taraflı (kod + env config) bir
+> düzeltme, kod tek başına yeterli değil.
