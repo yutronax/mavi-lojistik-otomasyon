@@ -1598,8 +1598,8 @@ function _renderCurrentMsg(){
   const mid = msg.message_id;
   // Toplu işlem butonları
   const bulkHtml = `<div style="display:flex;gap:8px;margin-bottom:10px">
-    <button class="b-ok" style="flex:1;padding:8px;font-size:13px;font-weight:700" onclick="approveAll('${mid}')">✓ Tümünü Onayla (${ships.length})</button>
-    <button class="b-err" style="flex:1;padding:8px;font-size:13px;font-weight:700" onclick="deleteMsg('${mid}')">✕ Tümünü Sil</button>
+    <button class="b-ok" style="flex:1;padding:8px;font-size:13px;font-weight:700" data-mid="${escapeHtml(mid)}" onclick="approveAll(this.dataset.mid)">✓ Tümünü Onayla (${ships.length})</button>
+    <button class="b-err" style="flex:1;padding:8px;font-size:13px;font-weight:700" data-mid="${escapeHtml(mid)}" onclick="deleteMsg(this.dataset.mid)">✕ Tümünü Sil</button>
   </div>`;
   $('ship-list').innerHTML = bulkHtml + ships.map((s,i)=>{
     const from=(s.nereden_il||s.nerden_il||'?')+(s.nereden_ilce||s.nerden_ilce?'/'+(s.nereden_ilce||s.nerden_ilce):'');
@@ -1610,7 +1610,6 @@ function _renderCurrentMsg(){
     arr(s.yuk_tipi).forEach(v=>v&&tags.push('⚡ '+v));
     if(s.fiyat&&s.fiyat!=='SORUNUZ') tags.push('💰 '+s.fiyat);
     const phone = arr(s.telefon).filter(Boolean);
-    const midE = encodeURIComponent(mid);
     return `<div class="ship-card">
       <div style="display:flex;align-items:flex-start;gap:6px">
         <div style="flex:1">
@@ -1619,7 +1618,7 @@ function _renderCurrentMsg(){
           <div class="ship-tags">${tags.map(t=>`<span class="ship-tag">${escapeHtml(t)}</span>`).join('')}</div>
           ${phone.length?`<div style="font-size:12px;color:var(--mut)">📞 ${escapeHtml(phone.join(', '))}</div>`:''}
         </div>
-        <button onclick="openEditModal('${midE}',${i})" style="width:auto;padding:4px 10px;font-size:12px;background:var(--acc);color:#fff;border-radius:8px;flex-shrink:0">✏️</button>
+        <button data-mid="${escapeHtml(encodeURIComponent(mid))}" onclick="openEditModal(this.dataset.mid,${i})" style="width:auto;padding:4px 10px;font-size:12px;background:var(--acc);color:#fff;border-radius:8px;flex-shrink:0">✏️</button>
       </div>
     </div>`;
   }).join('');
