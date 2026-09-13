@@ -1,0 +1,47 @@
+{
+  "task": "ai-hourly-spend-cap-ayarlar-panelinde",
+  "reviewed_at": "2026-09-12T00:00:00Z",
+  "summary": "Implementasyon ATDD kapsamını doğru karşılıyor: AC-1, AC-2, AC-S1, kısmi başarı davranışı ve AC-5 doğrulandı. float(\"inf\")/float(\"nan\") validasyon bypass'ı bulundu ve commit öncesi düzeltildi.",
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "security",
+      "file": "src/api/admin_panel.py",
+      "issue": "AC-S1 validasyonu `float(v)` + `value < 0` kontrolüyle yapılıyordu. Python'da `float(\"inf\")`/`float(\"nan\")` geçerli float sayılır ve `< 0` kontrolünü geçer (ikisi de False döner) — bu değerler .env'e yazılabiliyordu.",
+      "better_approach": "`math.isfinite(value)` kontrolü eklendi.",
+      "reason": "text_gen_parser.py:103'teki `cost_try > cap` karşılaştırması `cap=inf` ise hiçbir zaman aşılmaz, `cap=nan` ise her zaman False döner — ikisi de threat model'in önlemeye çalıştığı 'limit sessizce devre dışı kalır' senaryosunu yeniden açıyordu."
+    }
+  ],
+  "strengths": [
+    "Validasyon .env'e yazmadan ÖNCE yapılıyor — kısmi başarı sözleşmesi (TÜM istek reddedilir) kodda birebir karşılanıyor, testle doğrulanmış.",
+    "Sıfır (\"0\") değeri doğru şekilde geçerli kabul ediliyor (< kontrolü, <= değil).",
+    "Scope tamamen korunmuş: text_gen_parser.py'ye dokunulmamış, validasyon genel bir şema değil sadece AI_HOURLY_SPEND_CAP_TRY'a özel.",
+    "Diğer EDITABLE_ENV_KEYS anahtarları için validasyonsuz davranış korunmuş.",
+    "Eskiyen test_editable_count_is_ten testi doğru şekilde güncellenmiş, sadece 2 fonksiyon değişmiş."
+  ],
+  "risks": [
+    "Validasyon deseni sadece bu anahtara özel elle eklenmiş (bilinen borç, atdd.md'de kabul edilmiş) — gelecekte benzer bir env key eklenirse aynı desen tekrar elle uygulanmalı."
+  ],
+  "caveman_review": {
+    "complexity": "low",
+    "unnecessary_files": 0,
+    "unnecessary_helpers": 0,
+    "unnecessary_abstractions": 0
+  },
+  "scope_review": {
+    "matches_atdd": true,
+    "scope_expansion": false
+  },
+  "ready_to_commit": {
+    "atdd_satisfied": true,
+    "tests_passed": true,
+    "no_critical_findings": true,
+    "scope_respected": true,
+    "caveman_satisfied": true,
+    "security_acceptable": true,
+    "maintainability_acceptable": true,
+    "no_blocking_risks": true
+  },
+  "verdict": "approve-with-changes",
+  "_post_review_fix": "inf/nan bypass bulgusu commit'ten önce düzeltildi: math.isfinite(value) kontrolü eklendi, 2 yeni test (test_post_settings_invalid_inf, test_post_settings_invalid_nan) eklendi. Tekrar doğrulama: 27/27 test hâlâ PASS (orkestratör tarafından bağımsız çalıştırıldı). Görev artık verdict açısından fiilen 'approve' durumunda."
+}
