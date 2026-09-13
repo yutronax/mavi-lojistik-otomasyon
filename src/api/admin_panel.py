@@ -19,6 +19,7 @@ VPS üzerinde PM2 ile çalışır; telefon tarayıcısından erişilir.
 import os
 import sys
 import json
+import math
 import time
 import shutil
 import secrets
@@ -75,6 +76,7 @@ EDITABLE_ENV_KEYS = [
     "DEEPSEEK_API_KEY",
     "GROQ_API_KEY",
     "GEMINI_API_KEY",
+    "AI_HOURLY_SPEND_CAP_TRY",
 ]
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -1140,6 +1142,16 @@ def settings_save():
     updates = {k: str(v).strip() for k, v in (body.get("settings") or {}).items() if k in EDITABLE_ENV_KEYS}
     if not updates:
         return jsonify({"error": "Güncellenecek ayar yok"}), 400
+
+    # AC-S1: AI_HOURLY_SPEND_CAP_TRY için sayısal validasyon
+    if "AI_HOURLY_SPEND_CAP_TRY" in updates:
+        try:
+            value = float(updates["AI_HOURLY_SPEND_CAP_TRY"])
+            if not math.isfinite(value) or value < 0:
+                return jsonify({"error": "AI_HOURLY_SPEND_CAP_TRY geçerli bir sayı olmalı"}), 400
+        except ValueError:
+            return jsonify({"error": "AI_HOURLY_SPEND_CAP_TRY geçerli bir sayı olmalı"}), 400
+
     try:
         with open(ENV_PATH, "r", encoding="utf-8") as f:
             lines = f.readlines()

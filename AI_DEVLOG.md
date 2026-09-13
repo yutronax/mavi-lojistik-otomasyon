@@ -188,3 +188,32 @@ eklendi — `atdd` 5b (threat-model), `plan` adım 0 (frontend-pipeline),
 > Bu kod değişikliği VPS'e deploy edilse bile `.env`/`ecosystem.config.js`
 > güncellenmeden sorun devam eder — iki taraflı (kod + env config) bir
 > düzeltme, kod tek başına yeterli değil.
+
+---
+
+## Epic — AI Maliyet İzleme ve Doğruluğu
+### Task — ai-hourly-spend-cap-ayarlar-panelinde (2026-09-12)
+
+**Bulunan ve düzeltilen gerçek güvenlik/doğruluk açığı (kaynak: `red_team.json`):**
+> AC-S1'in ilk implementasyonu `AI_HOURLY_SPEND_CAP_TRY` için `float(v)` +
+> `value < 0` kontrolü yapıyordu — ama Python'da `float("inf")` ve
+> `float("nan")` geçerli float'lardır ve `< 0` kontrolünü GEÇER (ikisi de
+> `False` döner). Admin panelden "inf"/"nan" girilirse validasyon bunu kabul
+> edip `.env`'e yazardı. `text_gen_parser.py:103`'teki `cost_try > cap`
+> karşılaştırması `cap=inf` ise hiçbir zaman aşılmaz, `cap=nan` ise her
+> zaman `False` döner — ikisi de tam olarak AC-S1'in önlemeye çalıştığı
+> "harcama limiti sessizce devre dışı kalır" senaryosunu, YENİ eklenen
+> validasyon katmanının ARKASINDAN yeniden açıyordu. `math.isfinite(value)`
+> kontrolü eklenip 2 yeni regresyon testi (`test_post_settings_invalid_inf`,
+> `test_post_settings_invalid_nan`) yazılarak kapatıldı.
+
+**Kod-doğrulama süreci hatası, orkestratör tarafından yakalandı (kaynak:
+`verify_report.md`, Coverage / Quality Notes):**
+> code-copilot'un ilk implementasyon turu, yeni testleri (`test_admin_panel_
+> ai_spend_cap.py`) TEK BAŞINA çalıştırıp "13/13 PASS" raporladı — ama
+> mevcut `test_admin_panel_settings_cleanup.py`'deki "tam olarak 10 anahtar"
+> varsayımını (önceki görevin doğru sonucu, bu görevin kasıtlı 11.
+> anahtarıyla artık eskimiş) hiç kombine çalıştırmadığı için kaçırdı.
+> Orkestratörün bağımsız, iki dosyayı BİRLİKTE çalıştıran doğrulaması bunu
+> yakaladı — code-copilot'un kendi test raporuna asla tek başına
+> güvenilmemesi gerektiğinin somut bir örneği.

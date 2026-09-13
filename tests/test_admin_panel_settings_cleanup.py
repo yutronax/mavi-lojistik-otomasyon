@@ -150,11 +150,12 @@ class TestSettingsGetCleanup:
         assert "START_HOUR" not in editable, "editable listesi START_HOUR içeriyor (AC-1 ihlali)"
         assert "END_HOUR" not in editable, "editable listesi END_HOUR içeriyor (AC-1 ihlali)"
 
-        # Beklenen 10 anahtar
+        # Beklenen 11 anahtar
         expected_keys = {
             "FETCH_HOURS_BACK", "DUPLICATE_CHECK_HOURS", "DEFAULT_UI_FILTER_MINUTES",
             "WHATSAPP_POLL_INTERVAL", "AUTO_SUBMIT", "BATCH_SLEEP_TIME",
-            "LOOP_WAIT_TIME", "DEEPSEEK_API_KEY", "GROQ_API_KEY", "GEMINI_API_KEY"
+            "LOOP_WAIT_TIME", "DEEPSEEK_API_KEY", "GROQ_API_KEY", "GEMINI_API_KEY",
+            "AI_HOURLY_SPEND_CAP_TRY"
         }
         actual_keys = set(editable)
         assert actual_keys == expected_keys, (
@@ -167,9 +168,9 @@ class TestSettingsGetCleanup:
         assert "START_HOUR" not in settings, "settings START_HOUR içeriyor (AC-1 ihlali)"
         assert "END_HOUR" not in settings, "settings END_HOUR içeriyor (AC-1 ihlali)"
 
-    def test_editable_count_is_ten(self, client, valid_token, temp_env_file):
+    def test_editable_count_is_eleven(self, client, valid_token, temp_env_file):
         """
-        Kontrol: editable listesinin uzunluğu tam olarak 10 mı?
+        Kontrol: editable listesinin uzunluğu tam olarak 11 mi?
         """
         headers = {"Authorization": f"Bearer {valid_token}"}
         response = client.get("/api/settings", headers=headers)
@@ -178,8 +179,8 @@ class TestSettingsGetCleanup:
         data = response.get_json()
         editable = data.get("editable", [])
 
-        assert len(editable) == 10, (
-            f"editable listesinin uzunluğu 10 olmalı, ama {len(editable)} (AC-1 ihlali)"
+        assert len(editable) == 11, (
+            f"editable listesinin uzunluğu 11 olmalı, ama {len(editable)} (AC-1 ihlali)"
         )
 
 
